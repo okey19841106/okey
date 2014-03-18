@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="SceneServer">
+      <UniqueIdentifier>{1c6ebf75-3645-4c3a-9090-9218c498fdd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{e221b2e2-e5b2-4aa9-a4c3-e6ad261e2191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{16f1503b-06c5-4b5d-9788-720a6858a821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{dbf53115-e753-473e-829a-e506b82db5e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc">
+      <UniqueIdentifier>{043640ea-5892-46eb-abff-5abe3dcb81c5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="inc\PreCom.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="main\SceneServer.cpp">
+      <Filter>SceneServer</Filter>
+    </ClCompile>
+    <ClCompile Include="main\main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\PreCom.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="main\SceneServer.h">
+      <Filter>SceneServer</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

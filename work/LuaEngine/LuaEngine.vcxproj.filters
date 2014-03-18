@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Src\AuraFunctions.h" />
+    <ClInclude Include="Src\FunctionTables.h" />
+    <ClInclude Include="Src\GameobjectFunctions.h" />
+    <ClInclude Include="Src\GlobalFunctions.h" />
+    <ClInclude Include="Src\ItemFunctions.h" />
+    <ClInclude Include="Src\LUAEngine.h" />
+    <ClInclude Include="Src\LUAFunctions.h" />
+    <ClInclude Include="Src\LuaSqlApi.h" />
+    <ClInclude Include="Src\PacketFunctions.h" />
+    <ClInclude Include="Src\SpellFunctions.h" />
+    <ClInclude Include="Src\TaxiFunctions.h" />
+    <ClInclude Include="Src\UnitFunctions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\LUAEngine.cpp" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="inc">
+      <UniqueIdentifier>{0c35aa5c-5d4b-458b-a2cb-6693d77b44be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerPacket">
+      <UniqueIdentifier>{ad2cda8c-39a1-4253-a541-3af66ba29ff6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerInfo">
+      <UniqueIdentifier>{5975fdaa-98b3-4677-a0b9-a4c9be080566}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="inc\PreCom.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerPakcet\ServerPacketDef.cpp">
+      <Filter>ServerPacket</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerInfo\ServerManager.cpp">
+      <Filter>ServerInfo</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\PreCom.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerPakcet\ServerPacketDef.h">
+      <Filter>ServerPacket</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerInfo\ServerManager.h">
+      <Filter>ServerInfo</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

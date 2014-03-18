@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<paramdefine>
+	<dynamicparam name = "avatar" id = "0">
+		<param name = "test1" id = "0" type = "int8" min="0" max="1000000" flag = "1"/>
+		<param name = "test2" id = "1" type = "uint8" min="0" max="1000000" flag = "1"/>
+		<param name = "test3" id = "2" type = "int16" min="0" max="1000000" flag = "1"/>
+		<param name = "test4" id = "3" type = "uint16" min="0" max="1000000" flag = "1"/>
+		<param name = "test5" id = "4" type = "int32" min="0" max="1000000" flag = "1"/>
+		<param name = "test6" id = "5" type = "uint32" min="0" max="1000000" flag = "1"/>
+		<param name = "test7" id = "6" type = "int64" min="0" max="1000000" flag = "1"/>
+		<param name = "test8" id = "7" type = "uint64" min="0" max="1000000" flag = "1"/>
+		<param name = "test9" id = "8" type = "f32" min="0" max="1000000" flag = "1"/>
+		<param name = "test10" id = "9" type = "f64" min="0" max="1000000" flag = "1"/>
+		<param name = "test11" id = "10" type = "char8" min="0" max="1000000" flag = "1"/>
+		<param name = "test12" id = "11" type = "char16" min="0" max="1000000" flag = "1"/>
+		<param name = "test13" id = "12" type = "char32" min="0" max="1000000" flag = "1"/>
+		<param name = "test14" id = "13" type = "char64" min="0" max="1000000" flag = "1"/>
+		<param name = "test15" id = "14" type = "char128" min="0" max="1000000" flag = "1"/>
+	</dynamicparam>
+	<staticparam name = "avatar" id = "0">
+		<param name = "test1" id = "0" type = "int8" min="0" max="1000000"/>
+		<param name = "test2" id = "1" type = "uint8" min="0" max="1000000"/>
+		<param name = "test3" id = "2" type = "int16" min="0" max="1000000"/>
+		<param name = "test4" id = "3" type = "uint16" min="0" max="1000000"/>
+		<param name = "test5" id = "4" type = "int32" min="0" max="1000000"/>
+		<param name = "test6" id = "5" type = "uint32" min="0" max="1000000"/>
+		<param name = "test7" id = "6" type = "int64" min="0" max="1000000"/>
+		<param name = "test8" id = "7" type = "uint64" min="0" max="1000000"/>
+		<param name = "test9" id = "8" type = "f32" min="0" max="1000000"/>
+		<param name = "test10" id = "9" type = "f64" min="0" max="1000000"/>
+		<param name = "test11" id = "10" type = "char8" min="0" max="1000000"/>
+		<param name = "test12" id = "11" type = "char16" min="0" max="1000000"/>
+		<param name = "test13" id = "12" type = "char32" min="0" max="1000000"/>
+		<param name = "test14" id = "13" type = "char64" min="0" max="1000000"/>
+		<param name = "test15" id = "14" type = "char128" min="0" max="1000000"/>
+	</staticparam>
+</paramdefine>

@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="inc">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Log">
+      <UniqueIdentifier>{ba0ebec2-baa5-434b-b433-535654ed3efd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Param">
+      <UniqueIdentifier>{1d74ab94-f301-4a9a-9d17-e72661a08128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NetWork">
+      <UniqueIdentifier>{5a65ec3b-a926-47ed-858a-9a404fd1c074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Thread">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="tinyxml">
+      <UniqueIdentifier>{cb1b480e-c939-4da2-8fb5-b95009e6e596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NetWork\packet">
+      <UniqueIdentifier>{a331b01e-964d-42f2-aa89-86ef9ce392c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NetWork\socket">
+      <UniqueIdentifier>{0bf9f7e2-9b1e-46b6-bbfe-e00c5b9dfc97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File">
+      <UniqueIdentifier>{712b432d-96ea-42a9-b79c-1ce92fe1848b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="obj">
+      <UniqueIdentifier>{d2855061-797e-4b69-9084-9c0942744255}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RTTi">
+      <UniqueIdentifier>{4e8b73a9-f3b9-43ac-80c4-8e3efd2d284e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="tinyxml\tinystr.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinyxml.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinyxmlerror.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinyxmlparser.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\AtomicBoolean.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\AtomicCounter.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\AtomicFloat.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\AtomicULong.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\Condition.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\Semaph.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\Thread.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\ThreadPool.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Param\ParamDataManager.cpp">
+      <Filter>Param</Filter>
+    </ClCompile>
+    <ClCompile Include="Param\ParamDef.cpp">
+      <Filter>Param</Filter>
+    </ClCompile>
+    <ClCompile Include="Param\ParamDefManager.cpp">
+      <Filter>Param</Filter>
+    </ClCompile>
+    <ClCompile Include="Param\ParamPool.cpp">
+      <Filter>Param</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\AnyTypeBase.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\CircularBuffer.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\ClassManager.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\DataBuffer.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\DLAllocator.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\DLMalloc.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\Exception.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\FactoryManager.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\OperatorNew.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\PreCom.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\TimeManager.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\TreeNodeBase.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\UtilID.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="log\Logger.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\PeerBase.cpp">
+      <Filter>NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\NetManager.cpp">
+      <Filter>NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\LogicGroup.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\LogicGroupDef.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\LogicInput.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\LogicManager.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\LogicOutput.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\LogicTreeBase.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\Allocator.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\Packet.cpp">
+      <Filter>NetWork\packet</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\PacketDef.cpp">
+      <Filter>NetWork\packet</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\PacketFactory.cpp">
+      <Filter>NetWork\packet</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\PacketList.cpp">
+      <Filter>NetWork\packet</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\PacketProcess.cpp">
+      <Filter>NetWork\packet</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\MySocket.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\SocketBase.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\SocketOps.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\IOCPReactor.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\CompleteOperation.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="File\cfgloader.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FileBase.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="File\MemFile.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="File\NormalFile.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\SrvBase.cpp">
+      <Filter>NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\GameObject.cpp">
+      <Filter>obj</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\Enum.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\type.cpp">
+      <Filter>RTTi</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\class.cpp">
+      <Filter>RTTi</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tinyxml\tinystr.h">
+      <Filter>tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml\tinyxml.h">
+      <Filter>tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\AtomicBoolean.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\AtomicCounter.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\AtomicFloat.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\AtomicULong.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Condition.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Mutex.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Semaph.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Thread.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\ThreadPool.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Param\ParamBase.h">
+      <Filter>Param</Filter>
+    </ClInclude>
+    <ClInclude Include="Param\ParamDataManager.h">
+      <Filter>Param</Filter>
+    </ClInclude>
+    <ClInclude Include="Param\ParamDef.h">
+      <Filter>Param</Filter>
+    </ClInclude>
+    <ClInclude Include="Param\ParamDefManager.h">
+      <Filter>Param</Filter>
+    </ClInclude>
+    <ClInclude Include="Param\ParamPool.h">
+      <Filter>Param</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\AnyTypeBase.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BaseClass.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BaseProcess.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BitObjectBase.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\CircleList.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\CircularBuffer.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ClassManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\CRefcounter.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DataBuffer.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DLAllocator.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DLMalloc.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Exception.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Factory.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\FactoryManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Fuction.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\HashList.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\HelperFunction.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nocopyable.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\OperatorNew.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\PoolAllocator.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\PreCom.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\QuerueEx.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Queue.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ServerConfig.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Singleton.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Stack.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TimeManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TList.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TreeNodeBase.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Types.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\UtilID.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\XML.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="log\Logger.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\PeerBase.h">
+      <Filter>NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\NetManager.h">
+      <Filter>NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\NetManagerBase.h">
+      <Filter>NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\NetPacket.h">
+      <Filter>NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Logic.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\LogicConfig.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\LogicFactory.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\LogicGroup.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\LogicGroupDef.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\LogicInput.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\LogicManager.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\LogicOutput.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\LogicTreeBase.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Allocator.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MathTemplate.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\Packet.h">
+      <Filter>NetWork\packet</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\PacketDef.h">
+      <Filter>NetWork\packet</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\PacketFactory.h">
+      <Filter>NetWork\packet</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\PacketFunction.h">
+      <Filter>NetWork\packet</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\PacketList.h">
+      <Filter>NetWork\packet</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\PacketProcess.h">
+      <Filter>NetWork\packet</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\AcceptType.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\MySocket.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\SocketBase.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\SocketOps.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\NetReactor.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\IOCPReactor.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\CompleteOperation.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="File\cfgloader.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileBase.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="File\MemFile.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="File\NormalFile.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\SrvBase.h">
+      <Filter>NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\GameObject.h">
+      <Filter>obj</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Enum.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\field.h">
+      <Filter>RTTi</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\method.h">
+      <Filter>RTTi</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\type.h">
+      <Filter>RTTi</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\typedecl.h">
+      <Filter>RTTi</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\class.h">
+      <Filter>RTTi</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="inc\PoolAllocator.inl">
+      <Filter>inc</Filter>
+    </None>
+  </ItemGroup>
+</Project>
