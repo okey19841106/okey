@@ -41,6 +41,14 @@ typedef SOCKET int
 #define INVALID_SOCKET -1
 #endif
 
+
+#ifdef WINDOWS
+#define INT64_FROMAT "I64i"
+#define UINT64_FORMAT "I64u"
+#else
+#define INT64_FROMAT "lli"
+#define UINT64_FORMAT "llu"
+#endif
 ///
 /// The most common stuffs.
 ///
