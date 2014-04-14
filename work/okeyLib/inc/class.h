@@ -1,5 +1,12 @@
-#ifndef __CLASS_H__
-#define __CLASS_H__
+/********************************************************************
+	created:	2014/04/12
+	author:		okey
+	
+	purpose:	把他当成容器，或者可以在代码里初始化他，这是肯定的。
+*********************************************************************/
+
+#ifndef __RTTI_CLASS_H__
+#define __RTTI_CLASS_H__
 
 #include <stddef.h>
 #include <stdio.h>
@@ -26,72 +33,35 @@ namespace okey
 	 */
 	class  ClassDescriptor : public AnyType { 
 	public:
-		typedef FieldDescriptor* (*DescribeFieldsFunc)();
-		typedef MethodDescriptor* (*DescribeMethodsFunc)();
 		typedef void  (*DefaultConstructor)(void* ptr);
 		typedef void* (*CreateInstanceFunc)();
-
 		std::string getTypeName();
-
-		/**
-		 * Get next class. All classes in repository are linked in L1 list. 
-		 * Repository <code>getFirstClass</code> method can be used to get reference to first class 
-		 * descriptor in the list. And <code>getNext</code> method can be used to iterate through the      * list
-		 * @return next class descriptor in the list or <code>NULL</code> if this class descriptor is the last
-		 */
-		ClassDescriptor* getNext() const{ return next;}
-		std::map<std::string, FieldDescriptor*>& getFields() { return fields;}
-		int32 getNumberOfFields() { return nFields;}
+		int32 getNumberOfFields() { return fieldList.size();}
 		std::string getName() { return name;}
 		int  getSize() { return size;}
-
-		/**
-		 * Get class flags
-		 * @return combination of <code>RTTIClassFlags</code> flags
-		 */
 		int  getFlags() { return flags;	}
-
-		/**
-		 * Createnew instance of the class
-		 * @return newly created instance
-		 */
 		void* newInstance();
-		std::map<std::string, ClassDescriptor*>& getBaseClasses() { return baseClasses;}
-		int getNumberOfBaseClasses() {return nBaseClasses;}
-		std::map<std::string, MethodDescriptor*>& getMethods() { return methods;}
-		int getNumberOfMethods() { return nMethods;	}
+		int getNumberOfBaseClasses() {return baseClassList.size();}
+		int getNumberOfMethods() { return methodList.size();	}
 		FieldDescriptor*  findField(const std::string& name);
 		MethodDescriptor* findMethod(const std::string& name);
-
-		ClassDescriptor(char const* name, int size, 
-				DescribeFieldsFunc  describeFieldsFunc,
-				DescribeMethodsFunc describeMethodsFunc, 
+ 		ClassDescriptor(char const* name, int size, 
 				CreateInstanceFunc  createInstanceFunc, 
-				int flags); 
+ 				int flags); 
 		ClassDescriptor(char const* name, int size, int flags);
 		~ClassDescriptor();
 
+		bool AddMethodDescriptor(const std::string& name, MethodDescriptor* pMethod);
+		bool AddFieldDescriptor(const std::string& name, FieldDescriptor* pField);
+		bool AddBaseClassDescriptor(const std::string& name, ClassDescriptor* pClass);
 	  protected:
-		friend class RTTIRepository;
-		friend class RTTIBfdRepository;
-
-		ClassDescriptor*		next;
-		ClassDescriptor*		collisionChain;
-
-		MethodDescriptor*		methodList; //函数链表。。。
-		std::map<std::string, MethodDescriptor*> methods;
-		int                     nMethods;
-
-		FieldDescriptor*		fieldList;//成员变量链表。。
-		std::map<std::string, FieldDescriptor*> fields;
-		int                     nFields;
+		std::map<std::string, MethodDescriptor*> methodList;
+		std::map<std::string, FieldDescriptor*> fieldList;
 		int                     flags;
 		int                     size;
 		bool                    initialized;
 		std::string             name;
-		unsigned                hashCode;
-		int                     nBaseClasses;
-		std::map<std::string, ClassDescriptor*> baseClasses;
+		std::map<std::string, ClassDescriptor*> baseClassList;
 		DefaultConstructor		defaultConstructor;
 		CreateInstanceFunc		createInstanceFunc;
 		void buildClassDescriptor();

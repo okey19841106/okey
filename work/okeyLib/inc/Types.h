@@ -177,6 +177,9 @@ namespace okey
 		inline const uint24 operator*( const uint32 &other ) const { return uint24(val*other); }
 	};
 
+
+
+
 }
 
 #endif

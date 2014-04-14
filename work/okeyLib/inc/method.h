@@ -90,8 +90,8 @@ namespace okey
 			this->flags = flags;
 			this->type = type;
 			type->isStatic = (flags & MTH_STATIC) != 0; 
-			next = NULL; 
-			chain = &next;
+//			next = NULL; 
+			//chain = &next;
 		}
 
 		/**
@@ -102,8 +102,8 @@ namespace okey
 		 */
 		MethodDescriptor& operator, (MethodDescriptor& method) 
 		{
-			*chain = &method;
-			chain = &method.next;
+// 			*chain = &method;
+// 			chain = &method.next;
 			return *this;
 		}
     
@@ -132,8 +132,8 @@ namespace okey
 		MethodType*		type;
 		std::string     name;
 
-		MethodDescriptor*  next;
-		MethodDescriptor** chain;
+// 		MethodDescriptor*  next;
+// 		MethodDescriptor** chain;
 	};
 
 }
