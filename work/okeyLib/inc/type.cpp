@@ -1,11 +1,7 @@
 #include "PreCom.h"
 #include <string.h>
 #include <stdio.h>
-#include "type.h"
-#include "field.h"
-#include "method.h"
-#include "class.h"
-//#include "reflect.h"
+#include "reflect.h"
 
 namespace okey
 {

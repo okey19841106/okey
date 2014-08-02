@@ -207,6 +207,9 @@
     <ClCompile Include="Obj\GameObject.cpp">
       <Filter>obj</Filter>
     </ClCompile>
+    <ClCompile Include="inc\Enum.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
     <ClCompile Include="inc\type.cpp">
       <Filter>RTTi</Filter>
     </ClCompile>
@@ -466,6 +469,9 @@
     </ClInclude>
     <ClInclude Include="Obj\GameObject.h">
       <Filter>obj</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Enum.h">
+      <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\field.h">
       <Filter>RTTi</Filter>

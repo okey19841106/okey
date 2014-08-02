@@ -64,8 +64,8 @@ namespace okey
 			this->size = size;
 			this->type = type;
 			this->flags = flags;
-//			next = NULL; 
-//			chain = &next;
+			next = NULL; 
+			chain = &next;
 		}
 
 		/**
@@ -76,8 +76,8 @@ namespace okey
 		 */
 		FieldDescriptor& operator, (FieldDescriptor& field) 
 		{
-// 			*chain = &field;
-// 			chain = &field.next;
+			*chain = &field;
+			chain = &field.next;
 			return *this;
 		}
 
@@ -104,10 +104,8 @@ namespace okey
 		int         size;
 		std::string name;
 		ClassDescriptor*  declaringClass;
-// 		FieldDescriptor*  next;
-// 		FieldDescriptor** chain;
-
-		//TList< TListNode<FieldDescriptor> >* chain; //成员变量列表指针。
+		FieldDescriptor*  next;
+		FieldDescriptor** chain;
 	};
 
 }
