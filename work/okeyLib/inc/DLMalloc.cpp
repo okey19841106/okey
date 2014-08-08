@@ -541,6 +541,7 @@ MAX_RELEASE_CHECK_RATE   default: 4095 unless not HAVE_MMAP
 #include <windows.h>
 #include <tchar.h>
 #include <errno.h>
+#include "DLMallocConfig.h"
 #define HAVE_MMAP 1
 #define HAVE_MORECORE 0
 #define LACKS_UNISTD_H

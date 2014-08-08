@@ -29,6 +29,7 @@
 extern "C" {
 #endif
 
+#include "DLMallocConfig.h"
 #include <stddef.h>   /* for size_t */
 
 
