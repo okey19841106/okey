@@ -168,6 +168,7 @@
     <ClInclude Include="inc\DataBuffer.h" />
     <ClInclude Include="inc\DLAllocator.h" />
     <ClInclude Include="inc\DLMalloc.h" />
+    <ClInclude Include="inc\DLMallocConfig.h" />
     <ClInclude Include="inc\Exception.h" />
     <ClInclude Include="inc\Factory.h" />
     <ClInclude Include="inc\FactoryManager.h" />

@@ -482,6 +482,9 @@
     <ClInclude Include="inc\class.h">
       <Filter>RTTi</Filter>
     </ClInclude>
+    <ClInclude Include="inc\DLMallocConfig.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="inc\PoolAllocator.inl">
