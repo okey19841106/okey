@@ -99,6 +99,11 @@ namespace okey
 	typedef pid_t	ProcessID:
 #endif
 
+#ifdef WINDOWS
+#define _v_sprintf sprintf_s
+#else
+#define _v_sprintf sprintf
+#endif
 	static inline int32 int32abs(const int32 value)
 	{
 		return (value ^ (value >> 31)) - (value >> 31);

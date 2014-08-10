@@ -67,7 +67,7 @@ namespace okey
 		 * @param obj target object (ignired for static methods)
 		 * @param parameters array of pointer to the parameter values
 		 */
-		void invoke(void* result, void* obj, void* parameters[]) 
+		void invoke(void* result, void* obj, std::vector<void*>& parameters) 
 		{ 
 			type->invoke(result, obj, parameters);
 		}

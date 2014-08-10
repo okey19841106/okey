@@ -89,6 +89,7 @@
     <ClCompile Include="inc\CircularBuffer.cpp" />
     <ClCompile Include="inc\class.cpp" />
     <ClCompile Include="inc\ClassManager.cpp" />
+    <ClCompile Include="inc\ClassMember.cpp" />
     <ClCompile Include="inc\DataBuffer.cpp" />
     <ClCompile Include="inc\DLAllocator.cpp" />
     <ClCompile Include="inc\DLMalloc.cpp">
@@ -164,6 +165,7 @@
     <ClInclude Include="inc\CircularBuffer.h" />
     <ClInclude Include="inc\class.h" />
     <ClInclude Include="inc\ClassManager.h" />
+    <ClInclude Include="inc\ClassMember.h" />
     <ClInclude Include="inc\CRefcounter.h" />
     <ClInclude Include="inc\DataBuffer.h" />
     <ClInclude Include="inc\DLAllocator.h" />

@@ -162,6 +162,8 @@ namespace okey
 			this->ptrType = ptrType;
 		}
 		std::string getTypeName();
+
+		PtrType* GetPtrType()const{return ptrType;}
 	  protected:
 		AnyType* ptrType;
 	};
@@ -217,7 +219,7 @@ namespace okey
     
 		std::string getMethodDeclaration( const std::string& name);
 
-		virtual void invoke(void* result, void* obj, void* parameters[]) = 0;
+		virtual void invoke(void* result, void* obj, std::vector<void*>& param) = 0;
 
 		inline ClassDescriptor* getClass() const
 		{ 

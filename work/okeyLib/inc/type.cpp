@@ -90,16 +90,9 @@ namespace okey
 
 	std::string ArrayType::getTypeName()
 	{
-		std::string elemstring = elemType->getTypeName();
-		elemstring += '[';
-		if (nElems != 0) 
-		{ 
-			char buf[12] = {0};
-			sprintf(buf, "%d", nElems);
-			elemstring += buf;
-		}
-		elemstring += ']';
-		return elemstring;
+		char buf[128];
+		sprintf(buf, "%s[%d]",  elemType->getTypeName().c_str(), nElems);
+		return buf;
 	}
 
 

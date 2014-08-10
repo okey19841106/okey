@@ -213,6 +213,9 @@
     <ClCompile Include="inc\class.cpp">
       <Filter>RTTi</Filter>
     </ClCompile>
+    <ClCompile Include="inc\ClassMember.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinystr.h">
@@ -483,6 +486,9 @@
       <Filter>RTTi</Filter>
     </ClInclude>
     <ClInclude Include="inc\DLMallocConfig.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ClassMember.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
