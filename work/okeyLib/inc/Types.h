@@ -182,7 +182,21 @@ namespace okey
 		inline const uint24 operator*( const uint32 &other ) const { return uint24(val*other); }
 	};
 
+	template<typename OutType, typename InType>
+	union TemplateUnion
+	{
+		InType m_input;
+		OutType m_output;
+	};
 
+	template<typename OutType, typename InType>
+	inline Union_Cast(const InType& input)
+	{
+		union<OutType,InType> u;
+		typedef int ERROR_cast[sizeof(InType)==sizeof(u) && sizeof(InType)==sizeof(OutType) ? 1 : -1];
+		u.m_input = input;
+		return u.m_output;
+	}
 
 
 }
