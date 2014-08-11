@@ -14,11 +14,14 @@
 namespace okey
 {
 	template<class T>
-	class TClassMember:public TAnyType<T>
+	class TClassMember: public TAnyType<T>
 	{
 	public:
 		TClassMember(){}
 		~TClassMember(){}
+
+		inline int32 GetOffset()const{return m_offset;}
+		inline void SetOffset(const uint32& n){m_offset = n;}
 
 		virtual void SetValue(void* pClassObj,const T& val)
 		{
@@ -36,8 +39,13 @@ namespace okey
 			{
 				return NULL;
 			}
-			memcpy((char*)pClassObj + m_offset , pBuffer, m_size);
-			return pBuffer + m_size;
+			TClass *pClass = T::GetStaticClass();
+			if (!pClass)
+			{
+				//assert()
+				return NULL;
+			}
+			return pClass->Read(((char*)pClassObj) + m_offset ,pBuffer);
 		}
 		char* Write(void* pClassObj, char* pBuffer)
 		{
@@ -45,14 +53,226 @@ namespace okey
 			{
 				return NULL;
 			}
-			memcpy(pBuffer, ((char*)pClassObj) + m_offset , m_size);
-			return pBuffer + m_size;
+			TClass* pClass = T::GetStaticClass();
+			if (!pClass)
+			{
+				//assert()
+				return NULL;
+			}
+			return pClass->Write(((char*)pClassObj) + m_offset,pBuffer);
 		}
-	protected:
-	private:
 
+	protected:
+	
+		uint32 m_offset;
 	};
 
+
+	template<>
+	inline char* TClassMember<char>::Read(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(((char*)pClassObj) + m_offset , pBuffer, m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<char>::Write(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(pBuffer, ((char*)pClassObj) + m_offset , m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<uint8>::Read(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(((char*)pClassObj) + m_offset , pBuffer, m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<uint8>::Write(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(pBuffer, ((char*)pClassObj) + m_offset , m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<int8>::Read(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(((char*)pClassObj) + m_offset , pBuffer, m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<int8>::Write(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(pBuffer, ((char*)pClassObj) + m_offset , m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<uint16>::Read(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(((char*)pClassObj) + m_offset , pBuffer, m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<int16>::Write(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(pBuffer, ((char*)pClassObj) + m_offset , m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<uint32>::Read(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(((char*)pClassObj) + m_offset , pBuffer, m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<int32>::Write(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(pBuffer, ((char*)pClassObj) + m_offset , m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<uint64>::Read(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(((char*)pClassObj) + m_offset , pBuffer, m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<int64>::Write(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(pBuffer, ((char*)pClassObj) + m_offset , m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<f32>::Read(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(((char*)pClassObj) + m_offset , pBuffer, m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<f32>::Write(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(pBuffer, ((char*)pClassObj) + m_offset , m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<f64>::Read(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(((char*)pClassObj) + m_offset , pBuffer, m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<f64>::Write(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(pBuffer, ((char*)pClassObj) + m_offset , m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<bool>::Read(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(((char*)pClassObj) + m_offset , pBuffer, m_size);
+		return pBuffer + m_size;
+	}
+
+	template<>
+	inline char* TClassMember<bool>::Write(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(pBuffer, ((char*)pClassObj) + m_offset , m_size);
+		return pBuffer + m_size;
+	}
+
+	template<class T>
+	class TClassMemberPtr:public TAnyTypePtr<T>
+	{
+	public:
+		TClassMemberPtr(){}
+		~TClassMemberPtr(){}
+	};
 	//template<typename Ret>
 // 	class CMethodBase
 // 	{
