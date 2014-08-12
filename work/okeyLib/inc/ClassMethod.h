@@ -8,10 +8,15 @@
 #ifndef _OKEY_CLASS_METHOD_H_
 #define _OKEY_CLASS_METHOD_H_
 
+#include "AnyTypeBase.h"
 
 namespace okey
 {
-	
+	class TClassMember: public TAnyTypeMethod
+	{
+	public:
+
+	};
 }
 
 

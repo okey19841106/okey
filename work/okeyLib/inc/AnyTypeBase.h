@@ -57,16 +57,8 @@ namespace okey
 		TTypeBase();
 		~TTypeBase();
 		
-// 		inline void SetPtr(void* ptr){m_pPtr = ptr;}
-// 		inline void* GetPtr()const{return m_pPtr;}
-// 
-// 		void* operator->(){return m_pPtr;}
-
 		inline int32 GetSize()const{return m_size;}
 		inline void SetSize(const int32& n){m_size = n;}
-
-// 		inline int32 GetOffset()const{return m_offset;}
-// 		inline void SetOffset(const int32&n){m_offset = n;}
 
 		inline bool CheckFlag(const uint32& flag){return m_flag&flag;}
 		inline void SetFlag(const uint32& flag){m_flag = flag;}
@@ -83,9 +75,8 @@ namespace okey
 		void SetDes(const char* des){m_des = des;}
 		virtual const char* GetTypeName()const{return NULL;}
 	protected:
-//		void* m_pPtr;
+
 		int32 m_size;
-//		int32 m_offset;
 		uint32 m_flag;
 		std::string m_name;
 		std::string m_des;
@@ -183,7 +174,7 @@ namespace okey
 	class TAnyTypePtr: public TTypeBase
 	{
 	public:
-		TAnyTypePtr():m_typeinfo(TYPE_PTR),m_size(sizeof(T*))}{}
+		TAnyTypePtr():m_typeinfo(TYPE_PTR),m_size(sizeof(T*)){}
 		~TAnyTypePtr(){}
 		inline void SetPtr(T* ptr){m_ptr = ptr;}
 		inline T* GetPtr()const{return m_ptr;}
@@ -219,6 +210,18 @@ namespace okey
 		int32 nElem;
 	};
 
+	class TAnyTypeMethod: public TTypeBase
+	{
+	public:
+		TAnyTypeMethod():m_typeinfo(TYPE_METHOD),m_size(0){}
+		~TAnyTypeMethod(){}
+		virtual void invoke(void* result, void* obj, void* parameters[]) = 0;
+	protected:
+		int32 m_paramCount;
+		TTypeBase* m_RetType;
+		TTypeBase** m_parameters;
+
+	};
 }
 
 
