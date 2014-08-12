@@ -216,6 +216,12 @@
     <ClCompile Include="inc\ClassMember.cpp">
       <Filter>inc</Filter>
     </ClCompile>
+    <ClCompile Include="inc\ClassMethod.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\TClass.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinystr.h">
@@ -489,6 +495,12 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\ClassMember.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ClassMethod.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TClass.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

@@ -73,8 +73,8 @@ namespace okey
 		inline uint32 GetFlag()const{return m_flag;}
 		inline uint32 AddFlag(const uint32& flag){return m_flag|flag;}
 
-// 		virtual char* Read(void* pClassObj,char* pBuffer) {};
-// 		virtual char* Write(void* pClassObj, char* pBuffer){};
+		virtual char* Read(void* pClassObj,char* pBuffer);
+		virtual char* Write(void* pClassObj, char* pBuffer);
 
 		const char* GetName(){return m_name.c_str();}
 		void SetName(const char* name){m_name = name;}
@@ -188,6 +188,8 @@ namespace okey
 		inline void SetPtr(T* ptr){m_ptr = ptr;}
 		inline T* GetPtr()const{return m_ptr;}
 		void* operator->(){return m_ptr;}
+		virtual char* Read(void* pClassObj,char* pBuffer);
+		virtual char* Write(void* pClassObj, char* pBuffer);
 	protected:
 		T* m_ptr;
 	};
@@ -210,6 +212,8 @@ namespace okey
 		inline int  GetArraySize() const{return nElem;}
 
 		inline TTypeBase* GetElementType() const{return m_pArray;}
+		virtual char* Read(void* pClassObj,char* pBuffer);
+		virtual char* Write(void* pClassObj, char* pBuffer);
 	protected:
 		TTypeBase* m_pArray;
 		int32 nElem;

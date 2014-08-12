@@ -5,37 +5,37 @@
 namespace okey
 {
 
-	CTypeBase::CTypeBase()
+	TTypeBase::TTypeBase()
 	{
 //		m_pPtr = NULL;
 		m_size = 0;
 //		m_offset = 0;
 		m_flag = 0;
 	}
-	CTypeBase::~CTypeBase()
+	TTypeBase::~TTypeBase()
 	{
 
 	}
 
-// 	char* CTypeBase::Read(void* pClassObj,char* pBuffer)
-// 	{
-// 		if (!m_pPtr || !pBuffer)
-// 		{
-// 			return NULL;
-// 		}
-// 		memcpy(m_pPtr, pBuffer, m_size);
-// 		return pBuffer + m_size;
-// 	}
-// 
-// 	char* CTypeBase::Write(void* pClassObj, char* pBuffer)
-// 	{
-// 		if (!m_pPtr || !pBuffer)
-// 		{
-// 			return NULL;
-// 		}
-// 		memcpy(pBuffer, m_pPtr, m_size);
-// 		return pBuffer + m_size;
-// 	}
+	char* TTypeBase::Read(void* pClassObj,char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(pClassObj, pBuffer, m_size);
+		return pBuffer + m_size;
+	}
+
+	char* TTypeBase::Write(void* pClassObj, char* pBuffer)
+	{
+		if (!pClassObj || !pBuffer)
+		{
+			return NULL;
+		}
+		memcpy(pBuffer, pClassObj, m_size);
+		return pBuffer + m_size;
+	}
 
 // 	CClass::CClass()
 // 	{
