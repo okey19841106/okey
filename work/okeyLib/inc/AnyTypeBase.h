@@ -157,6 +157,7 @@ namespace okey
 	template<>
 	inline TAnyType<f64>::TAnyType(): m_typeinfo(TYPE_F64),m_size(sizeof(f64))
 	{
+	}
 		
 	template<>
 	inline TAnyType<bool>::TAnyType():m_typeinfo(TYPE_BOOL),m_size(sizeof(bool))
@@ -179,8 +180,6 @@ namespace okey
 		inline void SetPtr(T* ptr){m_ptr = ptr;}
 		inline T* GetPtr()const{return m_ptr;}
 		void* operator->(){return m_ptr;}
-		virtual char* Read(void* pClassObj,char* pBuffer);
-		virtual char* Write(void* pClassObj, char* pBuffer);
 	protected:
 		T* m_ptr;
 	};
@@ -188,7 +187,7 @@ namespace okey
 	class TAnyTypeArray: public TTypeBase
 	{
 	public:
-		TAnyTypeArray(TTypeBase* pArray, int32 count)
+		TAnyTypeArray(TTypeBase* pArray, uint32 count)
 		{
 			m_typeinfo = TYPE_ARRAY;
 			m_pArray = pArray;
@@ -207,7 +206,7 @@ namespace okey
 		virtual char* Write(void* pClassObj, char* pBuffer);
 	protected:
 		TTypeBase* m_pArray;
-		int32 nElem;
+		uint32 nElem;
 	};
 
 	class TAnyTypeMethod: public TTypeBase
@@ -216,8 +215,10 @@ namespace okey
 		TAnyTypeMethod():m_typeinfo(TYPE_METHOD),m_size(0){}
 		~TAnyTypeMethod(){}
 		virtual void invoke(void* result, void* obj, void* parameters[]) = 0;
+		uint32 GetParamCount(){return m_paramCount;}
+
 	protected:
-		int32 m_paramCount;
+		uint32 m_paramCount;
 		TTypeBase* m_RetType;
 		TTypeBase** m_parameters;
 
