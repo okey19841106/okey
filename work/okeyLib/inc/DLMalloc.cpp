@@ -1847,8 +1847,8 @@ static FORCEINLINE void x86_clear_lock(int* sl) {
 #define CLEAR_LOCK(sl)   x86_clear_lock(sl)
 
 #else /* Win32 MSC */
-#define CAS_LOCK(sl)     interlockedexchange(sl, 1)
-#define CLEAR_LOCK(sl)   interlockedexchange (sl, 0)
+#define CAS_LOCK(sl)     interlockedexchange((volatile LONG*)sl, 1)
+#define CLEAR_LOCK(sl)   interlockedexchange ((volatile LONG*)sl, 0)
 
 #endif /* ... gcc spins locks ... */
 

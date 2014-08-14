@@ -40,6 +40,9 @@
     <Filter Include="RTTi">
       <UniqueIdentifier>{4e8b73a9-f3b9-43ac-80c4-8e3efd2d284e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TClass">
+      <UniqueIdentifier>{e941e8c7-4ac3-4132-8fe1-f2de8b8885bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyxml\tinystr.cpp">
@@ -78,25 +81,7 @@
     <ClCompile Include="Thread\ThreadPool.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
-    <ClCompile Include="Param\ParamDataManager.cpp">
-      <Filter>Param</Filter>
-    </ClCompile>
-    <ClCompile Include="Param\ParamDef.cpp">
-      <Filter>Param</Filter>
-    </ClCompile>
-    <ClCompile Include="Param\ParamDefManager.cpp">
-      <Filter>Param</Filter>
-    </ClCompile>
-    <ClCompile Include="Param\ParamPool.cpp">
-      <Filter>Param</Filter>
-    </ClCompile>
-    <ClCompile Include="inc\AnyTypeBase.cpp">
-      <Filter>inc</Filter>
-    </ClCompile>
     <ClCompile Include="inc\CircularBuffer.cpp">
-      <Filter>inc</Filter>
-    </ClCompile>
-    <ClCompile Include="inc\ClassManager.cpp">
       <Filter>inc</Filter>
     </ClCompile>
     <ClCompile Include="inc\DataBuffer.cpp">
@@ -109,9 +94,6 @@
       <Filter>inc</Filter>
     </ClCompile>
     <ClCompile Include="inc\Exception.cpp">
-      <Filter>inc</Filter>
-    </ClCompile>
-    <ClCompile Include="inc\FactoryManager.cpp">
       <Filter>inc</Filter>
     </ClCompile>
     <ClCompile Include="inc\OperatorNew.cpp">
@@ -132,50 +114,14 @@
     <ClCompile Include="log\Logger.cpp">
       <Filter>Log</Filter>
     </ClCompile>
-    <ClCompile Include="NetWork\PeerBase.cpp">
-      <Filter>NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="NetWork\NetManager.cpp">
-      <Filter>NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\LogicGroup.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\LogicGroupDef.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\LogicInput.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\LogicManager.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\LogicOutput.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\LogicTreeBase.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
     <ClCompile Include="inc\Allocator.cpp">
       <Filter>inc</Filter>
     </ClCompile>
     <ClCompile Include="NetWork\Packet.cpp">
       <Filter>NetWork\packet</Filter>
     </ClCompile>
-    <ClCompile Include="NetWork\PacketDef.cpp">
-      <Filter>NetWork\packet</Filter>
-    </ClCompile>
-    <ClCompile Include="NetWork\PacketFactory.cpp">
-      <Filter>NetWork\packet</Filter>
-    </ClCompile>
     <ClCompile Include="NetWork\PacketList.cpp">
       <Filter>NetWork\packet</Filter>
-    </ClCompile>
-    <ClCompile Include="NetWork\PacketProcess.cpp">
-      <Filter>NetWork\packet</Filter>
-    </ClCompile>
-    <ClCompile Include="NetWork\MySocket.cpp">
-      <Filter>NetWork\socket</Filter>
     </ClCompile>
     <ClCompile Include="NetWork\SocketBase.cpp">
       <Filter>NetWork\socket</Filter>
@@ -201,26 +147,17 @@
     <ClCompile Include="File\NormalFile.cpp">
       <Filter>File</Filter>
     </ClCompile>
-    <ClCompile Include="NetWork\SrvBase.cpp">
-      <Filter>NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="Obj\GameObject.cpp">
-      <Filter>obj</Filter>
-    </ClCompile>
-    <ClCompile Include="inc\type.cpp">
-      <Filter>RTTi</Filter>
-    </ClCompile>
-    <ClCompile Include="inc\class.cpp">
-      <Filter>RTTi</Filter>
-    </ClCompile>
     <ClCompile Include="inc\ClassMember.cpp">
-      <Filter>inc</Filter>
+      <Filter>TClass</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\AnyTypeBase.cpp">
+      <Filter>TClass</Filter>
     </ClCompile>
     <ClCompile Include="inc\ClassMethod.cpp">
-      <Filter>inc</Filter>
+      <Filter>TClass</Filter>
     </ClCompile>
     <ClCompile Include="inc\TClass.cpp">
-      <Filter>inc</Filter>
+      <Filter>TClass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,24 +194,6 @@
     <ClInclude Include="Thread\ThreadPool.h">
       <Filter>Thread</Filter>
     </ClInclude>
-    <ClInclude Include="Param\ParamBase.h">
-      <Filter>Param</Filter>
-    </ClInclude>
-    <ClInclude Include="Param\ParamDataManager.h">
-      <Filter>Param</Filter>
-    </ClInclude>
-    <ClInclude Include="Param\ParamDef.h">
-      <Filter>Param</Filter>
-    </ClInclude>
-    <ClInclude Include="Param\ParamDefManager.h">
-      <Filter>Param</Filter>
-    </ClInclude>
-    <ClInclude Include="Param\ParamPool.h">
-      <Filter>Param</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\AnyTypeBase.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\BaseClass.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -288,9 +207,6 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\CircularBuffer.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\ClassManager.h">
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\CRefcounter.h">
@@ -309,9 +225,6 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\Factory.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\FactoryManager.h">
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\Fuction.h">
@@ -356,9 +269,6 @@
     <ClInclude Include="inc\TList.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\TManager.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\TreeNodeBase.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -374,44 +284,8 @@
     <ClInclude Include="log\Logger.h">
       <Filter>Log</Filter>
     </ClInclude>
-    <ClInclude Include="NetWork\PeerBase.h">
-      <Filter>NetWork</Filter>
-    </ClInclude>
-    <ClInclude Include="NetWork\NetManager.h">
-      <Filter>NetWork</Filter>
-    </ClInclude>
     <ClInclude Include="NetWork\NetManagerBase.h">
       <Filter>NetWork</Filter>
-    </ClInclude>
-    <ClInclude Include="NetWork\NetPacket.h">
-      <Filter>NetWork</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\Logic.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\LogicConfig.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\LogicFactory.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\LogicGroup.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\LogicGroupDef.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\LogicInput.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\LogicManager.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\LogicOutput.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\LogicTreeBase.h">
-      <Filter>Logic</Filter>
     </ClInclude>
     <ClInclude Include="inc\Allocator.h">
       <Filter>inc</Filter>
@@ -422,25 +296,13 @@
     <ClInclude Include="NetWork\Packet.h">
       <Filter>NetWork\packet</Filter>
     </ClInclude>
-    <ClInclude Include="NetWork\PacketDef.h">
-      <Filter>NetWork\packet</Filter>
-    </ClInclude>
-    <ClInclude Include="NetWork\PacketFactory.h">
-      <Filter>NetWork\packet</Filter>
-    </ClInclude>
     <ClInclude Include="NetWork\PacketFunction.h">
       <Filter>NetWork\packet</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\PacketList.h">
       <Filter>NetWork\packet</Filter>
     </ClInclude>
-    <ClInclude Include="NetWork\PacketProcess.h">
-      <Filter>NetWork\packet</Filter>
-    </ClInclude>
     <ClInclude Include="NetWork\AcceptType.h">
-      <Filter>NetWork\socket</Filter>
-    </ClInclude>
-    <ClInclude Include="NetWork\MySocket.h">
       <Filter>NetWork\socket</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\SocketBase.h">
@@ -470,38 +332,20 @@
     <ClInclude Include="File\NormalFile.h">
       <Filter>File</Filter>
     </ClInclude>
-    <ClInclude Include="NetWork\SrvBase.h">
-      <Filter>NetWork</Filter>
-    </ClInclude>
-    <ClInclude Include="Obj\GameObject.h">
-      <Filter>obj</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\field.h">
-      <Filter>RTTi</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\method.h">
-      <Filter>RTTi</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\type.h">
-      <Filter>RTTi</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\typedecl.h">
-      <Filter>RTTi</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\class.h">
-      <Filter>RTTi</Filter>
-    </ClInclude>
     <ClInclude Include="inc\DLMallocConfig.h">
       <Filter>inc</Filter>
     </ClInclude>
+    <ClInclude Include="inc\AnyTypeBase.h">
+      <Filter>TClass</Filter>
+    </ClInclude>
     <ClInclude Include="inc\ClassMember.h">
-      <Filter>inc</Filter>
+      <Filter>TClass</Filter>
     </ClInclude>
     <ClInclude Include="inc\ClassMethod.h">
-      <Filter>inc</Filter>
+      <Filter>TClass</Filter>
     </ClInclude>
     <ClInclude Include="inc\TClass.h">
-      <Filter>inc</Filter>
+      <Filter>TClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,7 @@
 
 #include "Types.h"
 #include "AnyTypeBase.h"
-#include "ClassManager.h"
+/*#include "ClassManager.h"*/
 #include "Factory.h"
 
 namespace okey

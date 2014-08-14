@@ -45,11 +45,9 @@ namespace okey
 		char* pObj = (char*)pClassObj;
 		for (uint32 i = 0; i < nElem; ++i)
 		{
-			
-			m_pArray[i].Read(pObj,pBuffer);
-			pObj += m_pArray->GetSize();
+			pBuffer = m_pArray[i].Read(pObj,pBuffer);
 		}
-		return pObj;
+		return pBuffer;
 	}
 
 	char* TAnyTypeArray::Write(void* pClassObj, char* pBuffer)
@@ -66,11 +64,9 @@ namespace okey
 		char* pObj = (char*)pClassObj;
 		for (uint32 i = 0; i < nElem; ++i)
 		{
-
-			m_pArray[i].Write(pObj,pBuffer);
-			pObj += m_pArray->GetSize();
+			pBuffer = m_pArray[i].Write(pObj,pBuffer);
 		}
-		return pObj;
+		return pBuffer;
 	}
 
 

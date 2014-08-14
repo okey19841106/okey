@@ -74,8 +74,8 @@ namespace okey
 		const char* GetDes(){return m_des.c_str();}
 		void SetDes(const char* des){m_des = des;}
 		virtual const char* GetTypeName()const{return NULL;}
+		TypeTag GetType()const {return m_typeinfo;}
 	protected:
-
 		int32 m_size;
 		uint32 m_flag;
 		std::string m_name;
@@ -88,80 +88,107 @@ namespace okey
 	class TAnyType:public TTypeBase
 	{
 	public:
-		TAnyType():m_typeinfo(TYPE_STRUCT),m_size(sizeof(T)){} //下边没定义的一律按照结构体算。
+		TAnyType()
+		{
+			m_typeinfo = TYPE_STRUCT;
+			m_size = sizeof(T);
+		} 
 		~TAnyType(){}
 		bool CheckType(const TypeTag& type)
 		{
 			return m_typeinfo == type;
 		}
-		virtual TypeTag GetTypeName()const{return m_typeinfo}
-		virtual const T& GetVal()const {return m_val;}
-		virtual void SetVal(const T& val){m_val = val;}
+		//virtual TypeTag GetType()const{return m_typeinfo}
+		/*virtual */const T& GetVal()const {return m_val;}
+		/*virtual */void SetVal(const T& val){m_val = val;}
 
 	protected:
 		T m_val;
-		
 	};
 
 	template<>
-	inline TAnyType<char>::TAnyType():m_typeinfo(TYPE_CHAR),m_size(sizeof(char))
+	inline TAnyType<char>::TAnyType()
 	{
+		m_typeinfo = TYPE_CHAR;
+		m_size = sizeof(char);
 	}
 
 
 	template<>
-	inline TAnyType<uint8>::TAnyType():m_typeinfo(TYPE_UINT8),m_size(sizeof(uint8))
+	inline TAnyType<uint8>::TAnyType()
 	{
+		m_typeinfo = TYPE_UINT8;
+		m_size = sizeof(uint8);
 	}
 
 	template<>
-	inline TAnyType<int8>::TAnyType():m_typeinfo(TYPE_INT8),m_size(sizeof(int8))
+	inline TAnyType<int8>::TAnyType()
 	{
+		m_typeinfo = TYPE_INT8;
+		m_size = sizeof(int8);
 	}
 
 	template<>
-	inline TAnyType<int16>::TAnyType():m_typeinfo(TYPE_INT16),m_size(sizeof(int16))
+	inline TAnyType<int16>::TAnyType()
 	{
+		m_typeinfo = TYPE_INT16;
+		m_size = sizeof(int16);
 	}
 
 	template<>
-	inline TAnyType<uint16>::TAnyType():m_typeinfo(TYPE_UINT16),m_size(sizeof(uint16))
+	inline TAnyType<uint16>::TAnyType()
 	{
+		m_typeinfo = TYPE_UINT16;
+		m_size = sizeof(uint16);
 	}
 
 	template<>
-	inline TAnyType<int32>::TAnyType(): m_typeinfo(TYPE_INT32),m_size(sizeof(int32))
+	inline TAnyType<int32>::TAnyType()
 	{
+		m_typeinfo = TYPE_INT32;
+		m_size = sizeof(int32);
 	}
 		
 	template<>
-	inline TAnyType<uint32>::TAnyType(): m_typeinfo(TYPE_UINT32),m_size(sizeof(uint32))
+	inline TAnyType<uint32>::TAnyType()
 	{
+		m_typeinfo = TYPE_UINT32;
+		m_size = sizeof(uint32);
 	}
 		
 	template<>
-	inline TAnyType<int64>::TAnyType(): m_typeinfo(TYPE_INT64),m_size(sizeof(int64))
+	inline TAnyType<int64>::TAnyType()
 	{
+		m_typeinfo = TYPE_INT64;
+		m_size = sizeof(int64);
 	}
 			
 	template<>
-	inline TAnyType<uint64>::TAnyType(): m_typeinfo(TYPE_UINT64),m_size(sizeof(uint64))
+	inline TAnyType<uint64>::TAnyType()
 	{
+		m_typeinfo = TYPE_UINT64;
+		m_size = sizeof(uint64);
 	}
 				
 	template<>
-	inline TAnyType<f32>::TAnyType(): m_typeinfo(TYPE_F32),m_size(sizeof(f32))
+	inline TAnyType<f32>::TAnyType()
 	{
+		m_typeinfo = TYPE_F32;
+		m_size = sizeof(f32);
 	}
 		
 	template<>
-	inline TAnyType<f64>::TAnyType(): m_typeinfo(TYPE_F64),m_size(sizeof(f64))
+	inline TAnyType<f64>::TAnyType()
 	{
+		m_typeinfo = TYPE_F64;
+		m_size = sizeof(f64);
 	}
 		
 	template<>
-	inline TAnyType<bool>::TAnyType():m_typeinfo(TYPE_BOOL),m_size(sizeof(bool))
+	inline TAnyType<bool>::TAnyType()
 	{
+		m_typeinfo = TYPE_BOOL;
+		m_size = sizeof(bool);
 	}
 
 
@@ -175,7 +202,7 @@ namespace okey
 	class TAnyTypePtr: public TTypeBase
 	{
 	public:
-		TAnyTypePtr():m_typeinfo(TYPE_PTR),m_size(sizeof(T*)){}
+		TAnyTypePtr():m_typeinfo (TYPE_PTR),m_size(sizeof(T*)){}
 		~TAnyTypePtr(){}
 		inline void SetPtr(T* ptr){m_ptr = ptr;}
 		inline T* GetPtr()const{return m_ptr;}
@@ -212,7 +239,11 @@ namespace okey
 	class TAnyTypeMethod: public TTypeBase
 	{
 	public:
-		TAnyTypeMethod():m_typeinfo(TYPE_METHOD),m_size(0){}
+		TAnyTypeMethod()
+		{
+			m_typeinfo = TYPE_METHOD;
+			m_size = 0;
+		}
 		~TAnyTypeMethod(){}
 		virtual void invoke(void* result, void* obj, void* parameters[]) = 0;
 		uint32 GetParamCount(){return m_paramCount;}

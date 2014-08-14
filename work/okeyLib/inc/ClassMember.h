@@ -9,10 +9,12 @@
 #ifndef __OKEY_CLASS_MEMBER_H__
 #define __OKEY_CLASS_MEMBER_H__
 
-#include "AnyTypeBase.h"
 
 namespace okey
 {
+	class TTypeBase;
+	class TClass;
+
 	class TClassMember
 	{
 	public:
@@ -31,18 +33,22 @@ namespace okey
 			return (*((T*)(((char*)pClassObj) + m_offset)));
 		}
 
-		char* Read(void* pClassObj, char* pBuff)
-		{
-			return m_pType->Read(((char*)pClassObj) + m_offset,pBuff);
-		}
+		char* Read(void* pClassObj, char* pBuff);
+// 		{
+// 			return m_pType->Read(((char*)pClassObj) + m_offset,pBuff);
+// 		}
 
-		char* Write(void* pClassObj, char* pBuff)
-		{
-			return m_pType->Write(((char*)pClassObj) + m_offset,pBuff);
-		}
+		char* Write(void* pClassObj, char* pBuff);
+// 		{
+// 			return m_pType->Write(((char*)pClassObj) + m_offset,pBuff);
+// 		}
+
+		TClass* GetOwnerClass();
+		std::string GetMemberName();
 	protected:
-		TTypeBase* m_pType;
 		uint32 m_offset;
+		TTypeBase* m_pType;
+		TClass* m_OwnerClass;
 	};
 
 }

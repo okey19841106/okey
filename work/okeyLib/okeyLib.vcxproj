@@ -50,7 +50,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;WINDOWS;_DEBUG;USE_DL_PREFIX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PreCom.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>./;./inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -87,8 +87,6 @@
     <ClCompile Include="File\NormalFile.cpp" />
     <ClCompile Include="inc\AnyTypeBase.cpp" />
     <ClCompile Include="inc\CircularBuffer.cpp" />
-    <ClCompile Include="inc\class.cpp" />
-    <ClCompile Include="inc\ClassManager.cpp" />
     <ClCompile Include="inc\ClassMember.cpp" />
     <ClCompile Include="inc\ClassMethod.cpp" />
     <ClCompile Include="inc\DataBuffer.cpp" />
@@ -97,7 +95,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="inc\Exception.cpp" />
-    <ClCompile Include="inc\FactoryManager.cpp" />
     <ClCompile Include="inc\Allocator.cpp" />
     <ClCompile Include="inc\OperatorNew.cpp" />
     <ClCompile Include="inc\PreCom.cpp">
@@ -106,33 +103,14 @@
     <ClCompile Include="inc\TClass.cpp" />
     <ClCompile Include="inc\TimeManager.cpp" />
     <ClCompile Include="inc\TreeNodeBase.cpp" />
-    <ClCompile Include="inc\type.cpp" />
     <ClCompile Include="inc\UtilID.cpp" />
-    <ClCompile Include="Logic\LogicGroup.cpp" />
-    <ClCompile Include="Logic\LogicGroupDef.cpp" />
-    <ClCompile Include="Logic\LogicInput.cpp" />
-    <ClCompile Include="Logic\LogicManager.cpp" />
-    <ClCompile Include="Logic\LogicOutput.cpp" />
-    <ClCompile Include="Logic\LogicTreeBase.cpp" />
     <ClCompile Include="log\Logger.cpp" />
     <ClCompile Include="NetWork\CompleteOperation.cpp" />
     <ClCompile Include="NetWork\IOCPReactor.cpp" />
-    <ClCompile Include="NetWork\MySocket.cpp" />
-    <ClCompile Include="NetWork\NetManager.cpp" />
     <ClCompile Include="NetWork\Packet.cpp" />
-    <ClCompile Include="NetWork\PacketDef.cpp" />
-    <ClCompile Include="NetWork\PacketFactory.cpp" />
     <ClCompile Include="NetWork\PacketList.cpp" />
-    <ClCompile Include="NetWork\PacketProcess.cpp" />
-    <ClCompile Include="NetWork\PeerBase.cpp" />
     <ClCompile Include="NetWork\SocketBase.cpp" />
     <ClCompile Include="NetWork\SocketOps.cpp" />
-    <ClCompile Include="NetWork\SrvBase.cpp" />
-    <ClCompile Include="Obj\GameObject.cpp" />
-    <ClCompile Include="Param\ParamDataManager.cpp" />
-    <ClCompile Include="Param\ParamDef.cpp" />
-    <ClCompile Include="Param\ParamDefManager.cpp" />
-    <ClCompile Include="Param\ParamPool.cpp" />
     <ClCompile Include="Thread\AtomicBoolean.cpp" />
     <ClCompile Include="Thread\AtomicCounter.cpp" />
     <ClCompile Include="Thread\AtomicFloat.cpp" />
@@ -165,8 +143,6 @@
     <ClInclude Include="inc\BitObjectBase.h" />
     <ClInclude Include="inc\CircleList.h" />
     <ClInclude Include="inc\CircularBuffer.h" />
-    <ClInclude Include="inc\class.h" />
-    <ClInclude Include="inc\ClassManager.h" />
     <ClInclude Include="inc\ClassMember.h" />
     <ClInclude Include="inc\ClassMethod.h" />
     <ClInclude Include="inc\CRefcounter.h" />
@@ -176,14 +152,11 @@
     <ClInclude Include="inc\DLMallocConfig.h" />
     <ClInclude Include="inc\Exception.h" />
     <ClInclude Include="inc\Factory.h" />
-    <ClInclude Include="inc\FactoryManager.h" />
-    <ClInclude Include="inc\field.h" />
     <ClInclude Include="inc\Fuction.h" />
     <ClInclude Include="inc\HashList.h" />
     <ClInclude Include="inc\HelperFunction.h" />
     <ClInclude Include="inc\Allocator.h" />
     <ClInclude Include="inc\MathTemplate.h" />
-    <ClInclude Include="inc\method.h" />
     <ClInclude Include="inc\nocopyable.h" />
     <ClInclude Include="inc\OperatorNew.h" />
     <ClInclude Include="inc\PoolAllocator.h" />
@@ -196,47 +169,21 @@
     <ClInclude Include="inc\TClass.h" />
     <ClInclude Include="inc\TimeManager.h" />
     <ClInclude Include="inc\TList.h" />
-    <ClInclude Include="inc\TManager.h" />
     <ClInclude Include="inc\TreeNodeBase.h" />
-    <ClInclude Include="inc\type.h" />
-    <ClInclude Include="inc\typedecl.h" />
     <ClInclude Include="inc\Types.h" />
     <ClInclude Include="inc\UtilID.h" />
     <ClInclude Include="inc\XML.h" />
-    <ClInclude Include="Logic\Logic.h" />
-    <ClInclude Include="Logic\LogicConfig.h" />
-    <ClInclude Include="Logic\LogicFactory.h" />
-    <ClInclude Include="Logic\LogicGroup.h" />
-    <ClInclude Include="Logic\LogicGroupDef.h" />
-    <ClInclude Include="Logic\LogicInput.h" />
-    <ClInclude Include="Logic\LogicManager.h" />
-    <ClInclude Include="Logic\LogicOutput.h" />
-    <ClInclude Include="Logic\LogicTreeBase.h" />
     <ClInclude Include="log\Logger.h" />
     <ClInclude Include="NetWork\AcceptType.h" />
     <ClInclude Include="NetWork\CompleteOperation.h" />
     <ClInclude Include="NetWork\IOCPReactor.h" />
-    <ClInclude Include="NetWork\MySocket.h" />
-    <ClInclude Include="NetWork\NetManager.h" />
     <ClInclude Include="NetWork\NetManagerBase.h" />
-    <ClInclude Include="NetWork\NetPacket.h" />
     <ClInclude Include="NetWork\NetReactor.h" />
     <ClInclude Include="NetWork\Packet.h" />
-    <ClInclude Include="NetWork\PacketDef.h" />
-    <ClInclude Include="NetWork\PacketFactory.h" />
     <ClInclude Include="NetWork\PacketFunction.h" />
     <ClInclude Include="NetWork\PacketList.h" />
-    <ClInclude Include="NetWork\PacketProcess.h" />
-    <ClInclude Include="NetWork\PeerBase.h" />
     <ClInclude Include="NetWork\SocketBase.h" />
     <ClInclude Include="NetWork\SocketOps.h" />
-    <ClInclude Include="NetWork\SrvBase.h" />
-    <ClInclude Include="Obj\GameObject.h" />
-    <ClInclude Include="Param\ParamBase.h" />
-    <ClInclude Include="Param\ParamDataManager.h" />
-    <ClInclude Include="Param\ParamDef.h" />
-    <ClInclude Include="Param\ParamDefManager.h" />
-    <ClInclude Include="Param\ParamPool.h" />
     <ClInclude Include="Thread\AtomicBoolean.h" />
     <ClInclude Include="Thread\AtomicCounter.h" />
     <ClInclude Include="Thread\AtomicFloat.h" />

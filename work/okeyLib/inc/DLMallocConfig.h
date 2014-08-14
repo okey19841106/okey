@@ -10,7 +10,7 @@
 #define _DL_MALLOC_CONFIG_H__
 
 #define USE_DL_PREFIX
-#define MSPACES
+#define MSPACES	1
 
 #if defined(_DEBUG) && !defined(DEBUG)
 #define DEBUG	1

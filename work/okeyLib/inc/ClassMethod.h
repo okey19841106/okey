@@ -12,12 +12,12 @@
 
 namespace okey
 {
-	
-	class TClassMember
+	class TClass;
+	class TClassMethod
 	{
 	public:
-		TClassMember();
-		~TClassMember();
+		TClassMethod();
+		~TClassMethod();
 
 
 		template<typename Rt>
@@ -36,8 +36,12 @@ namespace okey
 			m_pFun->invoke((void*)result,obj,params);
 		}
 
+		TClass* GetOwnerClass();
+
+		std::string GetMethodName(){return m_pFun->GetName();}
 	protected:
 		TAnyTypeMethod* m_pFun;
+		TClass* m_OwnerClass;
 	};
 
 

@@ -190,7 +190,7 @@ namespace okey
 	};
 
 	template<typename OutType, typename InType>
-	inline Union_Cast(const InType& input)
+	inline OutType Union_Cast(const InType& input)
 	{
 		union<OutType,InType> u;
 		typedef int ERROR_cast[sizeof(InType)==sizeof(u) && sizeof(InType)==sizeof(OutType) ? 1 : -1];

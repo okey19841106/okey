@@ -20,7 +20,7 @@ namespace okey
 	class TClass :public TTypeBase //类也是一个种类型。
 	{
 	public:
-		TClass():m_typeinfo(TYPE_STRUCT){}
+		TClass();
 		~TClass();
 
 		virtual char* Read(void* pClassObj,char* pBuffer);
@@ -29,12 +29,28 @@ namespace okey
 		TClassMember* findMember(const std::string& name);
 		TClassMethod* findMethod(const std::string& name);
 
-		bool AddMethod(const std::string& name, TClassMember* pMethod);
-		bool AddMember(const std::string& name, TClassMethod* pField);
-		bool AddBaseClass(const std::string& name, TClass* pClass);
+		void AddMethod(TClassMethod* pMethod);
+		void AddMember(TClassMember* pField);
+		void AddBaseClass(TClass* pClass);
+
+
+		std::list<TClass*>& GetBaseClassList(){return m_BaseClsList;}
+		std::list<TClassMember*>& GetClassMemberList(){return m_MemList;}
+		std::list<TClassMethod*>& GetClassMethodList(){return m_MtdList;}
+
+
+
+		TClass* GetBaseClass(const std::string& name);
+		TClassMember* GetClassMember(const std::string& name);
+		TClassMethod* GetClassMethod(const std::string& name);
 	protected:
+
+
+
+	protected:
+		std::string m_Namespace;
 		std::list<TClass*> m_BaseClsList;
-		std::list<TClassMember*> m_ClsList;
+		std::list<TClassMember*> m_MemList;
 		std::list<TClassMethod*> m_MtdList;
 	};
 }

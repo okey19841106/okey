@@ -27,7 +27,7 @@
 #include "Types.h"
 #include <string>
 #include "UtilID.h"
-#include "FactoryManager.h"
+/*#include "FactoryManager.h"*/
 #include "PoolAllocator.h"
 
 namespace okey
