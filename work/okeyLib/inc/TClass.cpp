@@ -140,4 +140,9 @@ namespace okey
 	{
 		m_typeinfo = TYPE_STRUCT;
 	}
+
+	TClass::~TClass()
+	{
+
+	}
 }

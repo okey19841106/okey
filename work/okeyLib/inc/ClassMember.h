@@ -18,7 +18,7 @@ namespace okey
 	class TClassMember
 	{
 	public:
-		TClassMember();
+		TClassMember(TClass* pClass, TTypeBase* pType);
 		~TClassMember();
 		inline uint32 GetOffset() const {return m_offset;}
 		inline void SetOffset(const uint32& n){m_offset = n;}

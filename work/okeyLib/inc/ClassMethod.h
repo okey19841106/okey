@@ -16,7 +16,7 @@ namespace okey
 	class TClassMethod
 	{
 	public:
-		TClassMethod();
+		TClassMethod(TClass* pClass,TAnyTypeMethod* pFun);
 		~TClassMethod();
 
 
@@ -44,7 +44,14 @@ namespace okey
 		TClass* m_OwnerClass;
 	};
 
-
+	template<typename P1>
+	inline void TClassMethod::invoke<void,P1>(void* result, void* obj, P1 p1)
+	{
+		//assert( m_pFun->GetParamCount() == 1);
+		void* params[1];
+		params[0] = &p1;
+		m_pFun->invoke((void*)result,obj,params);
+	}
 }
 
 

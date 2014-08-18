@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-
+#include "test.h"
 
 int main(int argc , char *argv[])
 {
@@ -68,5 +68,11 @@ int main(int argc , char *argv[])
 // 	tPool2.AllocParamBuffer();
 // 	tPool2.Read(buff);
 // 	tPool2.PrintTheParam();
+	test t;
+	t.a = 1;
+	char buff[32] = {0};
+	t.Write(buff);
+	TClassMethod* pfun = t.GetClassStatic()->GetClassMethod("fun_1");
+	pfun->invoke(NULL,&t,(int32)5);
 	return 0;
 }

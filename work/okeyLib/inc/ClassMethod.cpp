@@ -5,7 +5,7 @@
 namespace okey
 {
 
-	TClassMethod::TClassMethod()
+	TClassMethod::TClassMethod(TClass* pClass,TAnyTypeMethod* pFun):m_OwnerClass(pClass),m_pFun(pFun)
 	{
 
 	}

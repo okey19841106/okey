@@ -5,9 +5,9 @@
 
 namespace okey
 {
-	TClassMember::TClassMember()
+	TClassMember::TClassMember(TClass* pClass, TTypeBase* pType):m_OwnerClass(pClass),m_pType(pType)
 	{
-
+		
 	}
 
 	TClassMember::~TClassMember()

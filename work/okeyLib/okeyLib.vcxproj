@@ -143,6 +143,7 @@
     <ClInclude Include="inc\BitObjectBase.h" />
     <ClInclude Include="inc\CircleList.h" />
     <ClInclude Include="inc\CircularBuffer.h" />
+    <ClInclude Include="inc\ClassFunctor.h" />
     <ClInclude Include="inc\ClassMember.h" />
     <ClInclude Include="inc\ClassMethod.h" />
     <ClInclude Include="inc\CRefcounter.h" />
