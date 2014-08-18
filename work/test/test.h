@@ -18,6 +18,10 @@ public:
 		printf("%d\n",a);
 	}
 	
+	int32 fun_2(int32 a)
+	{
+		return a;
+	}
 	class mytest : public TClass
 	{
 	public:
@@ -36,8 +40,14 @@ public:
 			AddMember(pClassMember_a);
 
 			TClassMethod1<void, test,int32>* m_fuctor1_fun1 = new TClassMethod1<void, test,int32>(&test::fun_1);
+			m_fuctor1_fun1->SetName("fun_1");
 			TClassMethod* pClass_Mem_funtor_fun1 = new TClassMethod(this,m_fuctor1_fun1);
 			AddMethod(pClass_Mem_funtor_fun1);
+
+			TClassMethod1<int32, test,int32>* m_fuctor1_fun2 = new TClassMethod1<int32, test,int32>(&test::fun_2);
+			m_fuctor1_fun2->SetName("fun_2");
+			TClassMethod* pClass_Mem_funtor_fun2 = new TClassMethod(this,m_fuctor1_fun2);
+			AddMethod(pClass_Mem_funtor_fun2);
 		}
 	};
 	static mytest _mytest;

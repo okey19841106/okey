@@ -25,7 +25,11 @@ namespace okey
 		void invoke(void* result, void* obj, void* parameters[])
 		{
 			*(Rt*)result = (((Obj*)obj)->*m_pf)();
+		}
 
+		Rt operator()(Obj* obj)
+		{
+			return (obj->*m_pf)();
 		}
 	protected:
 		fun m_pf;
@@ -44,6 +48,11 @@ namespace okey
 			(((Obj*)obj)->*m_pf)();
 
 		}
+
+		void operator()(Obj* obj)
+		{
+			(obj->*m_pf)();
+		}
 	protected:
 		fun m_pf;
 	};
@@ -59,6 +68,11 @@ namespace okey
 		void invoke(void* result, void* obj, void* parameters[])
 		{
 			*(Rt*)result = (((Obj*)obj)->*m_pf)(*(P1*)parameters[0]);
+		}
+
+		Rt operator()(Obj* obj,P1 param1)
+		{
+			return (obj->*m_pf)(param1);
 		}
 	protected:
 		fun m_pf;
@@ -76,6 +90,11 @@ namespace okey
 		{
 			(((Obj*)obj)->*m_pf)(*(P1*)parameters[0]);
 
+		}
+
+		void operator()(Obj* obj,P1 param1)
+		{
+			(obj->*m_pf)(param1);
 		}
 	protected:
 		fun m_pf;

@@ -19,23 +19,10 @@ namespace okey
 		TClassMethod(TClass* pClass,TAnyTypeMethod* pFun);
 		~TClassMethod();
 
-
-		template<typename Rt>
-		void invoke(Rt* result, void* obj)
+		void invoke(void* result, void* obj, void* params[])
 		{
-			//assert( m_pFun->GetParamCount() == 0);
-			m_pFun->invoke((void*)result, obj, NULL);
+			m_pFun->invoke(result,obj,params);
 		}
-
-		template<typename Rt, typename P1>
-		void invoke(Rt* result, void* obj, P1 p1)
-		{
-			//assert( m_pFun->GetParamCount() == 1);
-			void* params[1];
-			params[0] = &p1;
-			m_pFun->invoke((void*)result,obj,params);
-		}
-
 		TClass* GetOwnerClass();
 
 		std::string GetMethodName(){return m_pFun->GetName();}
@@ -44,14 +31,6 @@ namespace okey
 		TClass* m_OwnerClass;
 	};
 
-	template<typename P1>
-	inline void TClassMethod::invoke<void,P1>(void* result, void* obj, P1 p1)
-	{
-		//assert( m_pFun->GetParamCount() == 1);
-		void* params[1];
-		params[0] = &p1;
-		m_pFun->invoke((void*)result,obj,params);
-	}
 }
 
 
