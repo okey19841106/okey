@@ -88,5 +88,14 @@ int main(int argc , char *argv[])
 // 	t.GetClass()->Invoke(&ret,"fun_2",&t, (int32)5);
 // 	TClassMethod* pfun = t.GetClassStatic()->GetClassMethod("fun_1");
 // 	pfun->invoke(NULL,&t,(int32)5);
+	test_b tb;
+	tb.k = 8;
+	tb.t = t;
+	tb.f = 8.9;
+	char buff2[256] = {0};
+	tb.Write(buff2);
+
+	test_b tb2;
+	tb2.Read(buff2);
 	return 0;
 }

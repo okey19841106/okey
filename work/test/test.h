@@ -24,10 +24,10 @@ public:
 		return a;
 	}
 	REG_CLASS_BEGIN_BASE(test);
-	REG_CLASS_MEMBER(a,int32,0);
-	REG_CLASS_MEMBER_STR(str,10,0);
-	REG_CLASS_MEMBER_PTR(fptr,f32,0);
-	REG_CLASS_MEMBER_ARRAY(arr,uint16,15,0);
+	REG_CLASS_MEMBER(test,a,int32,0);
+	REG_CLASS_MEMBER_STR(test,str,10,0);
+	REG_CLASS_MEMBER_PTR(test,fptr,f32,0);
+	REG_CLASS_MEMBER_ARRAY(test,arr,uint16,15,0);
 	REG_CLASS_END(test);
 // 	class mytest : public TClass
 // 	{
@@ -69,9 +69,15 @@ DECLARE_CLASS(test);
 class test_b
 {
 public:
+	int64 k;
 	test t;
+	f64 f;
 	REG_CLASS_BEGIN_BASE(test_b);
+	REG_CLASS_MEMBER(test_b,k,int64,0);
+	REG_CLASS_MEMBER_CLASS(test_b,t,test,0);
+	REG_CLASS_MEMBER(test_b,f,f64,0);
+	REG_CLASS_END(test_b);
 
 };
-
+DECLARE_CLASS(test_b);
 #endif
