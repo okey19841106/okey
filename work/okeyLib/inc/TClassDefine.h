@@ -34,6 +34,7 @@ public:\
 	SetName(#classname);	\
 	AddBaseClass(baseclass::GetStaticClass());
 	//AddClass...
+
 #define REG_CLASS_END(classname)	\
 	}};	\
 	static _my_ref_##classname m_Class_##classname;\
