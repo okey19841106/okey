@@ -46,13 +46,29 @@ namespace okey
 
 
 	public:
-// 		template<typename Rt, typename Obj>
-// 		void Invoke(Rt* result, const std::string& name,Obj* obj)
-// 		{
-// 			TClassMethod* pMethod = GetClassMethod(name);
-// 			//assert("pMethod");
-// 			pMethod->invoke(result,obj,NULL);
-// 		}
+		template<typename T>
+		void SetMemberValue(const std::string& name,void* pClassObj, const T& val)
+		{
+			TClassMember* pMember = GetClassMember(name);
+			//assert
+			pMember->SetValue(pClassObj,val);
+		}
+
+		template<typename T>
+		const T& GetMemberValue(const std::string& name, void*pClass)
+		{
+			TClassMember* pMember = GetClassMember(name);
+			//assert
+			return pMember->GetValue<T>(pClass);
+		}
+
+ 		template<typename Rt, typename Obj>
+ 		void Invoke(Rt* result, const std::string& name,Obj* obj)
+ 		{
+ 			TClassMethod* pMethod = GetClassMethod(name);
+ 			//assert("pMethod");
+ 			pMethod->invoke(result,obj,NULL);
+ 		}
 
 		template<typename Obj>
 		void Invoke(const std::string& name,Obj* obj)
@@ -62,30 +78,16 @@ namespace okey
 			pMethod->invoke(NULL,obj,NULL);
 		}
 
-// 		template<typename Rt, typename Obj, typename P1>
-// 		void Invoke(Rt* result, const std::string& name,Obj* obj, P1 param1)
-// 		{
-// 
-// 			TClassMethod* pMethod = GetClassMethod(name);
-// 			//assert("pMethod");
-// 			void* Param[1];
-// 			Param[0] = &param1;
-// 			pMethod->invoke(result,obj,Param);
-// 		}
-
-		template<typename Rt, typename Obj, typename P1>
-		Rt Invoke( const std::string& name,Obj* obj, P1 param1)
-		{
-		 
-		 	TClassMethod* pMethod = GetClassMethod(name);
-		 	//assert("pMethod");
-		 	void* Param[1];
-		 	Param[0] = &param1;
-			Rt res;
-		 	pMethod->invoke(&res,obj,Param);
-			return res;
-		}
-
+ 		template<typename Rt, typename Obj, typename P1>
+ 		void Invoke(Rt* result, const std::string& name,Obj* obj, P1 param1)
+ 		{
+ 
+ 			TClassMethod* pMethod = GetClassMethod(name);
+ 			//assert("pMethod");
+ 			void* Param[1];
+ 			Param[0] = &param1;
+ 			pMethod->invoke(result,obj,Param);
+ 		}
 
 		template<typename Obj, typename P1>
 		void Invoke(const std::string& name,Obj* obj, P1 param1)
@@ -102,7 +104,7 @@ namespace okey
 
 
 	protected:
-		std::string m_Namespace;
+		//std::string m_Namespace;
 		std::list<TClass*> m_BaseClsList;
 		std::list<TClassMember*> m_MemList;
 		std::list<TClassMethod*> m_MtdList;

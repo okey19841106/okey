@@ -49,6 +49,7 @@ namespace okey
 		TYPE_PTR,  
 		TYPE_DERIVED,
 		TYPE_METHOD, 
+		TYPE_STR,
 	};
 
 	class TTypeBase
@@ -57,8 +58,8 @@ namespace okey
 		TTypeBase();
 		~TTypeBase();
 		
-		inline int32 GetSize()const{return m_size;}
-		inline void SetSize(const int32& n){m_size = n;}
+		inline uint32 GetSize()const{return m_size;}
+		inline void SetSize(const uint32& n){m_size = n;}
 
 		inline bool CheckFlag(const uint32& flag){return m_flag&flag;}
 		inline void SetFlag(const uint32& flag){m_flag = flag;}
@@ -76,7 +77,7 @@ namespace okey
 		virtual const char* GetTypeName()const{return NULL;}
 		TypeTag GetType()const {return m_typeinfo;}
 	protected:
-		int32 m_size;
+		uint32 m_size;
 		uint32 m_flag;
 		std::string m_name;
 		std::string m_des;
@@ -202,7 +203,11 @@ namespace okey
 	class TAnyTypePtr: public TTypeBase
 	{
 	public:
-		TAnyTypePtr():m_typeinfo (TYPE_PTR),m_size(sizeof(T*)){}
+		TAnyTypePtr()
+		{
+			m_typeinfo = TYPE_PTR;
+			m_size = sizeof(T*);
+		}
 		~TAnyTypePtr(){}
 		inline void SetPtr(T* ptr){m_ptr = ptr;}
 		inline T* GetPtr()const{return m_ptr;}
@@ -253,6 +258,20 @@ namespace okey
 		TTypeBase* m_RetType;
 		TTypeBase** m_parameters;
 
+	};
+
+	class TAnyTypeStr: public TTypeBase
+	{
+	public:
+		TAnyTypeStr(uint32 nCount);
+		~TAnyTypeStr(){}
+// 		const char* GetValue();
+// 		void SetValue(const char* str);
+		virtual char* Read(void* pClassObj,char* pBuffer);
+		virtual char* Write(void* pClassObj, char* pBuffer);
+	protected:
+
+		uint32 m_CharSize;
 	};
 }
 

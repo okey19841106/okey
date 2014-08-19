@@ -34,14 +34,7 @@ namespace okey
 		}
 
 		char* Read(void* pClassObj, char* pBuff);
-// 		{
-// 			return m_pType->Read(((char*)pClassObj) + m_offset,pBuff);
-// 		}
-
 		char* Write(void* pClassObj, char* pBuff);
-// 		{
-// 			return m_pType->Write(((char*)pClassObj) + m_offset,pBuff);
-// 		}
 
 		TClass* GetOwnerClass();
 		std::string GetMemberName();

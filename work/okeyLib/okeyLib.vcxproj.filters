@@ -350,6 +350,9 @@
     <ClInclude Include="inc\ClassFunctor.h">
       <Filter>TClass</Filter>
     </ClInclude>
+    <ClInclude Include="inc\TClassDefine.h">
+      <Filter>TClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="inc\PoolAllocator.inl">

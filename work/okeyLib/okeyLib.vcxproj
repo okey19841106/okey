@@ -168,6 +168,7 @@
     <ClInclude Include="inc\Singleton.h" />
     <ClInclude Include="inc\Stack.h" />
     <ClInclude Include="inc\TClass.h" />
+    <ClInclude Include="inc\TClassDefine.h" />
     <ClInclude Include="inc\TimeManager.h" />
     <ClInclude Include="inc\TList.h" />
     <ClInclude Include="inc\TreeNodeBase.h" />
