@@ -99,6 +99,16 @@ namespace okey
 	protected:
 		fun m_pf;
 	};
+
+	template<typename RT, typename Obj>
+	inline TAnyTypeMethod* MethodTypeOf( RT (Obj::*Method) () ) {
+		return new TClassMethod0<RT, Obj>(Method);
+	}
+
+	template<typename RT, typename Obj, typename P1>
+	inline TAnyTypeMethod* MethodTypeOf( RT (Obj::*Method) (P1) ) {
+		return new TClassMethod1< RT,  Obj, P1>(Method);
+	}
 }
 
 

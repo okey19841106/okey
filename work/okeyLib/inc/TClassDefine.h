@@ -87,6 +87,12 @@ public:\
 	TClassMember* pClassMember_##member = new TClassMember(this,pMem_##member);	\
 	pClassMember_##member->SetOffset(uint32(&((bclassname*)0)->member));	\
 	AddMember(pClassMember_##member);
+
+#define REG_CLASS_METHOD(classname,method)	\
+	TAnyTypeMethod* pMethod_##method = MethodTypeOf(&classname::method);	\
+	pMethod_##method->SetName(#method);	\
+	TClassMethod* pClass_Memthod_##method = new TClassMethod(this,pMethod_##method);	\
+	AddMethod(pClass_Memthod_##method);
 }
 
 

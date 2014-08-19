@@ -83,10 +83,10 @@ int main(int argc , char *argv[])
 	t.Write(buff);
 	test t2;
 	t2.Read(buff);
-// 	t.GetClass()->Invoke("fun_1",&t,(int32)5);
-// 	int32 ret;
-// 	t.GetClass()->Invoke(&ret,"fun_2",&t, (int32)5);
-// 	TClassMethod* pfun = t.GetClassStatic()->GetClassMethod("fun_1");
+	t.GetClass()->Invoke("fun_1",&t,(int32)5);
+	int32 ret;
+	t.GetClass()->Invoke(&ret,"fun_2",&t, (int32)5);
+// 	TClassMethod* pfun = t.GetClass()->GetClassMethod("fun_1");
 // 	pfun->invoke(NULL,&t,(int32)5);
 	test_b tb;
 	tb.k = 8;
