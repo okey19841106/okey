@@ -82,4 +82,17 @@ public:
 
 };
 DECLARE_CLASS(test_b);
+
+
+class test_c: public test
+{
+public:
+	int8 t_c;
+	REG_CLASS_BEGIN(test_c,test);
+	REG_CLASS_MEMBER(test_c,t_c,int8,0);
+	REG_CLASS_END(test_c);
+};
+
+DECLARE_CLASS(test_c);
+
 #endif

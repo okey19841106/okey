@@ -68,7 +68,7 @@ int main(int argc , char *argv[])
 // 	tPool2.AllocParamBuffer();
 // 	tPool2.Read(buff);
 // 	tPool2.PrintTheParam();
-	test t;
+	test_c t;
 	/*t.a = 1;*/
 	strcpy(t.str,"ok");
 	for (int32 i = 0; i< 15; ++i)
@@ -77,15 +77,16 @@ int main(int argc , char *argv[])
 	}
 	f32 b = 0.5;
 	t.fptr = &b;
+	t.t_c = 'b';
 	t.GetClass()->SetMemberValue("a",&t,(int32)1);
 	int32 rt = t.GetClass()->GetMemberValue<int32>("a",&t);
 	char buff[128] = {0};
 	t.Write(buff);
-	test t2;
+	test_c t2;
 	t2.Read(buff);
-	t.GetClass()->Invoke("fun_1",&t,(int32)5);
+	t2.GetClass()->Invoke("fun_1",&t,(int32)5);
 	int32 ret;
-	t.GetClass()->Invoke(&ret,"fun_2",&t, (int32)5);
+	t2.GetClass()->Invoke(&ret,"fun_2",&t, (int32)5);
 // 	TClassMethod* pfun = t.GetClass()->GetClassMethod("fun_1");
 // 	pfun->invoke(NULL,&t,(int32)5);
 	test_b tb;
@@ -97,5 +98,9 @@ int main(int argc , char *argv[])
 
 	test_b tb2;
 	tb2.Read(buff2);
+
+
+//	test_c t_c;
+	
 	return 0;
 }
