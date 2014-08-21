@@ -100,6 +100,7 @@
     <ClCompile Include="inc\PreCom.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="inc\StringHelper.cpp" />
     <ClCompile Include="inc\TClass.cpp" />
     <ClCompile Include="inc\TClassManager.cpp" />
     <ClCompile Include="inc\TimeManager.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="inc\ServerConfig.h" />
     <ClInclude Include="inc\Singleton.h" />
     <ClInclude Include="inc\Stack.h" />
+    <ClInclude Include="inc\StringHelper.h" />
     <ClInclude Include="inc\TClass.h" />
     <ClInclude Include="inc\TClassDefine.h" />
     <ClInclude Include="inc\TClassManager.h" />
@@ -201,7 +203,9 @@
     <ClInclude Include="tinyxml\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="inc\PoolAllocator.inl" />
+    <ClCompile Include="inc\PoolAllocator.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

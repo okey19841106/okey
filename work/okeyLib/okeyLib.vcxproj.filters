@@ -165,6 +165,12 @@
     <ClCompile Include="inc\OperatorNew.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
+    <ClCompile Include="inc\PoolAllocator.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\StringHelper.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinystr.h">
@@ -362,10 +368,8 @@
     <ClInclude Include="inc\OperatorNew.h">
       <Filter>Memory</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="inc\PoolAllocator.inl">
-      <Filter>Memory</Filter>
-    </None>
+    <ClInclude Include="inc\StringHelper.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

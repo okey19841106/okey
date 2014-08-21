@@ -29,7 +29,7 @@ namespace okey
 		}
 		T* Pop()
 		{
-			MutexGuard(m_Mutex);
+			MutexGuard guard(m_Mutex);
 			if (m_Queue.Size() == 0)
 			{
 				return NULL;
@@ -38,7 +38,7 @@ namespace okey
 		}
 		bool Push(T* pval)
 		{
-			MutexGuard(m_Mutex);
+			MutexGuard guard(m_Mutex);
 			if (m_Queue.Size() >= ELEMENTCOUNT)
 			{
 				return false;
@@ -47,7 +47,7 @@ namespace okey
 		}
 		int32 GetSize()
 		{
-			MutexGuard(m_Mutex);
+			MutexGuard guard(m_Mutex);
 			return m_Queue.Size();
 		}
 	private:

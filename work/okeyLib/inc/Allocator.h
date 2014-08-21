@@ -58,8 +58,8 @@ namespace okey
 	public:
 		Allocator(){}
 		~Allocator(){}
-		virtual void* DLMalloc(int32 size) = 0;
-		virtual void DLFree(void* ptr) = 0;
+		virtual void* Malloc(int32 size) = 0;
+		virtual void Free(void* ptr) = 0;
 		virtual void SetMemoryInfo(const MemoryHead& info) = 0;
 		virtual bool Init(int32 size){return false;}
 		virtual void CollectMemory(){}

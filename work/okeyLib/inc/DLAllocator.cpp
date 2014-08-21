@@ -4,7 +4,7 @@
 
 namespace okey
 {
-	void* DLAllocator::DLMalloc(int32 size)
+	void* DLAllocator::Malloc(int32 size)
 	{
 		int32 realsize = sizeof(m_Info) + size;
 		void* presult = dlmalloc(realsize);
@@ -18,7 +18,7 @@ namespace okey
 		return (char*)presult + sizeof(m_Info);
 
 	}
-	void DLAllocator::DLFree(void* ptr)
+	void DLAllocator::Free(void* ptr)
 	{
 		if (!ptr)
 		{

@@ -19,8 +19,8 @@ namespace okey
 	public:
 		DLAllocator(){}
 		~DLAllocator(){}
-		virtual void* DLMalloc(int32 size);
-		virtual void DLFree(void* ptr);
+		virtual void* Malloc(int32 size);
+		virtual void Free(void* ptr);
 		virtual void SetMemoryInfo(const MemoryHead& info);
 		virtual bool Init(int32 size);
 		virtual void CollectMemory();

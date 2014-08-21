@@ -47,7 +47,7 @@ void* operator new(size_t nBytes)
 				else
 					throw;
 			}
-			return okey::g_Allocator->DLMalloc(nBytes);
+			return okey::g_Allocator->Malloc(nBytes);
 #endif
 		}
 		catch(std::bad_alloc&)
@@ -72,7 +72,7 @@ void operator delete(void* ptr)
 		printf("no Globle Allocator, how did you get it\t");
 		return;
 	}
-	okey::g_Allocator->DLFree(ptr);
+	okey::g_Allocator->Free(ptr);
 #endif
 }
 void* operator new[](size_t nBytes)

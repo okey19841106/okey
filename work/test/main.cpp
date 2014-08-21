@@ -98,7 +98,7 @@ int main(int argc , char *argv[])
 
 	test_b tb2;
 	tb2.Read(buff2);
-
+	int* a =new int;
 
 //	test_c t_c;
 	
