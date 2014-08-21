@@ -43,6 +43,9 @@
     <Filter Include="TClass">
       <UniqueIdentifier>{e941e8c7-4ac3-4132-8fe1-f2de8b8885bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{c7f56530-a847-4694-8819-bc777c152731}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyxml\tinystr.cpp">
@@ -87,16 +90,7 @@
     <ClCompile Include="inc\DataBuffer.cpp">
       <Filter>inc</Filter>
     </ClCompile>
-    <ClCompile Include="inc\DLAllocator.cpp">
-      <Filter>inc</Filter>
-    </ClCompile>
-    <ClCompile Include="inc\DLMalloc.cpp">
-      <Filter>inc</Filter>
-    </ClCompile>
     <ClCompile Include="inc\Exception.cpp">
-      <Filter>inc</Filter>
-    </ClCompile>
-    <ClCompile Include="inc\OperatorNew.cpp">
       <Filter>inc</Filter>
     </ClCompile>
     <ClCompile Include="inc\PreCom.cpp">
@@ -113,9 +107,6 @@
     </ClCompile>
     <ClCompile Include="log\Logger.cpp">
       <Filter>Log</Filter>
-    </ClCompile>
-    <ClCompile Include="inc\Allocator.cpp">
-      <Filter>inc</Filter>
     </ClCompile>
     <ClCompile Include="NetWork\Packet.cpp">
       <Filter>NetWork\packet</Filter>
@@ -158,6 +149,21 @@
     </ClCompile>
     <ClCompile Include="inc\TClass.cpp">
       <Filter>TClass</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\TClassManager.cpp">
+      <Filter>TClass</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\DLMalloc.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\DLAllocator.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\Allocator.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\OperatorNew.cpp">
+      <Filter>Memory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,12 +221,6 @@
     <ClInclude Include="inc\DataBuffer.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\DLAllocator.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\DLMalloc.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\Exception.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -237,12 +237,6 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\nocopyable.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\OperatorNew.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\PoolAllocator.h">
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\PreCom.h">
@@ -287,9 +281,6 @@
     <ClInclude Include="NetWork\NetManagerBase.h">
       <Filter>NetWork</Filter>
     </ClInclude>
-    <ClInclude Include="inc\Allocator.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\MathTemplate.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -332,9 +323,6 @@
     <ClInclude Include="File\NormalFile.h">
       <Filter>File</Filter>
     </ClInclude>
-    <ClInclude Include="inc\DLMallocConfig.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\AnyTypeBase.h">
       <Filter>TClass</Filter>
     </ClInclude>
@@ -353,10 +341,31 @@
     <ClInclude Include="inc\TClassDefine.h">
       <Filter>TClass</Filter>
     </ClInclude>
+    <ClInclude Include="inc\TClassManager.h">
+      <Filter>TClass</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DLMallocConfig.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DLMalloc.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DLAllocator.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Allocator.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\PoolAllocator.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\OperatorNew.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="inc\PoolAllocator.inl">
-      <Filter>inc</Filter>
+      <Filter>Memory</Filter>
     </None>
   </ItemGroup>
 </Project>

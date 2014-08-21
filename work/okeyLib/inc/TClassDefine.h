@@ -13,6 +13,7 @@
 #include "ClassMethod.h"
 #include "ClassFunctor.h"
 #include "TClass.h"
+#include "TClassManager.h"
 
 namespace okey
 {
@@ -23,7 +24,8 @@ public:\
 	public:\
 		~_my_ref_##classname(){}\
 		_my_ref_##classname(){\
-		SetName(#classname);
+		SetName(#classname);	\
+		GetTClassManager().AddClass(this);
 		//AddClass...
 #define REG_CLASS_BEGIN(classname,baseclass) \
 	public:\
@@ -32,8 +34,8 @@ public:\
 	~_my_ref_##classname(){}\
 	_my_ref_##classname(){\
 	SetName(#classname);	\
-	AddBaseClass(baseclass::GetStaticClass());
-	//AddClass...
+	AddBaseClass(baseclass::GetStaticClass());	\
+	GetTClassManager().AddClass(this);
 
 #define REG_CLASS_END(classname)	\
 	}};	\

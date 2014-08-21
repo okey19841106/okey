@@ -101,6 +101,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="inc\TClass.cpp" />
+    <ClCompile Include="inc\TClassManager.cpp" />
     <ClCompile Include="inc\TimeManager.cpp" />
     <ClCompile Include="inc\TreeNodeBase.cpp" />
     <ClCompile Include="inc\UtilID.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="inc\Stack.h" />
     <ClInclude Include="inc\TClass.h" />
     <ClInclude Include="inc\TClassDefine.h" />
+    <ClInclude Include="inc\TClassManager.h" />
     <ClInclude Include="inc\TimeManager.h" />
     <ClInclude Include="inc\TList.h" />
     <ClInclude Include="inc\TreeNodeBase.h" />
