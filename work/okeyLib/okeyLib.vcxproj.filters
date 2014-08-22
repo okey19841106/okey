@@ -171,6 +171,9 @@
     <ClCompile Include="inc\StringHelper.cpp">
       <Filter>inc</Filter>
     </ClCompile>
+    <ClCompile Include="inc\FactoryManager.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinystr.h">
@@ -228,9 +231,6 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\Exception.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Factory.h">
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\Fuction.h">
@@ -369,6 +369,15 @@
       <Filter>Memory</Filter>
     </ClInclude>
     <ClInclude Include="inc\StringHelper.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Factory.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\FactoryManager.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\HashMap.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

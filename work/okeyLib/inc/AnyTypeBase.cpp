@@ -80,7 +80,7 @@ namespace okey
 		{
 			return NULL;
 		}
-		int32 len = *((uint16*)pBuffer);
+		uint32 len = *((uint16*)pBuffer);
 		char* tmpBuf = pBuffer + sizeof(uint16);
 		len = len > m_CharSize ? m_CharSize:len;
 		memset((char*)pClassObj,0,m_CharSize);

@@ -1,3 +1,4 @@
+#include "PreCom.h"
 #include "StringHelper.h"
 
 
@@ -29,7 +30,7 @@ namespace okey
 		*endptr = 0;
 	}
 
-	void StringHelper::Tokenize(const std::string&str, std::vector<std::string>& strs, const std::string& delimit = ";")
+	void StringHelper::Tokenize(const std::string&str, std::vector<std::string>& strs, const std::string& delimit)
 	{
 		if (str.empty() || delimit.empty())
 		{

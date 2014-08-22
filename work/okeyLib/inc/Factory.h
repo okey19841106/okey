@@ -66,7 +66,7 @@ namespace okey
 		}
 		virtual void* CreateObject()
 		{
-			T* p = (T*)m_Alloc->DLMalloc(sizeof(T));
+			T* p = (T*)m_Alloc->Malloc(sizeof(T));
 			if(p)
 			{
 				::new(p)T();
@@ -95,7 +95,7 @@ namespace okey
 			if(ptr && m_Alloc /*&& 另一个检查的东西*/)
 			{
 				((T*)ptr)->~T();
-				m_Alloc->DLFree(ptr);
+				m_Alloc->Free(ptr);
 			}
 		}
 	protected:
@@ -152,7 +152,7 @@ namespace okey
 		}
 		virtual void* CreateObject(Type ty)
 		{
-			T* p = (T*)m_Alloc->DLMalloc(sizeof(T));
+			T* p = (T*)m_Alloc->Malloc(sizeof(T));
 			if(p)
 			{
 				::new(p)T(ty);
@@ -181,7 +181,7 @@ namespace okey
 			if(ptr && m_Alloc /*&& 另一个检查的东西*/)
 			{
 				((T*)ptr)->~T();
-				m_Alloc->DLFree(ptr);
+				m_Alloc->Free(ptr);
 			}
 		}
 	protected:

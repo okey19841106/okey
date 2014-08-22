@@ -22,8 +22,8 @@ namespace okey
 
 	struct MemoryHead 
 	{
-		int32 MemInfo;
-		int32 AllocInfo;
+		uint32 MemInfo;
+		uint32 AllocInfo;
 		bool operator == (MemoryHead& mh)
 		{
 			return ((MemInfo == mh.MemInfo) && (AllocInfo == mh.AllocInfo));

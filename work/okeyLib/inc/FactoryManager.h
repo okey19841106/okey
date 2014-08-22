@@ -10,47 +10,38 @@
 #ifndef __FACTORY_MANAGER_H__
 #define __FACTORY_MANAGER_H__
 
-#include "Types.h"
-#include "TManager.h"
-#include "Factory.h"
+
+#include "HashMap.h"
 
 namespace okey
 {
-	
 
-	class FactoryManagerArg0Base: public TManager<CFactoryArg0_Base>
+	class CFactoryArg0_Base;
+
+	class FactoryManager_Arg0
 	{
 	public:
-		//void PrintClass();
-		FactoryManagerArg0Base(){}
-		~FactoryManagerArg0Base(){}
+		FactoryManager_Arg0();
+		~FactoryManager_Arg0();
+
 		void CollectMemory();
 		int64 GetUsageMemory();
+		void* CreateObj(uint32 classID);
 		void* CreateObj(const char* name);
-		void FreeObj(const char* name, void* ptr);
-		
-	protected:
-	private:
-		
-	};
+		void FreeObj(void* ptr);
 
-	class FactoryManagerArg0: public FactoryManagerArg0Base
-	{
+		void AddFactory(CFactoryArg0_Base* pFun);
+		uint32 GetFactoryCount(){return (uint32)m_FactoryList.size();}
+
 	public:
-		static FactoryManagerArg0& GetSingleton()
-		{
-			static FactoryManagerArg0 m_instance;
-			return m_instance;
-		}
+		static hash_map<uint32, std::string> m_UtilList;
 	protected:
-	private:
-		FactoryManagerArg0(){}
-		~FactoryManagerArg0(){}
-		FactoryManagerArg0(const FactoryManagerArg0&);
-		FactoryManagerArg0& operator=(const FactoryManagerArg0&);
+		hash_map<uint32, CFactoryArg0_Base*> m_FactoryList;
 	};
 
-#define s_FactoryManager FactoryManagerArg0::GetSingleton()
+
+	extern FactoryManager_Arg0& GetFactoryArg0();
+
 }
 
 #endif

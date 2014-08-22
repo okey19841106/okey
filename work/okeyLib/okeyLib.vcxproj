@@ -96,6 +96,7 @@
     </ClCompile>
     <ClCompile Include="inc\Exception.cpp" />
     <ClCompile Include="inc\Allocator.cpp" />
+    <ClCompile Include="inc\FactoryManager.cpp" />
     <ClCompile Include="inc\OperatorNew.cpp" />
     <ClCompile Include="inc\PreCom.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -155,8 +156,10 @@
     <ClInclude Include="inc\DLMallocConfig.h" />
     <ClInclude Include="inc\Exception.h" />
     <ClInclude Include="inc\Factory.h" />
+    <ClInclude Include="inc\FactoryManager.h" />
     <ClInclude Include="inc\Fuction.h" />
     <ClInclude Include="inc\HashList.h" />
+    <ClInclude Include="inc\HashMap.h" />
     <ClInclude Include="inc\HelperFunction.h" />
     <ClInclude Include="inc\Allocator.h" />
     <ClInclude Include="inc\MathTemplate.h" />

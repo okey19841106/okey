@@ -11,6 +11,8 @@ namespace okey
 		m_memusage = 0;
 		m_objsize = 0;
 		m_cellsize = sizeof(sMemoryCell);
+		m_info.AllocInfo = 0;
+		m_info.MemInfo = m_cellsize;
 		m_phead = NULL;
 	}
 
@@ -23,6 +25,8 @@ namespace okey
 		m_memusage = 0;
 		m_objsize = size;
 		m_phead = NULL;
+		m_info.MemInfo = m_cellsize;
+		m_info.AllocInfo = 0;
 	}
 
 
@@ -89,7 +93,7 @@ namespace okey
 		{
 			return false;
 		}
-		sMemoryCell* pCell = (sMemoryCell*)( (char*)ptr - sizeof(sMemoryCell) );
+		sMemoryCell* pCell = (sMemoryCell*)( (char*)ptr - sizeof(MemoryHead) );
 		return ((pCell->m_info.MemInfo & 0x80000000) && 
 			(pCell->m_info.AllocInfo == m_info.AllocInfo) && 
 			((pCell->m_info.MemInfo << 2) == (pCell->m_info.MemInfo << 2)));
@@ -101,7 +105,7 @@ namespace okey
 		{
 			return -1;
 		}
-		sMemoryCell* realptr = (sMemoryCell*)( (char*)ptr - sizeof(sMemoryCell) );
+		sMemoryCell* realptr = (sMemoryCell*)( (char*)ptr - sizeof(MemoryHead) );
 		return realptr->m_info.AllocInfo;
 	}
 	
@@ -120,18 +124,18 @@ namespace okey
 			{
 				return NULL;
 			}
-			((sMemoryCell*)res)->m_info = m_info;
-			((sMemoryCell*)res)->m_info.MemInfo |= 0x80000000;
-			res = res + sizeof(sMemoryCell);
+			*((MemoryHead*)res) = m_info;
+			((MemoryHead*)res)->MemInfo |= 0x80000000;
+			res = res + sizeof(MemoryHead);
 			m_memusage += m_cellsize;
 			++m_count;
 		}
 		else
 		{
 			res = (char*)m_phead;
-			((sMemoryCell*)res)->m_info = m_info;
-			((sMemoryCell*)res)->m_info.MemInfo |= 0x80000000;
-			res = res + sizeof(sMemoryCell);
+			*((MemoryHead*)res) = m_info;
+			((MemoryHead*)res)->MemInfo |= 0x80000000;
+			res = res + sizeof(MemoryHead);
 			m_phead = m_phead->m_pnext;
 			--m_freecount;
 		}
@@ -145,7 +149,7 @@ namespace okey
 		{
 			return;
 		}
-		sMemoryCell* pCell = (sMemoryCell*)( (char*)ptr - sizeof(sMemoryCell) );
+		sMemoryCell* pCell = (sMemoryCell*)( (char*)ptr - sizeof(MemoryHead) );
 		if (pCell->m_info.AllocInfo != m_info.AllocInfo)
 		{
 			printf("error in PushMemory! %d, %d", pCell->m_info.AllocInfo, m_info.AllocInfo);
@@ -186,18 +190,18 @@ namespace okey
 			{
 				return NULL;
 			}
-			((sMemoryCell*)res)->m_info = m_info;
-			((sMemoryCell*)res)->m_info.MemInfo |= 0x80000000;
-			res = res + sizeof(sMemoryCell);
+			*((MemoryHead*)res) = m_info;
+			((MemoryHead*)res)->MemInfo |= 0x80000000;
+			res = res + sizeof(MemoryHead);
 			m_memusage += m_cellsize;
 			++m_count;
 		}
 		else
 		{
 			res = (char*)m_phead;
-			((sMemoryCell*)res)->m_info = m_info;
-			((sMemoryCell*)res)->m_info.MemInfo |= 0x80000000;
-			res = res + sizeof(sMemoryCell);
+			*((MemoryHead*)res) = m_info;
+			((MemoryHead*)res)->MemInfo |= 0x80000000;
+			res = res + sizeof(MemoryHead);
 			m_phead = m_phead->m_pnext;
 			--m_freecount;
 		}
@@ -212,7 +216,7 @@ namespace okey
 			return;
 		}
 		MutexGuard guard(m_Mutex);
-		sMemoryCell* pCell = (sMemoryCell*)( (char*)ptr - sizeof(sMemoryCell) );
+		sMemoryCell* pCell = (sMemoryCell*)( (char*)ptr - sizeof(MemoryHead) );
 		if (pCell->m_info.AllocInfo != m_info.AllocInfo)
 		{
 			printf("error in PushMemory! %d, %d", pCell->m_info.AllocInfo, m_info.AllocInfo);
@@ -255,7 +259,7 @@ namespace okey
 		}
 		MutexGuard guard(m_Mutex);
 		
-		sMemoryCell* pCell = (sMemoryCell*)( (char*)ptr - sizeof(sMemoryCell) );
+		sMemoryCell* pCell = (sMemoryCell*)( (char*)ptr - sizeof(MemoryHead) );
 		return ((pCell->m_info.MemInfo & 0x80000000) && 
 			(pCell->m_info.AllocInfo == m_info.AllocInfo) && 
 			((pCell->m_info.MemInfo << 2) == (pCell->m_info.MemInfo << 2)));
@@ -268,7 +272,7 @@ namespace okey
 			return -1;
 		}
 		MutexGuard guard(m_Mutex);
-		sMemoryCell* realptr = (sMemoryCell*)( (char*)ptr - sizeof(sMemoryCell) );
+		sMemoryCell* realptr = (sMemoryCell*)( (char*)ptr - sizeof(MemoryHead) );
 		return realptr->m_info.AllocInfo;
 	}
 }
