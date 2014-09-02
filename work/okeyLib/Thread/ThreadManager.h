@@ -21,9 +21,8 @@ namespace okey
 		~ThreadManager();
 		void AddThread(Thread* pThread);
 		bool StopThread(const std::string& name);
-		bool StopThread(ProcessID pid); 
 	public:
-		static std::map<std::string, Thread*> m_ThreadList;
+		std::map<std::string, Thread*> m_ThreadList;
 	};
 
 	extern ThreadManager& GetThreadManager();

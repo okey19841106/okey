@@ -20,7 +20,7 @@ namespace okey
 	}
 
 
-	namespace
+	namespace Private
 	{
 		ProcessID t_cachedTid = 0;
 
@@ -51,15 +51,15 @@ namespace okey
 
 	ProcessID CurrentThread::tid()
 	{
-		if (t_cachedTid == 0)
+		if (Private::t_cachedTid == 0)
 		{
 #ifdef WINDOWS
-			t_cachedTid = GetCurrentProcessId();
+			Private::t_cachedTid = GetCurrentProcessId();
 #else
-			t_cachedTid = gettid();
+			Private::t_cachedTid = gettid();
 #endif
 		}
-		return t_cachedTid;
+		return Private::t_cachedTid;
 	}
 
 	const char* CurrentThread::name()
@@ -134,4 +134,13 @@ namespace okey
 		okey::CurrentThread::t_threadName = "finished";
 	}
 
+	void Thread::stop()
+	{
+#ifdef WINDOWS
+		TerminateThread(m_handle,0);
+		CloseHandle(m_handle);
+#else
+		pthread_cancel(m_tid);
+#endif
+	}
 }

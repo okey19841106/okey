@@ -34,7 +34,7 @@ namespace okey
 
 	  void start();
 	  void wait();
-
+	  void stop();
 	  bool started() const { return m_bstarted; }
 	  // pthread_t pthreadId() const { return pthreadId_; }
 	  ProcessID tid() const { return m_tid; }
