@@ -68,6 +68,8 @@ namespace okey
 	}
 
 	AtomicCounter Thread::m_numCreated;
+	std::map<std::string,Thread*> Thread::threadList;
+
 
 	Thread::Thread(CFunctionArg0Base * func, const std::string& n)
 		: m_bstarted(false),
@@ -79,8 +81,10 @@ namespace okey
 #ifdef WINDOWS
 		m_handle = NULL;
 #else
-		++m_numCreated;
+		
 #endif
+		threadList.insert(std::make_pair(n,this));
+		++m_numCreated;
 	}
 
 	Thread::~Thread()

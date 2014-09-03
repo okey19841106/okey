@@ -121,7 +121,6 @@
     <ClCompile Include="Thread\Condition.cpp" />
     <ClCompile Include="Thread\Semaph.cpp" />
     <ClCompile Include="Thread\Thread.cpp" />
-    <ClCompile Include="Thread\ThreadManager.cpp" />
     <ClCompile Include="Thread\ThreadPool.cpp" />
     <ClCompile Include="tinyxml\tinystr.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -202,7 +201,6 @@
     <ClInclude Include="Thread\Mutex.h" />
     <ClInclude Include="Thread\Semaph.h" />
     <ClInclude Include="Thread\Thread.h" />
-    <ClInclude Include="Thread\ThreadManager.h" />
     <ClInclude Include="Thread\ThreadPool.h" />
     <ClInclude Include="tinyxml\tinystr.h" />
     <ClInclude Include="tinyxml\tinyxml.h" />

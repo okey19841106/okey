@@ -174,9 +174,6 @@
     <ClCompile Include="inc\FactoryManager.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
-    <ClCompile Include="Thread\ThreadManager.cpp">
-      <Filter>Thread</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinystr.h">
@@ -382,9 +379,6 @@
     </ClInclude>
     <ClInclude Include="inc\HashMap.h">
       <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Thread\ThreadManager.h">
-      <Filter>Thread</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

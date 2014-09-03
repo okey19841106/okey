@@ -59,7 +59,7 @@ namespace okey
 #ifdef WINDOWS
 	   HANDLE m_handle;
 #endif
-	 
+	  static std::map<std::string, Thread*> threadList;
 	  static AtomicCounter m_numCreated;
 	};
 
