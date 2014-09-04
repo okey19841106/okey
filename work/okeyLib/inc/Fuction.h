@@ -20,6 +20,7 @@ namespace okey
 		virtual void operator()() = 0;
 	};
 
+	
 
 
 	template<class T>

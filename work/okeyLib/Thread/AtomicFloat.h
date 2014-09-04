@@ -25,12 +25,6 @@
 namespace okey
 {
 	
-	////////////////////////////////////////////////
-	//class AtomicFloat
-	//  Stores a Float atomically.
-	//  Implemented using AtomicULong.
-	//
-	////////////////////////////////////////////////
 	class AtomicFloat
 	{
 		public:
@@ -41,31 +35,7 @@ namespace okey
 				unsigned long iv = *(reinterpret_cast< unsigned long* >(&InitialValue));
 				Value.SetVal(iv);
 			}
-
-
-			////////////////////////////////////////////////////////////
-			//float SetVal( float NewValue )
-			// lockless threadsafe set operation on the contained value
-			//
-			// Parameters
-			//  float val  -  value to be set
-			//
-			// Return values
-			//  Returns the initial value contained
-			///////////////////////////////////////////////////////////
 			float SetVal(float NewValue);
-
-
-			///////////////////////////////////////////////////////////
-			//bool GetVal()
-			// non-threadsafe get operation on the contained value
-			//
-			// Parameters
-			//  None
-			//
-			// Return values
-			//  Returns the value contained
-			//////////////////////////////////////////////////////////
 			float GetVal();
 
 		private:

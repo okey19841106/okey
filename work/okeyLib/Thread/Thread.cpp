@@ -44,6 +44,16 @@ namespace okey
 		};
 
 		ThreadNameInitializer init;
+
+
+		struct _thread_data_
+		{
+			template<typename t, void (*T::f)(void*)>
+			void BindFun(f fun)
+			{
+
+			}
+		};
 	}
 
 
@@ -71,12 +81,13 @@ namespace okey
 	std::map<std::string,Thread*> Thread::threadList;
 
 
-	Thread::Thread(CFunctionArg0Base * func, const std::string& n)
+	Thread::Thread(const std::string& n ,CFunctionArg1Base<void*>* func, void* arg)
 		: m_bstarted(false),
 		m_threadId(0),
 		m_tid(0),
 		m_func(func),
-		m_name(n)
+		m_name(n),
+		m_pargs(arg)
 	{
 #ifdef WINDOWS
 		m_handle = NULL;
@@ -87,6 +98,23 @@ namespace okey
 		++m_numCreated;
 	}
 
+	Thread::Thread(const std::string& name, CFunctionArg0Base* func)
+		: m_bstarted(false),
+			m_threadId(0),
+			m_tid(0),
+			m_func(func),
+			m_name(n),
+			m_pargs(NULL)
+		{
+#ifdef WINDOWS
+			m_handle = NULL;
+#else
+
+#endif
+			threadList.insert(std::make_pair(n,this));
+			++m_numCreated;
+		}
+	}
 	Thread::~Thread()
 	{
 		if (m_func)
@@ -112,11 +140,9 @@ namespace okey
 		assert(m_bstarted);
 #ifdef WINDOWS
 		WaitForSingleObject( m_handle, INFINITE );
-		CloseHandle( m_handle );
 #else
 		pthread_join(m_threadId, NULL);
 #endif
-
 	}
 
 #ifdef WINDOWS
@@ -134,8 +160,8 @@ namespace okey
 	{
 		m_tid = CurrentThread::tid();
 		okey::CurrentThread::t_threadName = m_name.c_str();
-		(*m_func)();
-		okey::CurrentThread::t_threadName = "finished";
+		(*m_func)(m_pargs);
+		m_bstarted = false;
 	}
 
 	void Thread::stop()
