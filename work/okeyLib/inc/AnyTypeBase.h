@@ -50,6 +50,7 @@ namespace okey
 		TYPE_DERIVED,
 		TYPE_METHOD, 
 		TYPE_STR,
+		TYPE_STRING,
 	};
 
 	class TTypeBase
@@ -192,12 +193,54 @@ namespace okey
 		m_size = sizeof(bool);
 	}
 
-
-// 	template<>
-// 	inline TAnyType<std::string>::TAnyType
-// 	{
-// 		assert(false);
-// 	}
+	template<>
+	class TAnyType<std::string>:public TTypeBase
+	{
+	public:
+		TAnyType()
+		{
+			m_typeinfo = TYPE_STRING;
+			m_size = sizeof(std::string);
+		} 
+		~TAnyType(){}
+		bool CheckType(const TypeTag& type)
+		{
+			return m_typeinfo == type;
+		}
+		
+		const std::string& GetVal()const {return m_val;}
+		void SetVal(const std::string& val)
+		{
+			m_size = val.length();
+			m_val = val;
+		}
+		virtual char* Read(void* pClassObj,char* pBuffer)
+		{
+			if (!pClassObj || !pBuffer)
+			{
+				return NULL;
+			}
+			uint32 len = *((uint16*)pBuffer);
+			char* tmpBuf = pBuffer + sizeof(uint16);
+			*((std::string*)pClassObj) = std::string(tmpBuf,0,len);
+			return tmpBuf + len;
+			
+		}
+		virtual char* Write(void* pClassObj, char* pBuffer)
+		{
+			if (!pClassObj || !pBuffer)
+			{
+				return NULL;
+			}
+			uint16 size =(uint16)(*(std::string*)pClassObj).length();
+			*(uint16*)pBuffer = size;
+			char* tmpBuf = pBuffer + sizeof(uint16);
+			memcpy(tmpBuf, (*(std::string*)pClassObj).c_str(),size);
+			return tmpBuf + size;
+		}
+	protected:
+		std::string m_val;
+	};
 
 	template<typename T>
 	class TAnyTypePtr: public TTypeBase
