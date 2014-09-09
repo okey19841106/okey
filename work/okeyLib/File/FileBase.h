@@ -22,13 +22,9 @@ namespace okey
 		virtual bool ReadLine(char* buffer, int32 len) = 0;
 		virtual bool IsEnd() = 0;
 		virtual bool Close() = 0;
-// 		virtual bool OpenFromMemory(const char* pStart, const char* pEnd, const char* filename); //主要是为了加密与解密用的。
-// 		virtual const char* GetLineFromMemory(char* pStringBuf, int32 nBufSize, const char* pMemory, const char* pDeadEnd);
+
 	protected:
 		FILE* m_pFile;
-// 		char* m_pMem;
-// 		char* m_startMem;
-// 		char* m_pEndMem;
 	};
 }
 
