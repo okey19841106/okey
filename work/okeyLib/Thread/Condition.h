@@ -1,7 +1,10 @@
-// Use of this source code is governed by a BSD-style license
-// that can be found in the License file.
-//
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+/********************************************************************
+	created:	2014/09/09
+	created:	10:28
+	author:		okey
+	
+	purpose:	
+*********************************************************************/
 
 #ifndef OKEY_BASE_CONDITION_H
 #define OKEY_BASE_CONDITION_H

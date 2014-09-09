@@ -13,7 +13,6 @@
 #include "ClassMethod.h"
 #include "ClassFunctor.h"
 #include "TClass.h"
-#include "TClassManager.h"
 
 namespace okey
 {
@@ -25,7 +24,7 @@ public:\
 		~_my_ref_##classname(){}\
 		_my_ref_##classname(){\
 		SetName(#classname);	\
-		GetTClassManager().AddClass(this);
+		TClass::AddClass(this);
 		//AddClass...
 #define REG_CLASS_BEGIN(classname,baseclass) \
 	public:\
@@ -35,7 +34,7 @@ public:\
 	_my_ref_##classname(){\
 	SetName(#classname);	\
 	AddBaseClass(baseclass::GetStaticClass());	\
-	GetTClassManager().AddClass(this);
+	TClass::AddClass(this);
 
 #define REG_CLASS_END(classname)	\
 	}};	\
@@ -86,6 +85,7 @@ public:\
 	classname::_my_ref_##classname *pMem_##member = new classname::_my_ref_##classname();\
 	pMem_##member->SetName(#member);	\
 	pMem_##member->SetFlag(flag);	\
+	pMem_##member->SetSize(sizeof(classname));\
 	TClassMember* pClassMember_##member = new TClassMember(this,pMem_##member);	\
 	pClassMember_##member->SetOffset(uint32(&((bclassname*)0)->member));	\
 	AddMember(pClassMember_##member);
@@ -95,6 +95,25 @@ public:\
 	pMethod_##method->SetName(#method);	\
 	TClassMethod* pClass_Memthod_##method = new TClassMethod(this,pMethod_##method);	\
 	AddMethod(pClass_Memthod_##method);
+
+#define REG_CLASS_MEMBER_ARRAY_CLASS(classname,member,mclass,size,flag) \
+	classname::_my_ref_##classname *pType_##member = new classname::_my_ref_##classname();\
+	pType_##member->SetSize(sizeof(mclass));\
+	TAnyTypeArray* pMem_##member = new TAnyTypeArray(pType_##member, size);\
+	pMem_##member->SetName(#member);	\
+	pMem_##member->SetFlag(flag);	\
+	TClassMember* pClassMember_##member = new TClassMember(this,pMem_##member);	\
+	pClassMember_##member->SetOffset(uint32(&((classname*)0)->member));	\
+	AddMember(pClassMember_##member);
+
+
+
+#define SET_TCLASS_VALUE(tclass, tmem, val) \
+	tclass.GetClass()->SetMemberValue(#tmem, &tclass, val);
+
+#define GET_TCLASS_VALUE(tclass, tmem, type) \
+	tclass.GetClass()->GetMemberValue<type>(#tmem,&tclass);
+
 }
 
 

@@ -11,6 +11,7 @@
 
 #include "AnyTypeBase.h"
 #include <list>
+#include "HashMap.h"
 
 namespace okey
 {
@@ -26,13 +27,9 @@ namespace okey
 		virtual char* Read(void* pClassObj,char* pBuffer);
 		virtual char* Write(void* pClassObj, char* pBuffer);
 
-// 		TClassMember* findMember(const std::string& name);
-// 		TClassMethod* findMethod(const std::string& name);
-
 		void AddMethod(TClassMethod* pMethod);
 		void AddMember(TClassMember* pField);
 		void AddBaseClass(TClass* pClass);
-
 
 		std::list<TClass*>& GetBaseClassList(){return m_BaseClsList;}
 		std::list<TClassMember*>& GetClassMemberList(){return m_MemList;}
@@ -99,34 +96,19 @@ namespace okey
 			Param[0] = &param1;
 			pMethod->invoke(NULL,obj,Param);
 		}
-	protected:
-
-
 
 	protected:
 		//std::string m_Namespace;
 		std::list<TClass*> m_BaseClsList;
 		std::list<TClassMember*> m_MemList;
 		std::list<TClassMethod*> m_MtdList;
+
+	public: // manager..
+		static uint32 GetClassCount();
+		static void AddClass(TClass* pClass);
+		static TClass* GetClass(const std::string& name);
 	};
 
-// 	template<typename Obj>
-// 	inline void TClass::Invoke<void, Obj>(const std::string& name,Obj* obj)
-// 	{
-// 		TClassMethod* pMethod = findMethod(name);
-// 		//assert("pMethod");
-// 		pMethod->invoke(NULL,obj,NULL);
-// 	}
-// 
-// 	template<typename Obj, typename P1>
-// 	inline void TClass::Invoke<void,Obj,P1>(const std::string& name,Obj* obj, P1 param1)
-// 	{
-// 
-// 		TClassMethod* pMethod = findMethod(name);
-// 		//assert("pMethod");
-// 		void* Param[1];
-// 		Param[0] = &param1;
-// 		pMethod->invoke(NULL,obj,Param);
-// 	}
+	
 }
 #endif

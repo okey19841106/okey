@@ -32,7 +32,8 @@ namespace okey
 
 			AtomicFloat(float InitialValue)
 			{
-				unsigned long iv = *(reinterpret_cast< unsigned long* >(&InitialValue));
+				
+				uint32 iv = *(reinterpret_cast< uint32* >(&InitialValue));
 				Value.SetVal(iv);
 			}
 			float SetVal(float NewValue);

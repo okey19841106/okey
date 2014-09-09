@@ -78,8 +78,12 @@ int main(int argc , char *argv[])
 	f32 b = 0.5;
 	t.fptr = &b;
 	t.t_c = 'b';
-	t.GetClass()->SetMemberValue("a",&t,(int32)1);
-	int32 rt = t.GetClass()->GetMemberValue<int32>("a",&t);
+	SET_TCLASS_VALUE(t,a,(int32)1);
+	SET_TCLASS_VALUE(t,sz,std::string("ok"));
+// 	t.GetClass()->SetMemberValue("a",&t,(int32)1);
+// 	t.GetClass()->SetMemberValue("sz",&t,std::string("ok"));
+//	int32 rt = t.GetClass()->GetMemberValue<int32>("a",&t);
+	int32 rt = GET_TCLASS_VALUE(t,a,int32);
 	char buff[128] = {0};
 	t.Write(buff);
 	test_c t2;
@@ -99,7 +103,7 @@ int main(int argc , char *argv[])
 	test_b tb2;
 	tb2.Read(buff2);
 	int* a =new int;
-
+	TClass::GetClassCount();
 //	test_c t_c;
 	
 	return 0;

@@ -44,16 +44,6 @@ namespace okey
 		};
 
 		ThreadNameInitializer init;
-
-
-		struct _thread_data_
-		{
-			template<typename t, void (*T::f)(void*)>
-			void BindFun(f fun)
-			{
-
-			}
-		};
 	}
 
 
@@ -81,42 +71,28 @@ namespace okey
 	std::map<std::string,Thread*> Thread::threadList;
 
 
-	Thread::Thread(const std::string& n ,CFunctionArg1Base<void*>* func, void* arg)
-		: m_bstarted(false),
-		m_threadId(0),
-		m_tid(0),
-		m_func(func),
-		m_name(n),
-		m_pargs(arg)
-	{
-#ifdef WINDOWS
-		m_handle = NULL;
-#else
-		
-#endif
-		threadList.insert(std::make_pair(n,this));
-		++m_numCreated;
-	}
-
-	Thread::Thread(const std::string& name, CFunctionArg0Base* func)
+	Thread::Thread(const std::string& name ,ThreadFunctor* func)
 		: m_bstarted(false),
 			m_threadId(0),
 			m_tid(0),
 			m_func(func),
-			m_name(n),
-			m_pargs(NULL)
-		{
+			m_name(name)
+	{
 #ifdef WINDOWS
 			m_handle = NULL;
 #else
 
 #endif
-			threadList.insert(std::make_pair(n,this));
+			threadList.insert(std::make_pair(name,this));
 			++m_numCreated;
-		}
 	}
+	
 	Thread::~Thread()
 	{
+		if (isstarted())
+		{
+			std::terminate();
+		}
 		if (m_func)
 		{
 			delete m_func;
@@ -137,12 +113,14 @@ namespace okey
 
 	void Thread::wait()
 	{
-		assert(m_bstarted);
+		if (isstarted())
+		{
 #ifdef WINDOWS
-		WaitForSingleObject( m_handle, INFINITE );
+			WaitForSingleObject( m_handle, INFINITE );
 #else
-		pthread_join(m_threadId, NULL);
+			pthread_join(m_threadId, NULL);
 #endif
+		}
 	}
 
 #ifdef WINDOWS
@@ -160,7 +138,8 @@ namespace okey
 	{
 		m_tid = CurrentThread::tid();
 		okey::CurrentThread::t_threadName = m_name.c_str();
-		(*m_func)(m_pargs);
+		(*m_func)();
+		MutexGuard tGuard(m_Lock);
 		m_bstarted = false;
 	}
 
@@ -172,5 +151,22 @@ namespace okey
 #else
 		pthread_cancel(m_tid);
 #endif
+	}
+
+	bool Thread::isstarted() const
+	{
+		m_Lock.Lock();
+		bool result = m_bstarted;
+		m_Lock.UnLock();
+		return result;
+	}
+
+	void Thread::StopAllThread()
+	{
+		std::map<std::string, Thread*>::iterator itr = threadList.begin();
+		for (; itr != threadList.end(); ++itr)
+		{
+			itr->second->wait();
+		}
 	}
 }

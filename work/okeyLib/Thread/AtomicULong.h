@@ -31,7 +31,7 @@ namespace okey
 #ifdef WINDOWS
 			__declspec(align(4))  volatile uint32 Value;
 #else
-			volatile unsigned long Value;
+			volatile unsigned uint32 Value;
 #endif
 	};
 	

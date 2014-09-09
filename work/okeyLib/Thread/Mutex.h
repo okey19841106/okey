@@ -1,21 +1,10 @@
-//////////////////////////////////////////////////////////////
-//                      .----.
-//                   _.'__    `.
-//             .--(#)(##)---/#\
-//           .' @            /###\
-//           :         ,       #####
-//            `-..__.-' _.-  \###/ 
-//                   `;_:         `"'
-//                 .'"""""`.
-//                /,         ,\
-//               //           \\
-//               `-._______.-'
-//                ___`. | .'___
-//             (______|______)
-//
-//  created:	2011-9-1 
-//  owner:      OKEY
-///////////////////////////////////////////////////////////////////////////////
+/********************************************************************
+	created:	2014/09/09
+	created:	10:28
+	author:		okey
+	
+	purpose:	
+*********************************************************************/
 
 #ifndef OKEY_BASE_MUTEX_H
 #define OKEY_BASE_MUTEX_H
@@ -24,7 +13,7 @@
 	//#include <windows.h>
 
 #else
-	#include <pthread.h>
+#include <pthread.h>
 #endif
 
 #include "nocopyable.h"
@@ -85,22 +74,22 @@ namespace okey
 		return &mutex_;
 	  }
 
-	   /*
+
 	   bool TryLock()
-	   	   {
-	   #ifndef WINDOWS
-	   		   return (pthread_mutex_trylock(&mutex_) == 0);
-	   #else
-	   		   return (TryEnterCriticalSection(&mutex_) == TRUE ? true : false);
-	   #endif
-	   	   }*/
+	   {
+#ifndef WINDOWS
+		   return (pthread_mutex_trylock(&mutex_) == 0);
+#else
+		   return (TryEnterCriticalSection(&mutex_) == TRUE ? true : false);
+#endif
+	   }
 	   
 
 	 private:
 #ifdef WINDOWS
 	CRITICAL_SECTION mutex_;
 #else
-	  pthread_mutex_t mutex_;
+	 pthread_mutex_t mutex_;
 #endif
 	};
 

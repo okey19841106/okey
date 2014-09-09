@@ -9,8 +9,9 @@
 #ifndef __T_CLASS_MANAGER_H__
 #define __T_CLASS_MANAGER_H__
 
-#include <map>
 #include <string>
+#include "HashMap.h"
+
 
 namespace okey
 {
@@ -27,7 +28,7 @@ namespace okey
 		uint32 GetClassCount()const;
 	protected:
 
-		std::map<std::string, TClass*> m_classList;
+		hash_map<std::string, TClass*> m_classList;
 	};
 
 	extern inline TClassManager& GetTClassManager();

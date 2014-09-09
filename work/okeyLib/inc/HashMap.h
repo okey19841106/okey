@@ -47,6 +47,15 @@ namespace __gnu_cxx
 		}
 	};
 }
+#else
+	struct string_less : public std::binary_function<std::string, std::string, bool>  
+	{   
+	public:   
+		result_type operator()(const first_argument_type& _Left, const second_argument_type& _Right) const   
+		{   
+			return(_Left.compare(_Right) < 0 ? true : false);   
+		}   
+	};  
 #endif
 
 

@@ -14,6 +14,7 @@ public:
 	char str[10];
 	f32* fptr;
 	uint16 arr[15];
+	std::string sz;
 	void fun_1(int32 a)
 	{
 		printf("%d\n",a);
@@ -28,6 +29,7 @@ public:
 	REG_CLASS_MEMBER_STR(test,str,10,0);
 	REG_CLASS_MEMBER_PTR(test,fptr,f32,0);
 	REG_CLASS_MEMBER_ARRAY(test,arr,uint16,15,0);
+	REG_CLASS_MEMBER(test,sz,std::string,0);
 	REG_CLASS_METHOD(test,fun_1);
 	REG_CLASS_METHOD(test,fun_2);
 	REG_CLASS_END(test);

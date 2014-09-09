@@ -15,7 +15,6 @@
 #include <vector>
 #include <string>
 #include "nocopyable.h"
-#include "Fuction.h"
 #include "Mutex.h"
 #include "Condition.h"
 
@@ -24,6 +23,7 @@ namespace okey
 {
 	
 	class Thread;
+	class ThreadFunctor;
 
 	class ThreadPool : private nocopyable
 	{
@@ -36,17 +36,17 @@ namespace okey
 		void start(int32 numThreads);
 		void stop();
 
-		void run(CFunctionArg0Base* f);
+		void run(ThreadFunctor* f);
 
 		private:
 		void runInThread();
-		CFunctionArg0Base* take();
+		ThreadFunctor* take();
 
 		Mutex m_mutex;
 		Condition m_cond;
 		std::string m_name;
 		std::vector<Thread*> m_threads;
-		std::deque<CFunctionArg0Base*> m_queue;
+		std::deque<ThreadFunctor*> m_queue;
 		bool m_running;
 	};
 

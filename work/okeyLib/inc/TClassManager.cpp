@@ -24,8 +24,8 @@ namespace okey
 
 	void TClassManager::AddClass(TClass* pClass)
 	{
-		std::map<std::string,TClass*>::iterator itr = m_classList.find(pClass->GetName());
-		if (itr != m_classList.end())
+		hash_map<std::string,TClass*>::iterator itr = m_classList.find(pClass->GetName());
+		if (itr == m_classList.end())
 		{
 			m_classList[pClass->GetName()] = pClass;
 		}
@@ -33,7 +33,7 @@ namespace okey
 
 	TClass* TClassManager::GetClass(const std::string& name)
 	{
-		std::map<std::string, TClass*>::iterator itr = m_classList.find(name);
+		hash_map<std::string, TClass*>::iterator itr = m_classList.find(name);
 		if (itr != m_classList.end())
 		{
 			return itr->second;

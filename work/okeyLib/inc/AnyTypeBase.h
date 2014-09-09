@@ -211,7 +211,7 @@ namespace okey
 		const std::string& GetVal()const {return m_val;}
 		void SetVal(const std::string& val)
 		{
-			m_size = val.length();
+			//m_size = val.length();
 			m_val = val;
 		}
 		virtual char* Read(void* pClassObj,char* pBuffer)

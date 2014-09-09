@@ -22,9 +22,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="tinyxml">
-      <UniqueIdentifier>{cb1b480e-c939-4da2-8fb5-b95009e6e596}</UniqueIdentifier>
-    </Filter>
     <Filter Include="NetWork\packet">
       <UniqueIdentifier>{a331b01e-964d-42f2-aa89-86ef9ce392c6}</UniqueIdentifier>
     </Filter>
@@ -46,19 +43,19 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{c7f56530-a847-4694-8819-bc777c152731}</UniqueIdentifier>
     </Filter>
+    <Filter Include="File\tinyxml">
+      <UniqueIdentifier>{cb1b480e-c939-4da2-8fb5-b95009e6e596}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tinyxml\tinystr.cpp">
-      <Filter>tinyxml</Filter>
-    </ClCompile>
     <ClCompile Include="tinyxml\tinyxml.cpp">
-      <Filter>tinyxml</Filter>
+      <Filter>File\tinyxml</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxmlerror.cpp">
-      <Filter>tinyxml</Filter>
+      <Filter>File\tinyxml</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxmlparser.cpp">
-      <Filter>tinyxml</Filter>
+      <Filter>File\tinyxml</Filter>
     </ClCompile>
     <ClCompile Include="Thread\AtomicBoolean.cpp">
       <Filter>Thread</Filter>
@@ -176,11 +173,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="tinyxml\tinystr.h">
-      <Filter>tinyxml</Filter>
-    </ClInclude>
     <ClInclude Include="tinyxml\tinyxml.h">
-      <Filter>tinyxml</Filter>
+      <Filter>File\tinyxml</Filter>
     </ClInclude>
     <ClInclude Include="Thread\AtomicBoolean.h">
       <Filter>Thread</Filter>

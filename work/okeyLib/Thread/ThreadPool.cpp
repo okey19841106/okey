@@ -36,8 +36,8 @@ namespace okey
 			snprintf(id, sizeof id, "%d", i);
 #endif
 
-			m_threads.push_back(new Thread(
-				new CFunctionArg0<ThreadPool>(this, &ThreadPool::runInThread), m_name+id));
+			m_threads.push_back(new Thread(m_name+id,
+				new ThreadClassFuntor0<ThreadPool>(this, &ThreadPool::runInThread)));
 			(m_threads[i])->start();
 		}
 	}
@@ -54,7 +54,7 @@ namespace okey
 		}
 	}
 
-	void ThreadPool::run(CFunctionArg0Base* f)
+	void ThreadPool::run(ThreadFunctor* f)
 	{
 		if (m_threads.empty())
 		{
@@ -68,14 +68,14 @@ namespace okey
 		}
 	}
 
-	CFunctionArg0Base* ThreadPool::take()
+	ThreadFunctor* ThreadPool::take()
 	{
 		m_mutex.Lock();
 		while (m_queue.empty() && m_running)
 		{
 			m_cond.wait(m_mutex);
 		}
-		CFunctionArg0Base* task;
+		ThreadFunctor* task;
 		if(!m_queue.empty())
 		{
 			task = m_queue.front();
@@ -91,7 +91,7 @@ namespace okey
 		{
 			while (m_running)
 			{
-				CFunctionArg0Base* task = take();
+				ThreadFunctor* task = take();
 				if (task)
 				{
 					(*task)();

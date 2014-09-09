@@ -3,6 +3,7 @@
 #include "ClassMember.h"
 #include "ClassMethod.h"
 #include <algorithm>
+#include "TClassManager.h"
 
 namespace okey
 {
@@ -145,4 +146,21 @@ namespace okey
 	{
 
 	}
+
+	uint32 TClass::GetClassCount()
+	{
+		return GetTClassManager().GetClassCount();
+	}
+
+	void TClass::AddClass(TClass* pClass)
+	{
+		GetTClassManager().AddClass(pClass);
+	}
+
+	TClass* TClass::GetClass(const std::string& name)
+	{
+		return GetTClassManager().GetClass(name);
+	}
+
+	
 }

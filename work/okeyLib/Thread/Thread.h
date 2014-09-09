@@ -16,6 +16,7 @@
 #include "AtomicCounter.h"
 #include "Fuction.h"
 #include "nocopyable.h"
+#include "Mutex.h"
 
 
 namespace okey
@@ -31,22 +32,23 @@ namespace okey
 	};
 
 	template<typename T>
-	class ThreadClassFuntor0: ThreadFunctor
+	class ThreadClassFuntor0: public ThreadFunctor
 	{
 
-		typedef void (*T::fun)(void);
+		typedef void (T::*fun)(void);
+		T* pClassObj;
 		fun f_;
 	public:
-		ThreadClassFuntor0(T* pClass, fun pfun):f_(pfun){}
+		ThreadClassFuntor0(T* pClass, fun pfun):pClassObj(pClass),f_(pfun){}
 		~ThreadClassFuntor0(){}
 
 		virtual void operator()()
 		{
-			(pClass->*f_)();
+			(pClassObj->*f_)();
 		}
 	};
 
-	class ThreadFuntor0: ThreadFunctor
+	class ThreadFuntor0: public ThreadFunctor
 	{
 		typedef void (*fun)();
 		fun f_;
@@ -61,29 +63,31 @@ namespace okey
 	};
 
 
-	template<typename T>
-	class ThreadClassFuntor1: ThreadFunctor
+	template<typename T,typename Arg>
+	class ThreadClassFuntor1: public ThreadFunctor
 	{
-		typedef void (*T::fun)(void*);
+		typedef void (T::*fun)(Arg*);
+		T* pClassObj;
 		fun f_;
-		void* arg_;
+		Arg* arg_;
 	public:
-		ThreadClassFuntor1(T* pClass, fun pfun, void* arg):f_(pfun),arg_(arg){}
+		ThreadClassFuntor1(T* pClass, fun pfun, Arg* arg):pClassObj(pClass),f_(pfun),arg_(arg){}
 		~ThreadClassFuntor1(){}
 
 		virtual void operator()()
 		{
-			(pClass->*f_)(arg);
+			(pClassObj->*f_)(arg);
 		}
 	};
 
-	class ThreadFuntor1: ThreadFunctor
+	template<typename Arg>
+	class ThreadFuntor1: public ThreadFunctor
 	{
-		typedef void (*fun)(void*);
+		typedef void (*fun)(Arg*);
 		fun f_;
-		void* arg_;
+		Arg* arg_;
 	public:
-		ThreadFuntor1(fun pfun, void* arg):f_(pfun),arg_(arg){}
+		ThreadFuntor1(fun pfun, Arg* arg):f_(pfun),arg_(arg){}
 		~ThreadFuntor1(){}
 
 		virtual void operator()()
@@ -92,19 +96,22 @@ namespace okey
 		}
 	};
 
+	/////////////////////////////////thread//////////////////////
+
 	class Thread : private nocopyable
 	{
 	public:
 	  //typedef void (*ThreadFunc)(void*);;
 
-		Thread(const std::string& name ,CFunctionArg1Base<void*>* func, void* arg);
-		Thread(const std::string& name, CFunctionArg0Base* func);
+		Thread(const std::string& name ,ThreadFunctor* func);
+		//Thread(const std::string& name, CFunctionArg0Base* func);
 		~Thread();
 
 		void start();
 		void wait();
 		void stop();
-		bool started() const { return m_bstarted; }
+		bool isstarted() const;
+
 		// pthread_t pthreadId() const { return pthreadId_; }
 		ProcessID tid() const { return m_tid; }
 		std::string name() const { return m_name; }
@@ -120,17 +127,20 @@ namespace okey
 	  
 		void runInThread();
 
+
+		mutable Mutex	m_Lock;
 		bool       m_bstarted;
 		ThreadID  m_threadId;
 		ProcessID      m_tid;
-		CFunctionArg1Base<void*> *m_func;
-		void* m_pargs;
+		ThreadFunctor* m_func;
 		std::string     m_name;
 #ifdef WINDOWS
 		HANDLE m_handle;
 #endif
 		static std::map<std::string, Thread*> threadList;
 		static AtomicCounter m_numCreated;
+
+		static void StopAllThread();
 	};
 
 	namespace CurrentThread
