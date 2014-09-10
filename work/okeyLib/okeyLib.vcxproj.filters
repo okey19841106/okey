@@ -171,6 +171,9 @@
     <ClCompile Include="inc\FactoryManager.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
+    <ClCompile Include="File\FileStream.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -373,6 +376,9 @@
     </ClInclude>
     <ClInclude Include="inc\HashMap.h">
       <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileStream.h">
+      <Filter>File</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

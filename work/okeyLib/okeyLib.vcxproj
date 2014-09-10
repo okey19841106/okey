@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClCompile Include="File\cfgloader.cpp" />
     <ClCompile Include="File\FileBase.cpp" />
+    <ClCompile Include="File\FileStream.cpp" />
     <ClCompile Include="File\MemFile.cpp" />
     <ClCompile Include="File\NormalFile.cpp" />
     <ClCompile Include="inc\AnyTypeBase.cpp" />
@@ -135,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="File\cfgloader.h" />
     <ClInclude Include="File\FileBase.h" />
+    <ClInclude Include="File\FileStream.h" />
     <ClInclude Include="File\MemFile.h" />
     <ClInclude Include="File\NormalFile.h" />
     <ClInclude Include="inc\AnyTypeBase.h" />
