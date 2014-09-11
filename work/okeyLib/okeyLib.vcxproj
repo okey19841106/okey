@@ -180,6 +180,7 @@
     <ClInclude Include="inc\TreeNodeBase.h" />
     <ClInclude Include="inc\Types.h" />
     <ClInclude Include="inc\UtilID.h" />
+    <ClInclude Include="inc\VectorString.h" />
     <ClInclude Include="inc\XML.h" />
     <ClInclude Include="log\Logger.h" />
     <ClInclude Include="NetWork\AcceptType.h" />

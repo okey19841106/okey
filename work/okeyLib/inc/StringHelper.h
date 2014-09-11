@@ -13,21 +13,7 @@
 #include <stdio.h>
 #include <algorithm>
 
-#ifdef WINDOWS
 
-#define STRING_HELPER_SNPRINTF _snprintf_s
-#define STRING_HELPER_SSCANF sscanf_s
-#define STRING_HELPER_STRNCPY(DES,SRC,LEN) strncpy_s(DES,LEN,SRC,LEN)
-#define STRING_HELPER_STRDUP _strdup
-
-#else
-
-#define STRING_HELPER_SNPRINTF snprintf
-#define STRING_HELPER_SSCANF sscanf
-#define STRING_HELPER_STRNCPY(DES,SRC,LEN) strncpy(DES,SRC,LEN)
-#define STRING_HELPER_STRDUP strdup
-
-#endif
 
 namespace okey
 {
@@ -76,7 +62,7 @@ namespace okey
 	inline int64 StringHelper::ToValue<int64>(const char* valstr)
 	{
 		int64 value = 0;
-		STRING_HELPER_SSCANF(valstr,"%"INT64_FROMAT,&value);
+		tsscanf(valstr,"%"INT64_FROMAT,&value);
 		return value;
 	}
 
@@ -102,7 +88,7 @@ namespace okey
 	inline uint64 StringHelper::ToValue<uint64>(const char* valstr)
 	{
 		uint64 value = 0;
-		STRING_HELPER_SSCANF(valstr,"%"UINT64_FORMAT,&value);
+		tsscanf(valstr,"%"UINT64_FORMAT,&value);
 		return value;
 	}
 
@@ -110,7 +96,7 @@ namespace okey
 	inline uint32 StringHelper::ToValue<uint32>(const char* valstr)
 	{
 		uint32 value = 0;
-		STRING_HELPER_SSCANF(valstr, "%u",&value);
+		tsscanf(valstr, "%u",&value);
 		return value;
 	}
 
@@ -136,7 +122,7 @@ namespace okey
 	static std::string StringHelper::ToString<int32>(int32 val)
 	{
 		char buf[64] = {0};
-		STRING_HELPER_SNPRINTF(buf, 64, "%d", val);
+		tsnprintf(buf, 64, "%d", val);
 		return buf;
 	}
 
@@ -144,7 +130,7 @@ namespace okey
 	static std::string StringHelper::ToString<int64>(int64 val)
 	{
 		char buf[64] = {0};
-		STRING_HELPER_SNPRINTF(buf, 64, "%"INT64_FROMAT, val);
+		tsnprintf(buf, 64, "%"INT64_FROMAT, val);
 		return buf;
 	}
 
@@ -152,7 +138,7 @@ namespace okey
 	static std::string StringHelper::ToString<uint32>(uint32 val)
 	{
 		char buf[64] = {0};
-		STRING_HELPER_SNPRINTF(buf, 64, "%u", val);
+		tsnprintf(buf, 64, "%u", val);
 		return buf;
 	}
 
@@ -160,7 +146,7 @@ namespace okey
 	static std::string StringHelper::ToString<uint64>(uint64 val)
 	{
 		char buf[64] = {0};
-		STRING_HELPER_SNPRINTF(buf, 64, "%"UINT64_FORMAT, val);
+		tsnprintf(buf, 64, "%"UINT64_FORMAT, val);
 		return buf;
 	}
 
@@ -168,7 +154,7 @@ namespace okey
 	static std::string StringHelper::ToString<f64>(f64 val)
 	{
 		char buf[64] = {0};
-		STRING_HELPER_SNPRINTF(buf, 64, "%f", val);
+		tsnprintf(buf, 64, "%f", val);
 		return buf;
 	}
 }

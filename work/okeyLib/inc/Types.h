@@ -198,7 +198,21 @@ namespace okey
 		return u.m_output;
 	}
 
+#ifdef WINDOWS
 
+#define tsnprintf _snprintf_s
+#define tsscanf sscanf_s
+#define tstrncpy(DES,SRC,LEN) strncpy_s(DES,LEN,SRC,LEN)
+#define tstrdup _strdup
+
+#else
+
+#define tsnprintf snprintf
+#define tsscanf sscanf
+#define tstrncpy(DES,SRC,LEN) strncpy(DES,SRC,LEN)
+#define tstrdup strdup
+
+#endif
 }
 
 #endif

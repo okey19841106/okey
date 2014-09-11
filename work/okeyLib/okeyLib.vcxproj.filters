@@ -380,5 +380,8 @@
     <ClInclude Include="File\FileStream.h">
       <Filter>File</Filter>
     </ClInclude>
+    <ClInclude Include="inc\VectorString.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
