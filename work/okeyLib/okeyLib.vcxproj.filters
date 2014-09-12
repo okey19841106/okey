@@ -34,9 +34,6 @@
     <Filter Include="obj">
       <UniqueIdentifier>{d2855061-797e-4b69-9084-9c0942744255}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RTTi">
-      <UniqueIdentifier>{4e8b73a9-f3b9-43ac-80c4-8e3efd2d284e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="TClass">
       <UniqueIdentifier>{e941e8c7-4ac3-4132-8fe1-f2de8b8885bb}</UniqueIdentifier>
     </Filter>
