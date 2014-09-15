@@ -129,9 +129,6 @@
     <ClCompile Include="File\MemFile.cpp">
       <Filter>File</Filter>
     </ClCompile>
-    <ClCompile Include="File\NormalFile.cpp">
-      <Filter>File</Filter>
-    </ClCompile>
     <ClCompile Include="inc\ClassMember.cpp">
       <Filter>TClass</Filter>
     </ClCompile>
@@ -169,6 +166,9 @@
       <Filter>Memory</Filter>
     </ClCompile>
     <ClCompile Include="File\FileStream.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FFile.cpp">
       <Filter>File</Filter>
     </ClCompile>
   </ItemGroup>
@@ -320,9 +320,6 @@
     <ClInclude Include="File\MemFile.h">
       <Filter>File</Filter>
     </ClInclude>
-    <ClInclude Include="File\NormalFile.h">
-      <Filter>File</Filter>
-    </ClInclude>
     <ClInclude Include="inc\AnyTypeBase.h">
       <Filter>TClass</Filter>
     </ClInclude>
@@ -379,6 +376,9 @@
     </ClInclude>
     <ClInclude Include="inc\VectorString.h">
       <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FFile.h">
+      <Filter>File</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -30,12 +30,7 @@ namespace okey
 		for (int32 i = 0; i < numThreads; ++i)
 		{
 			char id[32];
-#ifdef WINDOWS
-			_snprintf_s(id, sizeof (id), "%d", i);
-#else
-			snprintf(id, sizeof id, "%d", i);
-#endif
-
+			tsnprintf(id, sizeof(id), "%d",i);
 			m_threads.push_back(new Thread(m_name+id,
 				new ThreadClassFuntor0<ThreadPool>(this, &ThreadPool::runInThread)));
 			(m_threads[i])->start();

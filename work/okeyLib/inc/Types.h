@@ -204,6 +204,7 @@ namespace okey
 #define tsscanf sscanf_s
 #define tstrncpy(DES,SRC,LEN) strncpy_s(DES,LEN,SRC,LEN)
 #define tstrdup _strdup
+#define tfopen fopen_s
 
 #else
 
@@ -211,6 +212,7 @@ namespace okey
 #define tsscanf sscanf
 #define tstrncpy(DES,SRC,LEN) strncpy(DES,SRC,LEN)
 #define tstrdup strdup
+#define tfopen fopen 
 
 #endif
 }

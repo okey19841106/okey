@@ -6,22 +6,22 @@
 	purpose:	
 *********************************************************************/
 #include "PreCom.h"
-#include "NormalFile.h"
+#include "FFile.h"
 
 
 namespace okey
 {
-	NormalFile::NormalFile()
+	FFile::FFile()
 	{
 
 	}
 
-	NormalFile::~NormalFile()
+	FFile::~FFile()
 	{
 
 	}
 
-	bool NormalFile::Open(const char* filename)
+	bool FFile::Open(const char* filename)
 	{
 		if (!filename)
 		{

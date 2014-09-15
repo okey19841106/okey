@@ -85,7 +85,7 @@
     <ClCompile Include="File\FileBase.cpp" />
     <ClCompile Include="File\FileStream.cpp" />
     <ClCompile Include="File\MemFile.cpp" />
-    <ClCompile Include="File\NormalFile.cpp" />
+    <ClCompile Include="File\FFile.cpp" />
     <ClCompile Include="inc\AnyTypeBase.cpp" />
     <ClCompile Include="inc\CircularBuffer.cpp" />
     <ClCompile Include="inc\ClassMember.cpp" />
@@ -138,7 +138,7 @@
     <ClInclude Include="File\FileBase.h" />
     <ClInclude Include="File\FileStream.h" />
     <ClInclude Include="File\MemFile.h" />
-    <ClInclude Include="File\NormalFile.h" />
+    <ClInclude Include="File\FFile.h" />
     <ClInclude Include="inc\AnyTypeBase.h" />
     <ClInclude Include="inc\BaseClass.h" />
     <ClInclude Include="inc\BaseProcess.h" />
