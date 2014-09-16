@@ -94,9 +94,12 @@ namespace okey
 #ifdef WINDOWS               
 	typedef DWORD ThreadID;
 	typedef DWORD ProcessID;
+	typedef HANDLE IOType;
 #else                      
 	typedef pthread_t ThreadID;
 	typedef pid_t	ProcessID:
+	typedef int	IOType;
+	enum { INVALID_HANDLE_VALUE = -1 };
 #endif
 
 #ifdef WINDOWS

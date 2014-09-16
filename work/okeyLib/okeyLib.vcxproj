@@ -21,7 +21,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CLRSupport>false</CLRSupport>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -82,10 +82,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="File\cfgloader.cpp" />
-    <ClCompile Include="File\FileBase.cpp" />
+    <ClCompile Include="File\File.cpp" />
     <ClCompile Include="File\FileStream.cpp" />
     <ClCompile Include="File\MemFile.cpp" />
-    <ClCompile Include="File\FFile.cpp" />
+    <ClCompile Include="File\FileStream.cpp" />
     <ClCompile Include="inc\AnyTypeBase.cpp" />
     <ClCompile Include="inc\CircularBuffer.cpp" />
     <ClCompile Include="inc\ClassMember.cpp" />
@@ -135,10 +135,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="File\cfgloader.h" />
-    <ClInclude Include="File\FileBase.h" />
+    <ClInclude Include="File\File.h" />
     <ClInclude Include="File\FileStream.h" />
     <ClInclude Include="File\MemFile.h" />
-    <ClInclude Include="File\FFile.h" />
+    <ClInclude Include="File\FileStream.h" />
     <ClInclude Include="inc\AnyTypeBase.h" />
     <ClInclude Include="inc\BaseClass.h" />
     <ClInclude Include="inc\BaseProcess.h" />

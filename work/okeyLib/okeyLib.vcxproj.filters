@@ -123,9 +123,6 @@
     <ClCompile Include="File\cfgloader.cpp">
       <Filter>File</Filter>
     </ClCompile>
-    <ClCompile Include="File\FileBase.cpp">
-      <Filter>File</Filter>
-    </ClCompile>
     <ClCompile Include="File\MemFile.cpp">
       <Filter>File</Filter>
     </ClCompile>
@@ -168,7 +165,10 @@
     <ClCompile Include="File\FileStream.cpp">
       <Filter>File</Filter>
     </ClCompile>
-    <ClCompile Include="File\FFile.cpp">
+    <ClCompile Include="File\File.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FileStream.cpp">
       <Filter>File</Filter>
     </ClCompile>
   </ItemGroup>
@@ -314,9 +314,6 @@
     <ClInclude Include="File\cfgloader.h">
       <Filter>File</Filter>
     </ClInclude>
-    <ClInclude Include="File\FileBase.h">
-      <Filter>File</Filter>
-    </ClInclude>
     <ClInclude Include="File\MemFile.h">
       <Filter>File</Filter>
     </ClInclude>
@@ -377,7 +374,10 @@
     <ClInclude Include="inc\VectorString.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="File\FFile.h">
+    <ClInclude Include="File\File.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileStream.h">
       <Filter>File</Filter>
     </ClInclude>
   </ItemGroup>
