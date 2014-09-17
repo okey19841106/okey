@@ -12,8 +12,11 @@
 #include "nocopyable.h"
 #include <string>
 
+
 namespace okey
 {
+
+	class FileInfo;
 
 	class File
 	{
@@ -56,10 +59,11 @@ namespace okey
 		static bool IsFileExist(const std::string& filename);
 		static bool UnLink(const std::string& filename);
 		static File CreateTmpFile(const std::string& pername);
+		static bool GetFileInfo(const std::string& filename, FileInfo* pFileInfo);
 	public:
 		File(const std::string& filename, accessMode_t access, openMode_t open = Normal,
 			createMode_t create = OpenCreate, shareMode_t share = AllowNone);
-		File(){m_Handle = INVALID_HANDLE_VALUE;}
+		File();
 		File(const File& f);
 		virtual ~File(){}
 	public:

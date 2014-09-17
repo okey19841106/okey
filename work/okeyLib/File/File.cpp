@@ -106,6 +106,11 @@ namespace okey
 		Open(filename,access,share,open,create);
 	}
 
+	File::File()
+	{
+		m_Handle = INVALID_HANDLE_VALUE;
+	}
+
 	int32 File::SetPosition(int32 lPos, posMode_t pmod)
 	{
 		if (m_Handle == INVALID_HANDLE_VALUE)
@@ -477,5 +482,10 @@ _write:
 
 		//assert()
 #endif
+	}
+
+	bool File::GetFileInfo(const std::string& filename, FileInfo* pFileInfo)
+	{
+		return false;
 	}
 }

@@ -171,6 +171,12 @@
     <ClCompile Include="File\FileStream.cpp">
       <Filter>File</Filter>
     </ClCompile>
+    <ClCompile Include="File\FileStream.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FileInfo.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -378,6 +384,12 @@
       <Filter>File</Filter>
     </ClInclude>
     <ClInclude Include="File\FileStream.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileInfo.h">
       <Filter>File</Filter>
     </ClInclude>
   </ItemGroup>

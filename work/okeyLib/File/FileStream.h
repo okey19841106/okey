@@ -8,7 +8,7 @@
 #ifndef __OKEY_FILE_STREAM_H___
 #define __OKEY_FILE_STREAM_H___
 
-#include "File"
+#include "File.h"
 #include <iosfwd>
 #include <iostream>
 
@@ -20,10 +20,58 @@ namespace okey
 	public:
 		FileStream();
 		~FileStream();
+		FileStream(const std::string& path, accessMode_t access, openMode_t open = Normal,
+			createMode_t create = OpenCreate, shareMode_t share = AllowNone);
 
+		FileStream(const FileStream& fs);
+
+		explicit FileStream(const File& f);
+
+		void Close()
+		{
+			Commit();
+			File::Close();
+		}
+
+		void Commit()
+		{
+			sync();
+			File::SyncFile();
+		}
+
+		FileStream& operator=(const FileStream& fs)
+		{
+			sync(); 
+			flush();
+			File::operator=(fs);
+			return *this;
+		}
+	protected:
+		int sync();
+
+	protected:
+		int uflow();
+		int underflow();
+		int overflow(int c);
+
+	private:
+		void allocate(uint32 size);
+		uint32		 m_bufsize;
+		char*        m_gbuf;
+		char*        m_pbuf;
 
 	};
 
+	inline std::ostream& pendl(std::ostream& os)
+	{
+#ifdef WINDOWS
+		os << "\r\n";
+#else
+		os << "\n";
+#endif
+		os << std::flush;
+		return os;
+	}
 
 }
 

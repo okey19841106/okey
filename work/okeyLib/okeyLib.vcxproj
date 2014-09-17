@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClCompile Include="File\cfgloader.cpp" />
     <ClCompile Include="File\File.cpp" />
+    <ClCompile Include="File\FileInfo.cpp" />
     <ClCompile Include="File\FileStream.cpp" />
     <ClCompile Include="File\MemFile.cpp" />
     <ClCompile Include="File\FileStream.cpp" />
@@ -136,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="File\cfgloader.h" />
     <ClInclude Include="File\File.h" />
+    <ClInclude Include="File\FileInfo.h" />
     <ClInclude Include="File\FileStream.h" />
     <ClInclude Include="File\MemFile.h" />
     <ClInclude Include="File\FileStream.h" />
