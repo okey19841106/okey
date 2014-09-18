@@ -57,26 +57,26 @@ namespace okey
 
 	public:
 		static bool IsFileExist(const std::string& filename);
-		static bool UnLink(const std::string& filename);
+		static void UnLink(const std::string& filename);
 		static File CreateTmpFile(const std::string& pername);
 		static bool GetFileInfo(const std::string& filename, FileInfo* pFileInfo);
+		static void HandleFileError(const std::string filename);
+		static void HandleFileError(const std::string filename, int32 err);
 	public:
 		File(const std::string& filename, accessMode_t access, openMode_t open = Normal,
 			createMode_t create = OpenCreate, shareMode_t share = AllowNone);
 		File();
 		File(const File& f);
-		virtual ~File(){}
+		virtual ~File();
 	public:
 		std::string GetFileName() const {return m_FileName;}
 		void SetFileName(const std::string& name){m_FileName = name;}
 		bool isFileExist() const{ return IsFileExist(m_FileName);}
 	public:
-		bool isFileOpen(){m_Handle != INVALID_HANDLE_VALUE;}
+		bool isFileOpen(){ return bool(m_Handle != INVALID_HANDLE_VALUE);}
 		int32 SetPosition(int32 lPos, posMode_t pmod);
 		int32 GetPosition();
-		bool Open(const std::string& filename, accessMode_t am, shareMode_t sm = AllowNone, openMode_t om = Normal, createMode_t cm = OpenCreate);
-		bool ReadLine(char* buffer, int32 len);
-		bool IsEnd();
+		void Open(const std::string& filename, accessMode_t am, shareMode_t sm = AllowNone, openMode_t om = Normal, createMode_t cm = OpenCreate);
 		void Close();
 		uint32 ReadBuffer(char* pBuffer, uint32 nBufferSize);
 		uint32 WriteBufer(const char* pBuffer, uint32 nBuffersize);
@@ -85,18 +85,6 @@ namespace okey
 		uint32 PeekFile(char* pBuff, uint32 len);
 		uint32 GetFileSize();
 		void SyncFile();
-	public:
-		template<typename T> 
-		uint32 Read(T& data)
-		{
-			return ReadBuffer((char*)&data, sizeof(T));
-		}
-
-		template<typename T>
-		uint32 Write(const T& data)
-		{
-			return WriteBufer((const char*)&data, sizeof(T));
-		}
 
 	protected:
 		void setHandle(IOType handle){m_Handle = handle;}

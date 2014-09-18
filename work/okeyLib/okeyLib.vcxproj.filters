@@ -123,9 +123,6 @@
     <ClCompile Include="File\cfgloader.cpp">
       <Filter>File</Filter>
     </ClCompile>
-    <ClCompile Include="File\MemFile.cpp">
-      <Filter>File</Filter>
-    </ClCompile>
     <ClCompile Include="inc\ClassMember.cpp">
       <Filter>TClass</Filter>
     </ClCompile>
@@ -176,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="File\FileInfo.cpp">
       <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FileStream.cpp">
+      <Filter>Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -320,9 +320,6 @@
     <ClInclude Include="File\cfgloader.h">
       <Filter>File</Filter>
     </ClInclude>
-    <ClInclude Include="File\MemFile.h">
-      <Filter>File</Filter>
-    </ClInclude>
     <ClInclude Include="inc\AnyTypeBase.h">
       <Filter>TClass</Filter>
     </ClInclude>
@@ -391,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="File\FileInfo.h">
       <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileStream.h">
+      <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

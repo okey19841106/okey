@@ -1,5 +1,6 @@
 #include "PreCom.h"
 #include "File.h"
+#include "Exception.h"
 #ifdef WINDOWS
 #include <windows.h>
 #include <shlwapi.h>
@@ -24,22 +25,19 @@ namespace okey
 #endif
 	}
 
-	bool File::UnLink(const std::string& filename)
+	void File::UnLink(const std::string& filename)
 	{
 #ifdef WINDOWS
 		if(!DeleteFile(filename.c_str()))
 		{
-			//GetLastError();
-			return false;
+			File::HandleFileError(filename);
 		}
 #else
 		if(unlink(filename.c_str()) == -1)
 		{
-			//errno..
-			return false;
+			File::HandleFileError(filename);
 		}
 #endif
-		return true;
 	}
 
 	File File::CreateTmpFile(const std::string& pername)
@@ -52,7 +50,7 @@ namespace okey
 		UINT ret = GetTempFileName(tmpdir, pername.c_str(), 0, tmpname);
 		if(ret == 0)
 		{
-			//assert(); GetLastError;
+			File::HandleFileError(pername);
 			return File();
 		}
 		IOType handle = CreateFile(tmpname, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING,
@@ -62,7 +60,7 @@ namespace okey
 		{
 			DWORD err = GetLastError();
 			File::UnLink(tmpname);
-			//assert(); GetLastError;
+			File::HandleFileError(pername);
 			return File();
 		}
 
@@ -75,7 +73,7 @@ namespace okey
 		File f;
 		if(handle == -1)
 		{
-			//assert(errno);
+			File::HandleFileError(pername);
 			return f;
 		}
 		f.setHandle(handle);
@@ -83,7 +81,7 @@ namespace okey
 #endif
 	}
 
-	File::File(const File& f): m_FileName(f.m_FileName),
+	File::File(const File& f): m_Handle(INVALID_HANDLE_VALUE),m_FileName(f.m_FileName),
 		m_accessMode(f.m_accessMode), m_openMode(f.m_openMode),
 		m_createMode(f.m_createMode), m_shareMode(f.m_shareMode)
 	{
@@ -91,17 +89,23 @@ namespace okey
 		BOOL ret = DuplicateHandle(GetCurrentProcess(), f.m_Handle,
 			GetCurrentProcess(), &m_Handle,
 			DUPLICATE_SAME_ACCESS, TRUE, 0);
-		//assert(ret);
+		if (!ret)
+		{
+			File::HandleFileError(m_FileName);
+		}
 #else
 		m_Handle = dup(f.m_Handle);
+		if (m_Handle == -1)
+		{
+			File::HandleFileError(m_FileName);
+		}
 		assert(m_handle != -1);
-			//throw IOError(errno, "Could not duplicate file descriptor", P_SOURCEINFO);
 #endif
 		
 	}
 
 
-	File::File(const std::string& filename, accessMode_t access, openMode_t open,createMode_t create, shareMode_t share)
+	File::File(const std::string& filename, accessMode_t access, openMode_t open,createMode_t create, shareMode_t share):m_Handle(INVALID_HANDLE_VALUE)
 	{
 		Open(filename,access,share,open,create);
 	}
@@ -109,6 +113,11 @@ namespace okey
 	File::File()
 	{
 		m_Handle = INVALID_HANDLE_VALUE;
+	}
+
+	File::~File()
+	{
+		Close();
 	}
 
 	int32 File::SetPosition(int32 lPos, posMode_t pmod)
@@ -137,7 +146,7 @@ namespace okey
 		DWORD ret = SetFilePointer(m_Handle, lPos, NULL, whence);
 		if(ret == INVALID_SET_FILE_POINTER)
 		{
-			//assert GetLastError;
+			File::HandleFileError(m_FileName);
 			return 0;
 		}
 		return ret;
@@ -164,7 +173,7 @@ _seek:
 			return ret;
 		if(errno == EINTR)
 			goto _seek;
-		//assert(); errno
+		File::HandleFileError(m_FileName);
 		return 0;
 #endif
 		
@@ -175,7 +184,7 @@ _seek:
 		return SetPosition(0,posCurrent);
 	}
 
-	bool File::Open(const std::string& filename, accessMode_t am, shareMode_t sm, openMode_t om, createMode_t cm)
+	void File::Open(const std::string& filename, accessMode_t am, shareMode_t sm, openMode_t om, createMode_t cm)
 	{
 		if (isFileOpen())
 		{
@@ -185,15 +194,15 @@ _seek:
 		DWORD acc;
 		switch(am)
 		{
-		case accessMode_t::acWrite:
+		case acWrite:
 			acc = GENERIC_WRITE;
 			break;
 
-		case accessMode_t::acReadWrite:
+		case acReadWrite:
 			acc = GENERIC_READ | GENERIC_WRITE;
 			break;
 
-		case accessMode_t::acRead:
+		case acRead:
 		default:
 			acc = GENERIC_READ;
 			break;
@@ -245,13 +254,21 @@ _seek:
 			m_createMode = cm;
 			m_shareMode  = sm;
 			setHandle(handle);
-			if(om == Append)
-				SetPosition(0, posEnd);
-			else if(om == Truncate)
-				TruncateFile(0);
-			return true;
+			try
+			{
+				if(om == Append)
+					SetPosition(0, posEnd);
+				else if(om == Truncate)
+					TruncateFile(0);
+			}
+			catch (...)
+			{
+				Close();
+				throw;
+			}
+			return;
 		}
-		return false;
+		File::HandleFileError(filename);
 #else
 		int flags = 0;
 		switch(am)
@@ -309,21 +326,13 @@ _seek:
 			m_createMode = cm;
 			m_shareMode  = sm;
 			setHandle(handle);
-			return true;
+			return;
 		}
+		File::HandleFileError(filename);
 		return false;
 #endif
 	}
 
-	bool File::ReadLine(char* buffer, int32 len)
-	{
-
-	}
-
-	bool File::IsEnd()
-	{
-		
-	}
 
 	void File::Close()
 	{
@@ -333,11 +342,8 @@ _seek:
 		{
 			if(!CloseHandle(m_Handle))
 			{
-				//assert getlassterror;
-
+				File::HandleFileError(m_FileName);
 			}
-				//throw IOError(GetLastError(), "Could not close handle", P_SOURCEINFO);
-
 			m_Handle = INVALID_HANDLE_VALUE;
 		}
 #else
@@ -345,7 +351,7 @@ _seek:
 		{
 			if(close(m_Handle) != 0)
 			{
-				//assert() errno;
+				File::HandleFileError(m_FileName);
 			}	
 			m_handle = INVALID_HANDLE_VALUE;
 		}
@@ -358,7 +364,7 @@ _seek:
 		DWORD read;
 		if(!ReadFile(m_Handle, (void*)pBuffer, nBufferSize, &read, NULL))
 		{
-			//assert; GetLastError;
+			File::HandleFileError(m_FileName);
 		}
 		return (uint32)read;
 #else
@@ -372,7 +378,7 @@ _read:
 		else if(errno == EINTR)
 			goto _read;
 
-		//assert(); errno;
+		File::HandleFileError(m_FileName);
 		return 0;
 		
 #endif
@@ -385,7 +391,7 @@ _read:
 
 		if(!WriteFile(m_Handle, (void*)pBuffer, nBuffersize, &written, NULL))
 		{
-			//assert GetLastError();
+			File::HandleFileError(m_FileName);
 		}
 		return (uint32)written; //实际写入字节。
 #else
@@ -398,7 +404,7 @@ _write:
 		else if(errno == EINTR)
 			goto _write;
 
-		//assert errno;
+		File::HandleFileError(m_FileName);
 		return 0;
 #endif
 		
@@ -415,7 +421,7 @@ _write:
 		{
 			DWORD err = GetLastError();
 			SetPosition(pos, posSet);
-			//log？ assert？
+			File::HandleFileError(m_FileName,err);
 		}
 #else
 		int ret = ftruncate(m_Handle, length);
@@ -424,8 +430,7 @@ _write:
 			seek(length, seekSet);
 			return;
 		}
-
-		//log? assert?//
+		File::HandleFileError(m_FileName);
 
 #endif
 	}
@@ -436,6 +441,7 @@ _write:
 		Close();
 		Open(m_FileName.c_str(), m_accessMode, m_shareMode, m_openMode, m_createMode);
 		SetPosition(pos, posSet);
+		return true;
 	}
 
 	uint32 File::PeekFile(char* pBuff, uint32 len)
@@ -451,7 +457,7 @@ _write:
 		DWORD sz = ::GetFileSize(m_Handle, NULL);
 		if(sz == INVALID_FILE_SIZE)
 		{
-			//assert()
+			File::HandleFileError(m_FileName);
 		}
 		return (uint32)sz;
 #else
@@ -468,7 +474,8 @@ _write:
 	{
 #if WINDOWS
 		if(!FlushFileBuffers(m_Handle))
-		{	//assert()
+		{	
+			File::HandleFileError(m_FileName);
 		}
 		return;
 
@@ -480,12 +487,183 @@ _write:
 		if(errno == EINVAL)
 			return;
 
-		//assert()
+		File::HandleFileError(m_FileName);
 #endif
 	}
 
 	bool File::GetFileInfo(const std::string& filename, FileInfo* pFileInfo)
 	{
 		return false;
+	}
+
+	
+
+	void File::HandleFileError(const std::string filename)
+	{
+#ifdef WINDOWS
+		DWORD err = GetLastError();
+		switch (err)
+		{
+		case ERROR_FILE_NOT_FOUND:
+			throw FileNotFoundException(filename, err);
+		case ERROR_PATH_NOT_FOUND:
+		case ERROR_BAD_NETPATH:
+		case ERROR_CANT_RESOLVE_FILENAME:
+		case ERROR_INVALID_DRIVE:
+			throw PathNotFoundException(filename, err);
+		case ERROR_ACCESS_DENIED:
+			throw FileAccessDeniedException(filename, err);
+		case ERROR_ALREADY_EXISTS:
+		case ERROR_FILE_EXISTS:
+			throw FileExistsException(filename, err);
+		case ERROR_INVALID_NAME:
+		case ERROR_DIRECTORY:
+		case ERROR_FILENAME_EXCED_RANGE:
+		case ERROR_BAD_PATHNAME:
+			throw PathSyntaxException(filename, err);
+		case ERROR_FILE_READ_ONLY:
+			throw FileReadOnlyException(filename, err);
+		case ERROR_CANNOT_MAKE:
+			throw CreateFileException(filename, err);
+		case ERROR_DIR_NOT_EMPTY:
+			throw FileException("directory not empty", filename, err);
+		case ERROR_WRITE_FAULT:
+			throw WriteFileException(filename, err);
+		case ERROR_READ_FAULT:
+			throw ReadFileException(filename, err);
+		case ERROR_SHARING_VIOLATION:
+			throw FileException("sharing violation", filename, err);
+		case ERROR_LOCK_VIOLATION:
+			throw FileException("lock violation", filename, err);
+		case ERROR_HANDLE_EOF:
+			throw ReadFileException("EOF reached", filename, err);
+		case ERROR_HANDLE_DISK_FULL:
+		case ERROR_DISK_FULL:
+			throw WriteFileException("disk is full", filename, err);
+		case ERROR_NEGATIVE_SEEK:
+			throw FileException("negative seek", filename, err);
+		default:
+			throw FileException(filename, err);
+		}
+#else
+		switch (errno)
+		{
+		case EIO:
+			throw IOException(path, errno);
+		case EPERM:
+			throw FileAccessDeniedException("insufficient permissions", path, errno);
+		case EACCES:
+			throw FileAccessDeniedException(path, errno);
+		case ENOENT:
+			throw FileNotFoundException(path, errno);
+		case ENOTDIR:
+			throw OpenFileException("not a directory", path, errno);
+		case EISDIR:
+			throw OpenFileException("not a file", path, errno);
+		case EROFS:
+			throw FileReadOnlyException(path, errno);
+		case EEXIST:
+			throw FileExistsException(path, errno);
+		case ENOSPC:
+			throw FileException("no space left on device", path, errno);
+		case EDQUOT:
+			throw FileException("disk quota exceeded", path, errno);
+#if !defined(_AIX)
+		case ENOTEMPTY:
+			throw FileException("directory not empty", path, errno);
+#endif
+		case ENAMETOOLONG:
+			throw PathSyntaxException(path, errno);
+		case ENFILE:
+		case EMFILE:
+			throw FileException("too many open files", path, errno);
+		default:
+			throw FileException(std::strerror(errno), path, errno);
+		}
+#endif
+	}
+
+	void File::HandleFileError(const std::string filename, int32 err)
+	{
+#ifdef WINDOWS
+		switch (err)
+		{
+		case ERROR_FILE_NOT_FOUND:
+			throw FileNotFoundException(filename, err);
+		case ERROR_PATH_NOT_FOUND:
+		case ERROR_BAD_NETPATH:
+		case ERROR_CANT_RESOLVE_FILENAME:
+		case ERROR_INVALID_DRIVE:
+			throw PathNotFoundException(filename, err);
+		case ERROR_ACCESS_DENIED:
+			throw FileAccessDeniedException(filename, err);
+		case ERROR_ALREADY_EXISTS:
+		case ERROR_FILE_EXISTS:
+			throw FileExistsException(filename, err);
+		case ERROR_INVALID_NAME:
+		case ERROR_DIRECTORY:
+		case ERROR_FILENAME_EXCED_RANGE:
+		case ERROR_BAD_PATHNAME:
+			throw PathSyntaxException(filename, err);
+		case ERROR_FILE_READ_ONLY:
+			throw FileReadOnlyException(filename, err);
+		case ERROR_CANNOT_MAKE:
+			throw CreateFileException(filename, err);
+		case ERROR_DIR_NOT_EMPTY:
+			throw FileException("directory not empty", filename, err);
+		case ERROR_WRITE_FAULT:
+			throw WriteFileException(filename, err);
+		case ERROR_READ_FAULT:
+			throw ReadFileException(filename, err);
+		case ERROR_SHARING_VIOLATION:
+			throw FileException("sharing violation", filename, err);
+		case ERROR_LOCK_VIOLATION:
+			throw FileException("lock violation", filename, err);
+		case ERROR_HANDLE_EOF:
+			throw ReadFileException("EOF reached", filename, err);
+		case ERROR_HANDLE_DISK_FULL:
+		case ERROR_DISK_FULL:
+			throw WriteFileException("disk is full", filename, err);
+		case ERROR_NEGATIVE_SEEK:
+			throw FileException("negative seek", filename, err);
+		default:
+			throw FileException(filename, err);
+		}
+#else
+		switch (err)
+		{
+		case EIO:
+			throw IOException(path, errno);
+		case EPERM:
+			throw FileAccessDeniedException("insufficient permissions", path, errno);
+		case EACCES:
+			throw FileAccessDeniedException(path, errno);
+		case ENOENT:
+			throw FileNotFoundException(path, errno);
+		case ENOTDIR:
+			throw OpenFileException("not a directory", path, errno);
+		case EISDIR:
+			throw OpenFileException("not a file", path, errno);
+		case EROFS:
+			throw FileReadOnlyException(path, errno);
+		case EEXIST:
+			throw FileExistsException(path, errno);
+		case ENOSPC:
+			throw FileException("no space left on device", path, errno);
+		case EDQUOT:
+			throw FileException("disk quota exceeded", path, errno);
+#if !defined(_AIX)
+		case ENOTEMPTY:
+			throw FileException("directory not empty", path, errno);
+#endif
+		case ENAMETOOLONG:
+			throw PathSyntaxException(path, errno);
+		case ENFILE:
+		case EMFILE:
+			throw FileException("too many open files", path, errno);
+		default:
+			throw FileException(std::strerror(errno), path, errno);
+		}
+#endif
 	}
 }

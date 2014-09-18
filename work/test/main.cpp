@@ -2,6 +2,7 @@
 #include <string>
 #include "test.h"
 #include "VectorString.h"
+#include "File/FileStream.h"
 
 int main(int argc , char *argv[])
 {
@@ -107,14 +108,23 @@ int main(int argc , char *argv[])
 // 	TClass::GetClassCount();
 //	test_c t_c;
 	
-	okey::BinString t; 
-
-	char buf[12] = "ok!!!!!";
-	t.append(buf, buf + strlen(buf));
-	std::cout<<t.c_str();
-	char buf2[13] = "no";
-	t.append(buf2, buf2 + strlen(buf2));
-	std::cout<<t.c_str();
-	okey::BinString t2(buf, 12);
+// 	okey::BinString t; 
+// 
+// 	char buf[12] = "ok!!!!!";
+// 	t.append(buf, buf + strlen(buf));
+// 	std::cout<<t.c_str();
+// 	char buf2[13] = "no";
+// 	t.append(buf2, buf2 + strlen(buf2));
+// 	std::cout<<t.c_str();
+// 	okey::BinString t2(buf, 12);
+using namespace okey;
+	FileStream test("2.txt",File::acReadWrite);
+	std::string sz;
+	//test<<1<<pendl;
+	while (!test.eof())
+	{
+		std::getline(test,sz);
+	}
+	//std::getline(test,sz);
 	return 0;
 }

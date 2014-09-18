@@ -62,6 +62,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ws2_32.lib</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -85,7 +88,6 @@
     <ClCompile Include="File\File.cpp" />
     <ClCompile Include="File\FileInfo.cpp" />
     <ClCompile Include="File\FileStream.cpp" />
-    <ClCompile Include="File\MemFile.cpp" />
     <ClCompile Include="File\FileStream.cpp" />
     <ClCompile Include="inc\AnyTypeBase.cpp" />
     <ClCompile Include="inc\CircularBuffer.cpp" />
@@ -139,7 +141,6 @@
     <ClInclude Include="File\File.h" />
     <ClInclude Include="File\FileInfo.h" />
     <ClInclude Include="File\FileStream.h" />
-    <ClInclude Include="File\MemFile.h" />
     <ClInclude Include="File\FileStream.h" />
     <ClInclude Include="inc\AnyTypeBase.h" />
     <ClInclude Include="inc\BaseClass.h" />

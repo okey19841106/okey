@@ -3,6 +3,9 @@
 #include "FileStream.h"
 #include <iosfwd>
 
+#ifdef WINDOWS
+#pragma warning(disable: 4355)
+#endif
 
 namespace okey
 {
@@ -32,7 +35,7 @@ namespace okey
 		}
 		catch(...)
 		{
-			
+			File::Close();
 		}
 	}
 	FileStream::FileStream(const std::string& path, accessMode_t access, 
