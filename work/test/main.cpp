@@ -3,6 +3,7 @@
 #include "test.h"
 #include "VectorString.h"
 #include "File/FileStream.h"
+#include "AssocVector.h"
 
 int main(int argc , char *argv[])
 {
@@ -117,14 +118,25 @@ int main(int argc , char *argv[])
 // 	t.append(buf2, buf2 + strlen(buf2));
 // 	std::cout<<t.c_str();
 // 	okey::BinString t2(buf, 12);
-using namespace okey;
-	FileStream test("2.txt",File::acReadWrite);
-	std::string sz;
-	//test<<1<<pendl;
-	while (!test.eof())
-	{
-		std::getline(test,sz);
-	}
+// using namespace okey;
+// 	FileStream test("2.txt",File::acReadWrite);
+// 	std::string sz;
+// 	test<<1<<pendl;
+// 	while (!test.eof())
+// 	{
+// 		std::getline(test,sz);
+// 	}
 	//std::getline(test,sz);
+
+	AssocVector<std::string ,int> v;
+	v["ok"] = 1;
+	v["no"] = 2;
+	v.insert(std::make_pair("1",5));
+
+	AssocVector<std::string ,int>::iterator itr = v.find("no");
+	if (itr != v.end())
+	{
+		std::cout<<itr->first<<itr->second<<std::endl;
+	}
 	return 0;
 }

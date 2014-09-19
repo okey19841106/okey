@@ -75,6 +75,7 @@ namespace okey
 	typedef signed long int long_type;
 	typedef float	f32;
 	typedef double	f64;
+	typedef unsigned char uchar;
 
 	#ifndef TRUE
 	#define TRUE 1
@@ -82,6 +83,10 @@ namespace okey
 
 	#ifndef FALSE
 	#define FALSE 0
+	#endif
+
+	#ifndef NULL
+	#define NULL 0
 	#endif
 
 #ifdef WINDOWS

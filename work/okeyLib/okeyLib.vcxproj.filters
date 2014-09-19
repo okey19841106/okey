@@ -177,6 +177,12 @@
     <ClCompile Include="File\FileStream.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
+    <ClCompile Include="File\FileStream.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\ToolKit.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -390,6 +396,15 @@
       <Filter>File</Filter>
     </ClInclude>
     <ClInclude Include="File\FileStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ToolKit.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\AssocVector.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

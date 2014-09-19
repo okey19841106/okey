@@ -3,7 +3,7 @@
 	created:	3-6-2013   22:33
 	author:		okey
 	
-	purpose:	
+	purpose:	单件实例一律都用new和delete 
 *********************************************************************/
 
 #ifndef OKEY_BASE_SINGLETON_H
@@ -11,62 +11,60 @@
 
 #include "nocopyable.h"
 #include "Types.h"
-
+#include "ToolKit.h"
 
 namespace okey
 {
-	class NoLock :private nocopyable
-	{
-	public:
-		NoLock(){}
-		~NoLock(){}
 
-		void Lock(){}
-		void UnLock(){}
-	};
+#define initialiseSingleton(type)	\
+	template<>	type* Singleton< type >::ms_Singleton = NULL;
 
+#define initialiseTemplateSingleton(temp, type)	\
+	template<> temp< type >* Singleton< temp< type > >::ms_Singleton = NULL;
 
-	template<typename T, typename Lock = NoLock>
+#define createFileSingleton(type)	\
+	initialiseSingleton(type)	\
+	type the##type;
+
+	template<typename T>
 	class Singleton : private nocopyable
 	{
 		static T* ms_Singleton; 
-		static Lock m_lock;
 	public:
-		
+		Singleton()
+		{
+			assert(this->ms_Singleton == NULL);
+			this->ms_Singleton = static_cast<T*>(this);
+			ToolKit::AtExit(DestroySingleton);
+		}
+
+		~Singleton()
+		{
+			this->ms_Singleton = NULL;
+		}
 		static T& GetSingleton()
 		{
-			return (*GetSingletonPtr());
+			assert(ms_Singleton);
+			return *ms_Singleton;
 		}
 		static T* GetSingletonPtr()
 		{
-			if (ms_Singleton == NULL)
-			{
-				m_lock.Lock();
-				if (ms_Singleton == NULL)
-				{
-					ms_Singleton = (T*)::malloc(sizeof(T));
-					if (ms_Singleton)
-					{
-						new(ms_Singleton)T();
-					}
-				}
-				m_lock.UnLock();
-			}
 			return ms_Singleton;
-			
 		}
-	protected:
-		Singleton()
-		{
 
-		}
-		virtual ~Singleton()
+		static void DestroySingleton()
 		{
-
+			if (ms_Singleton)
+			{
+				delete ms_Singleton;
+			}
 		}
+	private:
+		Singleton(const Singleton&);
+		Singleton& operator=(const Singleton&);
 	};
-	template<typename T, typename Lock> Lock Singleton<T,Lock>::m_lock;
-	template<typename T, typename Lock> T* Singleton<T,Lock>::ms_Singleton = NULL;
+	
+	template<typename T> T* Singleton<T>::ms_Singleton = NULL;
 }
 #endif
 

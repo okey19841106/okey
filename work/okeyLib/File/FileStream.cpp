@@ -22,7 +22,6 @@ namespace okey
 	{
 		try
 		{
-			sync();
 			if(m_bufsize > 1)
 			{
 				delete[] m_gbuf;
