@@ -11,7 +11,7 @@
 
 #include "nocopyable.h"
 #include <string>
-
+#include "VectorString.h"
 
 namespace okey
 {
@@ -85,7 +85,7 @@ namespace okey
 		uint32 PeekFile(char* pBuff, uint32 len);
 		uint32 GetFileSize();
 		void SyncFile();
-
+		bool FillAllBuffer(BinString& pBuff);
 	protected:
 		void setHandle(IOType handle){m_Handle = handle;}
 	protected:

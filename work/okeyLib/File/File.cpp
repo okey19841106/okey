@@ -666,4 +666,12 @@ _write:
 		}
 #endif
 	}
+
+	bool File::FillAllBuffer(BinString& pBuff)
+	{
+		uint32 len = GetFileSize();
+		pBuff.resize(len, 0);
+		ReadBuffer((char*)pBuff.data(),len);
+		return true;
+	}
 }

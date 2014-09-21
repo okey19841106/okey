@@ -87,6 +87,7 @@
     <ClCompile Include="File\cfgloader.cpp" />
     <ClCompile Include="File\File.cpp" />
     <ClCompile Include="File\FileInfo.cpp" />
+    <ClCompile Include="File\FileIni.cpp" />
     <ClCompile Include="File\FileStream.cpp" />
     <ClCompile Include="File\FileStream.cpp" />
     <ClCompile Include="inc\AnyTypeBase.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="File\cfgloader.h" />
     <ClInclude Include="File\File.h" />
     <ClInclude Include="File\FileInfo.h" />
+    <ClInclude Include="File\FileIni.h" />
     <ClInclude Include="File\FileStream.h" />
     <ClInclude Include="File\FileStream.h" />
     <ClInclude Include="inc\AnyTypeBase.h" />

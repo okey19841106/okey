@@ -30,6 +30,23 @@ namespace okey
 		*endptr = 0;
 	}
 
+	inline std::string& ltrim(std::string &str) {  
+		std::string::iterator p = std::find_if(str.begin(), str.end(), std::not1(std::ptr_fun<int, int>(isspace)));  
+		str.erase(str.begin(), p);  
+		return str;  
+	}  
+
+	inline std::string& rtrim(std::string &str) {  
+		std::string::reverse_iterator p = std::find_if(str.rbegin(), str.rend(), std::not1(std::ptr_fun<int , int>(isspace)));  
+		str.erase(p.base(), str.end());  
+		return str;  
+	}  
+
+	void StringHelper::Trim(std::string& str)
+	{
+		ltrim(rtrim(str));
+	}
+
 	void StringHelper::Tokenize(const std::string&str, std::vector<std::string>& strs, const std::string& delimit)
 	{
 		if (str.empty() || delimit.empty())

@@ -55,6 +55,7 @@ namespace okey
 		}
 
 		static void Trim(char* ptr);
+		static void Trim(std::string& str);
 		static void Tokenize(const std::string&str, std::vector<std::string>& strs, const std::string& delimit = ";");
 	};
 

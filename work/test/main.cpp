@@ -4,6 +4,7 @@
 #include "VectorString.h"
 #include "File/FileStream.h"
 #include "AssocVector.h"
+#include "File/FileIni.h"
 
 int main(int argc , char *argv[])
 {
@@ -128,15 +129,19 @@ int main(int argc , char *argv[])
 // 	}
 	//std::getline(test,sz);
 
-	AssocVector<std::string ,int> v;
-	v["ok"] = 1;
-	v["no"] = 2;
-	v.insert(std::make_pair("1",5));
-
-	AssocVector<std::string ,int>::iterator itr = v.find("no");
-	if (itr != v.end())
-	{
-		std::cout<<itr->first<<itr->second<<std::endl;
-	}
+// 	AssocVector<std::string ,int> v;
+// 	v["ok"] = 1;
+// 	v["no"] = 2;
+// 	v.insert(std::make_pair("1",5));
+// 
+// 	AssocVector<std::string ,int>::iterator itr = v.find("no");
+// 	if (itr != v.end())
+// 	{
+// 		std::cout<<itr->first<<itr->second<<std::endl;
+// 	}
+	FileINI file("1.txt");
+// 	BinString bs;
+// 	file.FillAllBuffer(bs);
+// 	std::cout<<bs.c_str()<<bs.size();
 	return 0;
 }
