@@ -58,13 +58,13 @@ namespace okey
 	public:
 		static bool IsFileExist(const std::string& filename);
 		static void UnLink(const std::string& filename);
-		static File CreateTmpFile(const std::string& pername);
+		static File CreateTmpFile(const std::string& pername); //这个函数有问题。。。
 		static bool GetFileInfo(const std::string& filename, FileInfo* pFileInfo);
 		static void HandleFileError(const std::string filename);
 		static void HandleFileError(const std::string filename, int32 err);
 	public:
-		File(const std::string& filename, accessMode_t access, openMode_t open = Normal,
-			createMode_t create = OpenCreate, shareMode_t share = AllowNone);
+		File(const std::string& filename, accessMode_t access, shareMode_t share = AllowNone, openMode_t open = Normal,
+			createMode_t create = OpenCreate);
 		File();
 		File(const File& f);
 		virtual ~File();

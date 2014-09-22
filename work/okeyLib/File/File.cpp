@@ -54,7 +54,7 @@ namespace okey
 			return File();
 		}
 		IOType handle = CreateFile(tmpname, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING,
-			FILE_ATTRIBUTE_TEMPORARY|FILE_FLAG_DELETE_ON_CLOSE, NULL);
+			FILE_ATTRIBUTE_TEMPORARY, NULL);
 
 		if(handle == INVALID_HANDLE_VALUE)
 		{
@@ -105,7 +105,7 @@ namespace okey
 	}
 
 
-	File::File(const std::string& filename, accessMode_t access, openMode_t open,createMode_t create, shareMode_t share):m_Handle(INVALID_HANDLE_VALUE)
+	File::File(const std::string& filename, accessMode_t access, shareMode_t share, openMode_t open,createMode_t create):m_Handle(INVALID_HANDLE_VALUE)
 	{
 		Open(filename,access,share,open,create);
 	}

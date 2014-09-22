@@ -24,6 +24,12 @@ namespace okey
 		static T ToValue(const char* valstr);
 
 		template<typename T>
+		static T ToValue(const std::string& s)
+		{
+			return StringHelper::ToValue<T>(s.c_str());
+		}
+
+		template<typename T>
 		static std::string ToString(T val);
 
 		static void ToUpper(char* str)
@@ -54,6 +60,7 @@ namespace okey
 			std::transform(str.begin(),str.end(),str.begin(),tolower);
 		}
 
+		static void TrimAllSpace(char* ptr);
 		static void Trim(char* ptr);
 		static void Trim(std::string& str);
 		static void Tokenize(const std::string&str, std::vector<std::string>& strs, const std::string& delimit = ";");
@@ -120,7 +127,7 @@ namespace okey
 	}
 
 	template<>
-	static std::string StringHelper::ToString<int32>(int32 val)
+	inline std::string StringHelper::ToString<int32>(int32 val)
 	{
 		char buf[64] = {0};
 		tsnprintf(buf, 64, "%d", val);
@@ -128,7 +135,7 @@ namespace okey
 	}
 
 	template<>
-	static std::string StringHelper::ToString<int64>(int64 val)
+	inline std::string StringHelper::ToString<int64>(int64 val)
 	{
 		char buf[64] = {0};
 		tsnprintf(buf, 64, "%"INT64_FROMAT, val);
@@ -136,7 +143,7 @@ namespace okey
 	}
 
 	template<>
-	static std::string StringHelper::ToString<uint32>(uint32 val)
+	inline std::string StringHelper::ToString<uint32>(uint32 val)
 	{
 		char buf[64] = {0};
 		tsnprintf(buf, 64, "%u", val);
@@ -144,7 +151,7 @@ namespace okey
 	}
 
 	template<>
-	static std::string StringHelper::ToString<uint64>(uint64 val)
+	inline std::string StringHelper::ToString<uint64>(uint64 val)
 	{
 		char buf[64] = {0};
 		tsnprintf(buf, 64, "%"UINT64_FORMAT, val);
@@ -152,7 +159,7 @@ namespace okey
 	}
 
 	template<>
-	static std::string StringHelper::ToString<f64>(f64 val)
+	inline std::string StringHelper::ToString<f64>(f64 val)
 	{
 		char buf[64] = {0};
 		tsnprintf(buf, 64, "%f", val);

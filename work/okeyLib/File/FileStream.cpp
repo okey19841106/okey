@@ -37,8 +37,8 @@ namespace okey
 			File::Close();
 		}
 	}
-	FileStream::FileStream(const std::string& path, accessMode_t access, 
-		openMode_t open,createMode_t create, shareMode_t share):File(path,access,open,create,share),
+	FileStream::FileStream(const std::string& path, accessMode_t access,shareMode_t share,
+		openMode_t open,createMode_t create):File(path,access,share,open,create),
 		std::streambuf(), std::iostream((std::streambuf*)this),
 		m_bufsize(1), m_gbuf(NULL), m_pbuf(NULL)
 	{

@@ -4,7 +4,7 @@
 
 namespace okey
 {
-	void StringHelper::Trim(char* ptr)
+	void StringHelper::TrimAllSpace(char* ptr)
 	{
 		if (!ptr)
 		{
@@ -28,6 +28,60 @@ namespace okey
 			++ptr;
 		}
 		*endptr = 0;
+	}
+
+	void StringHelper::Trim(char* ptr)
+	{
+		if (!ptr)
+		{
+			return;
+		}
+		char* stptr = ptr;
+		char* sptr = ptr;
+		char* eptr = ptr + strlen(ptr) - 1 ;
+		char* endptr = eptr + 1; //'\0'
+		bool flag = false;
+		while(eptr != ptr && !flag)
+		{
+			switch(*eptr)
+			{
+			case ' ':
+			case '\r':
+			case '\n':
+			case '\t':
+				endptr = eptr--;
+				break;
+			default:
+				*endptr = 0;
+				flag = true;
+				break;
+			}
+		}
+		flag = false;
+		bool isMove = false;
+		while(*ptr != 0 && !flag)
+		{
+			switch(*ptr)
+			{
+			case ' ':
+			case '\r':
+			case '\n':
+			case '\t':
+				isMove = true;
+				++ptr;
+				break;
+			default:
+				sptr = ptr;
+				flag = true;
+				break;
+			}
+		}
+		if (flag)
+		{
+			size_t len = strlen(sptr);
+			memmove(stptr,sptr,len);
+			*(stptr + len) = 0;
+		}
 	}
 
 	inline std::string& ltrim(std::string &str) {  

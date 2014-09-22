@@ -1,6 +1,8 @@
 #include "PreCom.h"
 #include "FileIni.h"
 #include "File.h"
+#include "FileStream.h"
+#include "StringHelper.h"
 
 namespace okey
 {
@@ -27,7 +29,7 @@ namespace okey
 		m_Filename = filename;
 		try
 		{
-			File file(filename, File::acRead);
+			File file(filename, File::acRead, File::AllowRead);
 			BinString vs;
 			file.FillAllBuffer(vs);
 			Parse(vs);
@@ -41,85 +43,162 @@ namespace okey
 		return true;
 	}
 
-	bool FileINI::Parse(BinString& buf)
+	bool FileINI::Parse(const BinString& buf)
 	{
 		ValueList mpKey;
 		std::string section;
-
-		while (true) 
+		std::vector<std::string> lineList;
+		GetLine(buf,lineList);
+		std::vector<std::string>::iterator itr = lineList.begin();
+		for (; itr != lineList.end(); ++itr)
 		{
-			std::string line = GetLine(buf);
+			if (itr->empty())
+			{
+				continue;
+			}
+			std::string newline = *itr;
+			size_t pos = itr->find(";");
+			if (pos == 0)
+			{
+				continue;
+			}
+			else if (pos != std::string::npos)
+			{
+				newline = itr->substr(0, pos);
+			}
+			if (isSection(newline))
+			{
+				if (section.empty())
+				{
+					section = newline;
+					continue;
+				}
+				m_SectionList.insert(std::make_pair(section, mpKey));
+				mpKey.clear();
+				section = newline;
+			}
+			else
+			{
+				if (section.empty())
+				{
+					continue;
+				}
+				std::pair<std::string, std::string> ret;
+				if (GetKeyValue(newline, ret))
+				{
+					mpKey.insert(ret);
+				}
+			}
 		}
-// 			if (line.empty() || IsComment(line))
-// 			{
-// 				if (IsOffsetEnd()) 
-// 				{
-// 					break;
-// 				} 
-// 				else 
-// 				{
-// 					continue;
-// 				}
-// 
-// 			}
-// 
-// 			if (IsSection(line)) 
-// 			{
-// 				if (section.empty()) 
-// 				{
-// 					section = GetSectionNameFromLine(line);
-// 					continue;
-// 				} 
-// 
-// 				m_mpValue.insert(std::make_pair(section, mpKey));
-// 				section = GetSectionNameFromLine(line);
-// 				mpKey.clear();
-// 			} 
-// 			else 
-// 			{
-// 				if (section.empty()) 
-// 				{
-// 					continue;
-// 				}
-// 				std::string strKey = GetKeyNameFromLine(line);
-// 				if (!strKey.empty()) 
-// 				{
-// 					mpKey.insert(std::make_pair(strKey, GetKeyValueFromLine(line)));
-// 				}
-// 			}
-// 		}
-// 
-// 		if (!section.empty()) 
-// 		{
-// 			m_mpValue.insert(std::make_pair(section, mpKey));
-// 		}
-
+		if (!section.empty())
+		{
+			m_SectionList.insert(std::make_pair(section,mpKey));
+		}
 		return true;
 	}
 
-	std::string FileINI::GetLine(BinString& buf)
+
+	bool FileINI::isSection(std::string& line)
 	{
+		std::string::size_type stLeft = line.find("[");
+		std::string::size_type stRight = line.find("]");
+		if (!line.empty() && stLeft != std::string::npos && stRight != std::string::npos && stRight > stLeft) 
+		{
+			std::string section(line, stLeft + 1, stRight - stLeft - 1);
+			StringHelper::Trim(section);
+			line = section;
+			return true;
+		}
+		return false;
+	}
+	
+	bool FileINI::GetKeyValue(std::string& line, std::pair<std::string, std::string>& ret)
+	{
+		if (line.empty())
+		{
+			return false;
+		}
+		std::string::size_type stpos = line.find("=");
+		if (stpos == 0)
+		{
+			return false;
+		}
+		std::string key;
+		std::string value;
+		if (stpos == std::string::npos) 
+		{
+			key = line;
+			StringHelper::Trim(line);
+			value = "";
+		} 
+		else 
+		{
+			key = line.substr(0,stpos);
+			value = line.substr(stpos + 1,line.length() - stpos - 1);
+			StringHelper::Trim(key);
+			StringHelper::Trim(value);
+		}
+		ret = std::make_pair(key,value);
+		return true;
+	}
+ 			
+	void FileINI::GetLine(const BinString& buf, std::vector<std::string>& lineList)
+	{
+		lineList.clear();
  		if(buf.size() == 0)
- 			return std::string();
+ 			return;
 		std::string line;
-		BinString::iterator itr = buf.begin();
-		for (;itr != buf.end();)
+		BinString::const_iterator itr = buf.begin();
+		for (;itr != buf.end();++itr)
 		{
 			if (*itr == '\r')
 			{
-				if ( *(++itr) == '\n')
+				++itr;
+				if ( *itr == '\n' || *itr == 0)
 				{
-					break;
+					lineList.push_back(line);
+					line.clear();
+					continue;
 				}
 				line.push_back('\r');
 			}
 			else if (*itr == '\n')
 			{
-				break;
+				lineList.push_back(line);
+				line.clear();
+				continue;
+			}
+			else if(*itr == 0)
+			{
+				lineList.push_back(line);
+				line.clear();
+				continue;
 			}
 			line.push_back(*itr);
-			++itr;
 		}
-		return line;
+		if (!line.empty())
+		{
+			lineList.push_back(line);
+		}
+	}
+
+	bool FileINI::Write()
+	{
+		if (m_Filename.empty())
+		{
+			return false;
+		}
+		FileStream file(m_Filename,File::acWrite, File::AllowNone, File::Truncate);
+		SectionList::iterator itr = m_SectionList.begin();
+		for (; itr != m_SectionList.end(); ++itr)
+		{
+			file<<"["<<itr->first<<"]"<<pendl;
+			ValueList::iterator itr_v = itr->second.begin();
+			for (; itr_v != itr->second.end(); ++itr_v)
+			{
+				file<<itr_v->first<<" = "<<itr_v->second << pendl;
+			}
+			file<<pendl;
+		}
 	}
 }

@@ -20,8 +20,8 @@ namespace okey
 	public:
 		FileStream();
 		~FileStream();
-		FileStream(const std::string& path, accessMode_t access, openMode_t open = Normal,
-			createMode_t create = OpenCreate, shareMode_t share = AllowNone);
+		FileStream(const std::string& path, accessMode_t access, shareMode_t share = AllowNone, openMode_t open = Normal,
+			createMode_t create = OpenCreate);
 
 		FileStream(const FileStream& fs);
 

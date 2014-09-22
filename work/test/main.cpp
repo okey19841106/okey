@@ -5,6 +5,7 @@
 #include "File/FileStream.h"
 #include "AssocVector.h"
 #include "File/FileIni.h"
+#include "StringHelper.h"
 
 int main(int argc , char *argv[])
 {
@@ -139,7 +140,15 @@ int main(int argc , char *argv[])
 // 	{
 // 		std::cout<<itr->first<<itr->second<<std::endl;
 // 	}
+	//char buff[] = " a b c d e f     ";
 	FileINI file("1.txt");
+	//StringHelper::Trim(buff);
+	std::string ret;
+	file.GetValue("DefaultValue","Dlls",ret);
+	int32 u;
+	file.GetValue("DefaultValue","a",u);
+	file.SetValue("my","8",(int32)8);
+	file.Write();
 // 	BinString bs;
 // 	file.FillAllBuffer(bs);
 // 	std::cout<<bs.c_str()<<bs.size();
