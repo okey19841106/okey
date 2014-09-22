@@ -26,9 +26,12 @@ namespace okey
 	class ThreadFunctor
 	{
 	public:
-		ThreadFunctor(){}
+		ThreadFunctor(){ }
 		virtual ~ThreadFunctor(){}
 		virtual void operator()() = 0;
+		
+// 		void SetExit(){m_bExit = true;}
+// 		volatile bool m_bExit;
 	};
 
 	template<typename T>
