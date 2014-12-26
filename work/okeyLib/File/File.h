@@ -86,6 +86,11 @@ namespace okey
 		uint32 GetFileSize();
 		void SyncFile();
 		bool FillAllBuffer(BinString& pBuff);
+
+		accessMode_t  GetAccessMode() const{return m_accessMode;}
+		openMode_t    GetOpenMode() const{return m_openMode;}
+		createMode_t  GetCreateMode() const{return m_createMode;}
+		shareMode_t   GetShareMode() const{return m_shareMode;}
 	protected:
 		void setHandle(IOType handle){m_Handle = handle;}
 	protected:

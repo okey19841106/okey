@@ -2,7 +2,7 @@
 #include <string>
 #include "test.h"
 #include "VectorString.h"
-#include "File/FileStream.h"
+#include "Stream/FileStream.h"
 #include "AssocVector.h"
 #include "File/FileIni.h"
 #include "StringHelper.h"
@@ -120,14 +120,15 @@ int main(int argc , char *argv[])
 // 	t.append(buf2, buf2 + strlen(buf2));
 // 	std::cout<<t.c_str();
 // 	okey::BinString t2(buf, 12);
-// using namespace okey;
-// 	FileStream test("2.txt",File::acReadWrite);
-// 	std::string sz;
-// 	test<<1<<pendl;
-// 	while (!test.eof())
-// 	{
-// 		std::getline(test,sz);
-// 	}
+	using namespace okey;
+	FileStream test("2.txt");
+	std::string sz;
+	//test<<1<<pendl;
+	while (!test.eof())
+	{
+		std::getline(test,sz);
+		std::cout<<sz<<std::endl;
+	}
 	//std::getline(test,sz);
 
 // 	AssocVector<std::string ,int> v;
@@ -141,14 +142,14 @@ int main(int argc , char *argv[])
 // 		std::cout<<itr->first<<itr->second<<std::endl;
 // 	}
 	//char buff[] = " a b c d e f     ";
-	FileINI file("1.txt");
-	//StringHelper::Trim(buff);
-	std::string ret;
-	file.GetValue("DefaultValue","Dlls",ret);
-	int32 u;
-	file.GetValue("DefaultValue","a",u);
-	file.SetValue("my","8",(int32)8);
-	file.Write();
+	//FileINI file("1.txt");
+	////StringHelper::Trim(buff);
+	//std::string ret;
+	//file.GetValue("DefaultValue","Dlls",ret);
+	//int32 u;
+	//file.GetValue("DefaultValue","a",u);
+	//file.SetValue("my","8",(int32)8);
+	//file.Write();
 // 	BinString bs;
 // 	file.FillAllBuffer(bs);
 // 	std::cout<<bs.c_str()<<bs.size();

@@ -43,6 +43,9 @@
     <Filter Include="File\tinyxml">
       <UniqueIdentifier>{cb1b480e-c939-4da2-8fb5-b95009e6e596}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Stream">
+      <UniqueIdentifier>{a75d983c-e620-4263-bbe5-76797f5f4ab0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyxml\tinyxml.cpp">
@@ -159,9 +162,6 @@
     <ClCompile Include="inc\FactoryManager.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
-    <ClCompile Include="File\FileStream.cpp">
-      <Filter>File</Filter>
-    </ClCompile>
     <ClCompile Include="File\File.cpp">
       <Filter>File</Filter>
     </ClCompile>
@@ -188,6 +188,30 @@
     </ClCompile>
     <ClCompile Include="File\FileIni.cpp">
       <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FileStream.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FileStream.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FileStream.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Stream\MemoryStreamBuf.cpp">
+      <Filter>Stream</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FileStream.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Stream\FileStreamBuf.cpp">
+      <Filter>Stream</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FileStream.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Stream\FileStream.cpp">
+      <Filter>Stream</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -383,9 +407,6 @@
     <ClInclude Include="inc\HashMap.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="File\FileStream.h">
-      <Filter>File</Filter>
-    </ClInclude>
     <ClInclude Include="inc\VectorString.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -418,6 +439,45 @@
     </ClInclude>
     <ClInclude Include="File\FileIni.h">
       <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Stream\BufferedBidirectionalStreamBuf.h">
+      <Filter>Stream</Filter>
+    </ClInclude>
+    <ClInclude Include="Stream\BufferedStreamBuf.h">
+      <Filter>Stream</Filter>
+    </ClInclude>
+    <ClInclude Include="Stream\MemoryStreamBuf.h">
+      <Filter>Stream</Filter>
+    </ClInclude>
+    <ClInclude Include="Stream\UnbufferedStreamBuf.h">
+      <Filter>Stream</Filter>
+    </ClInclude>
+    <ClInclude Include="Stream\BufferAlloctor.h">
+      <Filter>Stream</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Stream\FileStreamBuf.h">
+      <Filter>Stream</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Stream\FileStream.h">
+      <Filter>Stream</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

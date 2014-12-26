@@ -1,7 +1,7 @@
 #include "PreCom.h"
 #include "FileIni.h"
 #include "File.h"
-#include "FileStream.h"
+#include "Stream/FileStream.h"
 #include "StringHelper.h"
 
 namespace okey
@@ -188,17 +188,18 @@ namespace okey
 		{
 			return false;
 		}
-		FileStream file(m_Filename,File::acWrite, File::AllowNone, File::Truncate);
+		FileOutputStream file(m_Filename,File::AllowNone, File::Truncate);
 		SectionList::iterator itr = m_SectionList.begin();
 		for (; itr != m_SectionList.end(); ++itr)
 		{
-			file<<"["<<itr->first<<"]"<<pendl;
+			file<<"["<<itr->first<<"]"<<std::endl;
 			ValueList::iterator itr_v = itr->second.begin();
 			for (; itr_v != itr->second.end(); ++itr_v)
 			{
-				file<<itr_v->first<<" = "<<itr_v->second << pendl;
+				file<<itr_v->first<<" = "<<itr_v->second << std::endl;
 			}
-			file<<pendl;
+			file<<std::endl;
 		}
+		return true;
 	}
 }

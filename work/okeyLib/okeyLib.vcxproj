@@ -88,8 +88,6 @@
     <ClCompile Include="File\File.cpp" />
     <ClCompile Include="File\FileInfo.cpp" />
     <ClCompile Include="File\FileIni.cpp" />
-    <ClCompile Include="File\FileStream.cpp" />
-    <ClCompile Include="File\FileStream.cpp" />
     <ClCompile Include="inc\AnyTypeBase.cpp" />
     <ClCompile Include="inc\CircularBuffer.cpp" />
     <ClCompile Include="inc\ClassMember.cpp" />
@@ -120,6 +118,9 @@
     <ClCompile Include="NetWork\PacketList.cpp" />
     <ClCompile Include="NetWork\SocketBase.cpp" />
     <ClCompile Include="NetWork\SocketOps.cpp" />
+    <ClCompile Include="Stream\FileStream.cpp" />
+    <ClCompile Include="Stream\FileStreamBuf.cpp" />
+    <ClCompile Include="Stream\MemoryStreamBuf.cpp" />
     <ClCompile Include="Thread\AtomicBoolean.cpp" />
     <ClCompile Include="Thread\AtomicCounter.cpp" />
     <ClCompile Include="Thread\AtomicFloat.cpp" />
@@ -143,8 +144,6 @@
     <ClInclude Include="File\File.h" />
     <ClInclude Include="File\FileInfo.h" />
     <ClInclude Include="File\FileIni.h" />
-    <ClInclude Include="File\FileStream.h" />
-    <ClInclude Include="File\FileStream.h" />
     <ClInclude Include="inc\AnyTypeBase.h" />
     <ClInclude Include="inc\AssocVector.h" />
     <ClInclude Include="inc\BaseClass.h" />
@@ -201,6 +200,13 @@
     <ClInclude Include="NetWork\PacketList.h" />
     <ClInclude Include="NetWork\SocketBase.h" />
     <ClInclude Include="NetWork\SocketOps.h" />
+    <ClInclude Include="Stream\BufferAlloctor.h" />
+    <ClInclude Include="Stream\BufferedBidirectionalStreamBuf.h" />
+    <ClInclude Include="Stream\BufferedStreamBuf.h" />
+    <ClInclude Include="Stream\FileStream.h" />
+    <ClInclude Include="Stream\FileStreamBuf.h" />
+    <ClInclude Include="Stream\MemoryStreamBuf.h" />
+    <ClInclude Include="Stream\UnbufferedStreamBuf.h" />
     <ClInclude Include="Thread\AtomicBoolean.h" />
     <ClInclude Include="Thread\AtomicCounter.h" />
     <ClInclude Include="Thread\AtomicFloat.h" />
