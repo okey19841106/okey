@@ -93,6 +93,7 @@
     <ClCompile Include="inc\ClassMember.cpp" />
     <ClCompile Include="inc\ClassMethod.cpp" />
     <ClCompile Include="inc\DataBuffer.cpp" />
+    <ClCompile Include="inc\DateTime.cpp" />
     <ClCompile Include="inc\DLAllocator.cpp" />
     <ClCompile Include="inc\DLMalloc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -107,7 +108,7 @@
     <ClCompile Include="inc\StringHelper.cpp" />
     <ClCompile Include="inc\TClass.cpp" />
     <ClCompile Include="inc\TClassManager.cpp" />
-    <ClCompile Include="inc\TimeManager.cpp" />
+    <ClCompile Include="inc\TimeStamp.cpp" />
     <ClCompile Include="inc\ToolKit.cpp" />
     <ClCompile Include="inc\TreeNodeBase.cpp" />
     <ClCompile Include="inc\UtilID.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="inc\ClassMethod.h" />
     <ClInclude Include="inc\CRefcounter.h" />
     <ClInclude Include="inc\DataBuffer.h" />
+    <ClInclude Include="inc\DateTime.h" />
     <ClInclude Include="inc\DLAllocator.h" />
     <ClInclude Include="inc\DLMalloc.h" />
     <ClInclude Include="inc\DLMallocConfig.h" />
@@ -181,7 +183,7 @@
     <ClInclude Include="inc\TClass.h" />
     <ClInclude Include="inc\TClassDefine.h" />
     <ClInclude Include="inc\TClassManager.h" />
-    <ClInclude Include="inc\TimeManager.h" />
+    <ClInclude Include="inc\TimeStamp.h" />
     <ClInclude Include="inc\TList.h" />
     <ClInclude Include="inc\ToolKit.h" />
     <ClInclude Include="inc\TreeNodeBase.h" />

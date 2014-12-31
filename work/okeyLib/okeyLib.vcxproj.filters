@@ -93,9 +93,6 @@
     <ClCompile Include="inc\PreCom.cpp">
       <Filter>inc</Filter>
     </ClCompile>
-    <ClCompile Include="inc\TimeManager.cpp">
-      <Filter>inc</Filter>
-    </ClCompile>
     <ClCompile Include="inc\TreeNodeBase.cpp">
       <Filter>inc</Filter>
     </ClCompile>
@@ -166,9 +163,6 @@
       <Filter>File</Filter>
     </ClCompile>
     <ClCompile Include="File\FileStream.cpp">
-      <Filter>File</Filter>
-    </ClCompile>
-    <ClCompile Include="File\FileStream.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
     <ClCompile Include="File\FileInfo.cpp">
@@ -212,6 +206,12 @@
     </ClCompile>
     <ClCompile Include="Stream\FileStream.cpp">
       <Filter>Stream</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\TimeStamp.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\DateTime.cpp">
+      <Filter>inc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -297,9 +297,6 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\Stack.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\TimeManager.h">
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\TList.h">
@@ -414,9 +411,6 @@
       <Filter>File</Filter>
     </ClInclude>
     <ClInclude Include="File\FileStream.h">
-      <Filter>File</Filter>
-    </ClInclude>
-    <ClInclude Include="File\FileStream.h">
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="File\FileInfo.h">
@@ -478,6 +472,12 @@
     </ClInclude>
     <ClInclude Include="Stream\FileStream.h">
       <Filter>Stream</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TimeStamp.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DateTime.h">
+      <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
