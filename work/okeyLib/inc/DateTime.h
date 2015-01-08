@@ -91,6 +91,9 @@ namespace okey
 		static bool isSameMonth(const TimeStamp& t1, const TimeStamp& t2);
 		static bool isSameDay(const TimeStamp& t1, const TimeStamp& t2);
 		static bool isSameWeek(const TimeStamp& t1, const TimeStamp& t2);
+
+		static std::string toString(const DateTime& d);
+		static DateTime fromString(const std::string& str);// y-m-d h:m:s:ss
 	private:
 		struct tm _dateTime;
 		uint32 m_MilliSec;

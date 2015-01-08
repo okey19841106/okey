@@ -1,6 +1,6 @@
 #include "PreCom.h"
 #include "DateTime.h"
-
+#include <sstream>
 
 namespace okey
 {
@@ -66,5 +66,27 @@ namespace okey
 	{
 		time_t tv = ::mktime(&_dateTime);
 		return TimeStamp(((int64)tv*1000) + m_MilliSec);
+	}
+
+	std::string DateTime::toString(const DateTime& d)
+	{
+		std::stringstream str;
+		str<<d.year()<<"-"<<d.month()<<"-"<<d.day()<<" "<<d.hour()<<":"<<d.minute()<<":"<<d.second()<<":"<<d.millisecond();
+		return str.str();
+	}
+
+	DateTime DateTime::fromString(const std::string& str)
+	{
+		int32 year, moth, day, hour, mi, se, ss;
+		tsscanf(str.c_str() , "%d-%d-%d %d:%d:%d:%d", &year, &moth, &day, &hour, &mi, &se, &ss);
+		DateTime d;
+		d.year(year);
+		d.month(moth);
+		d.day(day);
+		d.hour(hour);
+		d.minute(mi);
+		d.second(se);
+		d.millisecond(ss);
+		return d;
 	}
 }

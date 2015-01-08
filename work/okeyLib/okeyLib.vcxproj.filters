@@ -162,17 +162,8 @@
     <ClCompile Include="File\File.cpp">
       <Filter>File</Filter>
     </ClCompile>
-    <ClCompile Include="File\FileStream.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
     <ClCompile Include="File\FileInfo.cpp">
       <Filter>File</Filter>
-    </ClCompile>
-    <ClCompile Include="File\FileStream.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="File\FileStream.cpp">
-      <Filter>Logic</Filter>
     </ClCompile>
     <ClCompile Include="inc\ToolKit.cpp">
       <Filter>inc</Filter>
@@ -212,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="inc\DateTime.cpp">
       <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="log\LogChannel.cpp">
+      <Filter>Log</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,17 +404,8 @@
     <ClInclude Include="File\File.h">
       <Filter>File</Filter>
     </ClInclude>
-    <ClInclude Include="File\FileStream.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="File\FileInfo.h">
       <Filter>File</Filter>
-    </ClInclude>
-    <ClInclude Include="File\FileStream.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="File\FileStream.h">
-      <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\ToolKit.h">
       <Filter>inc</Filter>
@@ -477,6 +462,12 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\DateTime.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="log\LogChannel.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TBufferTemplate.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

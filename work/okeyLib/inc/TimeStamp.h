@@ -9,6 +9,7 @@
 #define __TIME_STAMP_H__
 
 #include "Types.h"
+#include <ctime>
 
 namespace okey
 {
@@ -87,6 +88,12 @@ namespace okey
 		{
 			return (uint32)(_milliSec / 1000);
 		}
+
+		static TimeStamp fromEpochTime(std::time_t t);
+#ifdef WINDOWS
+		static TimeStamp fromFileTimeNP(uint32 fileTimeLow, uint32 fileTimeHigh);
+		void toFileTimeNP(uint32& fileTimeLow, uint32& fileTimeHigh) const;
+#endif
 	private:
 		int64 _milliSec;
 	};

@@ -112,6 +112,7 @@
     <ClCompile Include="inc\ToolKit.cpp" />
     <ClCompile Include="inc\TreeNodeBase.cpp" />
     <ClCompile Include="inc\UtilID.cpp" />
+    <ClCompile Include="log\LogChannel.cpp" />
     <ClCompile Include="log\Logger.cpp" />
     <ClCompile Include="NetWork\CompleteOperation.cpp" />
     <ClCompile Include="NetWork\IOCPReactor.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="inc\Singleton.h" />
     <ClInclude Include="inc\Stack.h" />
     <ClInclude Include="inc\StringHelper.h" />
+    <ClInclude Include="inc\TBufferTemplate.h" />
     <ClInclude Include="inc\TClass.h" />
     <ClInclude Include="inc\TClassDefine.h" />
     <ClInclude Include="inc\TClassManager.h" />
@@ -191,6 +193,7 @@
     <ClInclude Include="inc\UtilID.h" />
     <ClInclude Include="inc\VectorString.h" />
     <ClInclude Include="inc\XML.h" />
+    <ClInclude Include="log\LogChannel.h" />
     <ClInclude Include="log\Logger.h" />
     <ClInclude Include="NetWork\AcceptType.h" />
     <ClInclude Include="NetWork\CompleteOperation.h" />

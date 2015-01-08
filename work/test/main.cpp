@@ -6,6 +6,8 @@
 #include "AssocVector.h"
 #include "File/FileIni.h"
 #include "StringHelper.h"
+#include "log/LogChannel.h"
+#include "File/FileInfo.h"
 
 int main(int argc , char *argv[])
 {
@@ -120,15 +122,15 @@ int main(int argc , char *argv[])
 // 	t.append(buf2, buf2 + strlen(buf2));
 // 	std::cout<<t.c_str();
 // 	okey::BinString t2(buf, 12);
-	using namespace okey;
-	FileStream test("2.txt");
-	std::string sz;
-	//test<<1<<pendl;
-	while (!test.eof())
-	{
-		std::getline(test,sz);
-		std::cout<<sz<<std::endl;
-	}
+	//using namespace okey;
+	//FileStream test("2.txt");
+	//std::string sz;
+	////test<<1<<pendl;
+	//while (!test.eof())
+	//{
+	//	std::getline(test,sz);
+	//	std::cout<<sz<<std::endl;
+	//}
 	//std::getline(test,sz);
 
 // 	AssocVector<std::string ,int> v;
@@ -153,5 +155,32 @@ int main(int argc , char *argv[])
 // 	BinString bs;
 // 	file.FillAllBuffer(bs);
 // 	std::cout<<bs.c_str()<<bs.size();
+// 	LogChannel<1024> channel;
+// 	channel.Init("the log");
+// 	channel.Log("ok", strlen("ok"), false);
+// 	channel.Log("not ok",strlen("not ok"),false);
+// 	return 0;
+	//FileInfo ftest("../temp");
+// 	ftest.SetModityTime(DateTime());
+// 	std::cout<<		ftest.IsExisted()<<
+// 	ftest.CanRead()<<
+// 	ftest.CanWrite()<<
+// 	ftest.CanExecute()<<
+// 	ftest.IsFile()<<
+// 	ftest.IsLink()<<
+// 	ftest.IsDirectory()<<
+// 	ftest.IsDevice()<<
+// 	ftest.IsHidden()<<
+// 	DateTime::toString(ftest.GetCreateTime())<<
+// 	DateTime::toString(ftest.GetModityTime())<<std::endl;
+	//std::cout<<ftest.GetSize();
+	//ftest.CopyTo("../");
+	//ftest.Remove(true);
+	std::vector<std::string> v;
+	FileInfo::ListRoots(v);
+// 	std::cout<<FileInfo::GetAbsDir("temp")<<std::endl
+// 	<<FileInfo::GetExtension("temp")<<std::endl
+// 	<<FileInfo::GetFileName("temp")<<std::endl;
 	return 0;
+
 }
