@@ -168,9 +168,6 @@
     <ClCompile Include="inc\ToolKit.cpp">
       <Filter>inc</Filter>
     </ClCompile>
-    <ClCompile Include="File\FileStream.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
     <ClCompile Include="File\FileIni.cpp">
       <Filter>File</Filter>
     </ClCompile>
@@ -206,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="log\LogChannel.cpp">
       <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\Environment.cpp">
+      <Filter>inc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -413,9 +413,6 @@
     <ClInclude Include="inc\AssocVector.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="File\FileStream.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="File\FileIni.h">
       <Filter>File</Filter>
     </ClInclude>
@@ -468,6 +465,9 @@
       <Filter>Log</Filter>
     </ClInclude>
     <ClInclude Include="inc\TBufferTemplate.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Environment.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

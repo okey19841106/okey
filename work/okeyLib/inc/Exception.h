@@ -90,6 +90,7 @@ OKEY_DECLARE_EXCEPTION(WriteFileException, Exception, "Cannot write file");
 OKEY_DECLARE_EXCEPTION(FileNotFoundException,Exception,"File not found");
 OKEY_DECLARE_EXCEPTION(ReadFileException, Exception, "Cannot read file");
 OKEY_DECLARE_EXCEPTION(SystemException, Exception,"System Exception");
+OKEY_DECLARE_EXCEPTION(NotFoundException,Exception,"Not Find");
 // OKEY_DECLARE_EXCEPTION(FileNotFoundException, Exception, "Cannot read file");
 // OKEY_DECLARE_EXCEPTION(PathNotFoundException, Exception, "Cannot read file");
 // OKEY_DECLARE_EXCEPTION(FileAccessDeniedException, Exception, "Cannot read file");

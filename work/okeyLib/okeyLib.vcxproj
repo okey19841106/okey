@@ -98,6 +98,7 @@
     <ClCompile Include="inc\DLMalloc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="inc\Environment.cpp" />
     <ClCompile Include="inc\Exception.cpp" />
     <ClCompile Include="inc\Allocator.cpp" />
     <ClCompile Include="inc\FactoryManager.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="inc\DLAllocator.h" />
     <ClInclude Include="inc\DLMalloc.h" />
     <ClInclude Include="inc\DLMallocConfig.h" />
+    <ClInclude Include="inc\Environment.h" />
     <ClInclude Include="inc\Exception.h" />
     <ClInclude Include="inc\Factory.h" />
     <ClInclude Include="inc\FactoryManager.h" />
