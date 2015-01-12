@@ -105,7 +105,6 @@ namespace okey
 					pHandler->HandleClose(pCompleteOperation);
 					return true;
 				}
-
 				std::string szerr = FormatErrorMessage(error);
 				printf("%s\n", szerr.c_str());
 				return false;

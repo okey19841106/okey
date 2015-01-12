@@ -14,159 +14,63 @@
 
 namespace okey
 {
-	namespace CurrentThread
+	Thread::Thread():_id(uniqueId()), 
+		_name(makeName()), 
+		_pTLS(NULL)
 	{
-		const char* t_threadName = "unknown";
+
 	}
-
-
-	namespace Private
+	Thread::Thread(const std::string& name):_id(uniqueId()), 
+		_name(name), 
+		_pTLS(NULL)
 	{
-		ProcessID t_cachedTid = 0;
 
-		ProcessID gettid()
-		{
-		#ifdef WINDOWS
-			return GetCurrentProcessId();
-		#else
-			return static_cast<ProcessID>(::syscall(SYS_gettid));
-		#endif
-		}
-
-
-		class ThreadNameInitializer
-		{
-		 public:
-		  ThreadNameInitializer()
-		  {
-			okey::CurrentThread::t_threadName = "main";
-		  }
-		};
-
-		ThreadNameInitializer init;
 	}
-
-
-
-
-	ProcessID CurrentThread::tid()
-	{
-		if (Private::t_cachedTid == 0)
-		{
-#ifdef WINDOWS
-			Private::t_cachedTid = GetCurrentProcessId();
-#else
-			Private::t_cachedTid = gettid();
-#endif
-		}
-		return Private::t_cachedTid;
-	}
-
-	const char* CurrentThread::name()
-	{
-		return t_threadName;
-	}
-
-	AtomicCounter Thread::m_numCreated;
-	std::map<std::string,Thread*> Thread::threadList;
-
-
-	Thread::Thread(const std::string& name ,ThreadFunctor* func)
-		: m_bstarted(false),
-			m_threadId(0),
-			m_tid(0),
-			m_func(func),
-			m_name(name)
-	{
-#ifdef WINDOWS
-			m_handle = NULL;
-#else
-
-#endif
-			threadList.insert(std::make_pair(name,this));
-			++m_numCreated;
-	}
-	
 	Thread::~Thread()
 	{
-		if (isstarted())
-		{
-			std::terminate();
-		}
-		if (m_func)
-		{
-			delete m_func;
-		}
+		delete _pTLS;
 	}
-
-	void Thread::start()
+	ThreadID Thread::GetTID() const
 	{
-		assert(!m_bstarted);
-		m_bstarted = true;
-#ifdef WINDOWS
-		m_handle =(HANDLE) _beginthreadex(NULL,0,&startThread,(LPVOID)this,0,(uint32*)&m_threadId );
-#else
-		pthread_create(&m_threadId, NULL, &startThread, this);
-#endif
 
 	}
+	std::string GetName() const;
+	void SetName(const std::string& name);
 
-	void Thread::wait()
-	{
-		if (isstarted())
-		{
-#ifdef WINDOWS
-			WaitForSingleObject( m_handle, INFINITE );
-#else
-			pthread_join(m_threadId, NULL);
-#endif
-		}
-	}
+	void SetPriority(Priority prio); //优先级
+	Priority GetPriority() const;
 
-#ifdef WINDOWS
-	uint32  __stdcall Thread::startThread(void* obj)
-#else
-	void* Thread::startThread(void* obj);
-#endif
-	{
-		Thread* thread = static_cast<Thread*>(obj);
-		thread->runInThread();
-		return NULL;
-	}
+	void SetOSPriority(int prio, int policy = POLICY_DEFAULT);
+	int GetOSPriority() const;
 
-	void Thread::runInThread()
-	{
-		m_tid = CurrentThread::tid();
-		okey::CurrentThread::t_threadName = m_name.c_str();
-		(*m_func)();
-		MutexGuard tGuard(m_Lock);
-		m_bstarted = false;
-	}
+	static int GetMinOSPriority(int policy = POLICY_DEFAULT);
+	static int GetMaxOSPriority(int policy = POLICY_DEFAULT);
 
-	void Thread::stop()
-	{
-#ifdef WINDOWS
-		TerminateThread(m_handle,0);
-		CloseHandle(m_handle);
-#else
-		pthread_cancel(m_tid);
-#endif
-	}
+	void SetStackSize(int size);//设置线程堆栈大小
+	int GetStackSize() const;
 
-	bool Thread::isstarted() const
-	{
-		m_Lock.Lock();
-		bool result = m_bstarted;
-		m_Lock.UnLock();
-		return result;
-	}
 
-	void Thread::StopAllThread()
-	{
-		std::map<std::string, Thread*>::iterator itr = threadList.begin();
-		for (; itr != threadList.end(); ++itr)
-		{
-			itr->second->wait();
-		}
-	}
+	void start(Runnable& target);
+	void start(Callable target, void* pData = 0);
+
+
+	void Join();
+	void Join(long milliseconds);
+	bool TryJoin(long milliseconds);
+
+	bool IsRunning() const;
+
+
+	static void Sleep(long milliseconds);
+	static void Yields();
+	/// Yields cpu to other threads.
+
+	static Thread* Current();
+	static TID GetCurrentTID();
+
+	ThreadLocalStorage& GetTLS(); //TLS
+	void ClearTLS();
+
+	std::string makeName();
+	static int uniqueId();//创建一个全局唯一码。
 }

@@ -1,156 +1,148 @@
+/********************************************************************
+	created:	2015/01/12
+	created:	14:42
+	author:		okey
+	
+	purpose:	
+*********************************************************************/
+#ifndef __OKEY_THREAD_H__
+#define __OKEY_THREAD_H__
 
-#ifndef OKEY_BASE_THREAD_H
-#define OKEY_BASE_THREAD_H
 
 
+namespace okey{
 
-#ifdef WINDOWS                // windows95 and above
-//#include <windows.h>
-#include <map>
-#else                       // linux
-#include <pthread.h>
-#include <unistd.h>
+
+	class Runnable;
+	class ThreadLocalStorage;
+
+	
+
+	class Thread
+	{
+	public:	
+		using ThreadImpl::Callable;
+
+		struct CallbackData: public CRefCounter
+		{
+			CallbackData(): callback(NULL), pData(NULL)
+			{
+			}
+
+			Callable  callback;
+			void*     pData; 
+		};
+
+		enum Priority
+		{
+#ifdef WINDOWS
+			PRIO_LOWEST  = THREAD_PRIORITY_LOWEST,
+			PRIO_LOW     = THREAD_PRIORITY_BELOW_NORMAL,
+			PRIO_NORMAL  = THREAD_PRIORITY_NORMAL,
+			PRIO_HIGH    = THREAD_PRIORITY_ABOVE_NORMAL,
+			PRIO_HIGHEST = THREAD_PRIORITY_HIGHEST
+#else
+			PRIO_LOWEST , /// The lowest thread priority.
+			PRIO_LOW ,    /// A lower than normal thread priority.
+			PRIO_NORMAL , /// The normal thread priority.
+			PRIO_HIGH,   /// A higher than normal thread priority.
+			PRIO_HIGHEST, /// The highest thread priority.
 #endif
-
-#include "Types.h"
-#include "AtomicCounter.h"
-#include "Fuction.h"
-#include "nocopyable.h"
-#include "Mutex.h"
-
-
-namespace okey
-{
-
-
-	class ThreadFunctor
-	{
-	public:
-		ThreadFunctor(){ }
-		virtual ~ThreadFunctor(){}
-		virtual void operator()() = 0;
-		
-// 		void SetExit(){m_bExit = true;}
-// 		volatile bool m_bExit;
-	};
-
-	template<typename T>
-	class ThreadClassFuntor0: public ThreadFunctor
-	{
-
-		typedef void (T::*fun)(void);
-		T* pClassObj;
-		fun f_;
-	public:
-		ThreadClassFuntor0(T* pClass, fun pfun):pClassObj(pClass),f_(pfun){}
-		~ThreadClassFuntor0(){}
-
-		virtual void operator()()
+			
+		};
+		enum Policy
 		{
-			(pClassObj->*f_)();
-		}
-	};
+#ifdef WINDOWS
+			POLICY_DEFAULT = 0,
+#else
+			POLICY_DEFAULT = SCHED_OTHER,
+#endif
+			
+		};
 
-	class ThreadFuntor0: public ThreadFunctor
-	{
-		typedef void (*fun)();
-		fun f_;
 	public:
-		ThreadFuntor0(fun pfun):f_(pfun){}
-		~ThreadFuntor0(){}
-
-		virtual void operator()()
+		struct ThreadData: public CRefCounter
 		{
-			(*f_)();
-		}
-	};
+			ThreadData():
+			pRunnableTarget(0),
+			pCallbackTarget(0),
+			thread(NULL),
+			prio(PRIO_NORMAL),
+			policy(POLICY_DEFAULT),
+			done(false),
+			stackSize(0)
+			{
 
-
-	template<typename T,typename Arg>
-	class ThreadClassFuntor1: public ThreadFunctor
-	{
-		typedef void (T::*fun)(Arg*);
-		T* pClassObj;
-		fun f_;
-		Arg* arg_;
+			}
+			Runnable*     pRunnableTarget;
+			AutoPtr<CallbackData> pCallbackTarget;
+			ThreadID     thread;
+			int           prio;
+			int           osPrio;
+			int           policy;
+			Event         done;
+			std::size_t   stackSize;
+		};
 	public:
-		ThreadClassFuntor1(T* pClass, fun pfun, Arg* arg):pClassObj(pClass),f_(pfun),arg_(arg){}
-		~ThreadClassFuntor1(){}
-
-		virtual void operator()()
-		{
-			(pClassObj->*f_)(arg);
-		}
-	};
-
-	template<typename Arg>
-	class ThreadFuntor1: public ThreadFunctor
-	{
-		typedef void (*fun)(Arg*);
-		fun f_;
-		Arg* arg_;
-	public:
-		ThreadFuntor1(fun pfun, Arg* arg):f_(pfun),arg_(arg){}
-		~ThreadFuntor1(){}
-
-		virtual void operator()()
-		{
-			(*f_)(arg_);
-		}
-	};
-
-	/////////////////////////////////thread//////////////////////
-
-	class Thread : private nocopyable
-	{
-	public:
-	  //typedef void (*ThreadFunc)(void*);;
-
-		Thread(const std::string& name ,ThreadFunctor* func);
-		//Thread(const std::string& name, CFunctionArg0Base* func);
+		Thread();
+		Thread(const std::string& name);
 		~Thread();
 
-		void start();
-		void wait();
-		void stop();
-		bool isstarted() const;
+		int GetID() const{return _id;}
+		ThreadID GetTID() const; //局部id
+		std::string GetName() const;
+		void SetName(const std::string& name);
 
-		// pthread_t pthreadId() const { return pthreadId_; }
-		ProcessID tid() const { return m_tid; }
-		std::string name() const { return m_name; }
+		void SetPriority(Priority prio); //优先级
+		Priority GetPriority() const;
 
-		static int32 numCreated() { return (int32)m_numCreated.GetVal(); }
+		void SetOSPriority(int prio, int policy = POLICY_DEFAULT);
+		int GetOSPriority() const;
+		
+		static int GetMinOSPriority(int policy = POLICY_DEFAULT);
+		static int GetMaxOSPriority(int policy = POLICY_DEFAULT);
 
+		void SetStackSize(int size);//设置线程堆栈大小
+		int GetStackSize() const;
+	
+
+		void start(Runnable& target);
+		void start(Callable target, void* pData = 0);
+
+
+		void Join();
+		void Join(long milliseconds);
+		bool TryJoin(long milliseconds);
+
+		bool IsRunning() const;
+		
+
+		static void Sleep(long milliseconds);
+		static void Yields();
+			/// Yields cpu to other threads.
+
+		static Thread* Current();
+ 		static ThreadID GetCurrentTID();
+
+	protected:
+		ThreadLocalStorage& GetTLS(); //TLS
+		void ClearTLS();
+
+		std::string makeName();
+		static int uniqueId();//创建一个全局唯一码。
+		
 	private:
-#ifdef WINDOWS
-		static  uint32  __stdcall startThread(void* thread);
-#else
-		static void* startThread(void* thread);
-#endif
-	  
-		void runInThread();
+		Thread(const Thread&);
+		Thread& operator = (const Thread&);
 
+		int                 _id;
+		std::string         _name;
+		ThreadLocalStorage* _pTLS;
+		mutable Mutex   _mutex;
 
-		mutable Mutex	m_Lock;
-		bool       m_bstarted;
-		ThreadID  m_threadId;
-		ProcessID      m_tid;
-		ThreadFunctor* m_func;
-		std::string     m_name;
-#ifdef WINDOWS
-		HANDLE m_handle;
-#endif
-		static std::map<std::string, Thread*> threadList;
-		static AtomicCounter m_numCreated;
-
-		static void StopAllThread();
+		friend class ThreadLocalStorage;
+		friend class PooledThread;
 	};
 
-	namespace CurrentThread
-	{
-	  ProcessID tid();
-	  const char* name();
-	}
-
-}
-#endif
+} 
+#endif 

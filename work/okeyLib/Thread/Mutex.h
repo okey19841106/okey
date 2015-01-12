@@ -26,12 +26,11 @@ namespace okey
 
 	class Mutex : private nocopyable
 	{
-	 public:
+	public:
 	  Mutex()
 	  {
 #ifdef WINDOWS
-		  // use critical sections in windows; much faster
-		  InitializeCriticalSection( &mutex_ );
+		InitializeCriticalSection( &mutex_ );
 #else
 		pthread_mutex_init(&mutex_, NULL);
 #endif
@@ -40,7 +39,7 @@ namespace okey
 	  ~Mutex()
 	  {
 #ifdef WINDOWS
-		  DeleteCriticalSection( &mutex_ );
+		DeleteCriticalSection( &mutex_ );
 #else
 		pthread_mutex_destroy(&mutex_);
 #endif
@@ -49,7 +48,7 @@ namespace okey
 	  void Lock()
 	  {
 #ifdef WINDOWS
-		  EnterCriticalSection( &mutex_ );
+		EnterCriticalSection( &mutex_ );
 #else
 		pthread_mutex_lock(&mutex_);
 #endif
@@ -58,7 +57,7 @@ namespace okey
 	  void UnLock()
 	  {
 #ifdef WINDOWS
-		  LeaveCriticalSection( &mutex_ );
+		 LeaveCriticalSection( &mutex_ );
 #else
 		pthread_mutex_unlock(&mutex_);
 #endif
@@ -69,7 +68,7 @@ namespace okey
 #else
 	   pthread_mutex_t* 
 #endif
-		  getPthreadMutex() /* non-const */
+	  getPthreadMutex() /* non-const */
 	  {
 		return &mutex_;
 	  }

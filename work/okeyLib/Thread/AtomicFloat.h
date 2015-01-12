@@ -40,12 +40,8 @@ namespace okey
 			float GetVal();
 
 		private:
-			// Disabled copy constructor
 			AtomicFloat(const AtomicFloat & other) {}
-
-			// Disabled assignment operator
 			AtomicFloat operator=(const AtomicFloat & other) { return *this; }
-
 			AtomicUInt Value;
 	};
 }
