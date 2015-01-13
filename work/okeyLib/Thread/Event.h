@@ -20,8 +20,8 @@ namespace okey
 		void Set();	/// Signals the event.
 		void Wait();/// Waits for the event to become signalled.
 
-		bool Wait(long milliseconds);/// Waits for the event to become signalled.
-		bool TryWait(long milliseconds);/// Waits for the event to become signalled.
+		bool Wait(uint32 milliseconds);/// Waits for the event to become signalled.
+		bool TryWait(uint32 milliseconds);/// Waits for the event to become signalled.
 
 		void Reset();/// Resets the event to unsignalled state.
 

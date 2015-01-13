@@ -107,28 +107,24 @@ namespace okey
 		bool m_Owner;
 	};
 
-	inline
-		MutexGuard::MutexGuard( Mutex& pMutex )
+	inline	MutexGuard::MutexGuard( Mutex& pMutex )
 		: m_pMutex( pMutex ), m_Owner(false)
 	{
 		Lock();
 	}
 
-	inline
-	MutexGuard::~MutexGuard()
+	inline	MutexGuard::~MutexGuard()
 	{
 		UnLock();
 	}
 
-	inline
-	void MutexGuard::Lock()
+	inline	void MutexGuard::Lock()
 	{
 		m_pMutex.Lock();
 		m_Owner = true;
 	}
 
-	inline
-	void MutexGuard::UnLock()
+	inline	void MutexGuard::UnLock()
 	{
 		if( m_Owner )
 		{
@@ -137,6 +133,46 @@ namespace okey
 		}
 	}
 
+	class UnMutexGuard:private nocopyable
+	{
+	public:
+		explicit UnMutexGuard(Mutex& pMutex , bool bunlock = true);
+		~UnMutexGuard();
+
+	public:
+		void Lock();
+		void UnLock();
+
+	private:
+		Mutex& m_pMutex;
+		bool m_Owner;
+	};
+
+	inline	UnMutexGuard::UnMutexGuard( Mutex& pMutex , bool bunlock)
+		: m_pMutex( pMutex ), m_Owner(bunlock)
+	{
+		UnLock();
+	}
+
+	inline	UnMutexGuard::~UnMutexGuard()
+	{
+		Lock();
+	}
+
+	inline	void UnMutexGuard::Lock()
+	{
+		m_pMutex.Lock();
+		m_Owner = true;
+	}
+
+	inline	void UnMutexGuard::UnLock()
+	{
+		if( m_Owner )
+		{
+			m_Owner = false;
+			m_pMutex.UnLock();
+		}
+	}
 }
 
 // Prevent misuse like:

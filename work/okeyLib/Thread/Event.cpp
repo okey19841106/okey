@@ -73,7 +73,7 @@ namespace okey
 #endif
 	}
 
-	bool Event::Wait(long milliseconds)
+	bool Event::Wait(uint32 milliseconds)
 	{
 #ifdef WINDOWS
 		switch (WaitForSingleObject(_event, milliseconds + 1))
@@ -106,13 +106,14 @@ namespace okey
 				throw SystemException("cannot wait for event");
 			}
 		}
-		if (rc == 0 && _auto) _state = false;
+		if (rc == 0 && _auto) 
+			_state = false;
 		pthread_mutex_unlock(&_mutex);
 		return rc == 0;
 #endif
 	}
 
-	bool Event::TryWait(long milliseconds)
+	bool Event::TryWait(uint32 milliseconds)
 	{
 		return Wait(milliseconds);
 	}

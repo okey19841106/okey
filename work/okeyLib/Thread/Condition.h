@@ -9,39 +9,34 @@
 #ifndef OKEY_BASE_CONDITION_H
 #define OKEY_BASE_CONDITION_H
 
-#include "Types.h"
-#include "nocopyable.h"
-#ifdef WINDOWS
-	//#include <windows.h>
-#else
-	#include <pthread.h>
-#endif
 
-
+#include <deque>
 
 namespace okey
 {
 	class Mutex;
+	class Event;
 
-	class Condition : private nocopyable
+	class Condition
 	{
-	 public:
-	  Condition();
-	  ~Condition();
-	  void wait(Mutex& mutex);
-	  void signal();
-	  void broadcast();
-
-	 private:
-	  
-	#ifdef WINDOWS
-	  HANDLE m_EventOne; 
-	  HANDLE m_EventAll; 
-	#else
-	  pthread_cond_t pcond_;
-	#endif
-	  
+	public:
+		Condition();
+		~Condition();
+		void Wait(Mutex& mutex);
+		void Wait(Mutex& mutex, uint32 milliseconds);
+		bool TryWait(Mutex& mutex, uint32 milliseconds);
+		void Signal();
+		void Broascast();
+	protected:
+		void enqueue(Event& event);
+		void dequeue();
+		void dequeue(Event& event);
+	private:
+		Condition(const Condition&);
+		Condition& operator = (const Condition&);
+		typedef std::deque<Event*> WaitQueue;
+		Mutex _mutex;
+		WaitQueue _waitQueue;
 	};
-
 }
 #endif  // MUDUO_BASE_CONDITION_H

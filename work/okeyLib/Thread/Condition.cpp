@@ -1,67 +1,99 @@
 #include "PreCom.h"
 #include "Condition.h"
 #include "Mutex.h"
+#include "Event.h"
+#include "Exception.h"
 
 namespace okey{
 
 	Condition::Condition()
 	{
-#ifdef WINDOWS
-		SECURITY_ATTRIBUTES attr;
-		attr.nLength = sizeof(SECURITY_ATTRIBUTES);
-		attr.lpSecurityDescriptor = NULL;
-		attr.bInheritHandle = FALSE;
-		m_EventOne		= ::CreateEvent(&attr, FALSE, FALSE, NULL); 
-		m_EventAll		= ::CreateEvent(&attr, TRUE, FALSE, NULL); 
-#else
-		pthread_cond_init(&pcond_, NULL);
-#endif
 
 	}
 
 	Condition::~Condition()
 	{
-#ifdef WINDOWS
-		::CloseHandle(m_EventOne); 
-		::CloseHandle(m_EventAll); 
-#else
-		pthread_cond_destroy(&pcond_);
-#endif
 
 	}
 
-	void Condition::wait(Mutex& mutex_)
+	void Condition::Wait(Mutex& mutex)
 	{
-#ifdef WINDOWS
-		mutex_.UnLock();
-		HANDLE eve[] = {m_EventOne, m_EventAll};
-		::WaitForMultipleObjects(2, eve, FALSE, INFINITE);
-		mutex_.Lock();
-#else
-		pthread_cond_wait(&pcond_, mutex_.getPthreadMutex());
-#endif
-
+		
+		UnMutexGuard unlock(mutex, false);
+		Event event;
+		{
+			MutexGuard lock(_mutex);
+			mutex.UnLock();
+			enqueue(event);
+		}
+		event.Wait();
 	}
 
-	void Condition::signal()
+	void Condition::Wait(Mutex& mutex, uint32 milliseconds)
 	{
-#ifdef WINDOWS
-		::SetEvent(m_EventOne);
-#else
-		pthread_cond_signal(&pcond_);
-#endif
-
+		if (!TryWait(mutex,milliseconds))
+		{
+			throw TimeoutException("Condition is Time Out");
+		}
 	}
 
-	void Condition::broadcast()
+	bool Condition::TryWait(Mutex& mutex, uint32 milliseconds)
 	{
-#ifdef WINDOWS
-		::SetEvent(m_EventAll);
-		::ResetEvent(m_EventAll);
-#else
-		pthread_cond_broadcast(&pcond_);
-#endif
-
+		UnMutexGuard unlock(mutex, false);
+		Event event;
+		{
+			MutexGuard lock(_mutex);
+			mutex.UnLock();
+			enqueue(event);
+		}
+		if (!event.TryWait(milliseconds))
+		{
+			MutexGuard lock(_mutex);
+			dequeue(event);
+			return false;
+		}
+		return true;
 	}
 
+	void Condition::Signal()
+	{
+		MutexGuard lock(_mutex);
+		if (!_waitQueue.empty())
+		{
+			_waitQueue.front()->Set();
+			dequeue();
+		}
+	}
+
+	void Condition::Broascast()
+	{
+		MutexGuard lock(_mutex);
+		for (WaitQueue::iterator it = _waitQueue.begin(); it != _waitQueue.end(); ++it)
+		{
+			(*it)->Set();
+		}
+		_waitQueue.clear();
+	}
+
+	void Condition::enqueue(Event& event)
+	{
+		_waitQueue.push_back(&event);
+	}
+
+	void Condition::dequeue()
+	{
+		_waitQueue.pop_front();
+	}
+
+	void Condition::dequeue(Event& event)
+	{
+		for (WaitQueue::iterator it = _waitQueue.begin(); it != _waitQueue.end(); ++it)
+		{
+			if (*it == &event)
+			{
+				_waitQueue.erase(it);
+				break;
+			}
+		}
+	}
 }
