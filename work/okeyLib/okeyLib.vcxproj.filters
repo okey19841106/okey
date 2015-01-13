@@ -72,9 +72,6 @@
     <ClCompile Include="Thread\Condition.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
-    <ClCompile Include="Thread\Semaph.cpp">
-      <Filter>Thread</Filter>
-    </ClCompile>
     <ClCompile Include="Thread\Thread.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
@@ -177,9 +174,6 @@
     <ClCompile Include="File\FileStream.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
-    <ClCompile Include="File\FileStream.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
     <ClCompile Include="Stream\MemoryStreamBuf.cpp">
       <Filter>Stream</Filter>
     </ClCompile>
@@ -207,6 +201,12 @@
     <ClCompile Include="inc\Environment.cpp">
       <Filter>inc</Filter>
     </ClCompile>
+    <ClCompile Include="Thread\Event.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\Semaphore.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -228,9 +228,6 @@
       <Filter>Thread</Filter>
     </ClInclude>
     <ClInclude Include="Thread\Mutex.h">
-      <Filter>Thread</Filter>
-    </ClInclude>
-    <ClInclude Include="Thread\Semaph.h">
       <Filter>Thread</Filter>
     </ClInclude>
     <ClInclude Include="Thread\Thread.h">
@@ -419,9 +416,6 @@
     <ClInclude Include="File\FileStream.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="File\FileStream.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="Stream\BufferedBidirectionalStreamBuf.h">
       <Filter>Stream</Filter>
     </ClInclude>
@@ -469,6 +463,15 @@
     </ClInclude>
     <ClInclude Include="inc\Environment.h">
       <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\AutoPtr.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Event.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Semaphore.h">
+      <Filter>Thread</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -16,16 +16,9 @@ namespace okey
 			AtomicUInt(uint32 InitialValue) { Value = InitialValue; }
 			uint32 SetVal(uint32 NewValue);
 			uint32 GetVal() { return Value; }
-
-
 		private:
-			// Disabled copy constructor
 			AtomicUInt(const AtomicUInt & other) {}
-
-			// Disabled assignment operator
 			AtomicUInt operator=(AtomicUInt & other) { return *this; }
-
-
 		protected:
 
 #ifdef WINDOWS

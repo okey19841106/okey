@@ -129,7 +129,8 @@
     <ClCompile Include="Thread\AtomicFloat.cpp" />
     <ClCompile Include="Thread\AtomicULong.cpp" />
     <ClCompile Include="Thread\Condition.cpp" />
-    <ClCompile Include="Thread\Semaph.cpp" />
+    <ClCompile Include="Thread\Event.cpp" />
+    <ClCompile Include="Thread\Semaphore.cpp" />
     <ClCompile Include="Thread\Thread.cpp" />
     <ClCompile Include="Thread\ThreadPool.cpp" />
     <ClCompile Include="tinyxml\tinyxml.cpp">
@@ -149,6 +150,7 @@
     <ClInclude Include="File\FileIni.h" />
     <ClInclude Include="inc\AnyTypeBase.h" />
     <ClInclude Include="inc\AssocVector.h" />
+    <ClInclude Include="inc\AutoPtr.h" />
     <ClInclude Include="inc\BaseClass.h" />
     <ClInclude Include="inc\BaseProcess.h" />
     <ClInclude Include="inc\BitObjectBase.h" />
@@ -219,8 +221,9 @@
     <ClInclude Include="Thread\AtomicFloat.h" />
     <ClInclude Include="Thread\AtomicULong.h" />
     <ClInclude Include="Thread\Condition.h" />
+    <ClInclude Include="Thread\Event.h" />
     <ClInclude Include="Thread\Mutex.h" />
-    <ClInclude Include="Thread\Semaph.h" />
+    <ClInclude Include="Thread\Semaphore.h" />
     <ClInclude Include="Thread\Thread.h" />
     <ClInclude Include="Thread\ThreadPool.h" />
     <ClInclude Include="tinyxml\tinyxml.h" />
