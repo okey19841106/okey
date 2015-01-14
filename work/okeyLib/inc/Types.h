@@ -100,10 +100,12 @@ namespace okey
 	typedef DWORD ThreadID;
 	typedef DWORD ProcessID;
 	typedef HANDLE IOType;
+	typedef HANDLE Handle;
 #else                      
 	typedef pthread_t ThreadID;
 	typedef pid_t	ProcessID:
 	typedef int	IOType;
+	typedef int Handle;
 	enum { INVALID_HANDLE_VALUE = -1 };
 #endif
 

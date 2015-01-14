@@ -121,6 +121,11 @@
     <ClCompile Include="NetWork\PacketList.cpp" />
     <ClCompile Include="NetWork\SocketBase.cpp" />
     <ClCompile Include="NetWork\SocketOps.cpp" />
+    <ClCompile Include="process\NameEvent.cpp" />
+    <ClCompile Include="process\NameMutex.cpp" />
+    <ClCompile Include="process\ProcessPipe.cpp" />
+    <ClCompile Include="process\Process.cpp" />
+    <ClCompile Include="process\ShareMemory.cpp" />
     <ClCompile Include="Stream\FileStream.cpp" />
     <ClCompile Include="Stream\FileStreamBuf.cpp" />
     <ClCompile Include="Stream\MemoryStreamBuf.cpp" />
@@ -209,6 +214,12 @@
     <ClInclude Include="NetWork\PacketList.h" />
     <ClInclude Include="NetWork\SocketBase.h" />
     <ClInclude Include="NetWork\SocketOps.h" />
+    <ClInclude Include="process\NameEvent.h" />
+    <ClInclude Include="process\NameMutex.h" />
+    <ClInclude Include="process\ProcessPipe.h" />
+    <ClInclude Include="process\PipeStream.h" />
+    <ClInclude Include="process\Process.h" />
+    <ClInclude Include="process\ShareMemory.h" />
     <ClInclude Include="Stream\BufferAlloctor.h" />
     <ClInclude Include="Stream\BufferedBidirectionalStreamBuf.h" />
     <ClInclude Include="Stream\BufferedStreamBuf.h" />

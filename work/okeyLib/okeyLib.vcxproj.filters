@@ -46,6 +46,9 @@
     <Filter Include="Stream">
       <UniqueIdentifier>{a75d983c-e620-4263-bbe5-76797f5f4ab0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="process">
+      <UniqueIdentifier>{0258cdd0-dfe0-4d57-8e6f-83be768dfda0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyxml\tinyxml.cpp">
@@ -171,9 +174,6 @@
     <ClCompile Include="File\FileStream.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
-    <ClCompile Include="File\FileStream.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
     <ClCompile Include="Stream\MemoryStreamBuf.cpp">
       <Filter>Stream</Filter>
     </ClCompile>
@@ -206,6 +206,21 @@
     </ClCompile>
     <ClCompile Include="Thread\Semaphore.cpp">
       <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="process\NameEvent.cpp">
+      <Filter>process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\NameMutex.cpp">
+      <Filter>process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\Process.cpp">
+      <Filter>process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\ShareMemory.cpp">
+      <Filter>process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\ProcessPipe.cpp">
+      <Filter>process</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -413,9 +428,6 @@
     <ClInclude Include="File\FileIni.h">
       <Filter>File</Filter>
     </ClInclude>
-    <ClInclude Include="File\FileStream.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="Stream\BufferedBidirectionalStreamBuf.h">
       <Filter>Stream</Filter>
     </ClInclude>
@@ -472,6 +484,24 @@
     </ClInclude>
     <ClInclude Include="Thread\Semaphore.h">
       <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="process\NameEvent.h">
+      <Filter>process</Filter>
+    </ClInclude>
+    <ClInclude Include="process\NameMutex.h">
+      <Filter>process</Filter>
+    </ClInclude>
+    <ClInclude Include="process\PipeStream.h">
+      <Filter>process</Filter>
+    </ClInclude>
+    <ClInclude Include="process\Process.h">
+      <Filter>process</Filter>
+    </ClInclude>
+    <ClInclude Include="process\ShareMemory.h">
+      <Filter>process</Filter>
+    </ClInclude>
+    <ClInclude Include="process\ProcessPipe.h">
+      <Filter>process</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
