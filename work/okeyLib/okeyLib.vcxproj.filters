@@ -171,9 +171,6 @@
     <ClCompile Include="File\FileIni.cpp">
       <Filter>File</Filter>
     </ClCompile>
-    <ClCompile Include="File\FileStream.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
     <ClCompile Include="Stream\MemoryStreamBuf.cpp">
       <Filter>Stream</Filter>
     </ClCompile>
@@ -220,6 +217,9 @@
       <Filter>process</Filter>
     </ClCompile>
     <ClCompile Include="process\ProcessPipe.cpp">
+      <Filter>process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\PipeStream.cpp">
       <Filter>process</Filter>
     </ClCompile>
   </ItemGroup>
@@ -442,9 +442,6 @@
     </ClInclude>
     <ClInclude Include="Stream\BufferAlloctor.h">
       <Filter>Stream</Filter>
-    </ClInclude>
-    <ClInclude Include="File\FileStream.h">
-      <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="File\FileStream.h">
       <Filter>inc</Filter>

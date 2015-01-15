@@ -3,7 +3,7 @@
 	created:	16:32
 	author:		okey
 	
-	purpose:	
+	purpose:	命名管道用socket来实现。就变成了网络通信。
 *********************************************************************/
 #ifndef __OKEY_PIPE_H__
 #define __OKEY_PIPE_H__
@@ -30,6 +30,7 @@ namespace okey
 
 	class Pipe
 	{
+	public:
 		enum CloseMode /// used by close()
 		{
 			CLOSE_READ  = 0x01, /// Close reading end of pipe.

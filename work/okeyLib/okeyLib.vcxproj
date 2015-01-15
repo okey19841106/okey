@@ -123,6 +123,7 @@
     <ClCompile Include="NetWork\SocketOps.cpp" />
     <ClCompile Include="process\NameEvent.cpp" />
     <ClCompile Include="process\NameMutex.cpp" />
+    <ClCompile Include="process\PipeStream.cpp" />
     <ClCompile Include="process\ProcessPipe.cpp" />
     <ClCompile Include="process\Process.cpp" />
     <ClCompile Include="process\ShareMemory.cpp" />

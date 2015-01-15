@@ -72,6 +72,8 @@ namespace okey
 		static void Trim(char* ptr);
 		static void Trim(std::string& str);
 		static void Tokenize(const std::string&str, std::vector<std::string>& strs, const std::string& delimit = ";");
+		template<typename T>
+		static std::string ToHexString(T v, int32 wide);
 	};
 
 	template<>
@@ -234,4 +236,24 @@ namespace okey
 	{
 		return icompare(str, 0, str.size(), ptr);
 	}
+
+	template< >
+	inline std::string StringHelper::ToHexString<int64>(int64 v, int32 wide)
+	{
+		//poco_assert (width > 0 && width < 64);
+		char buffer[64];
+		tsnprintf(buffer, "%0*"INT64_FROMAT_X, wide, v);
+		return buffer;
+	}
+
+	template< >
+	inline std::string StringHelper::ToHexString<uint64>(uint64 v, int32 wide)
+	{
+		char buffer[64];
+		tsnprintf(buffer, "%0*"INT64_FROMAT_X, wide, v);
+		return buffer;
+	}
+
+#define TO_HEX_STRING_INT(value, wide)	\
+	StringHelper::ToHexString<int64>((int64)value, wide)
 }

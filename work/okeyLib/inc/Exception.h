@@ -92,7 +92,8 @@ OKEY_DECLARE_EXCEPTION(ReadFileException, Exception, "Cannot read file");
 OKEY_DECLARE_EXCEPTION(SystemException, Exception,"System Exception");
 OKEY_DECLARE_EXCEPTION(NotFoundException,Exception,"Not Find");
 OKEY_DECLARE_EXCEPTION(TimeoutException,Exception,"Time Out!");
-OKEY_DECLARE_EXCEPTION(OpenFileException,Exception,"Can not open file")
+OKEY_DECLARE_EXCEPTION(OpenFileException,Exception,"Can not open file");
+OKEY_DECLARE_EXCEPTION(NoPermissionException,Exception,"No Permission");
 // OKEY_DECLARE_EXCEPTION(FileNotFoundException, Exception, "Cannot read file");
 // OKEY_DECLARE_EXCEPTION(PathNotFoundException, Exception, "Cannot read file");
 // OKEY_DECLARE_EXCEPTION(FileAccessDeniedException, Exception, "Cannot read file");
