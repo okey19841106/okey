@@ -213,6 +213,9 @@
     <ClCompile Include="Thread\Mutex.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
+    <ClCompile Include="Thread\ThreadLocal.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -481,6 +484,9 @@
     </ClInclude>
     <ClInclude Include="inc\SharedPtr.h">
       <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\ThreadLocal.h">
+      <Filter>Thread</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

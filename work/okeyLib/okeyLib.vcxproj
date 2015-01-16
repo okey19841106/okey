@@ -136,6 +136,7 @@
     <ClCompile Include="Thread\Mutex.cpp" />
     <ClCompile Include="Thread\Semaphore.cpp" />
     <ClCompile Include="Thread\Thread.cpp" />
+    <ClCompile Include="Thread\ThreadLocal.cpp" />
     <ClCompile Include="Thread\ThreadPool.cpp" />
     <ClCompile Include="tinyxml\tinyxml.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -233,6 +234,7 @@
     <ClInclude Include="Thread\Mutex.h" />
     <ClInclude Include="Thread\Semaphore.h" />
     <ClInclude Include="Thread\Thread.h" />
+    <ClInclude Include="Thread\ThreadLocal.h" />
     <ClInclude Include="Thread\ThreadPool.h" />
     <ClInclude Include="tinyxml\tinyxml.h" />
   </ItemGroup>

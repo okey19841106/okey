@@ -26,6 +26,15 @@ namespace okey
 			return it->second;
 	}
 
+	namespace
+	{
+		ThreadLocalStorage& GetGlobleTLS()
+		{
+			static ThreadLocalStorage st;
+			return st;
+		}
+	}
+
 	ThreadLocalStorage& ThreadLocalStorage::Current()
 	{
 		Thread* pThread = Thread::Current();
@@ -35,11 +44,11 @@ namespace okey
 		}
 		else
 		{
-			return *sh.get();
+			return GetGlobleTLS();//主线程的。
 		}
 	}
 
-	void ThreadLocalStorage::Clear()
+	void ThreadLocalStorage::Clear() //主线程TLS不会被销毁。
 	{
 		Thread* pThread = Thread::Current();
 		if (pThread)
