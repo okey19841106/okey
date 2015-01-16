@@ -8,7 +8,7 @@
 #ifndef __OKEY_THREAD_H__
 #define __OKEY_THREAD_H__
 
-
+#include "Mutex.h"
 
 namespace okey{
 
@@ -42,7 +42,7 @@ namespace okey{
 			PRIO_HIGH    = THREAD_PRIORITY_ABOVE_NORMAL,
 			PRIO_HIGHEST = THREAD_PRIORITY_HIGHEST
 #else
-			PRIO_LOWEST , /// The lowest thread priority.
+			PRIO_LOWEST = 0, /// The lowest thread priority.
 			PRIO_LOW ,    /// A lower than normal thread priority.
 			PRIO_NORMAL , /// The normal thread priority.
 			PRIO_HIGH,   /// A higher than normal thread priority.
@@ -87,40 +87,26 @@ namespace okey{
 		Thread();
 		Thread(const std::string& name);
 		~Thread();
-
 		int GetID() const{return _id;}
 		ThreadID GetTID() const; //局部id
 		std::string GetName() const;
 		void SetName(const std::string& name);
-
 		void SetPriority(Priority prio); //优先级
 		Priority GetPriority() const;
-
 		void SetOSPriority(int prio, int policy = POLICY_DEFAULT);
 		int GetOSPriority() const;
-		
 		static int GetMinOSPriority(int policy = POLICY_DEFAULT);
 		static int GetMaxOSPriority(int policy = POLICY_DEFAULT);
-
 		void SetStackSize(int size);//设置线程堆栈大小
 		int GetStackSize() const;
-	
-
-		void start(Runnable& target);
-		void start(Callable target, void* pData = 0);
-
-
+		void Start(Runnable& target);
+		void Start(Callable target, void* pData = 0);
 		void Join();
 		void Join(long milliseconds);
 		bool TryJoin(long milliseconds);
-
 		bool IsRunning() const;
-		
-
 		static void Sleep(long milliseconds);
-		static void Yields();
-			/// Yields cpu to other threads.
-
+		static void Yields();/// Yields cpu to other threads.
 		static Thread* Current();
  		static ThreadID GetCurrentTID();
 
@@ -138,8 +124,7 @@ namespace okey{
 		int                 _id;
 		std::string         _name;
 		ThreadLocalStorage* _pTLS;
-		mutable Mutex   _mutex;
-
+		mutable FastMutex   _mutex;
 		friend class ThreadLocalStorage;
 		friend class PooledThread;
 	};

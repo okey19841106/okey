@@ -24,155 +24,114 @@
 namespace okey
 {
 
+	template<typename M>
+	class ScopedLock
+	{
+	public:
+		ScopedLock(M& m):_m(m){_m.Lock();}
+		~ScopedLock(){_m.UnLock();}
+	private:
+		M& _m;
+	private:
+		ScopedLock();
+		ScopedLock(const ScopedLock&);
+		ScopedLock& operator = (const ScopedLock&);
+	};
+
+	template<typename M>
+	class ScopedLockWithUnlock
+	{
+	public:
+		ScopedLockWithUnlock(M& m):_m(&m){_m.Lock();}
+		~ScopedLockWithUnlock(){UnLock();}
+		void UnLock()
+		{
+			if (_m)
+			{
+				_m->UnLock();
+			}
+		}
+	private:
+		ScopedLockWithUnlock();
+		ScopedLockWithUnlock(const ScopedLockWithUnlock&);
+		ScopedLockWithUnlock& operator = (const ScopedLockWithUnlock&);
+	private:
+		M* _m;
+	};
+
+	template<typename M>
+	class ScopedUnLock
+	{
+	public:
+		ScopedUnLock(M& m, bool unlockNow = true):_m(m), _bUnLock(unlockNow)
+		{
+			if (_bUnLock)
+			{
+				_m->Lock();
+			}
+		}
+		~ScopedUnLock()
+		{
+			_m->Lock();
+		}
+	private:
+		ScopedUnLock();
+		ScopedUnLock(const ScopedUnLock&);
+		ScopedUnLock& operator = (const ScopedUnLock&);
+	private:
+		bool _bUnLock;
+		M& _m;
+	};
+
 	class Mutex : private nocopyable
 	{
 	public:
-	  Mutex()
-	  {
-#ifdef WINDOWS
-		InitializeCriticalSection( &mutex_ );
-#else
-		pthread_mutex_init(&mutex_, NULL);
-#endif
-	  }
-
-	  ~Mutex()
-	  {
-#ifdef WINDOWS
-		DeleteCriticalSection( &mutex_ );
-#else
-		pthread_mutex_destroy(&mutex_);
-#endif
-	  }
-
-	  void Lock()
-	  {
-#ifdef WINDOWS
-		EnterCriticalSection( &mutex_ );
-#else
-		pthread_mutex_lock(&mutex_);
-#endif
-	  }
-
-	  void UnLock()
-	  {
-#ifdef WINDOWS
-		 LeaveCriticalSection( &mutex_ );
-#else
-		pthread_mutex_unlock(&mutex_);
-#endif
-	  }
-
-#ifdef WINDOWS
-	  CRITICAL_SECTION*
-#else
-	   pthread_mutex_t* 
-#endif
-	  getPthreadMutex() /* non-const */
-	  {
-		return &mutex_;
-	  }
-
-
-	   bool TryLock()
-	   {
-#ifndef WINDOWS
-		   return (pthread_mutex_trylock(&mutex_) == 0);
-#else
-		   return (TryEnterCriticalSection(&mutex_) == TRUE ? true : false);
-#endif
-	   }
-	   
-
-	 private:
-#ifdef WINDOWS
-	CRITICAL_SECTION mutex_;
-#else
-	 pthread_mutex_t mutex_;
-#endif
-	};
-
-	class MutexGuard:private nocopyable
-	{
+		typedef ScopedLock<Mutex> ScopedLock;
+		typedef ScopedLockWithUnlock<Mutex> ScopedLockWithUnlock;
+		typedef ScopedUnLock<Mutex> ScopedUnLock;
 	public:
-		explicit MutexGuard(Mutex& pMutex );
-		~MutexGuard();
-
-	public:
+		Mutex();
+#ifdef LINUX
+		Mutex(bool fast);
+#endif
+		~Mutex();
 		void Lock();
 		void UnLock();
-
+		bool TryLock();
 	private:
-		Mutex& m_pMutex;
-		bool m_Owner;
+#ifdef WINDOWS
+		CRITICAL_SECTION _mutex;
+#else
+		pthread_mutex_t _mutex;
+#endif
 	};
 
-	inline	MutexGuard::MutexGuard( Mutex& pMutex )
-		: m_pMutex( pMutex ), m_Owner(false)
-	{
-		Lock();
-	}
 
-	inline	MutexGuard::~MutexGuard()
-	{
-		UnLock();
-	}
-
-	inline	void MutexGuard::Lock()
-	{
-		m_pMutex.Lock();
-		m_Owner = true;
-	}
-
-	inline	void MutexGuard::UnLock()
-	{
-		if( m_Owner )
-		{
-			m_Owner = false;
-			m_pMutex.UnLock();
-		}
-	}
-
-	class UnMutexGuard:private nocopyable
+#ifdef WINDOWS
+	typedef Mutex FastMutex;
+#else
+	class FastMutex : public Mutex
 	{
 	public:
-		explicit UnMutexGuard(Mutex& pMutex , bool bunlock = true);
-		~UnMutexGuard();
-
+		typedef ScopedLock<FastMutex> ScopedLock;
+		typedef ScopedLockWithUnlock<FastMutex> ScopedLockWithUnlock;
+		typedef ScopedUnLock<FastMutex> ScopedUnLock;
 	public:
-		void Lock();
-		void UnLock();
+		FastMutex():Mutex(true){}
+		~FastMutex(){}
+	};
+#endif
 
-	private:
-		Mutex& m_pMutex;
-		bool m_Owner;
+	class NullLock: public nocopyable
+	{
+	public:
+		NullLock(){}
+		~NullLock(){}
+		void Lock(){}
+		void UnLock(){}
+		bool TryLock(){return true;}
 	};
 
-	inline	UnMutexGuard::UnMutexGuard( Mutex& pMutex , bool bunlock)
-		: m_pMutex( pMutex ), m_Owner(bunlock)
-	{
-		UnLock();
-	}
-
-	inline	UnMutexGuard::~UnMutexGuard()
-	{
-		Lock();
-	}
-
-	inline	void UnMutexGuard::Lock()
-	{
-		m_pMutex.Lock();
-		m_Owner = true;
-	}
-
-	inline	void UnMutexGuard::UnLock()
-	{
-		if( m_Owner )
-		{
-			m_Owner = false;
-			m_pMutex.UnLock();
-		}
-	}
 }
 
 // Prevent misuse like:

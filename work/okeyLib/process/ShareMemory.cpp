@@ -22,7 +22,7 @@ namespace okey
 #endif
 	{
 #ifdef WINDOWS
-		if (mode == SharedMemory::AM_WRITE)
+		if (mode == AM_WRITE)
 			_mode = PAGE_READWRITE;
 		_memHandle = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, _mode, 0, static_cast<DWORD>(_size), _name.c_str());
 		if (!_memHandle)
@@ -151,7 +151,7 @@ namespace okey
 #ifdef WINDOWS
 		DWORD shareMode = FILE_SHARE_READ | FILE_SHARE_WRITE;
 		DWORD fileMode  = GENERIC_READ;
-		if (mode == SharedMemory::AM_WRITE)
+		if (mode == AM_WRITE)
 		{
 			_mode = PAGE_READWRITE;
 			fileMode |= GENERIC_WRITE;
@@ -188,7 +188,7 @@ namespace okey
 
 	}
 
-	SharedMemory::SharedMemory(const FileInfo& file, ShareMemory_AccessMode mode, const void* addrHint = 0):
+	SharedMemory::SharedMemory(const FileInfo& file, ShareMemory_AccessMode mode, const void* addrHint):
 	_pImpl(new ProcessShareMemory(file,mode,addrHint))
 	{
 

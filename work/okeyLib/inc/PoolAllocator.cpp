@@ -181,7 +181,7 @@ namespace okey
 	void* PoolAllocatorLock::PopMemory()
 	{
 		
-		MutexGuard guard(m_Mutex);
+		FastMutex::ScopedLock guard(m_Mutex);
 		char* res = NULL;
 		if (NULL == m_phead)
 		{
@@ -215,7 +215,7 @@ namespace okey
 		{
 			return;
 		}
-		MutexGuard guard(m_Mutex);
+		FastMutex::ScopedLock guard(m_Mutex);
 		sMemoryCell* pCell = (sMemoryCell*)( (char*)ptr - sizeof(MemoryHead) );
 		if (pCell->m_info.AllocInfo != m_info.AllocInfo)
 		{
@@ -230,7 +230,7 @@ namespace okey
 	}
 	void PoolAllocatorLock::CollectMemory()
 	{
-		MutexGuard guard(m_Mutex);
+		FastMutex::ScopedLock guard(m_Mutex);
 		while (m_phead)
 		{
 			//char* ptr = (char*)m_phead;
@@ -248,7 +248,7 @@ namespace okey
 	}
 	int64 PoolAllocatorLock::GetMemroyUsage()
 	{
-		MutexGuard guard(m_Mutex);
+		FastMutex::ScopedLock guard(m_Mutex);
 		return m_memusage;
 	}
 	bool PoolAllocatorLock::IsValidMemory(void* ptr)
@@ -257,7 +257,7 @@ namespace okey
 		{
 			return false;
 		}
-		MutexGuard guard(m_Mutex);
+		FastMutex::ScopedLock guard(m_Mutex);
 		
 		sMemoryCell* pCell = (sMemoryCell*)( (char*)ptr - sizeof(MemoryHead) );
 		return ((pCell->m_info.MemInfo & 0x80000000) && 
@@ -271,7 +271,7 @@ namespace okey
 		{
 			return -1;
 		}
-		MutexGuard guard(m_Mutex);
+		FastMutex::ScopedLock guard(m_Mutex);
 		sMemoryCell* realptr = (sMemoryCell*)( (char*)ptr - sizeof(MemoryHead) );
 		return realptr->m_info.AllocInfo;
 	}

@@ -38,8 +38,8 @@ namespace okey
 		void IncreaseRecvDataSizeTotal( uint32 sizeIncreased );
 	
 		//锁操作。
-		Mutex& GetRecvLock(){return m_RecvMutex;}
-		Mutex& GetSendLock(){return m_SendMutex;}
+		FastMutex& GetRecvLock(){return m_RecvMutex;}
+		FastMutex& GetSendLock(){return m_SendMutex;}
 		void RecvLock(){m_RecvMutex.Lock();}
 		void RecvUnLock(){m_RecvMutex.UnLock();}
 		void SendLock(){m_SendMutex.Lock();}
@@ -72,8 +72,8 @@ namespace okey
 		uint32 m_SendingDataSize;
 		uint32 m_SendDataSizeTotal;
 		uint32 m_RecvDataSizeTotal;
-		Mutex m_RecvMutex; //两个锁。
-		Mutex m_SendMutex;
+		FastMutex m_RecvMutex; //两个锁。
+		FastMutex m_SendMutex;
 		
 		
 

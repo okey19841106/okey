@@ -8,7 +8,7 @@ class nocopyable
 {
 protected:
 	nocopyable() {}
-	~nocopyable() {}
+	virtual ~nocopyable() {}
 private:  // emphasize the following members are private
 	nocopyable( const nocopyable& );
 	const nocopyable& operator=( const nocopyable& );

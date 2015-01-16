@@ -59,7 +59,7 @@ namespace okey
 
 	private:
 		std::stack<fun> m_stack;
-		Mutex m_Mutex;
+		FastMutex m_Mutex;
 	};
 
 	inline LCAExitHelper& GetExitHelper()

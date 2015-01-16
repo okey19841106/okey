@@ -11,10 +11,11 @@
 
 
 #include <deque>
+#include "Mutex.h"
 
 namespace okey
 {
-	class Mutex;
+
 	class Event;
 
 	class Condition
@@ -22,9 +23,45 @@ namespace okey
 	public:
 		Condition();
 		~Condition();
-		void Wait(Mutex& mutex);
-		void Wait(Mutex& mutex, uint32 milliseconds);
-		bool TryWait(Mutex& mutex, uint32 milliseconds);
+		template<typename M>
+		void Wait(M& mutex)
+		{
+			ScopedUnLock<M> unlock(mutex, false);
+			Event event;
+			{
+				FastMutex::ScopedLock lock(_mutex);
+				mutex.UnLock();
+				enqueue(event);
+			}
+			event.Wait();
+		}
+		template<typename M>
+		void Wait(M& mutex, uint32 milliseconds)
+		{
+			if (!TryWait(mutex,milliseconds))
+			{
+				throw TimeoutException("Condition is Time Out");
+			}
+		}
+		template<typename M>
+		bool TryWait(M& mutex, uint32 milliseconds)
+		{
+			ScopedUnLock<M> unlock(mutex, false);
+			Event event;
+			{
+				FastMutex::ScopedLock lock(_mutex);
+				mutex.UnLock();
+				enqueue(event);
+			}
+			if (!event.TryWait(milliseconds))
+			{
+				FastMutex::ScopedLock lock(_mutex);
+				dequeue(event);
+				return false;
+			}
+			return true;
+		}
+
 		void Signal();
 		void Broascast();
 	protected:
@@ -35,7 +72,7 @@ namespace okey
 		Condition(const Condition&);
 		Condition& operator = (const Condition&);
 		typedef std::deque<Event*> WaitQueue;
-		Mutex _mutex;
+		FastMutex _mutex;
 		WaitQueue _waitQueue;
 	};
 }

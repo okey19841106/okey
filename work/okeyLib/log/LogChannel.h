@@ -41,7 +41,7 @@ namespace okey
 		{
 			if (true == m_bInited && 0 < m_nPos)
 			{
-				MutexGuard guid(m_cMutex);
+				FastMutex::ScopedLock guid(m_cMutex);
 				flush();
 			}
 		}
@@ -67,7 +67,7 @@ namespace okey
 		bool Log(char const* szLog, uint32 nSize, bool bFlush)
 		{
 			bool bRet = false;
-			MutexGuard gurd(m_cMutex);
+			FastMutex::ScopedLock gurd(m_cMutex);
 			if (szLog == NULL  || nSize == 0 || nSize > g_log_constant_value)
 			{
 				return false;
@@ -145,7 +145,7 @@ namespace okey
 		uint32 m_nHoldSize;
 		bool m_bDisplayEnabled;
 		bool m_bInited;
-		Mutex m_cMutex;
+		FastMutex m_cMutex;
 	};
 }
 

@@ -29,7 +29,7 @@ namespace okey
 		}
 		T* Pop()
 		{
-			MutexGuard guard(m_Mutex);
+			FastMutex::ScopedLock guard(m_Mutex);
 			if (m_Queue.Size() == 0)
 			{
 				return NULL;
@@ -38,7 +38,7 @@ namespace okey
 		}
 		bool Push(T* pval)
 		{
-			MutexGuard guard(m_Mutex);
+			FastMutex::ScopedLock guard(m_Mutex);
 			if (m_Queue.Size() >= ELEMENTCOUNT)
 			{
 				return false;
@@ -47,12 +47,12 @@ namespace okey
 		}
 		int32 GetSize()
 		{
-			MutexGuard guard(m_Mutex);
+			FastMutex::ScopedLock guard(m_Mutex);
 			return m_Queue.Size();
 		}
 	private:
 		Queue<T*, ELEMENTCOUNT> m_Queue;
-		Mutex m_Mutex;
+		FastMutex m_Mutex;
 	};
 }
 #endif

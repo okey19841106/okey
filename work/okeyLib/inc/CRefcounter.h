@@ -9,7 +9,7 @@ namespace okey
 	{
 
 		public:
-			CRefCounter() { Counter.SetVal(1); }
+			CRefCounter() { Counter.SetValue(1); }
 			virtual ~CRefCounter() {}
 			void AddRef() { ++Counter; }
 			void DecRef()

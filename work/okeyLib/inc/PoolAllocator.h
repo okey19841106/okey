@@ -75,7 +75,7 @@ namespace okey
 		virtual void PushMemory(void* ptr);
 
 	protected:
-		Mutex m_Mutex;
+		FastMutex m_Mutex;
 	};
 
 

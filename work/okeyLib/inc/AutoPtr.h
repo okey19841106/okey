@@ -275,6 +275,12 @@ namespace okey
 	private:
 		C* ptr;
 	};
+
+	template <class C>
+	inline void swap(AutoPtr<C>& p1, AutoPtr<C>& p2)
+	{
+		p1.swap(p2);
+	}
 }
 
 #endif

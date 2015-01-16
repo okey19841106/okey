@@ -12,7 +12,7 @@ namespace okey
 {
 #ifndef WINDOWS
 	static StringMap Environment::m_map;
-	static Mutex Environment::m_cMutex;
+	static FastMutex Environment::m_cMutex;
 #endif
 	std::string Environment::get(const std::string& name)
 	{
@@ -26,7 +26,7 @@ namespace okey
 		delete [] buffer;
 		return result;
 #else
-		MutexGuard lock(m_cMutex);
+		FastMutex::ScopedLock lock(m_cMutex);
 		const char* val = getenv(name.c_str());
 		if (val)
 			return std::string(val);
@@ -49,7 +49,7 @@ namespace okey
 		DWORD len = GetEnvironmentVariable(name.c_str(), 0, 0);
 		return len > 0;
 #else
-		MutexGuard lock(m_cMutex);
+		FastMutex::ScopedLock lock(m_cMutex);
 		return getenv(name.c_str()) != 0;
 #endif
 		
@@ -65,7 +65,7 @@ namespace okey
 			throw SystemException(msg);
 		}
 #else
-		MutexGuard lock(m_cMutex);
+		FastMutex::ScopedLock lock(m_cMutex);
 		std::string var = name;
 		var.append("=");
 		var.append(value);

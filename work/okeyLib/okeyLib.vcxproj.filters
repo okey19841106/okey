@@ -60,16 +60,7 @@
     <ClCompile Include="tinyxml\tinyxmlparser.cpp">
       <Filter>File\tinyxml</Filter>
     </ClCompile>
-    <ClCompile Include="Thread\AtomicBoolean.cpp">
-      <Filter>Thread</Filter>
-    </ClCompile>
     <ClCompile Include="Thread\AtomicCounter.cpp">
-      <Filter>Thread</Filter>
-    </ClCompile>
-    <ClCompile Include="Thread\AtomicFloat.cpp">
-      <Filter>Thread</Filter>
-    </ClCompile>
-    <ClCompile Include="Thread\AtomicULong.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
     <ClCompile Include="Thread\Condition.cpp">
@@ -174,9 +165,6 @@
     <ClCompile Include="Stream\MemoryStreamBuf.cpp">
       <Filter>Stream</Filter>
     </ClCompile>
-    <ClCompile Include="File\FileStream.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
     <ClCompile Include="Stream\FileStreamBuf.cpp">
       <Filter>Stream</Filter>
     </ClCompile>
@@ -222,21 +210,15 @@
     <ClCompile Include="process\PipeStream.cpp">
       <Filter>process</Filter>
     </ClCompile>
+    <ClCompile Include="Thread\Mutex.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
       <Filter>File\tinyxml</Filter>
     </ClInclude>
-    <ClInclude Include="Thread\AtomicBoolean.h">
-      <Filter>Thread</Filter>
-    </ClInclude>
     <ClInclude Include="Thread\AtomicCounter.h">
-      <Filter>Thread</Filter>
-    </ClInclude>
-    <ClInclude Include="Thread\AtomicFloat.h">
-      <Filter>Thread</Filter>
-    </ClInclude>
-    <ClInclude Include="Thread\AtomicULong.h">
       <Filter>Thread</Filter>
     </ClInclude>
     <ClInclude Include="Thread\Condition.h">
@@ -446,9 +428,6 @@
     <ClInclude Include="File\FileStream.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="File\FileStream.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="Stream\FileStreamBuf.h">
       <Filter>Stream</Filter>
     </ClInclude>
@@ -499,6 +478,9 @@
     </ClInclude>
     <ClInclude Include="process\ProcessPipe.h">
       <Filter>process</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SharedPtr.h">
+      <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

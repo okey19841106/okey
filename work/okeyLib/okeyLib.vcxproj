@@ -130,12 +130,10 @@
     <ClCompile Include="Stream\FileStream.cpp" />
     <ClCompile Include="Stream\FileStreamBuf.cpp" />
     <ClCompile Include="Stream\MemoryStreamBuf.cpp" />
-    <ClCompile Include="Thread\AtomicBoolean.cpp" />
     <ClCompile Include="Thread\AtomicCounter.cpp" />
-    <ClCompile Include="Thread\AtomicFloat.cpp" />
-    <ClCompile Include="Thread\AtomicULong.cpp" />
     <ClCompile Include="Thread\Condition.cpp" />
     <ClCompile Include="Thread\Event.cpp" />
+    <ClCompile Include="Thread\Mutex.cpp" />
     <ClCompile Include="Thread\Semaphore.cpp" />
     <ClCompile Include="Thread\Thread.cpp" />
     <ClCompile Include="Thread\ThreadPool.cpp" />
@@ -188,6 +186,7 @@
     <ClInclude Include="inc\QuerueEx.h" />
     <ClInclude Include="inc\Queue.h" />
     <ClInclude Include="inc\ServerConfig.h" />
+    <ClInclude Include="inc\SharedPtr.h" />
     <ClInclude Include="inc\Singleton.h" />
     <ClInclude Include="inc\Stack.h" />
     <ClInclude Include="inc\StringHelper.h" />
@@ -228,10 +227,7 @@
     <ClInclude Include="Stream\FileStreamBuf.h" />
     <ClInclude Include="Stream\MemoryStreamBuf.h" />
     <ClInclude Include="Stream\UnbufferedStreamBuf.h" />
-    <ClInclude Include="Thread\AtomicBoolean.h" />
     <ClInclude Include="Thread\AtomicCounter.h" />
-    <ClInclude Include="Thread\AtomicFloat.h" />
-    <ClInclude Include="Thread\AtomicULong.h" />
     <ClInclude Include="Thread\Condition.h" />
     <ClInclude Include="Thread\Event.h" />
     <ClInclude Include="Thread\Mutex.h" />

@@ -97,27 +97,27 @@ namespace okey
 	}
 	bool PacketListEx::Push_Head(PacketBase* pkt)
 	{
-		MutexGuard tmpMutex(m_Mutex);
+		FastMutex::ScopedLock tmpMutex(m_Mutex);
 		return PacketList::Push_Head(pkt);
 	}
 	PacketBase* PacketListEx::Pop_Head()
 	{
-		MutexGuard tmpMutex(m_Mutex);
+		FastMutex::ScopedLock tmpMutex(m_Mutex);
 		return PacketList::Pop_Head();
 	}
 	bool PacketListEx::Push_Back(PacketBase* pkt)
 	{
-		MutexGuard tmpMutex(m_Mutex);
+		FastMutex::ScopedLock tmpMutex(m_Mutex);
 		return PacketList::Push_Back(pkt);
 	}
 	PacketBase* PacketListEx::Pop_Back()
 	{
-		MutexGuard tmpMutex(m_Mutex);
+		FastMutex::ScopedLock tmpMutex(m_Mutex);
 		return PacketList::Pop_Head();
 	}
 	PacketBase* PacketListEx::GetNextPacket(PacketBase* pkt)
 	{
-		MutexGuard tmpMutex(m_Mutex);
+		FastMutex::ScopedLock tmpMutex(m_Mutex);
 		return PacketList::GetNextPacket(pkt);
 	}
 }

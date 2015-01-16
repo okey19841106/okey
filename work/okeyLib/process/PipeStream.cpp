@@ -21,12 +21,12 @@ namespace okey
 
 	int PipeStreamBuf::readFromDevice(char* buffer, std::streamsize length)
 	{
-		_pipe.ReadBytes(buffer, (int)length);
+		return _pipe.ReadBytes(buffer, (int)length);
 	}
 
 	int PipeStreamBuf::writeToDevice(const char* buffer, std::streamsize length)
 	{
-		_pipe.WriteBytes(buffer, (int)length);
+		return _pipe.WriteBytes(buffer, (int)length);
 	}
 
 	PipeIOS::PipeIOS(const Pipe& pipe, openmode mode):_buf(pipe,mode)

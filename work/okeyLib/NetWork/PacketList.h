@@ -56,7 +56,7 @@ namespace okey
 		virtual PacketBase* Pop_Back();
 		virtual PacketBase* GetNextPacket(PacketBase* pkt);
 	private:
-		Mutex m_Mutex;
+		FastMutex m_Mutex;
 	};
 
 

@@ -3,22 +3,30 @@
 #define ATOMICCOUNTER_HPP_
 
 #include "Types.h"
-#include "AtomicULong.h"
 
 namespace okey
 {
 	
 	
-	class AtomicCounter : public AtomicUInt
+	class AtomicCounter 
 	{
-		public:
-			AtomicCounter() { Value = 0; }
-			AtomicCounter(uint32 InitialValue) { Value = InitialValue; }
-			uint32 operator++();
-			uint32 operator--();
-		private:
-			AtomicCounter(const AtomicCounter & other) {}
-			AtomicCounter operator=(const AtomicCounter & other) { return *this; }
+	public:
+		AtomicCounter();
+		explicit AtomicCounter(int32 InitialValue);
+		AtomicCounter(const AtomicCounter & other);
+		AtomicCounter& operator=(const AtomicCounter & other);
+		AtomicCounter& operator=(int32 value);
+		int32 operator++();
+		int32 operator--();
+		int32 operator++(int32);
+		int32 operator--(int32);
+		int32 GetValue()const {return _value;}
+		operator int32() const;
+		bool operator !() const;
+		void SetValue(int32 v);
+	private:
+		volatile int32 _value;
+
 	};
 	
 }

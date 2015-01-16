@@ -242,7 +242,7 @@ namespace okey
 	{
 		//poco_assert (width > 0 && width < 64);
 		char buffer[64];
-		tsnprintf(buffer, "%0*"INT64_FROMAT_X, wide, v);
+		tsnprintf(buffer, 64, INT64_FROMAT_X, wide, v);
 		return buffer;
 	}
 
@@ -250,7 +250,7 @@ namespace okey
 	inline std::string StringHelper::ToHexString<uint64>(uint64 v, int32 wide)
 	{
 		char buffer[64];
-		tsnprintf(buffer, "%0*"INT64_FROMAT_X, wide, v);
+		tsnprintf(buffer, 64, INT64_FROMAT_X, wide, v);
 		return buffer;
 	}
 

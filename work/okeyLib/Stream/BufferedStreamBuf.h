@@ -76,7 +76,7 @@ namespace okey
 			}
 			char_traits::move(_pBuffer + (4 - putback), this->gptr() - putback, putback);
 			int32 n = readFromDevice(_pBuffer + 4, _bufsize - 4);
-			if (n < = 0)
+			if (n <= 0)
 			{
 				return char_traits::eof();
 			}

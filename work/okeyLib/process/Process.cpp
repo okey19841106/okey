@@ -6,6 +6,7 @@
 #include "ProcessPipe.h"
 #include "Environment.h"
 
+
 namespace okey
 {
 	std::vector<char> getEnvironmentVariablesBuffer(const Process::Env& env)
@@ -137,7 +138,7 @@ namespace okey
 	}
 
 
-	int ProcessHandle::Wait() const
+	int32 ProcessHandle::Wait() const
 	{
 		return _pImpl->Wait();
 	}
@@ -385,7 +386,7 @@ namespace okey
 
 	int32 Process::Wait(const ProcessHandle& handle)
 	{
-		handle.Wait();
+		return handle.Wait();
 	}
 	void Process::Kill(const ProcessHandle& handle)
 	{

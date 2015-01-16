@@ -38,7 +38,7 @@ namespace okey
 		typedef std::map<std::string, std::string> StringMap;
 
 		static StringMap m_map;
-		static Mutex m_cMutex;
+		static FastMutex m_cMutex;
 #endif
 	};
 }

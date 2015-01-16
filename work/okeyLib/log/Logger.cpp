@@ -30,7 +30,7 @@ Logger::~Logger()
 
 void Logger::Debug( const std::string& msg )
 {
-	MutexGuard guard( m_pMutex );
+	FastMutex::ScopedLock guard( m_pMutex );
 	std::cout << "<Debug> " << msg << std::endl;
 	if ( !m_OnlyToCout )
 	{
@@ -40,7 +40,7 @@ void Logger::Debug( const std::string& msg )
 
 void Logger::Info( const std::string& msg )
 {
-	MutexGuard guard( m_pMutex );
+	FastMutex::ScopedLock guard( m_pMutex );
 	std::cout << "<Info> " << msg << std::endl;
 	if ( !m_OnlyToCout )
 	{
@@ -50,7 +50,7 @@ void Logger::Info( const std::string& msg )
 
 void Logger::Warn( const std::string& msg )
 {
-	MutexGuard guard( m_pMutex );
+	FastMutex::ScopedLock guard( m_pMutex );
 	std::cout << "<Warn> " << msg << std::endl;
 	if ( !m_OnlyToCout )
 	{
@@ -60,7 +60,7 @@ void Logger::Warn( const std::string& msg )
 
 void Logger::Error( const std::string& msg )
 {
-	MutexGuard guard( m_pMutex );
+	FastMutex::ScopedLock guard( m_pMutex );
 	std::cout << "<Error> " << msg << std::endl;
 	if ( !m_OnlyToCout )
 	{
@@ -70,7 +70,7 @@ void Logger::Error( const std::string& msg )
 
 void Logger::Fatal( const std::string& msg )
 {
-	MutexGuard guard( m_pMutex );
+	FastMutex::ScopedLock guard( m_pMutex );
 	std::cout << "<Fatal> " << msg << std::endl;
 	if ( !m_OnlyToCout )
 	{

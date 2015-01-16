@@ -45,11 +45,11 @@ typedef SOCKET int
 #ifdef WINDOWS
 #define INT64_FROMAT "I64i"
 #define UINT64_FORMAT "I64u"
-#define INT64_FROMAT_X "I64x"
+#define INT64_FROMAT_X "%0*I64x"
 #else
 #define INT64_FROMAT "lli"
 #define UINT64_FORMAT "llu"
-#define INT64_FROMAT_X "llx"
+#define INT64_FROMAT_X "%0*llx"
 #endif
 ///
 /// The most common stuffs.
