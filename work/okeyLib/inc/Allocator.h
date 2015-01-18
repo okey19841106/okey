@@ -57,7 +57,7 @@ namespace okey
 	{
 	public:
 		Allocator(){}
-		~Allocator(){}
+		virtual ~Allocator(){}
 		virtual void* Malloc(int32 size) = 0;
 		virtual void Free(void* ptr) = 0;
 		virtual void SetMemoryInfo(const MemoryHead& info) = 0;

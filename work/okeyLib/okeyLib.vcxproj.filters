@@ -168,9 +168,6 @@
     <ClCompile Include="Stream\FileStreamBuf.cpp">
       <Filter>Stream</Filter>
     </ClCompile>
-    <ClCompile Include="File\FileStream.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
     <ClCompile Include="Stream\FileStream.cpp">
       <Filter>Stream</Filter>
     </ClCompile>
@@ -214,6 +211,9 @@
       <Filter>Thread</Filter>
     </ClCompile>
     <ClCompile Include="Thread\ThreadLocal.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\ErrorHandler.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
   </ItemGroup>
@@ -428,9 +428,6 @@
     <ClInclude Include="Stream\BufferAlloctor.h">
       <Filter>Stream</Filter>
     </ClInclude>
-    <ClInclude Include="File\FileStream.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="Stream\FileStreamBuf.h">
       <Filter>Stream</Filter>
     </ClInclude>
@@ -486,6 +483,9 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="Thread\ThreadLocal.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\ErrorHandler.h">
       <Filter>Thread</Filter>
     </ClInclude>
   </ItemGroup>

@@ -132,6 +132,7 @@
     <ClCompile Include="Stream\MemoryStreamBuf.cpp" />
     <ClCompile Include="Thread\AtomicCounter.cpp" />
     <ClCompile Include="Thread\Condition.cpp" />
+    <ClCompile Include="Thread\ErrorHandler.cpp" />
     <ClCompile Include="Thread\Event.cpp" />
     <ClCompile Include="Thread\Mutex.cpp" />
     <ClCompile Include="Thread\Semaphore.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Stream\UnbufferedStreamBuf.h" />
     <ClInclude Include="Thread\AtomicCounter.h" />
     <ClInclude Include="Thread\Condition.h" />
+    <ClInclude Include="Thread\ErrorHandler.h" />
     <ClInclude Include="Thread\Event.h" />
     <ClInclude Include="Thread\Mutex.h" />
     <ClInclude Include="Thread\Semaphore.h" />

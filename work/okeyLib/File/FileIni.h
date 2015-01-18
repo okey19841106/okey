@@ -21,7 +21,7 @@ namespace okey
 	public:
 		FileINI();
 		FileINI(const std::string& filename);
-		~FileINI();
+		virtual ~FileINI();
 		
 		bool Open(const std::string& filename);
 		bool Write();
