@@ -216,6 +216,9 @@
     <ClCompile Include="Thread\ErrorHandler.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
+    <ClCompile Include="Thread\RWLock.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -431,9 +434,6 @@
     <ClInclude Include="Stream\FileStreamBuf.h">
       <Filter>Stream</Filter>
     </ClInclude>
-    <ClInclude Include="File\FileStream.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="Stream\FileStream.h">
       <Filter>Stream</Filter>
     </ClInclude>
@@ -486,6 +486,12 @@
       <Filter>Thread</Filter>
     </ClInclude>
     <ClInclude Include="Thread\ErrorHandler.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\RWLock.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Runnable.h">
       <Filter>Thread</Filter>
     </ClInclude>
   </ItemGroup>

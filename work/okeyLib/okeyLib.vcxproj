@@ -135,6 +135,7 @@
     <ClCompile Include="Thread\ErrorHandler.cpp" />
     <ClCompile Include="Thread\Event.cpp" />
     <ClCompile Include="Thread\Mutex.cpp" />
+    <ClCompile Include="Thread\RWLock.cpp" />
     <ClCompile Include="Thread\Semaphore.cpp" />
     <ClCompile Include="Thread\Thread.cpp" />
     <ClCompile Include="Thread\ThreadLocal.cpp" />
@@ -234,6 +235,8 @@
     <ClInclude Include="Thread\ErrorHandler.h" />
     <ClInclude Include="Thread\Event.h" />
     <ClInclude Include="Thread\Mutex.h" />
+    <ClInclude Include="Thread\Runnable.h" />
+    <ClInclude Include="Thread\RWLock.h" />
     <ClInclude Include="Thread\Semaphore.h" />
     <ClInclude Include="Thread\Thread.h" />
     <ClInclude Include="Thread\ThreadLocal.h" />

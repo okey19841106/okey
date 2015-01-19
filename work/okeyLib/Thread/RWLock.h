@@ -7,6 +7,8 @@
 #ifndef __OKEY_RW_LOCK_H__
 #define __OKEY_RW_LOCK_H__
 
+#include "Types.h"
+
 namespace okey
 {
 	class ScopedRWLock;
@@ -36,7 +38,7 @@ namespace okey
 		void removeWriter();
 		DWORD tryReadLockOnce();
 
-		HANDLE   _mutex;
+		HANDLE   _mutex; //互斥锁和读写时间控制。
 		HANDLE   _readEvent;
 		HANDLE   _writeEvent;
 		unsigned _readers;
