@@ -24,4 +24,6 @@
 #ifdef WINDOWS
 #include <WinSock2.h>
 #endif
+
+#include "Exception.h"
 #endif

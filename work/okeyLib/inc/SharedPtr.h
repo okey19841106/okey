@@ -50,6 +50,16 @@ namespace okey
 		}
 	};
 
+	template <class C>
+	class ReleaseArrayPolicy /// The release policy for SharedPtr holding arrays.
+	{
+	public:
+		static void release(C* pObj)
+		{
+			delete [] pObj;
+		}
+	};
+
 	template<typename C, typename RC = ReferenceCounter, typename RP = ReleasePolicy<C> > 
 	class SharedPtr
 	{
@@ -272,10 +282,10 @@ namespace okey
 			return Get() >= ptr;
 		}
 
-		int DelRef() const
-		{
-			return _pCounter->DelRef();
-		}
+// 		int DelRef() const
+// 		{
+// 			return _pCounter->DelRef();
+// 		}
 	private:
 		C* deref() const
 		{

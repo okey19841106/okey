@@ -151,7 +151,7 @@ namespace okey{
 		void SetStackSize(int size);//设置线程堆栈大小
 		int GetStackSize() const;
 		void Start(Runnable& target);
-		void Start(Callable target, void* pData = 0);
+		void Start(Callable target, void* pData = NULL);
 		void Join();
 		bool Join(uint32 milliseconds);
 		bool TryJoin(uint32 milliseconds);

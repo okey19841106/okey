@@ -121,6 +121,10 @@
     <ClCompile Include="NetWork\PacketList.cpp" />
     <ClCompile Include="NetWork\SocketBase.cpp" />
     <ClCompile Include="NetWork\SocketOps.cpp" />
+    <ClCompile Include="Notifications\Notification.cpp" />
+    <ClCompile Include="Notifications\NotificationCenter.cpp" />
+    <ClCompile Include="Notifications\NotificationQueue.cpp" />
+    <ClCompile Include="Notifications\Observer.cpp" />
     <ClCompile Include="process\NameEvent.cpp" />
     <ClCompile Include="process\NameMutex.cpp" />
     <ClCompile Include="process\PipeStream.cpp" />
@@ -217,6 +221,10 @@
     <ClInclude Include="NetWork\PacketList.h" />
     <ClInclude Include="NetWork\SocketBase.h" />
     <ClInclude Include="NetWork\SocketOps.h" />
+    <ClInclude Include="Notifications\Notification.h" />
+    <ClInclude Include="Notifications\NotificationCenter.h" />
+    <ClInclude Include="Notifications\NotificationQueue.h" />
+    <ClInclude Include="Notifications\Observer.h" />
     <ClInclude Include="process\NameEvent.h" />
     <ClInclude Include="process\NameMutex.h" />
     <ClInclude Include="process\ProcessPipe.h" />
@@ -230,6 +238,12 @@
     <ClInclude Include="Stream\FileStreamBuf.h" />
     <ClInclude Include="Stream\MemoryStreamBuf.h" />
     <ClInclude Include="Stream\UnbufferedStreamBuf.h" />
+    <ClInclude Include="Thread\ActiveDispatcher.h" />
+    <ClInclude Include="Thread\ActiveResult.h" />
+    <ClInclude Include="Thread\ActiveRunnable.h" />
+    <ClInclude Include="Thread\ActivieStarter.h" />
+    <ClInclude Include="Thread\Activity.h" />
+    <ClInclude Include="Thread\ActiviteMethod.h" />
     <ClInclude Include="Thread\AtomicCounter.h" />
     <ClInclude Include="Thread\Condition.h" />
     <ClInclude Include="Thread\ErrorHandler.h" />

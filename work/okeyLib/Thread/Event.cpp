@@ -11,6 +11,8 @@ namespace okey
 		if (!_event)
 			throw SystemException("cannot create event");
 #else
+		_auto = autoReset;
+		_state = false;
 		if (pthread_mutex_init(&_mutex, NULL))
 			throw SystemException("cannot create event (mutex)");
 		if (pthread_cond_init(&_cond, NULL))

@@ -49,6 +49,9 @@
     <Filter Include="process">
       <UniqueIdentifier>{0258cdd0-dfe0-4d57-8e6f-83be768dfda0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Notifications">
+      <UniqueIdentifier>{2cedc357-5021-42e6-a6a8-9ad565a9bd3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyxml\tinyxml.cpp">
@@ -218,6 +221,18 @@
     </ClCompile>
     <ClCompile Include="Thread\RWLock.cpp">
       <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Notifications\NotificationQueue.cpp">
+      <Filter>Notifications</Filter>
+    </ClCompile>
+    <ClCompile Include="Notifications\Notification.cpp">
+      <Filter>Notifications</Filter>
+    </ClCompile>
+    <ClCompile Include="Notifications\NotificationCenter.cpp">
+      <Filter>Notifications</Filter>
+    </ClCompile>
+    <ClCompile Include="Notifications\Observer.cpp">
+      <Filter>Notifications</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -493,6 +508,36 @@
     </ClInclude>
     <ClInclude Include="Thread\Runnable.h">
       <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Activity.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\ActiveResult.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\ActiveRunnable.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\ActiveDispatcher.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\ActiviteMethod.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\ActivieStarter.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Notifications\NotificationQueue.h">
+      <Filter>Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="Notifications\Notification.h">
+      <Filter>Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="Notifications\NotificationCenter.h">
+      <Filter>Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="Notifications\Observer.h">
+      <Filter>Notifications</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -12,6 +12,7 @@
 #include "ThreadLocal.h"
 #include <sstream>
 #include "ErrorHandler.h"
+#include "Runnable.h"
 
 
 namespace okey
@@ -22,7 +23,7 @@ namespace okey
 		_thread(0),
 		_threadId(0),
 		_prio(PRIO_NORMAL),
-		_stackSize(0),
+		_stackSize(THREAD_STACK_SIZE),
 #else
 		_pData(new ThreadData)
 #endif
@@ -38,7 +39,7 @@ namespace okey
 		_thread(0),
 		_threadId(0),
 		_prio(PRIO_NORMAL),
-		_stackSize(0),
+		_stackSize(THREAD_STACK_SIZE),
 #else
 		_pData(new ThreadData)
 #endif
@@ -199,7 +200,7 @@ namespace okey
 #endif
 	}
 
-	void Thread::Start(Callable target, void* pData = 0)
+	void Thread::Start(Callable target, void* pData)
 	{
 #ifdef WINDOWS
 		if (IsRunning())
@@ -401,7 +402,7 @@ namespace okey
 		_currentThreadHolder.Set(p);
 		try
 		{
-			p->_pRunnableTarget->run();
+			p->_pRunnableTarget->Run();
 		}
 		catch (Exception& exc)
 		{
@@ -496,16 +497,16 @@ namespace okey
 		Thread* pThreadImpl = reinterpret_cast<Thread*>(pThread);
 		_currentThreadHolder.set(pThreadImpl);
 		//增加这么多的信号量
-		sigset_t sset;
-		sigemptyset(&sset);
-		sigaddset(&sset, SIGQUIT);
-		sigaddset(&sset, SIGTERM);
-		sigaddset(&sset, SIGPIPE); 
-		pthread_sigmask(SIG_BLOCK, &sset, 0);
+// 		sigset_t sset;
+// 		sigemptyset(&sset);
+// 		sigaddset(&sset, SIGQUIT);
+// 		sigaddset(&sset, SIGTERM);
+// 		sigaddset(&sset, SIGPIPE); 
+// 		pthread_sigmask(SIG_BLOCK, &sset, 0);
 		AutoPtr<ThreadData> pData = pThreadImpl->_pData;
 		try
 		{
-			pData->pRunnableTarget->run();
+			pData->pRunnableTarget->Run();
 		}
 		catch (Exception& exc)
 		{
@@ -530,12 +531,12 @@ namespace okey
 		Thread* pThreadImpl = reinterpret_cast<Thread*>(pThread);
 		_currentThreadHolder.set(pThreadImpl);
 		//增加这么多的信号量
-		sigset_t sset;
-		sigemptyset(&sset);
-		sigaddset(&sset, SIGQUIT);
-		sigaddset(&sset, SIGTERM);
-		sigaddset(&sset, SIGPIPE); 
-		pthread_sigmask(SIG_BLOCK, &sset, 0);
+// 		sigset_t sset;
+// 		sigemptyset(&sset);
+// 		sigaddset(&sset, SIGQUIT);
+// 		sigaddset(&sset, SIGTERM);
+// 		sigaddset(&sset, SIGPIPE); 
+// 		pthread_sigmask(SIG_BLOCK, &sset, 0);
 
 		AutoPtr<ThreadData> pData = pThreadImpl->_pData;
 		try
