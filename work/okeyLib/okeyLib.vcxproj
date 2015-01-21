@@ -50,7 +50,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;WINDOWS;_DEBUG;TIXML_USE_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PreCom.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>./;./inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -134,6 +134,7 @@
     <ClCompile Include="Stream\FileStream.cpp" />
     <ClCompile Include="Stream\FileStreamBuf.cpp" />
     <ClCompile Include="Stream\MemoryStreamBuf.cpp" />
+    <ClCompile Include="Thread\ActiveDispatcher.cpp" />
     <ClCompile Include="Thread\AtomicCounter.cpp" />
     <ClCompile Include="Thread\Condition.cpp" />
     <ClCompile Include="Thread\ErrorHandler.cpp" />
@@ -144,6 +145,8 @@
     <ClCompile Include="Thread\Thread.cpp" />
     <ClCompile Include="Thread\ThreadLocal.cpp" />
     <ClCompile Include="Thread\ThreadPool.cpp" />
+    <ClCompile Include="Thread\ThreadTarget.cpp" />
+    <ClCompile Include="Thread\Timer.cpp" />
     <ClCompile Include="tinyxml\tinyxml.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -238,6 +241,9 @@
     <ClInclude Include="Stream\FileStreamBuf.h" />
     <ClInclude Include="Stream\MemoryStreamBuf.h" />
     <ClInclude Include="Stream\UnbufferedStreamBuf.h" />
+    <ClInclude Include="Template\TAny.h" />
+    <ClInclude Include="Template\TNull.h" />
+    <ClInclude Include="Template\TVoid.h" />
     <ClInclude Include="Thread\ActiveDispatcher.h" />
     <ClInclude Include="Thread\ActiveResult.h" />
     <ClInclude Include="Thread\ActiveRunnable.h" />
@@ -255,6 +261,8 @@
     <ClInclude Include="Thread\Thread.h" />
     <ClInclude Include="Thread\ThreadLocal.h" />
     <ClInclude Include="Thread\ThreadPool.h" />
+    <ClInclude Include="Thread\ThreadTarget.h" />
+    <ClInclude Include="Thread\Timer.h" />
     <ClInclude Include="tinyxml\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>

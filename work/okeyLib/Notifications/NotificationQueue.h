@@ -3,7 +3,7 @@
 	created:	17:09
 	author:		okey
 	
-	purpose:	
+	purpose:	多线程通知。
 *********************************************************************/
 #ifndef __NOTIFICATION_QUEUE_H__
 #define __NOTIFICATION_QUEUE_H__
@@ -24,34 +24,17 @@ namespace okey
 		NotificationQueue();
 		~NotificationQueue();
 		void EnqueueNotification(Notification::Ptr pNotification);		/// Enqueues the given notification by adding it to
-		
 		void EnqueueUrgentNotification(Notification::Ptr pNotification);		/// Enqueues the given notification by adding it to
-		
-
 		Notification* DequeueNotification();		/// Dequeues the next pending notification.
-		
-
 		Notification* WaitDequeueNotification();		/// Dequeues the next pending notification.
-		
-
 		Notification* WaitDequeueNotification(long milliseconds);		/// Dequeues the next pending notification.
-		
-
 		void Dispatch(NotificationCenter& notificationCenter);		/// Dispatches all queued notifications to the given
-		
-
 		void WakeUpAll();		/// Wakes up all threads that wait for a notification.
-
 		bool Empty() const;		/// Returns true iff the queue is empty.
-
-		int GetSize() const;		/// Returns the number of notifications in the queue.
-
+		int32 GetSize() const;		/// Returns the number of notifications in the queue.
 		void Clear();		/// Removes all notifications from the queue.
-
 		bool HasIdleThreads() const;			/// Returns true if the queue has at least one thread waiting for a notification.
-
 		static NotificationQueue& DefaultQueue();		/// Returns a reference to the default NotificationQueue.
-
 	protected:
 		Notification::Ptr dequeueOne();
 	private:

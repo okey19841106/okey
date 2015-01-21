@@ -10,6 +10,8 @@
 
 namespace okey
 {
+	class Notification;
+
 	class  AbstractObserver
 	{
 	public:

@@ -128,7 +128,7 @@ namespace okey
 		Event       _event;
 	};
 
-	template<typename RetType>
+	template<typename ResultType>
 	class ActiveResult
 	{
 	public:

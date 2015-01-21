@@ -42,13 +42,14 @@ namespace okey
 	class ScopedLockWithUnlock
 	{
 	public:
-		ScopedLockWithUnlock(M& m):_m(&m){_m.Lock();}
+		ScopedLockWithUnlock(M& m):_m(&m){_m->Lock();}
 		~ScopedLockWithUnlock(){UnLock();}
 		void UnLock()
 		{
 			if (_m)
 			{
 				_m->UnLock();
+				_m = NULL;
 			}
 		}
 	private:

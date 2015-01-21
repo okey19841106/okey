@@ -96,6 +96,8 @@ OKEY_DECLARE_EXCEPTION(OpenFileException,Exception,"Can not open file");
 OKEY_DECLARE_EXCEPTION(NoPermissionException,Exception,"No Permission");
 OKEY_DECLARE_EXCEPTION(NoThreadAvailableException,Exception,"No thread Available");
 OKEY_DECLARE_EXCEPTION(UnhandledException,Exception,"un handled");
+OKEY_DECLARE_EXCEPTION(NullPointerException,Exception,"null Point");
+OKEY_DECLARE_EXCEPTION(BadCastException,Exception,"bad cast exception");
 // OKEY_DECLARE_EXCEPTION(FileNotFoundException, Exception, "Cannot read file");
 // OKEY_DECLARE_EXCEPTION(PathNotFoundException, Exception, "Cannot read file");
 // OKEY_DECLARE_EXCEPTION(FileAccessDeniedException, Exception, "Cannot read file");

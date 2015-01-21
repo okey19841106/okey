@@ -273,7 +273,7 @@ namespace okey
 			return _ptr >= ptr;
 		}
 	private:
-		C* ptr;
+		C* _ptr;
 	};
 
 	template <class C>

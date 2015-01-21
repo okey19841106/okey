@@ -52,6 +52,9 @@
     <Filter Include="Notifications">
       <UniqueIdentifier>{2cedc357-5021-42e6-a6a8-9ad565a9bd3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Template">
+      <UniqueIdentifier>{ea03eb7e-f08f-4bbe-baee-9067e54b18c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyxml\tinyxml.cpp">
@@ -233,6 +236,15 @@
     </ClCompile>
     <ClCompile Include="Notifications\Observer.cpp">
       <Filter>Notifications</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\ActiveDispatcher.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\ThreadTarget.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\Timer.cpp">
+      <Filter>Thread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -538,6 +550,21 @@
     </ClInclude>
     <ClInclude Include="Notifications\Observer.h">
       <Filter>Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\ThreadTarget.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Timer.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Template\TNull.h">
+      <Filter>Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Template\TVoid.h">
+      <Filter>Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Template\TAny.h">
+      <Filter>Template</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

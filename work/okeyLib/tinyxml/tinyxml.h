@@ -42,7 +42,7 @@ distribution.
 #if defined( _DEBUG ) && !defined( DEBUG )
 #define DEBUG
 #endif
-
+#define TIXML_USE_STL
 #ifdef TIXML_USE_STL
 	#include <string>
  	#include <iostream>

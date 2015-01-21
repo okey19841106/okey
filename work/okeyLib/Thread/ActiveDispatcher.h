@@ -12,6 +12,7 @@
 #include "Thread.h"
 #include "ActiveRunnable.h"
 #include "ActivieStarter.h"
+#include "Notifications/NotificationQueue.h"
 
 namespace okey
 {
@@ -19,25 +20,15 @@ namespace okey
 	class ActiveDispatcher: protected Runnable
 	{
 	public:
-		ActiveDispatcher();
-		/// Creates the ActiveDispatcher.
-
-		ActiveDispatcher(Thread::Priority prio);
-		/// Creates the ActiveDispatcher and sets
-		/// the priority of its thread.
-
-		virtual ~ActiveDispatcher();
-		/// Destroys the ActiveDispatcher.
-
-		void Start(ActiveRunnableBase::Ptr pRunnable);
-		/// Adds the Runnable to the dispatch queue.
-
-		void Cancel();
-		/// Cancels all queued methods.
+		ActiveDispatcher();		/// Creates the ActiveDispatcher.
+		ActiveDispatcher(Thread::Priority prio);		/// Creates the ActiveDispatcher and sets the priority of its thread.
+		virtual ~ActiveDispatcher();		/// Destroys the ActiveDispatcher.
+		void Start(ActiveRunnableBase::Ptr pRunnable);		/// Adds the Runnable to the dispatch queue.
+		void Cancel();		/// Cancels all queued methods.
 
 	protected:
-		void run();
-		void stop();
+		void Run();
+		void Stop();
 
 	private:
 		Thread            _thread;

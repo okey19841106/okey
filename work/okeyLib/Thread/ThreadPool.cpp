@@ -401,13 +401,9 @@ namespace okey
 		FastMutex   _mutex;
 	};
 
-	namespace
-	{
-		static ThreadPoolSingletonHolder sh;
-	}
-
 	ThreadPool& ThreadPool::defaultPool()
 	{
+		static ThreadPoolSingletonHolder sh;
 		return *sh.Pool();
 	}
 }

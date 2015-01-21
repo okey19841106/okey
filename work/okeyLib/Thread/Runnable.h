@@ -21,7 +21,7 @@ namespace okey
 	template<typename C>
 	class RunnableAdapter : public Runnable
 	{
-		typedef (C::*_f)();
+		typedef void (C::*_f)();
 	public:
 		RunnableAdapter(C& object, _f method):_c(&object),f(method)
 		{
