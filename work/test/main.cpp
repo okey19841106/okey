@@ -8,6 +8,7 @@
 #include "StringHelper.h"
 #include "log/LogChannel.h"
 #include "File/FileInfo.h"
+#include "Template/Tuple.h"
 
 int main(int argc , char *argv[])
 {
@@ -176,11 +177,25 @@ int main(int argc , char *argv[])
 	//std::cout<<ftest.GetSize();
 	//ftest.CopyTo("../");
 	//ftest.Remove(true);
-	std::vector<std::string> v;
-	FileInfo::ListRoots(v);
+// 	std::vector<std::string> v;
+// 	FileInfo::ListRoots(v);
 // 	std::cout<<FileInfo::GetAbsDir("temp")<<std::endl
 // 	<<FileInfo::GetExtension("temp")<<std::endl
 // 	<<FileInfo::GetFileName("temp")<<std::endl;
+	//return 0;
+	int a = 3;
+	float b = 4.0;
+	Template::Tuple<int, float> Vale(a,b);
+	if (a == Vale.Get<0>())
+	{
+		std::cout<<"1111111"<<std::endl;
+	}
+	else
+	{
+		std::cout<<"1111111"<<std::endl;
+	}
+	//std::cout<< Vale.Get<0>() <<std::endl;
 	return 0;
+
 
 }

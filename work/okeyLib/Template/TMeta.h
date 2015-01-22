@@ -35,7 +35,7 @@ namespace Template
 		};
 	};
 	template <typename T>
-	struct IsConst<T>
+	struct IsConst
 	{
 		enum 
 		{

@@ -8,6 +8,7 @@
 #ifndef __TEMPLATE_TYPE_LIST_H__
 #define __TEMPLATE_TYPE_LIST_H__
 
+#include "TMeta.h"
 
 namespace Template
 {
@@ -75,7 +76,7 @@ namespace Template
 			return !(*this == tl);
 		}
 
-		bool operator < (const TypeList& t) const;
+		bool operator < (const TypeList& t) const
 		{
 			if (_head < t._head)
 				return true;
@@ -111,7 +112,7 @@ namespace Template
 	struct TypeListType
 	{
 	private:
-		typedef typename TypeListType<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19>::HeadType TailType;
+		typedef typename TypeListType<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19>::ResultType TailType;
 	public:
 		typedef TypeList<T0, TailType> ResultType; //结果。。 T0 就是HeadType
 	};
@@ -158,14 +159,14 @@ namespace Template
 	struct TypeGetter;
 
 	template <int N, typename Head, typename Tail>
-	struct TypeGetter
+	struct TypeGetter<N, TypeList<Head, Tail> >
 	{
 		typedef typename TypeGetter<N-1, Tail>::HeadType HeadType;
 		typedef typename TypeWrapper<HeadType>::CONSTTYPE ConstHeadType;
 	};
 
 	template <typename Head, typename Tail>
-	struct TypeGetter<0, Head, Tail>
+	struct TypeGetter<0, TypeList<Head, Tail> >
 	{
 		typedef typename TypeList<Head, Tail>::HeadType HeadType;
 		typedef typename TypeWrapper<HeadType>::CONSTTYPE ConstHeadType;

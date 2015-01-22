@@ -21,7 +21,7 @@ namespace Template
 #endif
 	
 	{
-		typedef TypeListType<OKEY_TUPLE_TEMLPATE>::ResultType Type;
+		typedef typename TypeListType<OKEY_TUPLE_TEMLPATE>::ResultType Type;
 		enum TupleLengthType
 		{
 			length = Type::length

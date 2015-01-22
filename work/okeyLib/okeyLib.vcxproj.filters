@@ -575,8 +575,5 @@
     <ClInclude Include="Template\Tuple.h">
       <Filter>Template</Filter>
     </ClInclude>
-    <ClInclude Include="Template\TupleImpl.h">
-      <Filter>Template</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

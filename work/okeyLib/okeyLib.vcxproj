@@ -246,7 +246,6 @@
     <ClInclude Include="Template\TNull.h" />
     <ClInclude Include="Template\TTypeList.h" />
     <ClInclude Include="Template\Tuple.h" />
-    <ClInclude Include="Template\TupleImpl.h" />
     <ClInclude Include="Template\TVoid.h" />
     <ClInclude Include="Thread\ActiveDispatcher.h" />
     <ClInclude Include="Thread\ActiveResult.h" />
