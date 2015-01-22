@@ -566,5 +566,17 @@
     <ClInclude Include="Template\TAny.h">
       <Filter>Template</Filter>
     </ClInclude>
+    <ClInclude Include="Template\TTypeList.h">
+      <Filter>Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Template\TMeta.h">
+      <Filter>Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Template\Tuple.h">
+      <Filter>Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Template\TupleImpl.h">
+      <Filter>Template</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

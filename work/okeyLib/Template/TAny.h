@@ -14,40 +14,40 @@
 
 namespace Template
 {
-	class Any
+	class AnyType
 	{
 	public:
-		Any():_content(NULL)
+		AnyType():_content(NULL)
 		{
 
 		}
 		template<typename TypeValue>
-		Any(const TypeValue& v):_content(new Holder<TypeValue>(v))
+		AnyType(const TypeValue& v):_content(new Holder<TypeValue>(v))
 		{
 
 		}
-		~Any()
+		~AnyType()
 		{
 			delete _content;
 			_content = NULL;
 		}
-		Any(const Any& any):_content(any._content ? any._content->Clone() : NULL)
+		AnyType(const AnyType& any):_content(any._content ? any._content->Clone() : NULL)
 		{
 
 		}
-		Any& operator = (const Any& any)
+		AnyType& operator = (const AnyType& any)
 		{
-			Any(any).Swap(*this);
+			AnyType(any).Swap(*this);
 			return *this;
 		}
 		template<typename TypeValue>
-		Any& operator= (const TypeValue& any)
+		AnyType& operator= (const TypeValue& any)
 		{
-			Any(any).Swap(*this);
+			AnyType(any).Swap(*this);
 			return *this;
 		}
 		
-		Any& Swap(Any& any)
+		AnyType& Swap(AnyType& any)
 		{
 			std::swap(_content, any._content);
 			return *this;
@@ -93,43 +93,43 @@ namespace Template
 		};
 	private:
 		template <typename ValueType>
-		friend ValueType* AnyCast(Any*);
+		friend ValueType* AnyCast(AnyType*);
 
 		template <typename ValueType>
-		friend ValueType* UnsafeAnyCast(Any*);
+		friend ValueType* UnsafeAnyCast(AnyType*);
 	private:
 		Placeholder* _content;
 	};
 
 
 	template <typename ValueType>
-	ValueType* AnyCast(Any* any)
+	ValueType* AnyCast(AnyType* any)
 	{
 		return any && any->type() == typeid(ValueType)
-			? &static_cast<Any::Holder<ValueType>*>(any->_content)->_held
+			? &static_cast<AnyType::Holder<ValueType>*>(any->_content)->_held
 			: NULL;
 	}
 
 	template <typename ValueType>
-	ValueType* UnsafeAnyCast(Any* any)
+	ValueType* UnsafeAnyCast(AnyType* any)
 	{
-		 return &static_cast<Any::Holder<ValueType>*>(any->_content)->_held;
+		 return &static_cast<AnyType::Holder<ValueType>*>(any->_content)->_held;
 	}
 
 	template <typename ValueType>
-	const ValueType* AnyCast(const Any* any)
+	const ValueType* AnyCast(const AnyType* any)
 	{
-		 return AnyCast<ValueType>(const_cast<Any*>(any));
+		 return AnyCast<ValueType>(const_cast<AnyType*>(any));
 	}
 
 	template <typename ValueType>
-	const ValueType* UnsafeAnyCast(const Any* any)
+	const ValueType* UnsafeAnyCast(const AnyType* any)
 	{
-		 return AnyCast<ValueType>(const_cast<Any*>(any));
+		 return AnyCast<ValueType>(const_cast<AnyType*>(any));
 	}
 
 	template <typename ValueType>
-	ValueType AnyCast(Any& any)
+	ValueType AnyCast(AnyType& any)
 	{
 		ValueType* result = AnyCast<ValueType>(&any);
 		if (!result) throw BadCastException("Failed to convert between Any types");
@@ -137,25 +137,25 @@ namespace Template
 	}
 
 	template <typename ValueType>
-	ValueType AnyCast(const Any& any)
+	ValueType AnyCast(const AnyType& any)
 	{
-		ValueType* result = AnyCast<ValueType>(const_cast<Any*>(&any));
+		ValueType* result = AnyCast<ValueType>(const_cast<AnyType*>(&any));
 		if (!result) throw BadCastException("Failed to convert between const Any types");
 		return *result;
 	}
 
 
 	template <typename ValueType>
-	const ValueType& RefAnyCast(const Any & any)
+	const ValueType& RefAnyCast(const AnyType & any)
 	{
-		ValueType* result = AnyCast<ValueType>(const_cast<Any*>(&any));
+		ValueType* result = AnyCast<ValueType>(const_cast<AnyType*>(&any));
 		if (!result) throw BadCastException("RefAnyCast: Failed to convert between const Any types");
 		return *result;
 	}
 
 
 	template <typename ValueType>
-	ValueType& RefAnyCast(Any& any)
+	ValueType& RefAnyCast(AnyType& any)
 	{
 		ValueType* result = AnyCast<ValueType>(&any);
 		if (!result) throw BadCastException("RefAnyCast: Failed to convert between Any types");
