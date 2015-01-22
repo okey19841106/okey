@@ -8,7 +8,7 @@
 
 #include "Types.h"
 
-namespace okey
+namespace template
 {
 
 	template< uint32 N >

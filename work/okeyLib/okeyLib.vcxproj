@@ -125,6 +125,8 @@
     <ClCompile Include="Notifications\NotificationCenter.cpp" />
     <ClCompile Include="Notifications\NotificationQueue.cpp" />
     <ClCompile Include="Notifications\Observer.cpp" />
+    <ClCompile Include="Notifications\PriorityNotificationQueue.cpp" />
+    <ClCompile Include="Notifications\TimedNotificationQueue.cpp" />
     <ClCompile Include="process\NameEvent.cpp" />
     <ClCompile Include="process\NameMutex.cpp" />
     <ClCompile Include="process\PipeStream.cpp" />
@@ -188,7 +190,6 @@
     <ClInclude Include="inc\HashMap.h" />
     <ClInclude Include="inc\HelperFunction.h" />
     <ClInclude Include="inc\Allocator.h" />
-    <ClInclude Include="inc\MathTemplate.h" />
     <ClInclude Include="inc\nocopyable.h" />
     <ClInclude Include="inc\OperatorNew.h" />
     <ClInclude Include="inc\PoolAllocator.h" />
@@ -228,6 +229,8 @@
     <ClInclude Include="Notifications\NotificationCenter.h" />
     <ClInclude Include="Notifications\NotificationQueue.h" />
     <ClInclude Include="Notifications\Observer.h" />
+    <ClInclude Include="Notifications\PriorityNotificationQueue.h" />
+    <ClInclude Include="Notifications\TimedNotificationQueue.h" />
     <ClInclude Include="process\NameEvent.h" />
     <ClInclude Include="process\NameMutex.h" />
     <ClInclude Include="process\ProcessPipe.h" />
@@ -241,6 +244,7 @@
     <ClInclude Include="Stream\FileStreamBuf.h" />
     <ClInclude Include="Stream\MemoryStreamBuf.h" />
     <ClInclude Include="Stream\UnbufferedStreamBuf.h" />
+    <ClInclude Include="Template\MathTemplate.h" />
     <ClInclude Include="Template\TAny.h" />
     <ClInclude Include="Template\TMeta.h" />
     <ClInclude Include="Template\TNull.h" />

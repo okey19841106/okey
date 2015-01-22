@@ -1,23 +1,23 @@
 #include "PreCom.h"
-#include "NotificationQueue.h"
+#include "PriorityNotificationQueue.h"
 #include "NotificationCenter.h"
 
 namespace okey
 {
-	NotificationQueue::NotificationQueue()
+	PriorityNotificationQueue::PriorityNotificationQueue()
 	{
 
 	}
-	NotificationQueue::~NotificationQueue()
+	PriorityNotificationQueue::~PriorityNotificationQueue()
 	{
 		Clear();
 	}
-	void NotificationQueue::EnqueueNotification(Notification::Ptr pNotification)
+	void PriorityNotificationQueue::EnqueueNotification(Notification::Ptr pNotification , int32 priority)
 	{
 		FastMutex::ScopedLock lock(_mutex);
 		if (_waitQueue.empty())
 		{
-			_nfQueue.push_back(pNotification);
+			_nfQueue.insert(NfQueue::value_type(priority, pNotification));
 		}
 		else
 		{
@@ -27,27 +27,13 @@ namespace okey
 			pWI->nfAvailable.Set();
 		}	
 	}
-	void NotificationQueue::EnqueueUrgentNotification(Notification::Ptr pNotification)
-	{
-		FastMutex::ScopedLock lock(_mutex);
-		if (_waitQueue.empty())
-		{
-			_nfQueue.push_back(pNotification);
-		}
-		else
-		{
-			WaitInfo* pWI = _waitQueue.front();
-			_waitQueue.pop_front();
-			pWI->pNf = pNotification;
-			pWI->nfAvailable.Set();
-		}	
-	}
-	Notification* NotificationQueue::DequeueNotification()
+	
+	Notification* PriorityNotificationQueue::DequeueNotification()
 	{
 		FastMutex::ScopedLock lock(_mutex);
 		return dequeueOne().AddRef();
 	}
-	Notification* NotificationQueue::WaitDequeueNotification()
+	Notification* PriorityNotificationQueue::WaitDequeueNotification()
 	{
 		Notification::Ptr pNf;
 		WaitInfo* pWI = NULL;
@@ -64,7 +50,7 @@ namespace okey
 		delete pWI;
 		return pNf.AddRef();
 	}
-	Notification* NotificationQueue::WaitDequeueNotification(uint32 milliseconds)
+	Notification* PriorityNotificationQueue::WaitDequeueNotification(uint32 milliseconds)
 	{
 		Notification::Ptr pNf;
 		WaitInfo* pWI = 0;
@@ -96,7 +82,7 @@ namespace okey
 		delete pWI;
 		return pNf.AddRef();
 	}
-	void NotificationQueue::Dispatch(NotificationCenter& notificationCenter)
+	void PriorityNotificationQueue::Dispatch(NotificationCenter& notificationCenter)
 	{
 		FastMutex::ScopedLock lock(_mutex);
 		Notification::Ptr pNf = dequeueOne();
@@ -106,7 +92,7 @@ namespace okey
 			pNf = dequeueOne();
 		}
 	}
-	void NotificationQueue::WakeUpAll()
+	void PriorityNotificationQueue::WakeUpAll()
 	{
 		FastMutex::ScopedLock lock(_mutex);
 		for (WaitQueue::iterator it = _waitQueue.begin(); it != _waitQueue.end(); ++it)
@@ -116,44 +102,45 @@ namespace okey
 		_waitQueue.clear();
 	}
 
-	bool NotificationQueue::Empty() const
+	bool PriorityNotificationQueue::Empty() const
 	{
 		FastMutex::ScopedLock lock(_mutex);
 		return _nfQueue.empty();
 	}
 
-	int32 NotificationQueue::GetSize() const
+	int32 PriorityNotificationQueue::GetSize() const
 	{
 		FastMutex::ScopedLock lock(_mutex);
 		return (int32)_nfQueue.size();
 	}
 
-	void NotificationQueue::Clear()
+	void PriorityNotificationQueue::Clear()
 	{
 		FastMutex::ScopedLock lock(_mutex);
 		_nfQueue.clear();	
 	}
 
-	bool NotificationQueue::HasIdleThreads() const
+	bool PriorityNotificationQueue::HasIdleThreads() const
 	{
 		FastMutex::ScopedLock lock(_mutex);
 		return !_waitQueue.empty();
 	}
 
-	Notification::Ptr NotificationQueue::dequeueOne()
+	Notification::Ptr PriorityNotificationQueue::dequeueOne()
 	{
 		Notification::Ptr pNf;
-		if (!_nfQueue.empty())
+		NfQueue::iterator it = _nfQueue.begin();
+		if (it != _nfQueue.end())
 		{
-			pNf = _nfQueue.front();
-			_nfQueue.pop_front();
+			pNf = it->second;
+			_nfQueue.erase(it);
 		}
 		return pNf;
 	}
 
-	NotificationQueue& NotificationQueue::DefaultQueue()
+	PriorityNotificationQueue& PriorityNotificationQueue::DefaultQueue()
 	{
-		static NotificationQueue s;
+		static PriorityNotificationQueue s;
 		return s;
 	}
 

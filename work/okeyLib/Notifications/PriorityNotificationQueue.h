@@ -1,30 +1,28 @@
 /********************************************************************
-	created:	2015/01/20
-	created:	17:09
+	created:	2015/01/22
 	author:		okey
 	
-	purpose:	多线程通知。
+	purpose:	
 *********************************************************************/
-#ifndef __NOTIFICATION_QUEUE_H__
-#define __NOTIFICATION_QUEUE_H__
+#ifndef __PRIORITY_NOTIFICATION_QUEUE_H__
+#define __PRIORITY_NOTIFICATION_QUEUE_H__
 
 #include "Notification.h"
+#include <map>
 #include <deque>
-#include "Thread/Event.h"
 #include "Thread/Mutex.h"
-
+#include "Thread/Event.h"
 
 namespace okey
 {
 	class NotificationCenter;
 
-	class  NotificationQueue
+	class  PriorityNotificationQueue
 	{
 	public:
-		NotificationQueue();
-		~NotificationQueue();
-		void EnqueueNotification(Notification::Ptr pNotification);		/// Enqueues the given notification by adding it to
-		void EnqueueUrgentNotification(Notification::Ptr pNotification);		/// Enqueues the given notification by adding it to
+		PriorityNotificationQueue();
+		~PriorityNotificationQueue();
+		void EnqueueNotification(Notification::Ptr pNotification, int32 priority);		/// Enqueues the given notification by adding it to
 		Notification* DequeueNotification();		/// Dequeues the next pending notification.
 		Notification* WaitDequeueNotification();		/// Dequeues the next pending notification.
 		Notification* WaitDequeueNotification(uint32 milliseconds);		/// Dequeues the next pending notification.
@@ -34,11 +32,11 @@ namespace okey
 		int32 GetSize() const;		/// Returns the number of notifications in the queue.
 		void Clear();		/// Removes all notifications from the queue.
 		bool HasIdleThreads() const;			/// Returns true if the queue has at least one thread waiting for a notification.
-		static NotificationQueue& DefaultQueue();		/// Returns a reference to the default NotificationQueue.
+		static PriorityNotificationQueue& DefaultQueue();		/// Returns a reference to the default NotificationQueue.
 	protected:
 		Notification::Ptr dequeueOne();
 	private:
-		typedef std::deque<Notification::Ptr> NfQueue;
+		typedef std::multimap<int32, Notification::Ptr> NfQueue;
 		struct WaitInfo
 		{
 			Notification::Ptr pNf;
@@ -51,6 +49,5 @@ namespace okey
 		mutable FastMutex _mutex;
 	};
 }
-
 
 #endif

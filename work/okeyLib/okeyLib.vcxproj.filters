@@ -246,6 +246,12 @@
     <ClCompile Include="Thread\Timer.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
+    <ClCompile Include="Notifications\PriorityNotificationQueue.cpp">
+      <Filter>Notifications</Filter>
+    </ClCompile>
+    <ClCompile Include="Notifications\TimedNotificationQueue.cpp">
+      <Filter>Notifications</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -340,9 +346,6 @@
     </ClInclude>
     <ClInclude Include="NetWork\NetManagerBase.h">
       <Filter>NetWork</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\MathTemplate.h">
-      <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\Packet.h">
       <Filter>NetWork\packet</Filter>
@@ -574,6 +577,15 @@
     </ClInclude>
     <ClInclude Include="Template\Tuple.h">
       <Filter>Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Template\MathTemplate.h">
+      <Filter>Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Notifications\PriorityNotificationQueue.h">
+      <Filter>Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="Notifications\TimedNotificationQueue.h">
+      <Filter>Notifications</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
