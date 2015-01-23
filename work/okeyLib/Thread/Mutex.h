@@ -126,6 +126,7 @@ namespace okey
 	class NullLock: public nocopyable
 	{
 	public:
+		typedef ScopedLock<NullLock> ScopedLock;
 		NullLock(){}
 		~NullLock(){}
 		void Lock(){}

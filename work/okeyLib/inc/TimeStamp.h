@@ -78,6 +78,13 @@ namespace okey
 			return now - *this;
 		}
 
+		bool isElapsed(int64 interval) const
+		{
+			TimeStamp now;
+			int64 diff = now - *this;
+			return diff >= interval;
+		}
+
 		static TimeStamp CurrentTime();
 
 		int64 MilliSecond() const

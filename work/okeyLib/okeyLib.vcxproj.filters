@@ -55,6 +55,9 @@
     <Filter Include="Template">
       <UniqueIdentifier>{ea03eb7e-f08f-4bbe-baee-9067e54b18c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Events">
+      <UniqueIdentifier>{0e8e2bf3-8142-4b1b-b5cf-0f54601ebacc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyxml\tinyxml.cpp">
@@ -234,9 +237,6 @@
     <ClCompile Include="Notifications\NotificationCenter.cpp">
       <Filter>Notifications</Filter>
     </ClCompile>
-    <ClCompile Include="Notifications\Observer.cpp">
-      <Filter>Notifications</Filter>
-    </ClCompile>
     <ClCompile Include="Thread\ActiveDispatcher.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
@@ -250,6 +250,9 @@
       <Filter>Notifications</Filter>
     </ClCompile>
     <ClCompile Include="Notifications\TimedNotificationQueue.cpp">
+      <Filter>Notifications</Filter>
+    </ClCompile>
+    <ClCompile Include="Notifications\AbstractObserver.cpp">
       <Filter>Notifications</Filter>
     </ClCompile>
   </ItemGroup>
@@ -551,9 +554,6 @@
     <ClInclude Include="Notifications\NotificationCenter.h">
       <Filter>Notifications</Filter>
     </ClInclude>
-    <ClInclude Include="Notifications\Observer.h">
-      <Filter>Notifications</Filter>
-    </ClInclude>
     <ClInclude Include="Thread\ThreadTarget.h">
       <Filter>Thread</Filter>
     </ClInclude>
@@ -586,6 +586,63 @@
     </ClInclude>
     <ClInclude Include="Notifications\TimedNotificationQueue.h">
       <Filter>Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="Notifications\AbstractObserver.h">
+      <Filter>Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="Notifications\Observer.h">
+      <Filter>Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\AbstractDelegate.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\AbstractEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\AbstractPriorityDelegate.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\DefaultStrategy.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\NotificationStrategy.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\BasicEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Delegate.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventArgs.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ExpireDelegate.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\FIFOEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\FIFOStrategy.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\FunctionDelegate.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\FunctionPriorityDelegate.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PriorityEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PriorityExpireDelegate.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PriorityStrategy.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PriorityDelegate.h">
+      <Filter>Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

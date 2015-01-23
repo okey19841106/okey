@@ -1,6 +1,6 @@
 #include "PreCom.h"
 #include "NotificationCenter.h"
-#include "Observer.h"
+#include "AbstractObserver.h"
 
 namespace okey
 {
@@ -30,7 +30,7 @@ namespace okey
 			}
 		}
 	}
-	void NotificationCenter::PostNotification(Notification::Ptr pNotification)
+	void NotificationCenter::PostNotification(Notification::Ptr pNotification)//自动清理notification的指针。
 	{
 		ScopedLockWithUnlock<Mutex> lock(_mutex);
 		ObserverList observersToNotify(_observers);

@@ -1,5 +1,5 @@
 #include "PreCom.h"
-#include "Observer.h"
+#include "AbstractObserver.h"
 
 
 namespace okey

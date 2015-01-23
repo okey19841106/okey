@@ -124,7 +124,7 @@
     <ClCompile Include="Notifications\Notification.cpp" />
     <ClCompile Include="Notifications\NotificationCenter.cpp" />
     <ClCompile Include="Notifications\NotificationQueue.cpp" />
-    <ClCompile Include="Notifications\Observer.cpp" />
+    <ClCompile Include="Notifications\AbstractObserver.cpp" />
     <ClCompile Include="Notifications\PriorityNotificationQueue.cpp" />
     <ClCompile Include="Notifications\TimedNotificationQueue.cpp" />
     <ClCompile Include="process\NameEvent.cpp" />
@@ -160,6 +160,23 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Events\AbstractDelegate.h" />
+    <ClInclude Include="Events\AbstractEvent.h" />
+    <ClInclude Include="Events\AbstractPriorityDelegate.h" />
+    <ClInclude Include="Events\BasicEvent.h" />
+    <ClInclude Include="Events\DefaultStrategy.h" />
+    <ClInclude Include="Events\Delegate.h" />
+    <ClInclude Include="Events\EventArgs.h" />
+    <ClInclude Include="Events\ExpireDelegate.h" />
+    <ClInclude Include="Events\FIFOEvent.h" />
+    <ClInclude Include="Events\FIFOStrategy.h" />
+    <ClInclude Include="Events\FunctionDelegate.h" />
+    <ClInclude Include="Events\FunctionPriorityDelegate.h" />
+    <ClInclude Include="Events\NotificationStrategy.h" />
+    <ClInclude Include="Events\PriorityDelegate.h" />
+    <ClInclude Include="Events\PriorityEvent.h" />
+    <ClInclude Include="Events\PriorityExpireDelegate.h" />
+    <ClInclude Include="Events\PriorityStrategy.h" />
     <ClInclude Include="File\cfgloader.h" />
     <ClInclude Include="File\File.h" />
     <ClInclude Include="File\FileInfo.h" />
@@ -228,6 +245,7 @@
     <ClInclude Include="Notifications\Notification.h" />
     <ClInclude Include="Notifications\NotificationCenter.h" />
     <ClInclude Include="Notifications\NotificationQueue.h" />
+    <ClInclude Include="Notifications\AbstractObserver.h" />
     <ClInclude Include="Notifications\Observer.h" />
     <ClInclude Include="Notifications\PriorityNotificationQueue.h" />
     <ClInclude Include="Notifications\TimedNotificationQueue.h" />

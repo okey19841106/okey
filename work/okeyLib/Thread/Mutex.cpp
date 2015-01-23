@@ -68,8 +68,8 @@ namespace okey
 		}
 		catch (...)
 		{
+			throw SystemException("cannot unlock mutex");
 		}
-		throw SystemException("cannot unlock mutex");
 #else
 		if (pthread_mutex_unlock(&_mutex)) 
 			throw SystemException("cannot unlock mutex");
@@ -84,8 +84,8 @@ namespace okey
 		}
 		catch (...)
 		{
+			throw SystemException("cannot lock mutex");
 		}
-		throw SystemException("cannot lock mutex");
 #else
 		int rc = pthread_mutex_trylock(&_mutex);
 		if (rc == 0)
