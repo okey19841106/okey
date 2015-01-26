@@ -116,6 +116,7 @@
     <ClCompile Include="log\LogChannel.cpp" />
     <ClCompile Include="log\Logger.cpp" />
     <ClCompile Include="NetWork\CompleteOperation.cpp" />
+    <ClCompile Include="NetWork\EpollReactor.cpp" />
     <ClCompile Include="NetWork\IOCPReactor.cpp" />
     <ClCompile Include="NetWork\Packet.cpp" />
     <ClCompile Include="NetWork\PacketList.cpp" />
@@ -167,6 +168,9 @@
     <ClInclude Include="Events\DefaultStrategy.h" />
     <ClInclude Include="Events\Delegate.h" />
     <ClInclude Include="Events\EventArgs.h" />
+    <ClInclude Include="Events\EventHandler.h" />
+    <ClInclude Include="Events\EventProactor.h" />
+    <ClInclude Include="Events\EventReactor.h" />
     <ClInclude Include="Events\ExpireDelegate.h" />
     <ClInclude Include="Events\FIFOEvent.h" />
     <ClInclude Include="Events\FIFOStrategy.h" />
@@ -234,6 +238,7 @@
     <ClInclude Include="log\Logger.h" />
     <ClInclude Include="NetWork\AcceptType.h" />
     <ClInclude Include="NetWork\CompleteOperation.h" />
+    <ClInclude Include="NetWork\EpollReactor.h" />
     <ClInclude Include="NetWork\IOCPReactor.h" />
     <ClInclude Include="NetWork\NetManagerBase.h" />
     <ClInclude Include="NetWork\NetReactor.h" />
