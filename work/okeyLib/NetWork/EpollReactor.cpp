@@ -1,5 +1,7 @@
 #include "PreCom.h"
 #include "EpollReactor.h"
+#ifndef WINDOWS
+
 #include "Events/EventHandler.h"
 #include <vector>
 
@@ -270,3 +272,5 @@ namespace okey
 		}
 	}
 }
+
+#endif

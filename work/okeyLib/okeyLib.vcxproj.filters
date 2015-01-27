@@ -258,6 +258,9 @@
     <ClCompile Include="NetWork\EpollReactor.cpp">
       <Filter>NetWork\socket</Filter>
     </ClCompile>
+    <ClCompile Include="NetWork\Socket.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -657,6 +660,9 @@
       <Filter>Events</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\EpollReactor.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\Socket.h">
       <Filter>NetWork\socket</Filter>
     </ClInclude>
   </ItemGroup>

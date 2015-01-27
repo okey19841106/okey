@@ -8,12 +8,16 @@
 #ifndef __EPOLL_REACTOR_H__
 #define __EPOLL_REACTOR_H__
 
+#ifndef WINDOWS
+
 #include "Events/EventReactor.h"
 #include <set>
 #include <map>
 
 namespace okey
 {
+
+
 	class EpollReactor : public Event_Reactor
 	{
 	public:
@@ -55,7 +59,9 @@ namespace okey
 	{
 		return info1._timeout < info2._timeout;
 	}
+	
 }
 
+#endif
 
 #endif

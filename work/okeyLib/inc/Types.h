@@ -33,11 +33,10 @@
 
 
 #ifdef WINDOWS
-// #include <WinSock2.h>
-// #include <Windows.h>
+typedef int socklen_t;
 #elif defined(LINUX)
 
-typedef SOCKET int
+typedef int SOCKET 
 #define INVALID_SOCKET -1
 #endif
 

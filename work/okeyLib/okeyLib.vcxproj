@@ -120,6 +120,7 @@
     <ClCompile Include="NetWork\IOCPReactor.cpp" />
     <ClCompile Include="NetWork\Packet.cpp" />
     <ClCompile Include="NetWork\PacketList.cpp" />
+    <ClCompile Include="NetWork\Socket.cpp" />
     <ClCompile Include="NetWork\SocketBase.cpp" />
     <ClCompile Include="NetWork\SocketOps.cpp" />
     <ClCompile Include="Notifications\Notification.cpp" />
@@ -245,6 +246,7 @@
     <ClInclude Include="NetWork\Packet.h" />
     <ClInclude Include="NetWork\PacketFunction.h" />
     <ClInclude Include="NetWork\PacketList.h" />
+    <ClInclude Include="NetWork\Socket.h" />
     <ClInclude Include="NetWork\SocketBase.h" />
     <ClInclude Include="NetWork\SocketOps.h" />
     <ClInclude Include="Notifications\Notification.h" />
