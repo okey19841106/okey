@@ -108,12 +108,6 @@
     <ClCompile Include="NetWork\PacketList.cpp">
       <Filter>NetWork\packet</Filter>
     </ClCompile>
-    <ClCompile Include="NetWork\SocketBase.cpp">
-      <Filter>NetWork\socket</Filter>
-    </ClCompile>
-    <ClCompile Include="NetWork\SocketOps.cpp">
-      <Filter>NetWork\socket</Filter>
-    </ClCompile>
     <ClCompile Include="NetWork\IOCPReactor.cpp">
       <Filter>NetWork\socket</Filter>
     </ClCompile>
@@ -261,6 +255,15 @@
     <ClCompile Include="NetWork\Socket.cpp">
       <Filter>NetWork\socket</Filter>
     </ClCompile>
+    <ClCompile Include="NetWork\IOCPProactor.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\Acceptor.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\SessionBase.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -353,9 +356,6 @@
     <ClInclude Include="log\Logger.h">
       <Filter>Log</Filter>
     </ClInclude>
-    <ClInclude Include="NetWork\NetManagerBase.h">
-      <Filter>NetWork</Filter>
-    </ClInclude>
     <ClInclude Include="NetWork\Packet.h">
       <Filter>NetWork\packet</Filter>
     </ClInclude>
@@ -366,12 +366,6 @@
       <Filter>NetWork\packet</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\AcceptType.h">
-      <Filter>NetWork\socket</Filter>
-    </ClInclude>
-    <ClInclude Include="NetWork\SocketBase.h">
-      <Filter>NetWork\socket</Filter>
-    </ClInclude>
-    <ClInclude Include="NetWork\SocketOps.h">
       <Filter>NetWork\socket</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\NetReactor.h">
@@ -663,6 +657,18 @@
       <Filter>NetWork\socket</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\Socket.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\IOCPProactor.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\Acceptor.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\SessionBase.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\NetServiceBase.h">
       <Filter>NetWork\socket</Filter>
     </ClInclude>
   </ItemGroup>
