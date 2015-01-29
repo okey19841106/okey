@@ -264,6 +264,12 @@
     <ClCompile Include="NetWork\SessionBase.cpp">
       <Filter>NetWork\socket</Filter>
     </ClCompile>
+    <ClCompile Include="NetWork\NetSession.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\SocketAddr.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -669,6 +675,12 @@
       <Filter>NetWork\socket</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\NetServiceBase.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\NetSession.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\SocketAddr.h">
       <Filter>NetWork\socket</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,9 +8,15 @@
 #ifndef __SOCKET_SESSION_BASE_H__
 #define __SOCKET_SESSION_BASE_H__
 
+#include "Events/EventHandler.h"
+#include "CRefcounter.h"
+#include "SocketAddr.h"
+
 namespace okey
 {
-	class SessionBase : public Event_Handler, CRefCounter
+	class NetServiceBase;
+
+	class SessionBase : public Event_Handler, public CRefCounter
 	{
 	public:
 		enum SessionState
@@ -33,13 +39,13 @@ namespace okey
 		virtual void Disconnect() = 0;
 		virtual SocketAddr GetPeerAddr() const = 0;
 		virtual SocketAddr GetHostAddr() const = 0;
-		virtual void Open() = 0;
+		virtual void Open(SOCKET s, SessionType type, NetServiceBase* pNet) = 0;
 		virtual void Close() = 0;
 		virtual bool SendPacket(void* packet) = 0;
 		virtual void* RecvPacket() = 0;
 		virtual int32 SendData(const char* buff, int32 len) = 0;
 		virtual int32 RecvData(char* buff, int32 len) = 0;
-
+	private:
 	};
 }
 
