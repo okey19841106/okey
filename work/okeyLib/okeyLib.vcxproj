@@ -123,7 +123,6 @@
     <ClCompile Include="NetWork\Packet.cpp" />
     <ClCompile Include="NetWork\PacketList.cpp" />
     <ClCompile Include="NetWork\NetSession.cpp" />
-    <ClCompile Include="NetWork\SessionBase.cpp" />
     <ClCompile Include="NetWork\Socket.cpp" />
     <ClCompile Include="NetWork\SocketAddr.cpp" />
     <ClCompile Include="Notifications\Notification.cpp" />

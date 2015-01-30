@@ -11,6 +11,7 @@
 #include "SessionBase.h"
 #include "Socket.h"
 #include "Thread/Mutex.h"
+#include "CircularBuffer.h"
 
 namespace okey
 {
@@ -32,6 +33,10 @@ namespace okey
 		virtual void* RecvPacket();
 		virtual int32 SendData(const char* buff, int32 len);
 		virtual int32 RecvData(char* buff, int32 len);
+		virtual void OnRecv();
+		virtual void OnTick(const TimeStamp& curtime);
+		virtual void OnConnect();
+		virtual void OnSend();
 
 		virtual void* GetHandle();
 		virtual void SetHandle(const void* pHandle);
@@ -47,8 +52,9 @@ namespace okey
 		volatile SessionState m_State;
 		SessionType m_Type;
 		FastMutex	m_ReadMutex;
-		FastMutex	m_WriteMutex;
-
+		FastMutex	m_SendMutex;
+		CircularBuffer m_SendBuffer;
+		CircularBuffer m_RecvBuffer;
 	};
 }
 

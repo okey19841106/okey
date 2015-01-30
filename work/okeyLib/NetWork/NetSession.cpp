@@ -72,10 +72,47 @@ namespace okey
 
 	int32 NetSession::SendData(const char* buff, int32 len)
 	{
+		
+		FastMutex::ScopedLock lock(m_SendMutex);
+		if( m_SendBuffer.GetSpace() > len )
+		{
+			m_SendBuffer.Write((void*)buff, len );
+			return len;
+		}
+		int32 ret = m_Socket.Send(buff,len);
+		if (ret < 0)
+		{
+			int32 error = Socket::GetSysError();
+			if (SOCKET_EWOULDBLOCK == error || SOCKET_EAGAIN == error || SOCKET_ENOBUFS == error)
+			{
 
+			}
+		}
+		
+		return len;
 	}
 
 	int32 NetSession::RecvData(char* buff, int32 len)
+	{
+
+	}
+
+	void NetSession::OnRecv()
+	{
+
+	}
+
+	void NetSession::OnTick(const TimeStamp& curtime)
+	{
+
+	}
+
+	void NetSession::OnConnect()
+	{
+
+	}
+
+	void NetSession::OnSend()
 	{
 
 	}

@@ -261,9 +261,6 @@
     <ClCompile Include="NetWork\Acceptor.cpp">
       <Filter>NetWork\socket</Filter>
     </ClCompile>
-    <ClCompile Include="NetWork\SessionBase.cpp">
-      <Filter>NetWork\socket</Filter>
-    </ClCompile>
     <ClCompile Include="NetWork\NetSession.cpp">
       <Filter>NetWork\socket</Filter>
     </ClCompile>
