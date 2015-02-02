@@ -15,6 +15,9 @@
 
 namespace okey
 {
+	class Event_Actor;
+	class NetServiceBase;
+
 	class NetSession : public SessionBase
 	{
 	public:
@@ -37,24 +40,27 @@ namespace okey
 		virtual void OnTick(const TimeStamp& curtime);
 		virtual void OnConnect();
 		virtual void OnSend();
-
-		virtual void* GetHandle();
-		virtual void SetHandle(const void* pHandle);
+		virtual void SetEventActor(Event_Actor* pActor);
+		virtual void* GetHandle(){return (void*)this;}
+		virtual void SetHandle(const void* pHandle){}
 		virtual void HandleInput();
 		virtual void HandleOutput();
 		virtual void HandleException();
 		virtual void HandleTick(const TimeStamp& now);
 		virtual void HandleClose();
+		
 	private:
 		Socket m_Socket;
 		NetServiceBase* m_pNetService;
+		Event_Actor* m_pActor;
 		uint32 m_ID;
 		volatile SessionState m_State;
 		SessionType m_Type;
-		FastMutex	m_ReadMutex;
+		FastMutex	m_RecvMutex;
 		FastMutex	m_SendMutex;
 		CircularBuffer m_SendBuffer;
 		CircularBuffer m_RecvBuffer;
+		const static int32 RECV_BLOCK_SIZE;
 	};
 }
 

@@ -10,7 +10,7 @@
 
 #ifndef WINDOWS
 
-#include "Events/EventReactor.h"
+#include "Events/EventActor.h"
 #include <set>
 #include <map>
 
@@ -18,7 +18,7 @@ namespace okey
 {
 
 
-	class EpollReactor : public Event_Reactor
+	class EpollReactor : public Event_Actor
 	{
 	public:
 		struct HandlerInfo
@@ -36,7 +36,7 @@ namespace okey
 	public:
 		EpollReactor();
 		~EpollReactor();
-		virtual bool Open(uint32 maxHandler, uint32 tickInter);
+		virtual bool Open(uint32 maxHandler, uint32 tickInter, uint32 numThread);
 		virtual void Close();
 		virtual bool RegisterHandler(Event_Handler* handler, uint32 events) ;
 		virtual void RemoveHander(Event_Handler* handler, uint32 events);
@@ -52,7 +52,7 @@ namespace okey
 		uint32 m_tickInter;
 		uint32 m_MaxOfHandler;
 		bool m_bOpen;
-		bool m_RemvoeFlag;
+		bool m_RemoveFlag;
 	};
 
 	inline bool operator < (const EpollReactor::HandlerInfo& info1, const EpollReactor::HandlerInfo& info2)

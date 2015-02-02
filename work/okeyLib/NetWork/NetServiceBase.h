@@ -9,6 +9,7 @@
 #define __NET_SERVICE_BASE_H__
 
 #include "Types.h"
+#include "SessionBase.h"
 
 namespace okey
 {
@@ -42,8 +43,17 @@ namespace okey
 		uint32 backlog;
 	};
 
+	class Socket;
+
 	class NetServiceBase
 	{
+	public:
+		enum NetServiceState
+		{
+			e_Initial = 0,
+			e_Running = 1,
+			e_Shutdown = 2,
+		};
 	public:
 		NetServiceBase(){}
 		virtual ~NetServiceBase(){};
@@ -61,12 +71,12 @@ namespace okey
 		virtual bool Accept(const char* ip, int32 port)=0;
 		virtual SessionBase* GetSession(int32 id) = 0;
 		virtual bool Disconnect(int32 scoketid)=0;
-		//virtual bool ProcessPacket(PacketBase* pkt) = 0;
-		//virtual void SetPacketProcess(PacketProcessEx* pktpoc) = 0;
-		//virtual PacketProcessEx* GetPacketProcess() = 0;
-		virtual SessionBase* Connect(uint32 id, const SocketAddr& addr) = 0;
-		const NetServiceParam& GetParam() const = 0;
+		virtual void OnNewConnection(Socket& s, SessionBase::SessionType t) = 0;
+		virtual SessionPtr  Connect(uint32 id, const SocketAddr& addr) = 0;
+		virtual void RecycleConnection(SessionBase* pSession) = 0;
+		const NetServiceParam& GetParam() const {return m_Param;}
 	protected:
+		NetServiceParam m_Param;
 	private:
 	};
 }

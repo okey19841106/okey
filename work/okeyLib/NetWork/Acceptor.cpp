@@ -1,9 +1,12 @@
 #include "PreCom.h"
 #include "Acceptor.h"
+#include "Socket.h"
+#include "NetServiceBase.h"
+#include "SessionBase.h"
 
 namespace okey
 {
-	Acceptor::Acceptor(Socket& socket, const SocketAddr& addr, NetServiceImpl* p)
+	Acceptor::Acceptor(Socket& socket, const SocketAddr& addr, NetServiceBase* p)
 	{
 		m_Socket.Shift(socket);
 		m_pNetService = p;
@@ -31,8 +34,8 @@ namespace okey
 				}
 				break;
 			}
-			Socket Sock(socket);
-			m_pNetService->OnNewConnection(Sock, CT_PASSIVE);
+			Socket Sock(sock);
+			m_pNetService->OnNewConnection(Sock, SessionBase::e_Passive);
 		}
 	}
 	void Acceptor::HandleOutput()

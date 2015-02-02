@@ -18,7 +18,7 @@ namespace okey
 	{
 		Close();
 	}
-	bool EpollReactor::Open(uint32 maxHandler, uint32 tickInter)
+	bool EpollReactor::Open(uint32 maxHandler, uint32 tickInter, uint32 numThread)
 	{
 		if (m_bOpen)
 		{
@@ -60,7 +60,8 @@ namespace okey
 		{
 			return false;
 		}
-		SOCKET socket = (*(SOCKET*)(handler->GetHandle()));
+		SessionBase* s = (SessionBase*)handler->GetHandle();
+		SOCKET socket = s->GetSocket();
 		if (socket < 0)
 		{
 			return false;
@@ -119,7 +120,8 @@ namespace okey
 		{
 			return ;
 		}
-		SOCKET socket = (*(SOCKET*)(handler->GetHandle()));
+		SessionBase* s = (SessionBase*)handler->GetHandle();
+		SOCKET socket = s->GetSocket();
 		if (socket < 0)
 		{
 			return ;
@@ -258,15 +260,15 @@ namespace okey
 	void EpollReactor::DispathNetEvents(Event_Handler* handler, uint32 events)
 	{
 		m_RemvoeFlag = false;
-		if (m_RemvoeFlag && ((events & EPOLLIN)|| (events & EPOLLERR)))
+		if (!m_RemoveFlag && ((events & EPOLLIN)|| (events & EPOLLERR)))
 		{
 			handler->HandleInput();
 		}
-		if (m_RemvoeFlag && ((events & EPOLLOUT)|| (events & EPOLLERR)))
+		if (!m_RemoveFlag && ((events & EPOLLOUT)|| (events & EPOLLERR)))
 		{
 			handler->HandleOutput();
 		}
-		if (m_RemvoeFlag && (events & EPOLLPRI))
+		if (!m_RemoveFlag && (events & EPOLLPRI))
 		{
 			handler->HandleException();
 		}

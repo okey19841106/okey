@@ -267,6 +267,9 @@
     <ClCompile Include="NetWork\SocketAddr.cpp">
       <Filter>NetWork\socket</Filter>
     </ClCompile>
+    <ClCompile Include="NetWork\NetService.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -367,9 +370,6 @@
     </ClInclude>
     <ClInclude Include="NetWork\PacketList.h">
       <Filter>NetWork\packet</Filter>
-    </ClInclude>
-    <ClInclude Include="NetWork\AcceptType.h">
-      <Filter>NetWork\socket</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\NetReactor.h">
       <Filter>NetWork\socket</Filter>
@@ -653,9 +653,6 @@
     <ClInclude Include="Events\EventProactor.h">
       <Filter>Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\EventReactor.h">
-      <Filter>Events</Filter>
-    </ClInclude>
     <ClInclude Include="NetWork\EpollReactor.h">
       <Filter>NetWork\socket</Filter>
     </ClInclude>
@@ -678,6 +675,12 @@
       <Filter>NetWork\socket</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\SocketAddr.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventActor.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\NetService.h">
       <Filter>NetWork\socket</Filter>
     </ClInclude>
   </ItemGroup>

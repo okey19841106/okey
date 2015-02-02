@@ -8,18 +8,17 @@
 #ifndef __IOCP_PROACTOR_H__
 #define __IOCP_PROACTOR_H__
 
-#include "EventProactor.h"
+#include "EventActor.h"
 
 namespace okey
 {
 
-	class IOCPProactor : public Event_Proactor
+	class IOCPProactor : public Event_Actor
 	{
 	public:
 		IOCPProactor();
 		virtual ~IOCPProactor();
-		virtual bool Open(uint32 numThread);
-		virtual void Open();
+		virtual bool Open(uint32 maxHandler, uint32 tickInter, uint32 numThread);
 		virtual void Close();
 		virtual bool RegisterHandler(Event_Handler* handler, uint32 events);
 		virtual void RemoveHander(Event_Handler* handler, uint32 events);

@@ -11,10 +11,12 @@
 #include "Events/EventHandler.h"
 #include "CRefcounter.h"
 #include "SocketAddr.h"
+#include "AutoPtr.h"
 
 namespace okey
 {
 	class NetServiceBase;
+	class Event_Actor;
 
 	class SessionBase : public Event_Handler, public CRefCounter
 	{
@@ -45,8 +47,12 @@ namespace okey
 		virtual void* RecvPacket() = 0;
 		virtual int32 SendData(const char* buff, int32 len) = 0;
 		virtual int32 RecvData(char* buff, int32 len) = 0;
+		virtual SOCKET GetSocket() = 0;
+		virtual void SetEventActor(Event_Actor* pActor) = 0;
 	private:
 	};
+
+	typedef AutoPtr<SessionBase> SessionPtr;
 }
 
 #endif

@@ -8,17 +8,20 @@
 #ifndef __SOCKET_ACCEPTOR_H__
 #define __SOCKET_ACCEPTOR_H__
 
+#include "Events/EventHandler.h"
+#include "Socket.h"
+#include "SocketAddr.h"
 
 namespace okey
 {
-	class NetServiceImpl;
+	class NetServiceBase;
 	class Acceptor : public Event_Handler
 	{
 	public:
-		Acceptor(Socket& socket, const SocketAddr& addr, NetServiceImpl* p);
+		Acceptor(Socket& socket, const SocketAddr& addr, NetServiceBase* p);
 		~Acceptor();
 
-		virtual void* GetHandle();
+		virtual void* GetHandle(){return (void*)this;}
 		virtual void SetHandle(const void* pHandle){}
 		virtual void HandleInput();
 		virtual void HandleOutput();
@@ -28,7 +31,7 @@ namespace okey
 	private:
 		Socket m_Socket;
 		SocketAddr m_Addr;
-		NetServiceImpl* m_pNetService;
+		NetServiceBase* m_pNetService;
 	};
 }
 
