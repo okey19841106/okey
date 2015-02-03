@@ -77,11 +77,6 @@ namespace okey
 		bool IsValid()const{return m_Socket != INVALID_SOCKET;}
 		SOCKET GetSocket()const{return m_Socket;}
 		void Shift(Socket& sock);
-#ifdef WINDOWS
-	protected:
-		OVERLAPPED* m_RecvCompleteOperation;
-		OVERLAPPED* m_SendCompleteOperation;
-#endif
 	private:
 		
 

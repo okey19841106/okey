@@ -61,6 +61,12 @@ namespace okey
 		CircularBuffer m_SendBuffer;
 		CircularBuffer m_RecvBuffer;
 		const static int32 RECV_BLOCK_SIZE;
+#ifdef WINDOWS
+		WSABUF m_SendWSABuf;
+		WSABUF m_RecvWSABuf;
+		OVERLAPPED m_SendOverLapped;
+		OVERLAPPED m_RecvOverLapped;
+#endif
 	};
 }
 

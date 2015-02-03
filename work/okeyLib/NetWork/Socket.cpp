@@ -5,17 +5,11 @@
 namespace okey
 {
 	Socket::Socket():m_Socket(INVALID_SOCKET)
-#ifdef WINDOWS
-		,m_SendCompleteOperation(NULL), m_RecvCompleteOperation(NULL)
-#endif
 	{
 
 	}
 
 	Socket::Socket(SOCKET s):m_Socket((s < 0) ? INVALID_SOCKET: s)
-#ifdef WINDOWS
-		,m_SendCompleteOperation(NULL), m_RecvCompleteOperation(NULL)
-#endif
 	{
 
 	}
@@ -151,35 +145,19 @@ namespace okey
 	{
 		while (true)
 		{
-#ifdef WINDOWS
-			WSABUF wsaBuf;
-			wsaBuf.len = len;
-			wsaBuf.buf = const_cast<char*>(buf);
-			DWORD sendBytes = 0;
-			int32 ret = WSASend(m_Socket, &wsaBuf, 1, &sendBytes, flags, m_SendCompleteOperation, NULL);
-#else
+
 			int32 ret = send(m_Socket, buf, len, flags);
-#endif
+
 			if (ret < 0 )
 			{
 				int32 errNum = GetSysError();
-#ifdef WINDOWS
-				if ( WSA_IO_PENDING == errNum )
-				{
-					return (int32)sendBytes;
-				}
-#endif
 				if (GetSysError() == SOCKET_EINTR)
 				{
 					continue;
 				}
 				
 			}
-#ifdef WINDOWS
-			return (int32)sendBytes;
-#else
 			return ret;
-#endif
 		}
 	}
 
@@ -187,36 +165,19 @@ namespace okey
 	{
 		while (true)
 		{
-#ifdef WINDOWS
-			WSABUF wsaBuf;
-			wsaBuf.len = len;
-			wsaBuf.buf = const_cast<char*>(buf);
-			DWORD f = flags;
-			DWORD recvBytes = 0;
-			int32 ret = WSARecv(m_Socket, &wsaBuf, 1, &recvBytes, &f, m_RecvCompleteOperation, NULL);
-#else
+
 			int32 ret = recv(m_Socket, buf, len, flags);
-#endif
+
 			if (ret < 0 )
 			{
 				int32 errNum = GetSysError();
-#ifdef WINDOWS
-				if ( WSA_IO_PENDING == errNum )
-				{
-					return (int32)recvBytes;
-				}
-#endif
 				if (GetSysError() == SOCKET_EINTR)
 				{
 					continue;
 				}
-
 			}
-#ifdef WINDOWS
-			return (int32)recvBytes;
-#else
 			return ret;
-#endif
+
 		}
 	}
 

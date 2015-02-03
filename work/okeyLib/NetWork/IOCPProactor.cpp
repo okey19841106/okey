@@ -15,7 +15,7 @@ namespace okey
 
 	}
 
-	bool IOCPProactor::Open(uint32 numThread)
+	bool IOCPProactor::Open(uint32 maxHandler, uint32 tickInter, uint32 numThread)
 	{
 		completion_port = CreateIoCompletionPort(INVALID_HANDLE_VALUE,NULL,0,numThread);
 		if ( NULL == completion_port )

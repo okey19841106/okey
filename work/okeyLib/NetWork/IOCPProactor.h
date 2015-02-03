@@ -12,6 +12,7 @@
 
 namespace okey
 {
+	class Event_Handler;
 
 	class IOCPProactor : public Event_Actor
 	{
