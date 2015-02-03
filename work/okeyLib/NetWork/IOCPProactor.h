@@ -7,7 +7,7 @@
 *********************************************************************/
 #ifndef __IOCP_PROACTOR_H__
 #define __IOCP_PROACTOR_H__
-
+#ifd
 #include "EventActor.h"
 
 namespace okey

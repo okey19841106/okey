@@ -173,7 +173,6 @@
     <ClInclude Include="Events\Delegate.h" />
     <ClInclude Include="Events\EventArgs.h" />
     <ClInclude Include="Events\EventHandler.h" />
-    <ClInclude Include="Events\EventProactor.h" />
     <ClInclude Include="Events\EventActor.h" />
     <ClInclude Include="Events\ExpireDelegate.h" />
     <ClInclude Include="Events\FIFOEvent.h" />
@@ -262,6 +261,7 @@
     <ClInclude Include="Notifications\Observer.h" />
     <ClInclude Include="Notifications\PriorityNotificationQueue.h" />
     <ClInclude Include="Notifications\TimedNotificationQueue.h" />
+    <ClInclude Include="Notifications\Visitor.h" />
     <ClInclude Include="process\NameEvent.h" />
     <ClInclude Include="process\NameMutex.h" />
     <ClInclude Include="process\ProcessPipe.h" />

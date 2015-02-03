@@ -26,11 +26,6 @@ namespace okey
 		return true;
 	}
 
-	void IOCPProactor::Open()
-	{
-
-	}
-
 	void IOCPProactor::Close()
 	{
 

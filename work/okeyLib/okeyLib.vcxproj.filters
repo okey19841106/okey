@@ -650,9 +650,6 @@
     <ClInclude Include="Events\EventHandler.h">
       <Filter>Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\EventProactor.h">
-      <Filter>Events</Filter>
-    </ClInclude>
     <ClInclude Include="NetWork\EpollReactor.h">
       <Filter>NetWork\socket</Filter>
     </ClInclude>
@@ -682,6 +679,9 @@
     </ClInclude>
     <ClInclude Include="NetWork\NetService.h">
       <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="Notifications\Visitor.h">
+      <Filter>Notifications</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
