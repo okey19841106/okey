@@ -371,9 +371,6 @@
     <ClInclude Include="NetWork\PacketList.h">
       <Filter>NetWork\packet</Filter>
     </ClInclude>
-    <ClInclude Include="NetWork\NetReactor.h">
-      <Filter>NetWork\socket</Filter>
-    </ClInclude>
     <ClInclude Include="NetWork\IOCPReactor.h">
       <Filter>NetWork\socket</Filter>
     </ClInclude>

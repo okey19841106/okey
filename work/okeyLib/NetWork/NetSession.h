@@ -15,6 +15,34 @@
 
 namespace okey
 {
+#ifdef WINDOWS
+
+	class CompleteOperator: public OVERLAPPED
+	{
+	public:
+		enum CompleteOperatorEvent
+		{
+			IOCP_IVALID = -1,
+			IOCP_EVENT_READ_COMPLETE = 0,
+			IOCP_EVENT_WRITE_END = 1,
+			IOCP_EVENT_EXCEPT = 2,
+		};
+	public:
+		CompleteOperator()
+		{
+			hEvent = 0;
+			Internal = 0;
+			InternalHigh = 0;
+			Offset = 0;
+			OffsetHigh = 0;
+			nMask = IOCP_IVALID;
+		}
+		~CompleteOperator();
+		uint32 GetBytesTransferred(){return static_cast<uint32>( InternalHigh );}
+		CompleteOperatorEvent nMask;
+	};
+#endif
+
 	class Event_Actor;
 	class NetServiceBase;
 
@@ -48,7 +76,14 @@ namespace okey
 		virtual void HandleException();
 		virtual void HandleTick(const TimeStamp& now);
 		virtual void HandleClose();
-		
+#ifdef WINDOWS
+		void PostReadEvent();
+		void PostWriteEvent();
+		void HandlerComplete(CompleteOperator* p);
+	private:
+		void HandleReadComplete(CompleteOperator* p);
+		void HandleWriteComplete(CompleteOperator* p);
+#endif
 	private:
 		Socket m_Socket;
 		NetServiceBase* m_pNetService;
@@ -64,8 +99,9 @@ namespace okey
 #ifdef WINDOWS
 		WSABUF m_SendWSABuf;
 		WSABUF m_RecvWSABuf;
-		OVERLAPPED m_SendOverLapped;
-		OVERLAPPED m_RecvOverLapped;
+		CompleteOperator m_SendOverLapped;
+		CompleteOperator m_RecvOverLapped;
+		bool m_bSend;
 #endif
 	};
 }

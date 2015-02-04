@@ -244,7 +244,6 @@
     <ClInclude Include="NetWork\EpollReactor.h" />
     <ClInclude Include="NetWork\IOCPProactor.h" />
     <ClInclude Include="NetWork\IOCPReactor.h" />
-    <ClInclude Include="NetWork\NetReactor.h" />
     <ClInclude Include="NetWork\NetService.h" />
     <ClInclude Include="NetWork\NetServiceBase.h" />
     <ClInclude Include="NetWork\Packet.h" />

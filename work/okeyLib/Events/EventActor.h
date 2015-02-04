@@ -24,7 +24,7 @@ namespace okey
 		virtual void Close() = 0;
 		virtual bool RegisterHandler(Event_Handler* handler, uint32 events) = 0;
 		virtual void RemoveHander(Event_Handler* handler, uint32 events) = 0;
-		virtual bool HandleEvents(const TimeStamp& now) = 0;
+		virtual bool HandleEvents() = 0;
 		virtual uint32 GetNumOfHandler() const = 0;
 	
 	};

@@ -1,18 +1,18 @@
 #include "PreCom.h"
 #include "IOCPProactor.h"
-
+#include "NetSession.h"
 
 namespace okey
 {
 
-	IOCPProactor::IOCPProactor():_threadnum(0),completion_port(INVALID_HANDLE_VALUE),m_bOpen(false)
+	IOCPProactor::IOCPProactor():_threadnum(0),completion_port(INVALID_HANDLE_VALUE),m_bOpen(false),m_HandlerNum(0)
 	{
 
 	}
 
 	IOCPProactor::~IOCPProactor()
 	{
-
+		CloseHandle(completion_port);
 	}
 
 	bool IOCPProactor::Open(uint32 maxHandler, uint32 tickInter, uint32 numThread)
@@ -41,47 +41,46 @@ namespace okey
 		{
 			return false;
 		}
-		void* pHandler = handler->GetHandle();
-		if (!pHandler)
+		NetSession* pSession = (NetSession*)handler->GetHandle();
+		if (!pSession)
 		{
 			return false;
 		}
-		
-		if ( NULL == CreateIoCompletionPort( (HANDLE)(*pHandler),completion_port,(ULONG_PTR)handler,0))
+		if ( NULL == CreateIoCompletionPort( (HANDLE)(pSession->GetSocket()),completion_port,(ULONG_PTR)handler,0))
 		{
 			return false;
 		}
-		
+		++m_HandlerNum;
 		return true;
 	}
 
 	void IOCPProactor::RemoveHander(Event_Handler* handler, uint32 events)
 	{
-
+		--m_HandlerNum;
 	}
 
-	bool IOCPProactor::HandleEvents(const TimeStamp& now)
+	bool IOCPProactor::HandleEvents()
 	{
-		OVERLAPPED* pCompleteOperation = NULL;
+		CompleteOperator* pCompleteOperation = NULL;
 		DWORD bytesTransferred = 0;
-		Event_Handler* pHandler = NULL;
-
+		NetSession* pSession = NULL;
 		// Get the next asynchronous operation that completes
-		BOOL result = GetQueuedCompletionStatus (completion_port,
-			&bytesTransferred,
-			(PULONG_PTR)&pHandler,
-			&pCompleteOperation,
-			now.MilliSecond());
+		BOOL result = GetQueuedCompletionStatus (completion_port,&bytesTransferred,	(PULONG_PTR)&pSession,(LPOVERLAPPED*)&pCompleteOperation,INFINITE);
 		if (result == FALSE && pCompleteOperation == NULL) //严重的错误。
 		{
-			int32 error = SocketOps::GetLastError();
-			std::string szerr = FormatErrorMessage(error);
-			printf("%s\n", szerr.c_str());
 			return false;
 		}
-		else if (pHandler != NULL)
+		if (result == FALSE)
 		{
+			int32 error = Socket::GetSysError();
+			if (error == ERROR_NETNAME_DELETED ) //对方强制断开连接，
+			{
+				pSession->HandleClose();
+				return true;
+			}
 		}
+		pSession->HandlerComplete(pCompleteOperation);
+		return true;
 	}
 
 	int32 IOCPProactor::GetThreadNum() const

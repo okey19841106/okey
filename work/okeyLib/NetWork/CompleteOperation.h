@@ -16,8 +16,16 @@ namespace okey
 	class CompleteOperator: public OVERLAPPED
 	{
 	public:
-		CompleteOperator();
-		~CompleteOperator();
+		CompleteOperator()
+		{
+			hEvent = 0;
+			Internal = 0;
+			InternalHigh = 0;
+			Offset = 0;
+			OffsetHigh = 0;
+			nMask = 0;
+		}
+		~CompleteOperator(){}
 		uint32 GetBytesTransferred(){return static_cast<uint32>( InternalHigh );}
 		int32 nMask;
 	};

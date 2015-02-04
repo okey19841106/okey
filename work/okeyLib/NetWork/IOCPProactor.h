@@ -7,8 +7,9 @@
 *********************************************************************/
 #ifndef __IOCP_PROACTOR_H__
 #define __IOCP_PROACTOR_H__
-#ifd
-#include "EventActor.h"
+
+#include "Events/EventActor.h"
+#include "TimeStamp.h"
 
 namespace okey
 {
@@ -23,13 +24,14 @@ namespace okey
 		virtual void Close();
 		virtual bool RegisterHandler(Event_Handler* handler, uint32 events);
 		virtual void RemoveHander(Event_Handler* handler, uint32 events);
-		virtual bool HandleEvents(const TimeStamp& now);
+		virtual bool HandleEvents();
 		virtual int32 GetThreadNum() const;
-
+		virtual uint32 GetNumOfHandler() const {return m_HandlerNum;}
 	protected:
 		bool m_bOpen;
 		int32 _threadnum;
 		HANDLE completion_port;
+		uint32 m_HandlerNum;
 	};
 
 }

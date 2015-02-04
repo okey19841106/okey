@@ -23,8 +23,8 @@ namespace okey
 			Event_Out = 1 << 1,
 			Event_Exception = 1 << 2,
 			Event_IO = Event_In | Event_Out | Event_Exception,
-			Event_Tick = 1 << 3,
-			Event_All = Event_IO | Event_Tick,
+// 			Event_Tick = 1 << 3,
+// 			Event_All = Event_IO | Event_Tick,
 		};
 	public:
 		Event_Handler():m_pReactor(NULL),m_uMask(0),m_iTimeOut(0){}

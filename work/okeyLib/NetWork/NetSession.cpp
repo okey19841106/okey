@@ -85,8 +85,14 @@ namespace okey
 			if( m_SendBuffer.GetSpace() > len )
 			{
 				m_SendBuffer.Write((void*)buff, len );
+#ifdef WINDOWS
+				PostWriteEvent();
+#endif
 				return len;
 			}
+#ifdef WINDOWS
+			return -1;
+#else
 			//error 缓冲不够。 这块是不是要重新设计一下呢？。。。
 			ret = m_Socket.Send(buff,len);
 			if (ret < 0)
@@ -146,8 +152,10 @@ namespace okey
 				Disconnect();
 				return -1;
 			}
-		}
+		
 		return ret;
+#endif
+		}
 	}
 
 	int32 NetSession::RecvData(char* buff, int32 len)
@@ -189,6 +197,9 @@ namespace okey
 		{
 			return;
 		}
+#ifdef WINDOWS
+
+#else
 		char buffer[RECV_BLOCK_SIZE];
 		int32 tRecv = 0;
 		do 
@@ -226,6 +237,8 @@ namespace okey
 			}
 
 		} while (true);
+#endif
+		
 		while(true)
 		{
 			//生成数据包 放在队列里。。 
@@ -284,20 +297,26 @@ namespace okey
 
 	void NetSession::HandleInput()
 	{
+#ifdef WINDOWS
+#else
 		OnRecv();
+#endif
+		
 	}
 	void NetSession::HandleOutput()
 	{
-		//OnSend();
-		//Removehandler output;
+#ifdef WINDOWS
+#else
 		OnSend();
 		m_pActor->RemoveHander(this,Event_Out);
+#endif
+		
 	}
 	void NetSession::HandleException()
 	{
-		//exception 
 		Disconnect();
 	}
+
 	void NetSession::HandleTick(const TimeStamp& now)
 	{
 		if (m_State == e_DisConnected)
@@ -318,4 +337,96 @@ namespace okey
 	{
 		m_pActor = pActor;
 	}
+
+#ifdef WINDOWS
+	void NetSession::PostReadEvent()
+	{
+		FastMutex::ScopedLock lock(m_RecvMutex);
+		WSABUF buf;
+		buf.len = m_RecvBuffer.GetSpace();
+		buf.buf = (char*)m_RecvBuffer.GetBuffer();
+		DWORD len = 0;
+		DWORD flag = 0;
+		m_RecvOverLapped.nMask = CompleteOperator::IOCP_EVENT_READ_COMPLETE;
+		if (WSARecv(m_Socket.GetSocket(), &buf, 1, &len, &flag, &m_RecvOverLapped, NULL) == SOCKET_ERROR)
+		{
+			if (WSAGetLastError() != WSA_IO_PENDING)
+			{
+				Disconnect();
+			}
+		}
+	}
+	void NetSession::PostWriteEvent()
+	{
+		FastMutex::ScopedLock lock(m_SendMutex);
+		WSABUF buf;
+		buf.len = m_SendBuffer.GetContiguiousBytes();
+		buf.buf = (char*)m_SendBuffer.GetBufferStart();
+		DWORD len = 0;
+		DWORD flag = 0;
+		if (SOCKET_ERROR == WSASend(m_Socket.GetSocket(),&buf,1, &len, flag, &m_SendOverLapped,0))
+		{
+			if (WSAGetLastError() != WSA_IO_PENDING)
+			{
+				Disconnect();
+			}
+		}
+	}
+
+	void NetSession::HandlerComplete(CompleteOperator* p)
+	{
+		if (!p)
+		{
+			return;
+		}
+		if (p->nMask == CompleteOperator::IOCP_EVENT_READ_COMPLETE)
+		{
+			HandleReadComplete(p);
+		}
+		else if (p->nMask == CompleteOperator::IOCP_EVENT_WRITE_END)
+		{
+			HandleWriteComplete(p);
+		}
+		else if (p->nMask == CompleteOperator::IOCP_EVENT_EXCEPT)
+		{
+			HandleException();
+		}
+	}
+
+	void NetSession::HandleReadComplete(CompleteOperator* p)
+	{
+		if (p->GetBytesTransferred() == 0)
+		{
+			char buffer[RECV_BLOCK_SIZE];
+			if (m_Socket.Recv(buffer,RECV_BLOCK_SIZE) == 0)
+			{
+				Disconnect();//正常断开。。
+			}
+		}
+		else
+		{
+			
+			m_RecvBuffer.IncrementWritten(p->GetBytesTransferred());
+			OnRecv();
+			PostReadEvent();
+		}
+	}
+
+	void NetSession::HandleWriteComplete(CompleteOperator* p)
+	{
+		{
+			FastMutex::ScopedLock lock(m_SendMutex);
+			m_SendBuffer.Remove(p->GetBytesTransferred());
+		}
+		if (m_SendBuffer.GetContiguiousBytes() > 0)
+		{
+			PostWriteEvent();
+		}
+		else
+		{
+			m_bSend = false;
+		}
+	}
+#endif
+
 }

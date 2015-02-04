@@ -40,7 +40,7 @@ namespace okey
 		virtual void Close();
 		virtual bool RegisterHandler(Event_Handler* handler, uint32 events) ;
 		virtual void RemoveHander(Event_Handler* handler, uint32 events);
-		virtual bool HandleEvents(const TimeStamp& now);
+		virtual bool HandleEvents();
 		virtual uint32 GetNumOfHandler() const;
 	private:
 		uint32 MaskToEpollEvent(uint32 mask);

@@ -46,7 +46,7 @@ namespace okey
 		close(m_Epoll);
 		m_Epoll = 0;
 		m_MaxOfHandler = 0;
-		m_Queue.clear();
+		//m_Queue.clear();
 		for (HANDLER_MAP::iterator itr = m_Handlers.begin(); itr != m_Handlers.end(); ++itr)
 		{
 			itr->second._handler->HandleClose();
@@ -106,10 +106,10 @@ namespace okey
 				epoll_ctl(m_Epoll, opt, socket, & epollevent);
 			}
 		}
-		if ((oldEvents & Event_Handler::Event_Tick) == 0 && (info._events & Event_Handler::Event_Tick) != 0)
-		{
-			m_Queue.insert(info);
-		}
+// 		if ((oldEvents & Event_Handler::Event_Tick) == 0 && (info._events & Event_Handler::Event_Tick) != 0)
+// 		{
+// 			m_Queue.insert(info);
+// 		}
 		return true;
 	}
 
@@ -138,16 +138,16 @@ namespace okey
 		{
 			return;
 		}
-		if ((oldEvents & Event_Handler::Event_Tick) != 0 && (info._events & Event_Handler::Event_Tick) == 0)
-		{
-			for(HANDLER_QUEUE::iterator low = m_Queue.lower_bound(info), high = m_Queue.upper_bound(info); low != high; ++low)
-			{
-				if (low->_handler == handler)
-				{
-					m_Queue.erase(low);
-				}
-			}
-		}
+// 		if ((oldEvents & Event_Handler::Event_Tick) != 0 && (info._events & Event_Handler::Event_Tick) == 0)
+// 		{
+// 			for(HANDLER_QUEUE::iterator low = m_Queue.lower_bound(info), high = m_Queue.upper_bound(info); low != high; ++low)
+// 			{
+// 				if (low->_handler == handler)
+// 				{
+// 					m_Queue.erase(low);
+// 				}
+// 			}
+// 		}
 		int32 opt = 0;
 		if ((oldEvents & Event_Handler::Event_IO) != 0 && (info._events & Event_Handler::Event_IO) == 0)
 		{
@@ -174,7 +174,7 @@ namespace okey
 			m_Handlers.erase(itr);
 		}
 	}
-	bool EpollReactor::HandleEvents(const TimeStamp& now)
+	bool EpollReactor::HandleEvents()
 	{
 		if (!m_bOpen)
 		{
@@ -184,43 +184,44 @@ namespace okey
 		{
 			return 0;
 		}
-		std::vector<HandlerInfo> list;
-		for(HANDLER_QUEUE::iterator nIter = m_Queue.begin(), iter; nIter != m_Queue.end();)
-		{
-			iter = nIter++;
-			if (iter->_timeout < now.MilliSecond())
-			{
-				m_RemvoeFlag = false;
-				iter->_handler->HandleTick(now);
-				if (!m_RemvoeFlag)
-				{
-					if (iter->_events & Event_Handler::Event_Tick)
-					{
-						list.push_back(*iter);
-						m_Queue.erase(iter);
-					}
-				}
-			}
-			else
-			{
-				break;
-			}
-		}
-		for(std::vector<HandlerInfo>::iterator itr = list.begin(); itr != list.end(); ++itr)
-		{
-			itr->_timeout = now.MilliSecond() + m_tickInter;
-			m_Queue.insert(*itr);
-		}
-		list.clear();
+// 		std::vector<HandlerInfo> list;
+// 		for(HANDLER_QUEUE::iterator nIter = m_Queue.begin(), iter; nIter != m_Queue.end();)
+// 		{
+// 			iter = nIter++;
+// 			if (iter->_timeout < now.MilliSecond())
+// 			{
+// 				m_RemvoeFlag = false;
+// 				iter->_handler->HandleTick(now);
+// 				if (!m_RemvoeFlag)
+// 				{
+// 					if (iter->_events & Event_Handler::Event_Tick)
+// 					{
+// 						list.push_back(*iter);
+// 						m_Queue.erase(iter);
+// 					}
+// 				}
+// 			}
+// 			else
+// 			{
+// 				break;
+// 			}
+// 		}
+// 		for(std::vector<HandlerInfo>::iterator itr = list.begin(); itr != list.end(); ++itr)
+// 		{
+// 			itr->_timeout = now.MilliSecond() + m_tickInter;
+// 			m_Queue.insert(*itr);
+// 		}
+// 		list.clear();
 		int32 ret = 0;
 		while(true)
 		{
 			ret = epoll_wait(m_Epoll,m_EpollBuf,MAX_WAIT_EVENT,0);
 			if (ret < 0)
 			{
-				//GetLastError.
-				//EINTR continue
-				//
+				if (SOCKET_EINTR == Socket::GetSysError()) //ÖÕ¶Ë×èÈû¡£¡£
+				{
+					continue;
+				}
 				return false;
 			}
 			break;
