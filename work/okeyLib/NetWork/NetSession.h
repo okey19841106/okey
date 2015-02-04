@@ -25,7 +25,7 @@ namespace okey
 			IOCP_IVALID = -1,
 			IOCP_EVENT_READ_COMPLETE = 0,
 			IOCP_EVENT_WRITE_END = 1,
-			IOCP_EVENT_EXCEPT = 2,
+			IOCP_EVENT_CLOSE = 2,
 		};
 	public:
 		CompleteOperator()

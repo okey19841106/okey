@@ -23,12 +23,22 @@ namespace okey
 			return false;
 		}
 		m_bOpen = true;
+		_threadnum = numThread;
 		return true;
 	}
 
 	void IOCPProactor::Close()
 	{
-
+		for(int i = 0; i < _threadnum; ++i)
+		{
+			CompleteOperator* ov = new CompleteOperator;
+			if (!ov)
+			{
+				return;
+			}
+			ov->nMask = CompleteOperator::IOCP_EVENT_CLOSE;
+			PostQueuedCompletionStatus(completion_port, 0, (ULONG_PTR)0, (LPOVERLAPPED)&ov);
+		}
 	}
 
 	bool IOCPProactor::RegisterHandler(Event_Handler* handler, uint32 events)
@@ -66,20 +76,27 @@ namespace okey
 		NetSession* pSession = NULL;
 		// Get the next asynchronous operation that completes
 		BOOL result = GetQueuedCompletionStatus (completion_port,&bytesTransferred,	(PULONG_PTR)&pSession,(LPOVERLAPPED*)&pCompleteOperation,INFINITE);
-		if (result == FALSE && pCompleteOperation == NULL) //严重的错误。
+		if (result)
 		{
-			return false;
-		}
-		if (result == FALSE)
-		{
-			int32 error = Socket::GetSysError();
-			if (error == ERROR_NETNAME_DELETED ) //对方强制断开连接，
+			if (pSession)
 			{
-				pSession->HandleClose();
-				return true;
+				pSession->HandlerComplete(pCompleteOperation);
+			}
+			else//关闭这个东西了。。
+			{
+				delete pCompleteOperation;
+				pCompleteOperation = NULL;
+				return false;
 			}
 		}
-		pSession->HandlerComplete(pCompleteOperation);
+		else
+		{
+			int32 error = Socket::GetSysError();//ERROR_NETNAME_DELETED 远程主机断开连接。。。
+			if (pSession)
+			{
+				pSession->HandleClose();
+			}
+		}
 		return true;
 	}
 

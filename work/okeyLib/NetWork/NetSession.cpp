@@ -387,10 +387,6 @@ namespace okey
 		{
 			HandleWriteComplete(p);
 		}
-		else if (p->nMask == CompleteOperator::IOCP_EVENT_EXCEPT)
-		{
-			HandleException();
-		}
 	}
 
 	void NetSession::HandleReadComplete(CompleteOperator* p)
