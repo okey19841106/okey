@@ -65,10 +65,9 @@ namespace okey
 		virtual bool OnDisconnect(SessionBase* pSession)=0;
 		virtual bool OnSend()=0;
 		virtual bool OnRecv()=0;
-		virtual bool Run()=0;
+		//virtual bool Run()=0;
 		virtual SessionBase* Connect(const SocketAddr& addr)=0;
-		virtual bool BindAddress(const SocketAddr& addr) = 0;
-		virtual bool Accept(const char* ip, int32 port)=0;
+		virtual bool Accept(const SocketAddr& addr) = 0;
 		virtual SessionBase* GetSession(int32 id) = 0;
 		virtual bool Disconnect(int32 scoketid)=0;
 		virtual void OnNewConnection(Socket& s, SessionBase::SessionType t) = 0;

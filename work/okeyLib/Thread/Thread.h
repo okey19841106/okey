@@ -33,7 +33,7 @@ namespace okey{
 			Callable  callback;
 			void*     pData; 
 		};
-
+		
 		enum Priority
 		{
 #ifdef WINDOWS
@@ -160,7 +160,8 @@ namespace okey{
 		static void Yields();/// Yields cpu to other threads.
 		static Thread* Current();
  		static ThreadID GetCurrentTID();
-
+		virtual uint32 GetLoad()const{return 1;} //∏∫‘ÿ¡ø°£
+		virtual void Stop();
 	protected:
 		ThreadLocalStorage& GetTLS(); //TLS
 		void ClearTLS();

@@ -108,9 +108,6 @@
     <ClCompile Include="NetWork\PacketList.cpp">
       <Filter>NetWork\packet</Filter>
     </ClCompile>
-    <ClCompile Include="NetWork\IOCPReactor.cpp">
-      <Filter>NetWork\socket</Filter>
-    </ClCompile>
     <ClCompile Include="NetWork\CompleteOperation.cpp">
       <Filter>NetWork\socket</Filter>
     </ClCompile>
@@ -270,6 +267,12 @@
     <ClCompile Include="NetWork\NetService.cpp">
       <Filter>NetWork\socket</Filter>
     </ClCompile>
+    <ClCompile Include="Thread\ThreadGroup.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\NetThread.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -370,9 +373,6 @@
     </ClInclude>
     <ClInclude Include="NetWork\PacketList.h">
       <Filter>NetWork\packet</Filter>
-    </ClInclude>
-    <ClInclude Include="NetWork\IOCPReactor.h">
-      <Filter>NetWork\socket</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\CompleteOperation.h">
       <Filter>NetWork\socket</Filter>
@@ -679,6 +679,12 @@
     </ClInclude>
     <ClInclude Include="Notifications\Visitor.h">
       <Filter>Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\ThreadGroup.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\NetThread.h">
+      <Filter>NetWork\socket</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

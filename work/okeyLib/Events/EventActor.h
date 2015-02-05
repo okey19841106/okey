@@ -20,7 +20,7 @@ namespace okey
 		Event_Actor(){}
 		virtual ~Event_Actor(){}
 
-		virtual bool Open(uint32 maxHandler, uint32 tickInter, uint32 numThread)= 0;
+		virtual bool Open(uint32 maxHandler, uint32 numThread)= 0;
 		virtual void Close() = 0;
 		virtual bool RegisterHandler(Event_Handler* handler, uint32 events) = 0;
 		virtual void RemoveHander(Event_Handler* handler, uint32 events) = 0;

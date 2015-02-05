@@ -27,4 +27,13 @@ namespace okey
 		addr.sin_port = htons(m_iPort);
 	}
 
+	bool SocketAddr::operator < (const SocketAddr& addr) const
+	{
+		if (m_sIP < addr.m_sIP) 
+			return true;
+		if (m_sIP > addr.m_sIP) 
+			return false;
+		return (m_iPort < addr.m_iPort);
+	}
+
 }

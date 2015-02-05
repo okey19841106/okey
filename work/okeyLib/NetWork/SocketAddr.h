@@ -38,12 +38,34 @@ namespace okey
 		{
 			Set(addr);
 		}
+		void Swap(SocketAddr& addr)
+		{
+			std::swap(m_iPort,addr.m_iPort);
+			std::swap(m_sIP,addr.m_sIP);
+		}
+		std::string toString() const;
+		bool operator < (const SocketAddr& addr) const;
+		bool operator == (const SocketAddr& addr) const;
+		bool operator != (const SocketAddr& addr) const;
 	private:
 		void Set(const struct sockaddr_in& addr);
 		void Get(struct sockaddr_in& addr) const ;
 		std::string m_sIP;
 		int32 m_iPort;
 	};
+	inline void Swap(SocketAddr& addr1, SocketAddr &addr2)
+	{
+		addr1.Swap(addr2);
+	}
+	
+	inline bool SocketAddr::operator == (const SocketAddr& addr) const
+	{
+		return m_sIP == addr.m_sIP && m_iPort == addr.m_iPort;
+	}
+	inline bool SocketAddr::operator != (const SocketAddr& addr) const
+	{
+		return m_sIP != addr.m_sIP || m_iPort != addr.m_iPort;
+	}
 }
 
 #endif

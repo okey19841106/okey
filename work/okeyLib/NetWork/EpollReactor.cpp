@@ -18,14 +18,13 @@ namespace okey
 	{
 		Close();
 	}
-	bool EpollReactor::Open(uint32 maxHandler, uint32 tickInter, uint32 numThread)
+	bool EpollReactor::Open(uint32 maxHandler, uint32 numThread)
 	{
 		if (m_bOpen)
 		{
 			return false;
 		}
 		m_MaxOfHandler = maxHandler;
-		m_tickInter = tickInter;
 		m_Epoll = epoll_create((int)m_MaxOfHandler);
 		if (m_Epoll < 0)
 		{

@@ -20,7 +20,7 @@ namespace okey
 	public:
 		IOCPProactor();
 		virtual ~IOCPProactor();
-		virtual bool Open(uint32 maxHandler, uint32 tickInter, uint32 numThread);
+		virtual bool Open(uint32 maxHandler, uint32 numThread);
 		virtual void Close();
 		virtual bool RegisterHandler(Event_Handler* handler, uint32 events);
 		virtual void RemoveHander(Event_Handler* handler, uint32 events);

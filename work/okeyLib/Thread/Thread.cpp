@@ -262,6 +262,19 @@ namespace okey
 #endif
 	}
 
+	void Thread::Stop()
+	{
+		if (!IsRunning())
+		{
+			return;
+		}
+#ifdef WINDOWS
+		TerminateThread(_thread, 0);
+		CloseHandle(_thread);
+#else
+		pthread_cancel(_thread);
+#endif
+	}
 
 	void Thread::Join() //wait thread..
 	{

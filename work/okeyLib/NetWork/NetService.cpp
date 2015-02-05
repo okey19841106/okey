@@ -1,10 +1,17 @@
 #include "PreCom.h"
 #include "NetService.h"
 #include "Socket.h"
+#include "Fuction.h"
+#include "NetSession.h"
+#ifdef WINDOWS
+#include "IOCPProactor.h"
+#else
+#include "EpollReactor.h"
+#endif
 
 namespace okey
 {
-	NetService::NetService(uint32 id, const NetServiceParam& param):m_ID(id),m_ConNum(0)
+	NetService::NetService(uint32 id, const NetServiceParam& param):m_ID(id),m_ConNum(0),m_State(e_Initial)
 	{
 		m_Param = param;
 		//起线程。。。 
@@ -23,7 +30,7 @@ namespace okey
 			return false;
 		}
 		//起线程。
-		//m_pThread->Start();
+		m_pEventActor->Open();
 		return true;
 	}
 	void NetService::ShutDown()
@@ -60,7 +67,7 @@ namespace okey
 	{
 
 	}
-	bool NetService::Run()
+	void NetService::Run()
 	{
 
 	}
@@ -68,7 +75,7 @@ namespace okey
 	{
 
 	}
-	bool NetService::BindAddress(const SocketAddr& addr)
+	bool NetService::Accept(const SocketAddr& addr)
 	{
 		if (m_State != e_Running)
 		{
@@ -95,10 +102,7 @@ namespace okey
 		sock.SetReuseAddr();
 		//线程去注册监听器。。
 	}
-	bool NetService::Accept(const char* ip, int32 port)
-	{
-
-	}
+	
 	SessionBase* NetService::GetSession(int32 id)
 	{
 		CONNECTION_MAP::iterator itr = m_Connections.find(id);
@@ -110,8 +114,10 @@ namespace okey
 	}
 	bool NetService::Disconnect(int32 scoketid)
 	{
-
+		SessionBase* pSession = GetSession(scoketid);
+		RecycleConnection(pSession);
 	}
+
 	void NetService::OnNewConnection(Socket& s, SessionBase::SessionType t)
 	{
 		SocketAddr addr;
@@ -127,7 +133,7 @@ namespace okey
 			return;
 		}
 		{
-			FastMutex::ScopedLock lock(m_lock);
+			FastMutex::ScopedLock lock(m_ConMutex);
 			if (m_ConNum >= m_Param._maxConNum)
 			{
 				s.Close();
@@ -135,8 +141,11 @@ namespace okey
 			}
 			++m_ConNum;
 		}
-
-		
+		SessionBase* pSession = new NetSession;
+		SOCKET sock = s.GetSocket();
+		pSession->Open(sock, t, this);
+		pSession->SetEventActor(m_pEventActor);
+		ScheduleSession(pSession);
 	}
 	SessionPtr NetService::Connect(uint32 id, const SocketAddr& addr)
 	{
@@ -158,13 +167,23 @@ namespace okey
 			sock.Close();
 			return NULL;
 		}
-		//Session.. 
+		SessionBase* pSession = new NetSession;
+		SOCKET s = sock.GetSocket();
+		pSession->Open(s, SessionBase::e_Active, this);
+		pSession->SetEventActor(m_pEventActor);
+		if (m_ConnectCallBack)
+		{
+			(*m_ConnectCallBack)(pSession);
+		}
+		SessionPtr sPtr = pSession;
+		ScheduleSession(sPtr);
+		return sPtr;
 	}
 	void NetService::RecycleConnection(SessionBase* pSession)
 	{
 		bool bVerified = false;
 		{
-			FastMutex::ScopedLock lock(m_lock);
+			FastMutex::ScopedLock lock(m_ConMutex);
 			if (m_ConNum > 0)
 			{
 				--m_ConNum;
@@ -176,11 +195,47 @@ namespace okey
 				bVerified = true;
 			}
 		}
-		if (bVerified)
+		if (m_DisconnectCallBack && bVerified)
 		{
+			(*m_DisconnectCallBack)(pSession);
 			//通知。。。。
 		}
 		pSession->Close();
 		pSession->DecRef();
 	}
+
+	void NetService::ScheduleSession(SessionBase* pSession)
+	{
+
+	}
+
+	Thread* NetService::CreateThread()
+	{
+
+	}
+
+	void NetService::DestroyThread(Thread* pThread)
+	{
+
+	}
+
+
+// 	void NetService::HandlerRun()
+// 	{
+// 		HANDLER_VEC newHandlers;
+// 		{
+// 			FastMutex::ScopedLock lock(m_WaitMutex);
+// 			newHandlers.assign(m_WaitList.begin(), m_WaitList.end());
+// 			m_WaitList.clear();
+// 		}
+// 		for (HANDLER_VEC::iterator itr = newHandlers.begin(); itr != newHandlers.end(); ++itr)
+// 		{
+// 			if (!m_pEventActor->RegisterHandler(itr->first, itr->second))
+// 			{
+// 				//log error...
+// 				itr->first->HandleClose();
+// 			}
+// 		}
+// 		newHandlers.clear();
+// 	}
 }

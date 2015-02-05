@@ -64,6 +64,7 @@ namespace okey
 		virtual void* RecvPacket();
 		virtual int32 SendData(const char* buff, int32 len);
 		virtual int32 RecvData(char* buff, int32 len);
+		virtual SOCKET GetSocket() {return m_Socket.GetSocket();}
 		virtual void OnRecv();
 		virtual void OnTick(const TimeStamp& curtime);
 		virtual void OnConnect();
