@@ -5,16 +5,12 @@
 
 namespace okey
 {
-	ThreadGroup::ThreadGroup(Runnable& p):_pTarget(&p)
-	{
-		m_Threads.clear();
-	}
-
+	
 	ThreadGroup::~ThreadGroup()
 	{
 		StopThreads();
 	}
-	void ThreadGroup::StartThreads(uint32 numOfThread, Runnable& tar)
+	void ThreadGroup::StartThreads(uint32 numOfThread)
 	{
 		if (!m_Threads.empty())
 		{
@@ -22,11 +18,11 @@ namespace okey
 		}
 		for(uint32 i = 0; i < numOfThread; ++i)
 		{
-			Thread* thread = CreateThread();
-			if (thread != NULL)
+			std::pair<Thread*, Runnable*> threadinfo = CreateThread();
+			if (threadinfo.first != NULL)
 			{
-				m_Threads.push_back(thread);
-				thread->Start(*this);
+				m_Threads.push_back(threadinfo);
+				threadinfo.first->Start(*(threadinfo.second));
 			}
 		}
 	}
@@ -34,8 +30,8 @@ namespace okey
 	{
 		for(THREAD_VEC::iterator itr = m_Threads.begin(); itr != m_Threads.end(); ++itr)
 		{
-			(*itr)->Stop();
-			(*itr)->Join();
+			itr->first->Stop();
+			itr->first->Join();
 			DestroyThread(*itr);
 		}
 		m_Threads.clear();
@@ -56,28 +52,29 @@ namespace okey
 		uint32 threadload = uint32(-1);
 		for (uint32 i = 0; i < m_Threads.size(); ++i)
 		{
-			if (m_Threads[i]->GetLoad() < threadload)
+			if (m_Threads[i].first->GetLoad() < threadload)
 			{
-				threadload = m_Threads[i]->GetLoad();
+				threadload = m_Threads[i].first->GetLoad();
 				threadidx = i;
 			}
 		}
 		std::swap(m_Threads[threadidx], m_Threads[m_Threads.size() - 1]);
-		return m_Threads[m_Threads.size() - 1];
+		return m_Threads[m_Threads.size() - 1].first;
 	}
 
-	Thread* ThreadGroup::CreateThread()
-	{
-		return new Thread;
-	}
-
-	void ThreadGroup::DestroyThread(Thread* thread)
-	{
-		if (thread)
-		{
-			delete thread;
-		}
-	}
+// 	std::pair<Thread*, Runnable*> ThreadGroup::CreateThread()
+// 	{
+// 		Thread* pThread = new Thread;
+// 		return new Thread;
+// 	}
+// 
+// 	void ThreadGroup::DestroyThread(Thread* thread)
+// 	{
+// 		if (thread)
+// 		{
+// 			delete thread;
+// 		}
+// 	}
 	void ThreadGroup::Run()
 	{
 		if (_pTarget) // a NULL target means kill yourself

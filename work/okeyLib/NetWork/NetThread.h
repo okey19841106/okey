@@ -27,12 +27,21 @@ namespace okey
 		~NetThread();
 		void RegisterHandler(Event_Handler* pHandler, uint32 events);
 		uint32 GetLoad() const{return m_HandleCount;}
+		void HandleRun();
+		virtual void Stop(){m_IsExist = true;}
+	protected:
+		void OnQuit();
 	private:
 		HANDLER_VEC m_WaitList;
 		FastMutex m_WaitMutex;
 		Event_Actor* m_pEventActor;
 		uint32 m_HandleCount;
 		uint32 m_MaxHanleCount;
+		bool m_IsExist;
+#ifdef WINDOWS
+	public:
+		void SetEventAcotr(Event_Actor* pEventActor);
+#endif
 	};
 }
 

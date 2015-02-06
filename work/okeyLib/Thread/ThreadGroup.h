@@ -17,19 +17,18 @@ namespace okey
 
 	class ThreadGroup: public Runnable
 	{
-		typedef std::vector<Thread*> THREAD_VEC;
+		typedef std::vector<std::pair<Thread* , Runnable* > > THREAD_VEC;
 	public:
 		ThreadGroup(){}
-		ThreadGroup(Runnable& p);
 		virtual ~ThreadGroup();
-		void StartThreads(uint32 numOfThread, Runnable& tar );
+		void StartThreads(uint32 numOfThread);
 		void StopThreads();
 		uint32 GetThreadNum() const;
 		Thread* GetMiniLoadThread();
 		virtual void Run();
 	protected:
-		virtual Thread* CreateThread();
-		virtual void DestroyThread(Thread* thread);
+		virtual std::pair<Thread*, Runnable*> CreateThread() = 0;
+		virtual void DestroyThread(std::pair<Thread*, Runnable*> threadinfo) = 0;
 	private:
 		THREAD_VEC m_Threads;
 		Runnable*  _pTarget;

@@ -18,6 +18,11 @@ namespace okey
 {
 	template<typename Arg>
 	class CFunctionArg1Base;
+	class Event_Actor;
+	template<typename C>
+	class RunnableAdapter;
+
+	class NetThread;
 
 	class NetService: public NetServiceBase, public ThreadGroup
 	{
@@ -42,9 +47,9 @@ namespace okey
 		virtual void OnNewConnection(Socket& s, SessionBase::SessionType t);
 		virtual SessionPtr Connect(uint32 id, const SocketAddr& addr);
 		virtual void RecycleConnection(SessionBase* pSession);
-	public:
-		Thread* CreateThread();
-		void DestroyThread(Thread* pThread);
+	protected:
+		virtual std::pair<Thread*, Runnable*> CreateThread();
+		virtual void DestroyThread(std::pair<Thread*, Runnable*> threadinfo);
 	protected:
 		bool InitSocket(Socket& sock);
 		void ScheduleSession(SessionBase* pSession);
@@ -53,14 +58,15 @@ namespace okey
 	private:
 		uint32 m_ID; //网络服务id
 		volatile NetServiceState m_State;
-		Thread* m_pThread; //负责处理链接的线程。
+		NetThread* m_pConThread; //负责处理链接的线程。
 		uint32 m_ConNum;
 		FastMutex m_ConMutex;
 		CONNECTION_MAP m_Connections;
-		
 		CFunctionArg1Base<SessionBase*>* m_AcceptCallBack;
 		CFunctionArg1Base<SessionBase*>* m_ConnectCallBack;
 		CFunctionArg1Base<SessionBase*>* m_DisconnectCallBack;
+		Event_Actor* m_pEventActor;
+		RunnableAdapter<NetThread>* m_pConRunnable;
 	};
 }
 

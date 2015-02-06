@@ -3,10 +3,11 @@
 #include "Socket.h"
 #include "Fuction.h"
 #include "NetSession.h"
+#include "NetThread.h"
+#include "Thread/Runnable.h"
+#include "Acceptor.h"
 #ifdef WINDOWS
 #include "IOCPProactor.h"
-#else
-#include "EpollReactor.h"
 #endif
 
 namespace okey
@@ -14,13 +15,24 @@ namespace okey
 	NetService::NetService(uint32 id, const NetServiceParam& param):m_ID(id),m_ConNum(0),m_State(e_Initial)
 	{
 		m_Param = param;
-		//起线程。。。 
+#ifdef WINDOWS
+		m_pEventActor = new IOCPProactor;
+		m_pEventActor->Open(m_Param._maxConNum, m_Param._threadConnNum);
+#else
+		m_pConThread = new NetThread(m_Param._maxConNum);
+#endif
 	}
 	NetService::~NetService()
 	{
-		if (m_pThread)
+		if (m_pConThread)
 		{
-			delete m_pThread;
+			delete m_pConThread;
+			m_pConThread = NULL;
+		}
+		if (m_pConRunnable)
+		{
+			delete m_pConRunnable;
+			m_pConRunnable = NULL;
 		}
 	}
 	bool NetService::StartUp()
@@ -29,8 +41,14 @@ namespace okey
 		{
 			return false;
 		}
+		StartThreads(m_Param._threadConnNum);
+#ifdef WINDOWS
+#else
+		m_pConRunnable = new RunnableAdapter<NetThread>(m_pConThread, &NetThread::HandleRun);
+		m_pConThread->Start(*m_pConRunnable);
+#endif
+		m_State = e_Running;
 		//起线程。
-		m_pEventActor->Open();
 		return true;
 	}
 	void NetService::ShutDown()
@@ -40,8 +58,12 @@ namespace okey
 			return;
 		}
 		m_State = e_Shutdown;
-		//m_pThread->Stop();
-		m_pThread->Join();
+#ifdef WINDOWS
+#else
+		m_pConThread->Stop();
+		m_pConThread->Join();
+#endif
+		StopThreads();
 		//全部停下。。。
 	}
 	bool NetService::OnConnect(SessionBase* pSession)
@@ -101,6 +123,12 @@ namespace okey
 		}
 		sock.SetReuseAddr();
 		//线程去注册监听器。。
+#ifdef WINDOWS
+		
+#else
+		m_pConThread->RegisterHandler(new Acceptor(sock, addr, this), Event_Handler::Event_Exception | Event_Handler::Event_In);
+#endif
+		return true;
 	}
 	
 	SessionBase* NetService::GetSession(int32 id)
@@ -144,7 +172,6 @@ namespace okey
 		SessionBase* pSession = new NetSession;
 		SOCKET sock = s.GetSocket();
 		pSession->Open(sock, t, this);
-		pSession->SetEventActor(m_pEventActor);
 		ScheduleSession(pSession);
 	}
 	SessionPtr NetService::Connect(uint32 id, const SocketAddr& addr)
@@ -170,13 +197,16 @@ namespace okey
 		SessionBase* pSession = new NetSession;
 		SOCKET s = sock.GetSocket();
 		pSession->Open(s, SessionBase::e_Active, this);
-		pSession->SetEventActor(m_pEventActor);
 		if (m_ConnectCallBack)
 		{
 			(*m_ConnectCallBack)(pSession);
 		}
 		SessionPtr sPtr = pSession;
+#ifdef WINDOWS
+
+#else
 		ScheduleSession(sPtr);
+#endif
 		return sPtr;
 	}
 	void NetService::RecycleConnection(SessionBase* pSession)
@@ -206,36 +236,22 @@ namespace okey
 
 	void NetService::ScheduleSession(SessionBase* pSession)
 	{
-
+		NetThread* thread = (NetThread*)GetMiniLoadThread();
+		thread->RegisterHandler(pSession, Event_Handler::Event_In | Event_Handler::Event_Exception);
 	}
 
-	Thread* NetService::CreateThread()
+	std::pair<Thread*, Runnable*> NetService::CreateThread()
 	{
-
+		Thread* pThread = new NetThread(m_Param._maxConNum);
+		Runnable* pRun = new RunnableAdapter<NetThread>((NetThread*)pThread, &NetThread::HandleRun);
+		return std::pair<Thread*, Runnable*>(pThread, pRun);
 	}
 
-	void NetService::DestroyThread(Thread* pThread)
+	void NetService::DestroyThread(std::pair<Thread*, Runnable*> threadinfo)
 	{
-
+		delete threadinfo.first;
+		delete threadinfo.second;
 	}
 
 
-// 	void NetService::HandlerRun()
-// 	{
-// 		HANDLER_VEC newHandlers;
-// 		{
-// 			FastMutex::ScopedLock lock(m_WaitMutex);
-// 			newHandlers.assign(m_WaitList.begin(), m_WaitList.end());
-// 			m_WaitList.clear();
-// 		}
-// 		for (HANDLER_VEC::iterator itr = newHandlers.begin(); itr != newHandlers.end(); ++itr)
-// 		{
-// 			if (!m_pEventActor->RegisterHandler(itr->first, itr->second))
-// 			{
-// 				//log error...
-// 				itr->first->HandleClose();
-// 			}
-// 		}
-// 		newHandlers.clear();
-// 	}
 }

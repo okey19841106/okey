@@ -21,7 +21,7 @@ namespace okey
 		NetServiceParam()
 		{
 			_threadConnNum = 1;
-			_threadConMaxSize = 512;
+			_threadConMaxSize = 512; //处理并发连接量。
 			_tickInterval = 10;
 			_sysSendBuff = 65535;
 			_sysRecvBuff = 65535;
