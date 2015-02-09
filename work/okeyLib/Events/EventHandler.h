@@ -23,19 +23,25 @@ namespace okey
 			Event_Out = 1 << 1,
 			Event_Exception = 1 << 2,
 			Event_IO = Event_In | Event_Out | Event_Exception,
-// 			Event_Tick = 1 << 3,
-// 			Event_All = Event_IO | Event_Tick,
+ 			Event_Tick = 1 << 3,
+ 			Event_All = Event_IO | Event_Tick,
 		};
 	public:
 		Event_Handler():m_pReactor(NULL),m_uMask(0),m_iTimeOut(0){}
 		virtual ~Event_Handler(){}
 		virtual void* GetHandle(){return NULL;}
 		virtual void SetHandle(const void* pHandle){}
-		virtual void HandleInput() = 0;
-		virtual void HandleOutput() = 0;
-		virtual void HandleException() = 0;
+		virtual void HandleInput(){}
+		virtual void HandleOutput(){}
+		virtual void HandleException(){}
 		virtual void HandleTick(const TimeStamp& now){}
-		virtual void HandleClose() = 0;
+		virtual void HandleClose(){}
+		virtual void HandleInput(void* param){}
+		virtual void HandleOutput(void* param){}
+		virtual void HandleException(void* param){}
+		virtual void HandleClose(void* param){}
+
+
 		void SetReacotr(Event_Reactor* pReactor){m_pReactor = pReactor;}
 		Event_Reactor* GetReactor(){return m_pReactor;}
 

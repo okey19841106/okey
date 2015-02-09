@@ -123,12 +123,7 @@ namespace okey
 	{
 		while(true)
 		{
-#ifdef WINDOWS
-			SOCKET s = WSAAccept(m_Socket, NULL, NULL, NULL, NULL);
-#else
 			SOCKET s = accept(m_Socket, NULL, NULL);
-#endif
-			
 			if (s < 0)
 			{
 				if (GetSysError() == SOCKET_EINTR)
@@ -309,5 +304,16 @@ namespace okey
 		Close();
 		m_Socket = sock.m_Socket;
 		sock.m_Socket = INVALID_SOCKET;
+	}
+
+	SOCKET Socket::CreateSocket()
+	{
+		SOCKET s = INVALID_SOCKET;
+#ifdef WINDOWS
+		::WSASocket(AF_INET, SOCK_STREAM, 0, 0, 0, WSA_FLAG_OVERLAPPED);
+#else
+		m_Socket = socket(PF_INET, SOCK_STREAM,0);
+#endif
+		return s;
 	}
 }

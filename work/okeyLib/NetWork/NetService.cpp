@@ -124,7 +124,7 @@ namespace okey
 		sock.SetReuseAddr();
 		//Ïß³ÌÈ¥×¢²á¼àÌýÆ÷¡£¡£
 #ifdef WINDOWS
-		
+		m_pEventActor->RegisterHandler(new Acceptor(sock, addr, this), Event_Handler::Event_Exception | Event_Handler::Event_In);
 #else
 		m_pConThread->RegisterHandler(new Acceptor(sock, addr, this), Event_Handler::Event_Exception | Event_Handler::Event_In);
 #endif

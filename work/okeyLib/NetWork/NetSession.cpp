@@ -372,26 +372,13 @@ namespace okey
 			}
 		}
 	}
+#endif
 
-	void NetSession::HandlerComplete(CompleteOperator* p)
+	void NetSession::HandleInput(void* p)
 	{
-		if (!p)
-		{
-			return;
-		}
-		if (p->nMask == CompleteOperator::IOCP_EVENT_READ_COMPLETE)
-		{
-			HandleReadComplete(p);
-		}
-		else if (p->nMask == CompleteOperator::IOCP_EVENT_WRITE_END)
-		{
-			HandleWriteComplete(p);
-		}
-	}
-
-	void NetSession::HandleReadComplete(CompleteOperator* p)
-	{
-		if (p->GetBytesTransferred() == 0)
+#ifdef WINDOWS
+		CompleteOperator *pCom = (CompleteOperator *)p;
+		if (pCom->GetBytesTransferred() == 0)
 		{
 			char buffer[RECV_BLOCK_SIZE];
 			if (m_Socket.Recv(buffer,RECV_BLOCK_SIZE) == 0)
@@ -402,17 +389,20 @@ namespace okey
 		else
 		{
 			
-			m_RecvBuffer.IncrementWritten(p->GetBytesTransferred());
+			m_RecvBuffer.IncrementWritten(pCom->GetBytesTransferred());
 			OnRecv();
 			PostReadEvent();
 		}
+#endif
 	}
 
-	void NetSession::HandleWriteComplete(CompleteOperator* p)
+	void NetSession::HandleOutput(void* p)
 	{
+#ifdef WINDOWS
+		CompleteOperator *pCom = (CompleteOperator *)p;
 		{
 			FastMutex::ScopedLock lock(m_SendMutex);
-			m_SendBuffer.Remove(p->GetBytesTransferred());
+			m_SendBuffer.Remove(pCom->GetBytesTransferred());
 		}
 		if (m_SendBuffer.GetContiguiousBytes() > 0)
 		{
@@ -422,7 +412,9 @@ namespace okey
 		{
 			m_bSend = false;
 		}
-	}
 #endif
+		
+	}
+
 
 }

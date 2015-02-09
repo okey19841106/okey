@@ -50,4 +50,34 @@ namespace okey
 	{
 		delete this;
 	}
+
+	void Acceptor::HandleInput(void* pParam)
+	{
+
+	}
+
+#ifdef WINDOWS
+	void Acceptor::PostAccept()
+	{
+		SOCKET s = Socket::CreateSocket();
+		//memset(m_RecvBuf, 0, sizeof(m_RecvBuf));
+		DWORD bytes;
+		m_AccepterCom.nMask = Event_Handler::Event_In;
+		while(true)
+		{
+			BOOL ret = AcceptEx(m_Socket.GetSocket(), s, m_RecvBuf, 0, ADDRLEN, ADDRLEN, &bytes, &m_AccepterCom);
+			if (!ret)
+			{
+				uint32 error = Socket::GetSysError();
+				if (error == WSA_IO_PENDING)
+				{
+					continue;
+				}
+			}
+			m_AccepterCom.m_AcceptSocket = s;
+			break;
+		}
+	}
+#endif
+	
 }

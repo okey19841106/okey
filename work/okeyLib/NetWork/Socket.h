@@ -45,6 +45,7 @@ namespace okey
 		{
 			Close();
 		}
+		static SOCKET CreateSocket();
 		bool Create();
 		bool Close();
 		bool Bind();

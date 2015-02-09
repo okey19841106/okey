@@ -26,6 +26,7 @@ namespace okey
 			IOCP_EVENT_READ_COMPLETE = 0,
 			IOCP_EVENT_WRITE_END = 1,
 			IOCP_EVENT_CLOSE = 2,
+			//IOCP_EVENT_ACCEPT = 3,
 		};
 	public:
 		CompleteOperator()
@@ -36,10 +37,12 @@ namespace okey
 			Offset = 0;
 			OffsetHigh = 0;
 			nMask = IOCP_IVALID;
+			m_AcceptSocket = INVALID_SOCKET;
 		}
 		~CompleteOperator();
 		uint32 GetBytesTransferred(){return static_cast<uint32>( InternalHigh );}
 		CompleteOperatorEvent nMask;
+		SOCKET m_AcceptSocket; //AcceptÓÃµÄsocket¡£¡£
 	};
 #endif
 
@@ -72,19 +75,19 @@ namespace okey
 		virtual void SetEventActor(Event_Actor* pActor);
 		virtual void* GetHandle(){return (void*)this;}
 		virtual void SetHandle(const void* pHandle){}
-		virtual void HandleInput();
-		virtual void HandleOutput();
-		virtual void HandleException();
-		virtual void HandleTick(const TimeStamp& now);
-		virtual void HandleClose();
+
+		virtual void HandleInput(void* param);
+		virtual void HandleOutput(void* param);
+		virtual void HandleException(void* param);
 #ifdef WINDOWS
 		void PostReadEvent();
 		void PostWriteEvent();
-		void HandlerComplete(CompleteOperator* p);
-	private:
-		void HandleReadComplete(CompleteOperator* p);
-		void HandleWriteComplete(CompleteOperator* p);
 #endif
+		virtual void HandleInput();
+		virtual void HandleOutput();
+		virtual void HandleException();
+		virtual void HandleClose();
+		virtual void HandleTick(const TimeStamp& now);
 	private:
 		Socket m_Socket;
 		NetServiceBase* m_pNetService;

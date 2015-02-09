@@ -14,6 +14,8 @@
 
 namespace okey
 {
+#define ADDRLEN	(sizeof(SOCKADDR_IN) + 16)
+
 	class NetServiceBase;
 	class Acceptor : public Event_Handler
 	{
@@ -27,11 +29,18 @@ namespace okey
 		virtual void HandleOutput();
 		virtual void HandleException();
 		virtual void HandleClose();
-
+		virtual void HandleInput(void* pParam);
+#ifdef WINDOWS
+		void PostAccept();
+#endif
 	private:
 		Socket m_Socket;
 		SocketAddr m_Addr;
 		NetServiceBase* m_pNetService;
+#ifdef WINDOWS
+		char m_RecvBuf[ADDRLEN + ADDRLEN];
+		CompleteOperator m_AccepterCom;
+#endif
 	};
 }
 

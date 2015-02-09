@@ -73,14 +73,25 @@ namespace okey
 	{
 		CompleteOperator* pCompleteOperation = NULL;
 		DWORD bytesTransferred = 0;
-		NetSession* pSession = NULL;
+		Event_Handler* pHandler = NULL;
 		// Get the next asynchronous operation that completes
-		BOOL result = GetQueuedCompletionStatus (completion_port,&bytesTransferred,	(PULONG_PTR)&pSession,(LPOVERLAPPED*)&pCompleteOperation,INFINITE);
+		BOOL result = GetQueuedCompletionStatus (completion_port,&bytesTransferred,	(PULONG_PTR)&pHandler,(LPOVERLAPPED*)&pCompleteOperation,INFINITE);
 		if (result)
 		{
-			if (pSession)
+			if (pHandler)
 			{
-				pSession->HandlerComplete(pCompleteOperation);
+				if (pCompleteOperation->nMask == CompleteOperator::IOCP_EVENT_READ_COMPLETE)
+				{
+					pHandler->HandleInput((void*)pCompleteOperation);
+				}
+				else if (pCompleteOperation->nMask == CompleteOperator::IOCP_EVENT_WRITE_END)
+				{
+					pHandler->HandleOutput((void*)pCompleteOperation);
+				}
+				else
+				{
+					pHandler->HandleClose();
+				}
 			}
 			else//关闭这个东西了。。
 			{
@@ -92,9 +103,9 @@ namespace okey
 		else
 		{
 			int32 error = Socket::GetSysError();//ERROR_NETNAME_DELETED 远程主机断开连接。。。
-			if (pSession)
+			if (pHandler)
 			{
-				pSession->HandleClose();
+				pHandler->HandleClose();
 			}
 		}
 		return true;
