@@ -45,7 +45,7 @@ namespace okey
 	{
 		if (!m_bOpen)
 		{
-			return;
+			return false;
 		}
 		if (!handler)
 		{

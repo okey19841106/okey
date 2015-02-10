@@ -11,11 +11,24 @@
 #include "Events/EventHandler.h"
 #include "Socket.h"
 #include "SocketAddr.h"
+#ifdef WINDOWS
+#include "CompleteOperation.h"
+#endif
 
 namespace okey
 {
-#define ADDRLEN	(sizeof(SOCKADDR_IN) + 16)
 
+
+	class AcceptCompleteOperator :  public CompleteOperator 
+	{
+	public:
+		AcceptCompleteOperator(){}
+		~AcceptCompleteOperator(){}
+	public:
+		Socket m_AcceptSocket;
+	};
+
+#define ADDRLEN	(sizeof(SOCKADDR_IN) + 16)
 	class NetServiceBase;
 	class Acceptor : public Event_Handler
 	{
@@ -39,7 +52,7 @@ namespace okey
 		NetServiceBase* m_pNetService;
 #ifdef WINDOWS
 		char m_RecvBuf[ADDRLEN + ADDRLEN];
-		CompleteOperator m_AccepterCom;
+		AcceptCompleteOperator m_AccepterCom;
 #endif
 	};
 }

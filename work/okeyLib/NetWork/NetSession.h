@@ -12,40 +12,12 @@
 #include "Socket.h"
 #include "Thread/Mutex.h"
 #include "CircularBuffer.h"
+#ifdef WINDOWS
+#include "CompleteOperation.h"
+#endif
 
 namespace okey
 {
-#ifdef WINDOWS
-
-	class CompleteOperator: public OVERLAPPED
-	{
-	public:
-		enum CompleteOperatorEvent
-		{
-			IOCP_IVALID = -1,
-			IOCP_EVENT_READ_COMPLETE = 0,
-			IOCP_EVENT_WRITE_END = 1,
-			IOCP_EVENT_CLOSE = 2,
-			//IOCP_EVENT_ACCEPT = 3,
-		};
-	public:
-		CompleteOperator()
-		{
-			hEvent = 0;
-			Internal = 0;
-			InternalHigh = 0;
-			Offset = 0;
-			OffsetHigh = 0;
-			nMask = IOCP_IVALID;
-			m_AcceptSocket = INVALID_SOCKET;
-		}
-		~CompleteOperator();
-		uint32 GetBytesTransferred(){return static_cast<uint32>( InternalHigh );}
-		CompleteOperatorEvent nMask;
-		SOCKET m_AcceptSocket; //AcceptÓÃµÄsocket¡£¡£
-	};
-#endif
-
 	class Event_Actor;
 	class NetServiceBase;
 

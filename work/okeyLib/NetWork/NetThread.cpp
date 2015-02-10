@@ -1,6 +1,7 @@
 #include "PreCom.h"
 #include "NetThread.h"
 #include "Events/EventActor.h"
+#include "Events/EventHandler.h"
 #ifdef WINDOWS
 #include "IOCPProactor.h"
 #else

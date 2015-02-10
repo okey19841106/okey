@@ -46,7 +46,7 @@ namespace okey
 	{
 		if (m_Threads.empty())
 		{
-			return;
+			return NULL;
 		}
 		uint32 threadidx = 0;
 		uint32 threadload = uint32(-1);

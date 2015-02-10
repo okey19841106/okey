@@ -68,26 +68,26 @@ namespace okey
 	}
 	bool NetService::OnConnect(SessionBase* pSession)
 	{
-
+		return true;
 	}
 
 	bool NetService::OnAccept(SessionBase* pSession)
 	{
-
+		return true;
 	}
 
 	bool NetService::OnDisconnect(SessionBase* pSession)
 	{
-
+		return true;
 	}
 
 	bool NetService::OnSend()
 	{
-
+		return true;
 	}
 	bool NetService::OnRecv()
 	{
-
+		return true;
 	}
 	void NetService::Run()
 	{
@@ -95,7 +95,7 @@ namespace okey
 	}
 	SessionBase* NetService::Connect(const SocketAddr& addr)
 	{
-
+		return NULL;
 	}
 	bool NetService::Accept(const SocketAddr& addr)
 	{
@@ -144,6 +144,7 @@ namespace okey
 	{
 		SessionBase* pSession = GetSession(scoketid);
 		RecycleConnection(pSession);
+		return true;
 	}
 
 	void NetService::OnNewConnection(Socket& s, SessionBase::SessionType t)
@@ -172,7 +173,12 @@ namespace okey
 		SessionBase* pSession = new NetSession;
 		SOCKET sock = s.GetSocket();
 		pSession->Open(sock, t, this);
+#ifdef WINDOWS
+		m_pEventActor->RegisterHandler(pSession,Event_Handler::Event_IO);
+#else
 		ScheduleSession(pSession);
+#endif
+		
 	}
 	SessionPtr NetService::Connect(uint32 id, const SocketAddr& addr)
 	{
@@ -203,7 +209,7 @@ namespace okey
 		}
 		SessionPtr sPtr = pSession;
 #ifdef WINDOWS
-
+		m_pEventActor->RegisterHandler(pSession,Event_Handler::Event_IO);
 #else
 		ScheduleSession(sPtr);
 #endif

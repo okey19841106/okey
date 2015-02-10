@@ -65,12 +65,12 @@ namespace okey
 
 	bool NetSession::SendPacket(void* packet)
 	{
-
+		return true;
 	}
 
 	void* NetSession::RecvPacket()
 	{
-
+		return NULL;
 	}
 
 	int32 NetSession::SendData(const char* buff, int32 len)

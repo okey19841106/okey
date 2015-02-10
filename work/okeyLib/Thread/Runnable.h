@@ -47,7 +47,7 @@ namespace okey
 		}
 		void Run()
 		{
-			(c->*f)();
+			(_c->*f)();
 		}
 	private:
 		RunnableAdapter();

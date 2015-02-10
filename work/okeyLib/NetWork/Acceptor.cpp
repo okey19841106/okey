@@ -15,11 +15,6 @@ namespace okey
 	{
 		m_Socket.Close();
 	}
-	void* Acceptor::GetHandle()
-	{
-
-	}
-	void Acceptor::SetHandle(const void* pHandle){}
 	void Acceptor::HandleInput()
 	{
 		while(true)
@@ -53,19 +48,29 @@ namespace okey
 
 	void Acceptor::HandleInput(void* pParam)
 	{
-
+		AcceptCompleteOperator* p = (AcceptCompleteOperator*)(pParam);
+		if (!p)
+		{
+			//assert();
+			return;
+		}
+		Socket s;
+		s.Shift(p->m_AcceptSocket);
+		m_pNetService->OnNewConnection(s, SessionBase::e_Passive);
+		PostAccept();
 	}
 
 #ifdef WINDOWS
 	void Acceptor::PostAccept()
 	{
-		SOCKET s = Socket::CreateSocket();
+		Socket s;
+		s.CreateSocket();
 		//memset(m_RecvBuf, 0, sizeof(m_RecvBuf));
 		DWORD bytes;
-		m_AccepterCom.nMask = Event_Handler::Event_In;
+		m_AccepterCom.nMask = CompleteOperator::IOCP_EVENT_READ_COMPLETE;
 		while(true)
 		{
-			BOOL ret = AcceptEx(m_Socket.GetSocket(), s, m_RecvBuf, 0, ADDRLEN, ADDRLEN, &bytes, &m_AccepterCom);
+			BOOL ret = AcceptEx(m_Socket.GetSocket(), s.GetSocket(), m_RecvBuf, 0, ADDRLEN, ADDRLEN, &bytes, &m_AccepterCom);
 			if (!ret)
 			{
 				uint32 error = Socket::GetSysError();
@@ -74,7 +79,7 @@ namespace okey
 					continue;
 				}
 			}
-			m_AccepterCom.m_AcceptSocket = s;
+			m_AccepterCom.m_AcceptSocket.Shift(s);
 			break;
 		}
 	}
