@@ -12,13 +12,14 @@
 #include "Socket.h"
 #include "SocketAddr.h"
 #ifdef WINDOWS
+#include <MSWSock.h>
 #include "CompleteOperation.h"
 #endif
 
 namespace okey
 {
 
-
+#ifdef WINDOWS
 	class AcceptCompleteOperator :  public CompleteOperator 
 	{
 	public:
@@ -28,6 +29,18 @@ namespace okey
 		Socket m_AcceptSocket;
 	};
 
+// 	class IOPCAcceptFun
+// 	{
+// 	public:
+// 		IOPCAcceptFun(Socket s);
+// 		void AcceptEx();
+// 		void GetAcceptExSockaddrs();
+// 	private:
+// 		static LPFN_ACCEPTEX m_fnAcceptEx;
+// 		static LPFN_GETACCEPTEXSOCKADDRS m_fnGetAcceptExSockaddrs;
+// 	};
+#endif
+	
 #define ADDRLEN	(sizeof(SOCKADDR_IN) + 16)
 	class NetServiceBase;
 	class Acceptor : public Event_Handler
@@ -53,6 +66,7 @@ namespace okey
 #ifdef WINDOWS
 		char m_RecvBuf[ADDRLEN + ADDRLEN];
 		AcceptCompleteOperator m_AccepterCom;
+		static LPFN_ACCEPTEX m_fnAcceptEx;
 #endif
 	};
 }

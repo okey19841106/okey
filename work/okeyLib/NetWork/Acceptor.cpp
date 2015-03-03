@@ -6,10 +6,36 @@
 
 namespace okey
 {
+#ifdef WINDOWS
+	LPFN_ACCEPTEX Acceptor::m_fnAcceptEx = NULL;
+#endif
+	
 	Acceptor::Acceptor(Socket& socket, const SocketAddr& addr, NetServiceBase* p)
 	{
 		m_Socket.Shift(socket);
 		m_pNetService = p;
+#ifdef WINDOWS
+		class IOCPAcceptIniter
+		{
+		public:
+			IOCPAcceptIniter(SOCKET s, LPFN_ACCEPTEX f)
+			{
+				DWORD dwBytes = 0;
+				GUID guidAcceptEx = WSAID_ACCEPTEX;
+				WSAIoctl(s, 
+					SIO_GET_EXTENSION_FUNCTION_POINTER,
+					&guidAcceptEx,
+					sizeof(guidAcceptEx),
+					&f,
+					sizeof(f),
+					&dwBytes,
+					NULL,
+					NULL);
+			}
+		};
+		static IOCPAcceptIniter helper(socket.GetSocket(), m_fnAcceptEx);
+		PostAccept();
+#endif
 	}
 	Acceptor::~Acceptor()
 	{
@@ -70,7 +96,7 @@ namespace okey
 		m_AccepterCom.nMask = CompleteOperator::IOCP_EVENT_READ_COMPLETE;
 		while(true)
 		{
-			BOOL ret = AcceptEx(m_Socket.GetSocket(), s.GetSocket(), m_RecvBuf, 0, ADDRLEN, ADDRLEN, &bytes, &m_AccepterCom);
+			BOOL ret = Acceptor::m_fnAcceptEx(m_Socket.GetSocket(), s.GetSocket(), m_RecvBuf, 0, ADDRLEN, ADDRLEN, &bytes, &m_AccepterCom);
 			if (!ret)
 			{
 				uint32 error = Socket::GetSysError();
