@@ -9,7 +9,7 @@
 #define __NET_SERVICE_H__
 
 #include "NetServiceBase.h"
-#include "HashMap.h"
+#include "IDPool.h"
 #include "Thread/Mutex.h"
 #include "Thread/Thread.h"
 #include "Thread/ThreadGroup.h"
@@ -26,7 +26,7 @@ namespace okey
 
 	class NetService: public NetServiceBase, public ThreadGroup
 	{
-		typedef hash_map<uint32, SessionBase*> CONNECTION_MAP;
+		typedef IDMap<SessionBase*> CONNECTION_MAP;
 		
 	public:
 		NetService(uint32 id, const NetServiceParam& param);
@@ -40,12 +40,12 @@ namespace okey
 		virtual bool OnSend();
 		virtual bool OnRecv();
 		virtual void Run();
-		virtual SessionBase* Connect(const SocketAddr& addr);
+		virtual SessionPtr Connect(const SocketAddr& addr);
 		virtual bool Accept(const SocketAddr& addr);
 		virtual SessionBase* GetSession(int32 id);
 		virtual bool Disconnect(int32 scoketid);
 		virtual void OnNewConnection(Socket& s, SessionBase::SessionType t);
-		virtual SessionPtr Connect(uint32 id, const SocketAddr& addr);
+		//virtual SessionPtr Connect(uint32 id, const SocketAddr& addr);
 		virtual void RecycleConnection(SessionBase* pSession);
 	protected:
 		virtual std::pair<Thread*, Runnable*> CreateThread();

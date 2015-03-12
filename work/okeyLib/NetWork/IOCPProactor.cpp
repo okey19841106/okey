@@ -51,15 +51,11 @@ namespace okey
 		{
 			return false;
 		}
-		NetSession* pSession = (NetSession*)handler->GetHandle();
-		if (!pSession)
+		if ( NULL == CreateIoCompletionPort( handler->GetHandle(),completion_port,(ULONG_PTR)handler,0))
 		{
 			return false;
 		}
-		if ( NULL == CreateIoCompletionPort( (HANDLE)(pSession->GetSocket()),completion_port,(ULONG_PTR)handler,0))
-		{
-			return false;
-		}
+		handler->PostReadEvent();
 		++m_HandlerNum;
 		return true;
 	}
@@ -71,13 +67,16 @@ namespace okey
 
 	bool IOCPProactor::HandleEvents()
 	{
-		CompleteOperator* pCompleteOperation = NULL;
+		LPOVERLAPPED pOverLapped = NULL;
+		
 		DWORD bytesTransferred = 0;
 		Event_Handler* pHandler = NULL;
 		// Get the next asynchronous operation that completes
-		BOOL result = GetQueuedCompletionStatus (completion_port,&bytesTransferred,	(PULONG_PTR)&pHandler,(LPOVERLAPPED*)&pCompleteOperation,INFINITE);
+		BOOL result = GetQueuedCompletionStatus (completion_port,&bytesTransferred,	(PULONG_PTR)&pHandler,&pOverLapped,INFINITE);
 		if (result)
 		{
+			CompleteOperator* pCompleteOperation = (CompleteOperator*)pOverLapped;
+			pCompleteOperation->byteTransfer = bytesTransferred;
 			if (pHandler)
 			{
 				if (pCompleteOperation->nMask == CompleteOperator::IOCP_EVENT_READ_COMPLETE)

@@ -34,10 +34,12 @@
 
 #ifdef WINDOWS
 typedef int socklen_t;
+typedef HANDLE EVENT_HANDLE;
 #elif defined(LINUX)
-
-typedef int SOCKET 
+typedef int EVENT_HANDLE;
+typedef int SOCKET;
 #define INVALID_SOCKET -1
+#define INVALID_HANDLE_VALUE -1
 #endif
 
 

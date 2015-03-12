@@ -29,7 +29,6 @@ namespace okey
 			_maxSendSize = 0;
 			backlog = 512;
 			_threadConMaxSize = 256;
-
 		}
 		//void Check();
 		uint32 _threadConnNum; //处理链接线程数量
@@ -66,12 +65,12 @@ namespace okey
 		virtual bool OnSend()=0;
 		virtual bool OnRecv()=0;
 		//virtual bool Run()=0;
-		virtual SessionBase* Connect(const SocketAddr& addr)=0;
+		virtual SessionPtr Connect(const SocketAddr& addr)=0;
 		virtual bool Accept(const SocketAddr& addr) = 0;
 		virtual SessionBase* GetSession(int32 id) = 0;
 		virtual bool Disconnect(int32 scoketid)=0;
 		virtual void OnNewConnection(Socket& s, SessionBase::SessionType t) = 0;
-		virtual SessionPtr  Connect(uint32 id, const SocketAddr& addr) = 0;
+		//virtual SessionPtr  Connect(uint32 id, const SocketAddr& addr) = 0;
 		virtual void RecycleConnection(SessionBase* pSession) = 0;
 		const NetServiceParam& GetParam() const {return m_Param;}
 	protected:

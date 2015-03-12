@@ -18,7 +18,7 @@ namespace okey
 		class IOCPAcceptIniter
 		{
 		public:
-			IOCPAcceptIniter(SOCKET s, LPFN_ACCEPTEX f)
+			IOCPAcceptIniter(SOCKET s, LPFN_ACCEPTEX& f)
 			{
 				DWORD dwBytes = 0;
 				GUID guidAcceptEx = WSAID_ACCEPTEX;
@@ -33,7 +33,7 @@ namespace okey
 					NULL);
 			}
 		};
-		static IOCPAcceptIniter helper(socket.GetSocket(), m_fnAcceptEx);
+		static IOCPAcceptIniter helper(m_Socket.GetSocket(), m_fnAcceptEx);
 		PostAccept();
 #endif
 	}
@@ -74,6 +74,7 @@ namespace okey
 
 	void Acceptor::HandleInput(void* pParam)
 	{
+#ifdef WINDOWS
 		AcceptCompleteOperator* p = (AcceptCompleteOperator*)(pParam);
 		if (!p)
 		{
@@ -84,28 +85,29 @@ namespace okey
 		s.Shift(p->m_AcceptSocket);
 		m_pNetService->OnNewConnection(s, SessionBase::e_Passive);
 		PostAccept();
+#endif
 	}
 
 #ifdef WINDOWS
 	void Acceptor::PostAccept()
 	{
 		Socket s;
-		s.CreateSocket();
-		//memset(m_RecvBuf, 0, sizeof(m_RecvBuf));
+		s.Create();
 		DWORD bytes;
-		m_AccepterCom.nMask = CompleteOperator::IOCP_EVENT_READ_COMPLETE;
+		AcceptCompleteOperator* pOverLapped = new AcceptCompleteOperator;
+		pOverLapped->nMask = CompleteOperator::IOCP_EVENT_READ_COMPLETE;
 		while(true)
 		{
-			BOOL ret = Acceptor::m_fnAcceptEx(m_Socket.GetSocket(), s.GetSocket(), m_RecvBuf, 0, ADDRLEN, ADDRLEN, &bytes, &m_AccepterCom);
+			BOOL ret = Acceptor::m_fnAcceptEx(m_Socket.GetSocket(), s.GetSocket(), m_RecvBuf, 0, ADDRLEN, ADDRLEN, &bytes, pOverLapped);
 			if (!ret)
 			{
 				uint32 error = Socket::GetSysError();
-				if (error == WSA_IO_PENDING)
+				if (error != WSA_IO_PENDING)
 				{
 					continue;
 				}
 			}
-			m_AccepterCom.m_AcceptSocket.Shift(s);
+			pOverLapped->m_AcceptSocket.Shift(s);
 			break;
 		}
 	}

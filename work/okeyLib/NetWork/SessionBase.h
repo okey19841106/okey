@@ -41,7 +41,7 @@ namespace okey
 		virtual void Disconnect() = 0;
 		virtual SocketAddr GetPeerAddr() const = 0;
 		virtual SocketAddr GetHostAddr() const = 0;
-		virtual void Open(SOCKET s, SessionType type, NetServiceBase* pNet) = 0;
+		virtual void Open(Socket& s, SessionType type, NetServiceBase* pNet) = 0;
 		virtual void Close() = 0;
 		virtual bool SendPacket(void* packet) = 0;
 		virtual void* RecvPacket() = 0;

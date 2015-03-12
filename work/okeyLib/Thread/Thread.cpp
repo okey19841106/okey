@@ -17,6 +17,7 @@
 
 namespace okey
 {
+	Thread::CurrentThreadHolder Thread::_currentThreadHolder;
 	Thread::Thread():	
 #ifdef WINDOWS
 		_pRunnableTarget(NULL),

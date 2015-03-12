@@ -59,8 +59,7 @@ namespace okey
 		{
 			return false;
 		}
-		SessionBase* s = (SessionBase*)handler->GetHandle();
-		SOCKET socket = s->GetSocket();
+		SOCKET socket = handler->GetHandle();
 		if (socket < 0)
 		{
 			return false;
@@ -119,8 +118,7 @@ namespace okey
 		{
 			return ;
 		}
-		SessionBase* s = (SessionBase*)handler->GetHandle();
-		SOCKET socket = s->GetSocket();
+		SOCKET socket = handler->GetHandle();
 		if (socket < 0)
 		{
 			return ;

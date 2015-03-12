@@ -16,6 +16,9 @@ namespace okey
 	{
 		m_Param = param;
 #ifdef WINDOWS
+		WSADATA wsaData;
+		WORD wVersionRequested = MAKEWORD(2,2);
+		WSAStartup(wVersionRequested, &wsaData);
 		m_pEventActor = new IOCPProactor;
 		m_pEventActor->Open(m_Param._maxConNum, m_Param._threadConnNum);
 #else
@@ -34,6 +37,9 @@ namespace okey
 			delete m_pConRunnable;
 			m_pConRunnable = NULL;
 		}
+#ifdef WINDOWS
+		WSACleanup();
+#endif
 	}
 	bool NetService::StartUp()
 	{
@@ -93,9 +99,46 @@ namespace okey
 	{
 
 	}
-	SessionBase* NetService::Connect(const SocketAddr& addr)
+	SessionPtr NetService::Connect(const SocketAddr& addr)
 	{
-		return NULL;
+		if (m_State != e_Running)
+		{
+			return NULL;
+		}
+		Socket sock;
+		if (!sock.Create())
+		{
+			return NULL;
+		}
+		if (!sock.Connect(addr))
+		{
+			return NULL;
+		}
+		if (!InitSocket(sock))
+		{
+			sock.Close();
+			return NULL;
+		}
+		SessionBase* pSession = new NetSession;
+		uint32 sessionid = 0;
+		if (!m_Connections.insert(pSession, sessionid))
+		{
+			sock.Close();
+			return NULL;
+		}
+		pSession->Open(sock, SessionBase::e_Active, this);
+		pSession->SetId(sessionid);
+		if (m_ConnectCallBack)
+		{
+			(*m_ConnectCallBack)(pSession);
+		}
+		SessionPtr sPtr = pSession;
+#ifdef WINDOWS
+		m_pEventActor->RegisterHandler(pSession,Event_Handler::Event_IO);
+#else
+		ScheduleSession(sPtr);
+#endif
+		return sPtr;
 	}
 	bool NetService::Accept(const SocketAddr& addr)
 	{
@@ -171,8 +214,14 @@ namespace okey
 			++m_ConNum;
 		}
 		SessionBase* pSession = new NetSession;
-		SOCKET sock = s.GetSocket();
-		pSession->Open(sock, t, this);
+		uint32 sessionid = 0;
+		if (!m_Connections.insert(pSession,sessionid))
+		{
+			s.Close();
+			--m_ConNum;
+			return;
+		}
+		pSession->Open(s, t, this);
 #ifdef WINDOWS
 		m_pEventActor->RegisterHandler(pSession,Event_Handler::Event_IO);
 #else
@@ -180,41 +229,10 @@ namespace okey
 #endif
 		
 	}
-	SessionPtr NetService::Connect(uint32 id, const SocketAddr& addr)
-	{
-		if (m_State != e_Running)
-		{
-			return NULL;
-		}
-		Socket sock;
-		if (!sock.Create())
-		{
-			return NULL;
-		}
-		if (!sock.Connect(addr))
-		{
-			return NULL;
-		}
-		if (!InitSocket(sock))
-		{
-			sock.Close();
-			return NULL;
-		}
-		SessionBase* pSession = new NetSession;
-		SOCKET s = sock.GetSocket();
-		pSession->Open(s, SessionBase::e_Active, this);
-		if (m_ConnectCallBack)
-		{
-			(*m_ConnectCallBack)(pSession);
-		}
-		SessionPtr sPtr = pSession;
-#ifdef WINDOWS
-		m_pEventActor->RegisterHandler(pSession,Event_Handler::Event_IO);
-#else
-		ScheduleSession(sPtr);
-#endif
-		return sPtr;
-	}
+// 	SessionPtr NetService::Connect(uint32 id, const SocketAddr& addr)
+// 	{
+// 		
+// 	}
 	void NetService::RecycleConnection(SessionBase* pSession)
 	{
 		bool bVerified = false;
@@ -248,7 +266,10 @@ namespace okey
 
 	std::pair<Thread*, Runnable*> NetService::CreateThread()
 	{
-		Thread* pThread = new NetThread(m_Param._maxConNum);
+		NetThread* pThread = new NetThread(m_Param._maxConNum);
+#ifdef WINDOWS
+		pThread->SetEventAcotr(m_pEventActor);
+#endif
 		Runnable* pRun = new RunnableAdapter<NetThread>((NetThread*)pThread, &NetThread::HandleRun);
 		return std::pair<Thread*, Runnable*>(pThread, pRun);
 	}
@@ -259,5 +280,14 @@ namespace okey
 		delete threadinfo.second;
 	}
 
-
+	bool NetService::InitSocket(Socket& sock)
+	{
+		if (!sock.SetNonBlocking())
+		{
+			return false;
+		}
+		sock.SetSendBufSize(m_Param._sysSendBuff);
+		sock.SetRecvBufSize(m_Param._sysRecvBuff);
+		return true;
+	}
 }

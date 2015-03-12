@@ -20,7 +20,7 @@ namespace okey
 		SocketAddr():m_iPort(0){}
 		SocketAddr(const std::string& ip, int32 port):m_sIP(ip), m_iPort(port){}
 		SocketAddr(const SocketAddr& s): m_iPort(s.m_iPort), m_sIP(s.m_sIP){}
-		~SocketAddr();
+		~SocketAddr(){}
 		int32 GetPort()const{return m_iPort;}
 		void SetPort(const int32& port){m_iPort = port;}
 		void SetIP(const std::string& ip){m_sIP = ip;}

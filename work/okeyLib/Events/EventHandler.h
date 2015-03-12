@@ -29,7 +29,7 @@ namespace okey
 	public:
 		Event_Handler():m_pReactor(NULL),m_uMask(0),m_iTimeOut(0){}
 		virtual ~Event_Handler(){}
-		virtual void* GetHandle(){return NULL;}
+		virtual EVENT_HANDLE GetHandle(){return INVALID_HANDLE_VALUE;}
 		virtual void SetHandle(const void* pHandle){}
 		virtual void HandleInput(){}
 		virtual void HandleOutput(){}
@@ -40,7 +40,8 @@ namespace okey
 		virtual void HandleOutput(void* param){}
 		virtual void HandleException(void* param){}
 		virtual void HandleClose(void* param){}
-
+		virtual void PostReadEvent(){}
+		virtual void PostWriteEvent(){}
 
 		void SetReacotr(Event_Reactor* pReactor){m_pReactor = pReactor;}
 		Event_Reactor* GetReactor(){return m_pReactor;}

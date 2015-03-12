@@ -273,6 +273,9 @@
     <ClCompile Include="NetWork\NetThread.cpp">
       <Filter>NetWork\socket</Filter>
     </ClCompile>
+    <ClCompile Include="inc\IDPool.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -685,6 +688,9 @@
     </ClInclude>
     <ClInclude Include="NetWork\NetThread.h">
       <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IDPool.h">
+      <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -33,7 +33,7 @@ namespace okey
 		virtual void Disconnect();
 		virtual SocketAddr GetPeerAddr() const;
 		virtual SocketAddr GetHostAddr() const;
-		virtual void Open(SOCKET s, SessionType type, NetServiceBase* pNet);
+		virtual void Open(Socket& s, SessionType type, NetServiceBase* pNet);
 		virtual void Close();
 		virtual bool SendPacket(void* packet);
 		virtual void* RecvPacket();
@@ -45,12 +45,12 @@ namespace okey
 		virtual void OnConnect();
 		virtual void OnSend();
 		virtual void SetEventActor(Event_Actor* pActor);
-		virtual void* GetHandle(){return (void*)this;}
+		virtual EVENT_HANDLE GetHandle(){return (EVENT_HANDLE)m_Socket.GetSocket();}
 		virtual void SetHandle(const void* pHandle){}
 
 		virtual void HandleInput(void* param);
 		virtual void HandleOutput(void* param);
-		virtual void HandleException(void* param);
+		virtual void HandleException(void* param){}
 #ifdef WINDOWS
 		void PostReadEvent();
 		void PostWriteEvent();

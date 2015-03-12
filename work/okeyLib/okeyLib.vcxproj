@@ -63,7 +63,7 @@
       <AdditionalDependencies>ws2_32.lib</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -102,6 +102,7 @@
     <ClCompile Include="inc\Exception.cpp" />
     <ClCompile Include="inc\Allocator.cpp" />
     <ClCompile Include="inc\FactoryManager.cpp" />
+    <ClCompile Include="inc\IDPool.cpp" />
     <ClCompile Include="inc\OperatorNew.cpp" />
     <ClCompile Include="inc\PreCom.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -215,6 +216,7 @@
     <ClInclude Include="inc\HashMap.h" />
     <ClInclude Include="inc\HelperFunction.h" />
     <ClInclude Include="inc\Allocator.h" />
+    <ClInclude Include="inc\IDPool.h" />
     <ClInclude Include="inc\nocopyable.h" />
     <ClInclude Include="inc\OperatorNew.h" />
     <ClInclude Include="inc\PoolAllocator.h" />

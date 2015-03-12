@@ -28,17 +28,6 @@ namespace okey
 	public:
 		Socket m_AcceptSocket;
 	};
-
-// 	class IOPCAcceptFun
-// 	{
-// 	public:
-// 		IOPCAcceptFun(Socket s);
-// 		void AcceptEx();
-// 		void GetAcceptExSockaddrs();
-// 	private:
-// 		static LPFN_ACCEPTEX m_fnAcceptEx;
-// 		static LPFN_GETACCEPTEXSOCKADDRS m_fnGetAcceptExSockaddrs;
-// 	};
 #endif
 	
 #define ADDRLEN	(sizeof(SOCKADDR_IN) + 16)
@@ -49,7 +38,7 @@ namespace okey
 		Acceptor(Socket& socket, const SocketAddr& addr, NetServiceBase* p);
 		~Acceptor();
 
-		virtual void* GetHandle(){return (void*)this;}
+		virtual EVENT_HANDLE GetHandle(){return (EVENT_HANDLE)m_Socket.GetSocket();}
 		virtual void SetHandle(const void* pHandle){}
 		virtual void HandleInput();
 		virtual void HandleOutput();

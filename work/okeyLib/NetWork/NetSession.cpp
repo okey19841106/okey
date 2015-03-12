@@ -42,7 +42,7 @@ namespace okey
 		return addr;
 	}
 
-	void NetSession::Open(SOCKET s, SessionType type, NetServiceBase* pNet)
+	void NetSession::Open(Socket& s, SessionType type, NetServiceBase* pNet)
 	{
 		if (m_State == e_Connected)
 		{
@@ -51,8 +51,7 @@ namespace okey
 		m_ID = 0;
 		m_Type = type;
 		m_pNetService = pNet;
-		Socket temp(s);
-		m_Socket.Shift(temp);
+		m_Socket.Shift(s);
 		m_State = e_Connected;
 	}
 
@@ -384,15 +383,16 @@ namespace okey
 			if (m_Socket.Recv(buffer,RECV_BLOCK_SIZE) == 0)
 			{
 				Disconnect();//Õý³£¶Ï¿ª¡£¡£
+				return;
 			}
+			int32 a = 0;
 		}
 		else
 		{
-			
 			m_RecvBuffer.IncrementWritten(pCom->GetBytesTransferred());
 			OnRecv();
-			PostReadEvent();
 		}
+		PostReadEvent();
 #endif
 	}
 

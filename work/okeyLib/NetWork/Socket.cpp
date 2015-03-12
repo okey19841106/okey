@@ -21,7 +21,7 @@ namespace okey
 			return false;
 		}
 #ifdef WINDOWS
-		::WSASocket(AF_INET, SOCK_STREAM, 0, 0, 0, WSA_FLAG_OVERLAPPED);
+		m_Socket = ::WSASocket(AF_INET, SOCK_STREAM, 0, 0, 0, WSA_FLAG_OVERLAPPED);
 #else
 		m_Socket = socket(PF_INET, SOCK_STREAM,0);
 #endif
@@ -92,6 +92,7 @@ namespace okey
 			SetReuseAddr();
 			return true;
 		}
+		int32 er = Socket::GetSysError();
 		return false;
 		
 	}
@@ -310,9 +311,9 @@ namespace okey
 	{
 		SOCKET s = INVALID_SOCKET;
 #ifdef WINDOWS
-		::WSASocket(AF_INET, SOCK_STREAM, 0, 0, 0, WSA_FLAG_OVERLAPPED);
+		s =::WSASocket(AF_INET, SOCK_STREAM, 0, 0, 0, WSA_FLAG_OVERLAPPED);
 #else
-		m_Socket = socket(PF_INET, SOCK_STREAM,0);
+		s = socket(PF_INET, SOCK_STREAM,0);
 #endif
 		return s;
 	}

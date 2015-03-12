@@ -10,6 +10,7 @@
 
 #include "CRefcounter.h"
 #include "Mutex.h"
+#include "Exception.h"
 
 namespace okey{
 

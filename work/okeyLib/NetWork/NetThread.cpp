@@ -11,7 +11,7 @@
 
 namespace okey
 {
-	NetThread::NetThread(uint32 m):m_MaxHanleCount(m),m_HandleCount(0),m_IsExist(true)
+	NetThread::NetThread(uint32 m):m_MaxHanleCount(m),m_HandleCount(0),m_IsExist(false)
 	{
 #if WINDOWS
 		//m_pEventActor = new IOCPProactor;
@@ -41,6 +41,7 @@ namespace okey
 	{
 		while(!m_IsExist)
 		{
+#ifndef WINDOWS
 			HANDLER_VEC newHandlers;
 			{
 				FastMutex::ScopedLock lock(m_WaitMutex);
@@ -57,6 +58,7 @@ namespace okey
 			}
 			newHandlers.clear();
 			m_HandleCount = m_pEventActor->GetNumOfHandler();
+#endif
 			m_pEventActor->HandleEvents();
 		}
 		OnQuit();
@@ -64,6 +66,7 @@ namespace okey
 
 	void NetThread::OnQuit()
 	{
+#ifndef WINDOWS
 		{
 			FastMutex::ScopedLock lock(m_WaitMutex);
 			for(HANDLER_VEC::iterator itr = m_WaitList.begin(); itr != m_WaitList.end(); ++ itr)
@@ -72,6 +75,7 @@ namespace okey
 			}
 			m_WaitList.clear();
 		}
+#endif
 		m_pEventActor->Close();
 	}
 

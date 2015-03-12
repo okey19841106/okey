@@ -31,10 +31,12 @@ namespace okey
 			InternalHigh = 0;
 			Offset = 0;
 			OffsetHigh = 0;
+			byteTransfer = 0;
 			nMask = IOCP_IVALID;
 		}
-		virtual ~CompleteOperator();
-		uint32 GetBytesTransferred(){return static_cast<uint32>( InternalHigh );}
+		virtual ~CompleteOperator(){}
+		uint32 GetBytesTransferred(){return static_cast<uint32>( byteTransfer );}
+		DWORD byteTransfer;
 		CompleteOperatorEvent nMask;
 	};
 }
