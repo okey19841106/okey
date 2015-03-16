@@ -24,7 +24,7 @@ namespace okey
 	class NetSession : public SessionBase
 	{
 	public:
-		NetSession();
+		NetSession(NetServiceBase* pNetService, Event_Actor* pActor);
 		virtual ~NetSession();
 		virtual SessionState GetState() const{return m_State;}
 		virtual SessionType GetType() const{return m_Type;}
@@ -77,6 +77,7 @@ namespace okey
 		WSABUF m_RecvWSABuf;
 		CompleteOperator m_SendOverLapped;
 		CompleteOperator m_RecvOverLapped;
+		CompleteOperator m_CloseOverLapped;
 		bool m_bSend;
 #endif
 	};

@@ -7,7 +7,7 @@ namespace okey
 {
 	const int32 NetSession::RECV_BLOCK_SIZE = 1024;
 
-	NetSession::NetSession():m_State(e_DisConnected),m_Type(e_Active),m_ID(0),m_pNetService(NULL)
+	NetSession::NetSession(NetServiceBase* pNetService, Event_Actor* pActor):m_State(e_DisConnected),m_Type(e_Active),m_ID(0),m_pNetService(pNetService),m_pActor(pActor)
 	{
 
 	}
@@ -25,7 +25,9 @@ namespace okey
 			return;
 		}
 		m_State = e_DisConnected;
-		//log...
+#ifdef WINDOWS
+		m_pActor->RemoveHander(this, Event_All);
+#endif
 	}
 
 	SocketAddr NetSession::GetPeerAddr() const

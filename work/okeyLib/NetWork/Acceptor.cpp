@@ -84,6 +84,8 @@ namespace okey
 		Socket s;
 		s.Shift(p->m_AcceptSocket);
 		m_pNetService->OnNewConnection(s, SessionBase::e_Passive);
+		delete p;
+		p = NULL;
 		PostAccept();
 #endif
 	}

@@ -119,7 +119,7 @@ namespace okey
 			sock.Close();
 			return NULL;
 		}
-		SessionBase* pSession = new NetSession;
+		SessionBase* pSession = new NetSession(this,m_pEventActor);
 		uint32 sessionid = 0;
 		if (!m_Connections.insert(pSession, sessionid))
 		{
@@ -186,7 +186,7 @@ namespace okey
 	bool NetService::Disconnect(int32 scoketid)
 	{
 		SessionBase* pSession = GetSession(scoketid);
-		RecycleConnection(pSession);
+		pSession->Disconnect();
 		return true;
 	}
 
@@ -204,6 +204,7 @@ namespace okey
 			s.Close();
 			return;
 		}
+		SessionBase* pSession = NULL;
 		{
 			FastMutex::ScopedLock lock(m_ConMutex);
 			if (m_ConNum >= m_Param._maxConNum)
@@ -211,16 +212,18 @@ namespace okey
 				s.Close();
 				return;
 			}
+			pSession = new NetSession(this,m_pEventActor);
+			uint32 sessionid = 0;
+			if (!m_Connections.insert(pSession,sessionid))
+			{
+				s.Close();
+				delete pSession;
+				pSession = NULL;
+				return;
+			}
 			++m_ConNum;
 		}
-		SessionBase* pSession = new NetSession;
-		uint32 sessionid = 0;
-		if (!m_Connections.insert(pSession,sessionid))
-		{
-			s.Close();
-			--m_ConNum;
-			return;
-		}
+	
 		pSession->Open(s, t, this);
 #ifdef WINDOWS
 		m_pEventActor->RegisterHandler(pSession,Event_Handler::Event_IO);

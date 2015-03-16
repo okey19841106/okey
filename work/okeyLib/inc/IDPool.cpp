@@ -21,7 +21,7 @@ namespace okey
 				//ÂúÁË¡£ ÉêÇë²»µ½¡£¡£
 				return false;
 			}
-			allocid=++m_uMax;
+			allocid=m_uCur++;
 			//assert(m_uMax != 0)
 		}
 		else

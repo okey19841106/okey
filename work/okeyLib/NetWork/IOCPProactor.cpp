@@ -37,7 +37,7 @@ namespace okey
 				return;
 			}
 			ov->nMask = CompleteOperator::IOCP_EVENT_CLOSE;
-			PostQueuedCompletionStatus(completion_port, 0, (ULONG_PTR)0, (LPOVERLAPPED)&ov);
+			PostQueuedCompletionStatus(completion_port, 0, (ULONG_PTR)0, (LPOVERLAPPED)ov);
 		}
 	}
 
@@ -62,6 +62,9 @@ namespace okey
 
 	void IOCPProactor::RemoveHander(Event_Handler* handler, uint32 events)
 	{
+		CompleteOperator *pov = new CompleteOperator;
+		pov->nMask = CompleteOperator::IOCP_EVENT_CLOSE;
+		PostQueuedCompletionStatus(completion_port, 0, (ULONG_PTR)handler, (LPOVERLAPPED)pov);
 		--m_HandlerNum;
 	}
 
@@ -87,8 +90,10 @@ namespace okey
 				{
 					pHandler->HandleOutput((void*)pCompleteOperation);
 				}
-				else
+				else if (pCompleteOperation->nMask == CompleteOperator::IOCP_EVENT_CLOSE)
 				{
+					delete pOverLapped;
+					pOverLapped = NULL;
 					pHandler->HandleClose();
 				}
 			}

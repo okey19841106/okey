@@ -27,6 +27,7 @@ namespace okey
 		virtual bool HandleEvents();
 		virtual int32 GetThreadNum() const;
 		virtual uint32 GetNumOfHandler() const {return m_HandlerNum;}
+
 	protected:
 		bool m_bOpen;
 		int32 _threadnum;
