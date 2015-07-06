@@ -58,6 +58,9 @@
     <Filter Include="Events">
       <UniqueIdentifier>{0e8e2bf3-8142-4b1b-b5cf-0f54601ebacc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NetWork\reactor">
+      <UniqueIdentifier>{01854107-e4b7-414a-a486-52838c61847d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyxml\tinyxml.cpp">

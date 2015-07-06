@@ -9,7 +9,8 @@ namespace okey
 
 	NetSession::NetSession(NetServiceBase* pNetService, Event_Actor* pActor):m_State(e_DisConnected),m_Type(e_Active),m_ID(0),m_pNetService(pNetService),m_pActor(pActor)
 	{
-
+		m_SendBuffer.Allocate(pNetService->GetParam()._maxSendSize);
+		m_RecvBuffer.Allocate(pNetService->GetParam()._maxRecvSize);
 	}
 
 	NetSession::~NetSession()
@@ -240,10 +241,10 @@ namespace okey
 		} while (true);
 #endif
 		
-		while(true)
-		{
-			//生成数据包 放在队列里。。 
-		}
+// 		while(true)
+// 		{
+// 			//生成数据包 放在队列里。。 
+// 		}
 	}
 
 	void NetSession::OnTick(const TimeStamp& curtime)
@@ -349,6 +350,7 @@ namespace okey
 		DWORD len = 0;
 		DWORD flag = 0;
 		m_RecvOverLapped.nMask = CompleteOperator::IOCP_EVENT_READ_COMPLETE;
+		m_RecvOverLapped.pHandler = this;
 		if (WSARecv(m_Socket.GetSocket(), &buf, 1, &len, &flag, &m_RecvOverLapped, NULL) == SOCKET_ERROR)
 		{
 			if (WSAGetLastError() != WSA_IO_PENDING)
@@ -365,6 +367,7 @@ namespace okey
 		buf.buf = (char*)m_SendBuffer.GetBufferStart();
 		DWORD len = 0;
 		DWORD flag = 0;
+		m_SendOverLapped.pHandler = this;
 		if (SOCKET_ERROR == WSASend(m_Socket.GetSocket(),&buf,1, &len, flag, &m_SendOverLapped,0))
 		{
 			if (WSAGetLastError() != WSA_IO_PENDING)

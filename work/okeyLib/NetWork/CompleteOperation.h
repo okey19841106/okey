@@ -13,6 +13,8 @@
 
 namespace okey
 {
+	class Event_Handler;
+
 	class CompleteOperator: public OVERLAPPED
 	{
 	public:
@@ -33,9 +35,11 @@ namespace okey
 			OffsetHigh = 0;
 			byteTransfer = 0;
 			nMask = IOCP_IVALID;
+			pHandler = NULL;
 		}
 		virtual ~CompleteOperator(){}
 		uint32 GetBytesTransferred(){return static_cast<uint32>( byteTransfer );}
+		Event_Handler* pHandler;
 		DWORD byteTransfer;
 		CompleteOperatorEvent nMask;
 	};

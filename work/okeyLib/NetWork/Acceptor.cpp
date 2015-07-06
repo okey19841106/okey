@@ -98,6 +98,7 @@ namespace okey
 		DWORD bytes;
 		AcceptCompleteOperator* pOverLapped = new AcceptCompleteOperator;
 		pOverLapped->nMask = CompleteOperator::IOCP_EVENT_READ_COMPLETE;
+		pOverLapped->pHandler = this;
 		while(true)
 		{
 			BOOL ret = Acceptor::m_fnAcceptEx(m_Socket.GetSocket(), s.GetSocket(), m_RecvBuf, 0, ADDRLEN, ADDRLEN, &bytes, pOverLapped);

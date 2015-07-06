@@ -25,8 +25,8 @@ namespace okey
 			_tickInterval = 10;
 			_sysSendBuff = 65535;
 			_sysRecvBuff = 65535;
-			_maxRecvSize = 0;
-			_maxSendSize = 0;
+			_maxRecvSize = 655350;
+			_maxSendSize = 655350;
 			backlog = 512;
 			_threadConMaxSize = 256;
 		}

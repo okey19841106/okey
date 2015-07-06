@@ -28,6 +28,10 @@ namespace okey
 		virtual int32 GetThreadNum() const;
 		virtual uint32 GetNumOfHandler() const {return m_HandlerNum;}
 
+		
+#ifdef WINDOWS
+		static void CALLBACK _HandleEvents(DWORD dwErrCode, DWORD dwTransed, LPOVERLAPPED param);
+#endif
 	protected:
 		bool m_bOpen;
 		int32 _threadnum;

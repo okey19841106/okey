@@ -47,9 +47,9 @@ namespace okey
 		{
 			return false;
 		}
-		StartThreads(m_Param._threadConnNum);
 #ifdef WINDOWS
 #else
+		StartThreads(m_Param._threadConnNum);
 		m_pConRunnable = new RunnableAdapter<NetThread>(m_pConThread, &NetThread::HandleRun);
 		m_pConThread->Start(*m_pConRunnable);
 #endif
@@ -160,10 +160,17 @@ namespace okey
 		{
 			return false;
 		}
+#ifdef WINDOWS
+		if (!sock.SetNonBlocking(false))
+		{
+			return false;
+		}
+#else
 		if (!sock.SetNonBlocking())
 		{
 			return false;
 		}
+#endif
 		sock.SetReuseAddr();
 		//Ïß³ÌÈ¥×¢²á¼àÌýÆ÷¡£¡£
 #ifdef WINDOWS
@@ -271,7 +278,7 @@ namespace okey
 	{
 		NetThread* pThread = new NetThread(m_Param._maxConNum);
 #ifdef WINDOWS
-		pThread->SetEventAcotr(m_pEventActor);
+		//pThread->SetEventAcotr(m_pEventActor);
 #endif
 		Runnable* pRun = new RunnableAdapter<NetThread>((NetThread*)pThread, &NetThread::HandleRun);
 		return std::pair<Thread*, Runnable*>(pThread, pRun);
@@ -285,10 +292,17 @@ namespace okey
 
 	bool NetService::InitSocket(Socket& sock)
 	{
+#ifdef WINDOWS
+		if (!sock.SetNonBlocking(false))
+		{
+			return false;
+		}
+#else
 		if (!sock.SetNonBlocking())
 		{
 			return false;
 		}
+#endif
 		sock.SetSendBufSize(m_Param._sysSendBuff);
 		sock.SetRecvBufSize(m_Param._sysRecvBuff);
 		return true;
