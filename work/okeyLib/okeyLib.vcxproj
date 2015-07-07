@@ -110,6 +110,7 @@
     <ClCompile Include="inc\StringHelper.cpp" />
     <ClCompile Include="inc\TClass.cpp" />
     <ClCompile Include="inc\TClassManager.cpp" />
+    <ClCompile Include="inc\TimeSpan.cpp" />
     <ClCompile Include="inc\TimeStamp.cpp" />
     <ClCompile Include="inc\ToolKit.cpp" />
     <ClCompile Include="inc\TreeNodeBase.cpp" />
@@ -127,6 +128,7 @@
     <ClCompile Include="NetWork\NetSession.cpp" />
     <ClCompile Include="NetWork\Socket.cpp" />
     <ClCompile Include="NetWork\SocketAddr.cpp" />
+    <ClCompile Include="NetWork\SocketReactor.cpp" />
     <ClCompile Include="Notifications\Notification.cpp" />
     <ClCompile Include="Notifications\NotificationCenter.cpp" />
     <ClCompile Include="Notifications\NotificationQueue.cpp" />
@@ -232,6 +234,7 @@
     <ClInclude Include="inc\TClass.h" />
     <ClInclude Include="inc\TClassDefine.h" />
     <ClInclude Include="inc\TClassManager.h" />
+    <ClInclude Include="inc\TimeSpan.h" />
     <ClInclude Include="inc\TimeStamp.h" />
     <ClInclude Include="inc\TList.h" />
     <ClInclude Include="inc\ToolKit.h" />
@@ -256,6 +259,7 @@
     <ClInclude Include="NetWork\SessionBase.h" />
     <ClInclude Include="NetWork\Socket.h" />
     <ClInclude Include="NetWork\SocketAddr.h" />
+    <ClInclude Include="NetWork\SocketReactor.h" />
     <ClInclude Include="Notifications\Notification.h" />
     <ClInclude Include="Notifications\NotificationCenter.h" />
     <ClInclude Include="Notifications\NotificationQueue.h" />

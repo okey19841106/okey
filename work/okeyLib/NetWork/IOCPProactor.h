@@ -35,7 +35,7 @@ namespace okey
 	protected:
 		bool m_bOpen;
 		int32 _threadnum;
-		HANDLE completion_port;
+		//HANDLE completion_port;
 		uint32 m_HandlerNum;
 	};
 

@@ -279,6 +279,12 @@
     <ClCompile Include="inc\IDPool.cpp">
       <Filter>inc</Filter>
     </ClCompile>
+    <ClCompile Include="NetWork\SocketReactor.cpp">
+      <Filter>NetWork\reactor</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\TimeSpan.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -693,6 +699,12 @@
       <Filter>NetWork\socket</Filter>
     </ClInclude>
     <ClInclude Include="inc\IDPool.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\SocketReactor.h">
+      <Filter>NetWork\reactor</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TimeSpan.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

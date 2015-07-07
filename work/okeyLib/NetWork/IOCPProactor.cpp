@@ -5,14 +5,14 @@
 namespace okey
 {
 
-	IOCPProactor::IOCPProactor():_threadnum(0),completion_port(INVALID_HANDLE_VALUE),m_bOpen(false),m_HandlerNum(0)
+	IOCPProactor::IOCPProactor():_threadnum(0),m_bOpen(false),m_HandlerNum(0)
 	{
 
 	}
 
 	IOCPProactor::~IOCPProactor()
 	{
-		CloseHandle(completion_port);
+		//CloseHandle(completion_port);
 	}
 
 	bool IOCPProactor::Open(uint32 maxHandler, uint32 numThread)
@@ -29,16 +29,16 @@ namespace okey
 
 	void IOCPProactor::Close()
 	{
-		for(int i = 0; i < _threadnum; ++i)
-		{
-			CompleteOperator* ov = new CompleteOperator;
-			if (!ov)
-			{
-				return;
-			}
-			ov->nMask = CompleteOperator::IOCP_EVENT_CLOSE;
-			PostQueuedCompletionStatus(completion_port, 0, (ULONG_PTR)0, (LPOVERLAPPED)ov);
-		}
+// 		for(int i = 0; i < _threadnum; ++i)
+// 		{
+// 			CompleteOperator* ov = new CompleteOperator;
+// 			if (!ov)
+// 			{
+// 				return;
+// 			}
+// 			ov->nMask = CompleteOperator::IOCP_EVENT_CLOSE;
+// 			PostQueuedCompletionStatus(completion_port, 0, (ULONG_PTR)0, (LPOVERLAPPED)ov);
+// 		}
 	}
 
 	bool IOCPProactor::RegisterHandler(Event_Handler* handler, uint32 events)
