@@ -128,6 +128,8 @@
     <ClCompile Include="NetWork\NetSession.cpp" />
     <ClCompile Include="NetWork\Socket.cpp" />
     <ClCompile Include="NetWork\SocketAddr.cpp" />
+    <ClCompile Include="NetWork\SocketNotifier.cpp" />
+    <ClCompile Include="NetWork\SocketNotification.cpp" />
     <ClCompile Include="NetWork\SocketReactor.cpp" />
     <ClCompile Include="Notifications\Notification.cpp" />
     <ClCompile Include="Notifications\NotificationCenter.cpp" />
@@ -259,6 +261,8 @@
     <ClInclude Include="NetWork\SessionBase.h" />
     <ClInclude Include="NetWork\Socket.h" />
     <ClInclude Include="NetWork\SocketAddr.h" />
+    <ClInclude Include="NetWork\SocketNotifier.h" />
+    <ClInclude Include="NetWork\SocketNotification.h" />
     <ClInclude Include="NetWork\SocketReactor.h" />
     <ClInclude Include="Notifications\Notification.h" />
     <ClInclude Include="Notifications\NotificationCenter.h" />

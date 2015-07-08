@@ -285,6 +285,12 @@
     <ClCompile Include="inc\TimeSpan.cpp">
       <Filter>inc</Filter>
     </ClCompile>
+    <ClCompile Include="NetWork\SocketNotifier.cpp">
+      <Filter>NetWork\reactor</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\SocketNotification.cpp">
+      <Filter>NetWork\reactor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -706,6 +712,12 @@
     </ClInclude>
     <ClInclude Include="inc\TimeSpan.h">
       <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\SocketNotifier.h">
+      <Filter>NetWork\reactor</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\SocketNotification.h">
+      <Filter>NetWork\reactor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
