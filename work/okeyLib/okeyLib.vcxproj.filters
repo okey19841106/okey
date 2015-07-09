@@ -61,6 +61,9 @@
     <Filter Include="NetWork\reactor">
       <UniqueIdentifier>{01854107-e4b7-414a-a486-52838c61847d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Task">
+      <UniqueIdentifier>{6fd4278b-9ad8-4673-9bc7-8f041fc99d53}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyxml\tinyxml.cpp">
@@ -290,6 +293,15 @@
     </ClCompile>
     <ClCompile Include="NetWork\SocketNotification.cpp">
       <Filter>NetWork\reactor</Filter>
+    </ClCompile>
+    <ClCompile Include="Task\Task.cpp">
+      <Filter>Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Task\TaskManager.cpp">
+      <Filter>Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Task\TaskNotification.cpp">
+      <Filter>Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -718,6 +730,15 @@
     </ClInclude>
     <ClInclude Include="NetWork\SocketNotification.h">
       <Filter>NetWork\reactor</Filter>
+    </ClInclude>
+    <ClInclude Include="Task\Task.h">
+      <Filter>Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Task\TaskManager.h">
+      <Filter>Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Task\TaskNotification.h">
+      <Filter>Task</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

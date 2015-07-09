@@ -146,6 +146,9 @@
     <ClCompile Include="Stream\FileStream.cpp" />
     <ClCompile Include="Stream\FileStreamBuf.cpp" />
     <ClCompile Include="Stream\MemoryStreamBuf.cpp" />
+    <ClCompile Include="Task\Task.cpp" />
+    <ClCompile Include="Task\TaskManager.cpp" />
+    <ClCompile Include="Task\TaskNotification.cpp" />
     <ClCompile Include="Thread\ActiveDispatcher.cpp" />
     <ClCompile Include="Thread\AtomicCounter.cpp" />
     <ClCompile Include="Thread\Condition.cpp" />
@@ -285,6 +288,9 @@
     <ClInclude Include="Stream\FileStreamBuf.h" />
     <ClInclude Include="Stream\MemoryStreamBuf.h" />
     <ClInclude Include="Stream\UnbufferedStreamBuf.h" />
+    <ClInclude Include="Task\Task.h" />
+    <ClInclude Include="Task\TaskManager.h" />
+    <ClInclude Include="Task\TaskNotification.h" />
     <ClInclude Include="Template\MathTemplate.h" />
     <ClInclude Include="Template\TAny.h" />
     <ClInclude Include="Template\TMeta.h" />
