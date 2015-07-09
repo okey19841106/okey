@@ -53,8 +53,7 @@ namespace okey
 
 
 	TaskFailedNotification::TaskFailedNotification(Task* pTask, const Exception& exc):
-	TaskNotification(pTask),
-		_pException(exc.clone())
+	TaskNotification(pTask),_pException(exc.clone())
 	{
 	}
 
@@ -66,8 +65,7 @@ namespace okey
 
 
 	TaskProgressNotification::TaskProgressNotification(Task* pTask, f32 progress):
-	TaskNotification(pTask),
-		_progress(progress)
+	TaskNotification(pTask),_progress(progress)
 	{
 	}
 
