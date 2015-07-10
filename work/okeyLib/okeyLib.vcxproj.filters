@@ -303,6 +303,12 @@
     <ClCompile Include="Task\TaskNotification.cpp">
       <Filter>Task</Filter>
     </ClCompile>
+    <ClCompile Include="inc\MemoryPool.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="log\Channel.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -739,6 +745,21 @@
     </ClInclude>
     <ClInclude Include="Task\TaskNotification.h">
       <Filter>Task</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ObjectPool.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MemoryPool.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="log\Channel.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\Configurable.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\ArchiveStrategy.h">
+      <Filter>Log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

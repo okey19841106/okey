@@ -103,6 +103,7 @@
     <ClCompile Include="inc\Allocator.cpp" />
     <ClCompile Include="inc\FactoryManager.cpp" />
     <ClCompile Include="inc\IDPool.cpp" />
+    <ClCompile Include="inc\MemoryPool.cpp" />
     <ClCompile Include="inc\OperatorNew.cpp" />
     <ClCompile Include="inc\PreCom.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -115,6 +116,7 @@
     <ClCompile Include="inc\ToolKit.cpp" />
     <ClCompile Include="inc\TreeNodeBase.cpp" />
     <ClCompile Include="inc\UtilID.cpp" />
+    <ClCompile Include="log\Channel.cpp" />
     <ClCompile Include="log\LogChannel.cpp" />
     <ClCompile Include="log\Logger.cpp" />
     <ClCompile Include="NetWork\Acceptor.cpp" />
@@ -224,7 +226,9 @@
     <ClInclude Include="inc\HelperFunction.h" />
     <ClInclude Include="inc\Allocator.h" />
     <ClInclude Include="inc\IDPool.h" />
+    <ClInclude Include="inc\MemoryPool.h" />
     <ClInclude Include="inc\nocopyable.h" />
+    <ClInclude Include="inc\ObjectPool.h" />
     <ClInclude Include="inc\OperatorNew.h" />
     <ClInclude Include="inc\PoolAllocator.h" />
     <ClInclude Include="inc\PreCom.h" />
@@ -248,6 +252,9 @@
     <ClInclude Include="inc\UtilID.h" />
     <ClInclude Include="inc\VectorString.h" />
     <ClInclude Include="inc\XML.h" />
+    <ClInclude Include="log\ArchiveStrategy.h" />
+    <ClInclude Include="log\Channel.h" />
+    <ClInclude Include="log\Configurable.h" />
     <ClInclude Include="log\LogChannel.h" />
     <ClInclude Include="log\Logger.h" />
     <ClInclude Include="NetWork\Acceptor.h" />

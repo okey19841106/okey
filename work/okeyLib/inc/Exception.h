@@ -98,6 +98,8 @@ OKEY_DECLARE_EXCEPTION(NoThreadAvailableException,Exception,"No thread Available
 OKEY_DECLARE_EXCEPTION(UnhandledException,Exception,"un handled");
 OKEY_DECLARE_EXCEPTION(NullPointerException,Exception,"null Point");
 OKEY_DECLARE_EXCEPTION(BadCastException,Exception,"bad cast exception");
+OKEY_DECLARE_EXCEPTION(OutOfMemoryException,Exception,"Out of Memory");
+OKEY_DECLARE_EXCEPTION(PropertyNotSupportedException,Exception,"not supported");
 // OKEY_DECLARE_EXCEPTION(FileNotFoundException, Exception, "Cannot read file");
 // OKEY_DECLARE_EXCEPTION(PathNotFoundException, Exception, "Cannot read file");
 // OKEY_DECLARE_EXCEPTION(FileAccessDeniedException, Exception, "Cannot read file");
