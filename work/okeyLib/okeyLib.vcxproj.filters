@@ -64,6 +64,9 @@
     <Filter Include="Task">
       <UniqueIdentifier>{6fd4278b-9ad8-4673-9bc7-8f041fc99d53}</UniqueIdentifier>
     </Filter>
+    <Filter Include="zlib">
+      <UniqueIdentifier>{fe385a9c-7a96-44de-a616-3bb4267455be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyxml\tinyxml.cpp">
@@ -308,6 +311,60 @@
     </ClCompile>
     <ClCompile Include="log\Channel.cpp">
       <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="log\LogFile.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="log\ArchiveStrategy.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="Stream\DeflatingStream.cpp">
+      <Filter>Stream</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\compress.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\crc32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\deflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\gzclose.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\gzlib.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\gzread.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\gzwrite.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\infback.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\inffast.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\inflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\inftrees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\trees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\uncompr.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\zutil.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\adler32.c">
+      <Filter>zlib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -760,6 +817,45 @@
     </ClInclude>
     <ClInclude Include="log\ArchiveStrategy.h">
       <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\LogFile.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="Stream\DeflatingStream.h">
+      <Filter>Stream</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\crc32.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\deflate.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\gzguts.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\inffast.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\inffixed.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\inflate.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\inftrees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\trees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\zconf.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\zlib.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\zutil.h">
+      <Filter>zlib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
