@@ -366,6 +366,27 @@
     <ClCompile Include="zlib\adler32.c">
       <Filter>zlib</Filter>
     </ClCompile>
+    <ClCompile Include="Stream\StreamCopier.cpp">
+      <Filter>Stream</Filter>
+    </ClCompile>
+    <ClCompile Include="log\ConsoleChannel.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="log\Message.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="log\FileChannel.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="log\PurgeStrategy.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="log\RotateStrategy.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\AsciiCharacter.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -856,6 +877,30 @@
     </ClInclude>
     <ClInclude Include="zlib\zutil.h">
       <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="Stream\StreamCopier.h">
+      <Filter>Stream</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Buffer.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="log\ConsoleChannel.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\Message.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\FileChannel.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\PurgeStrategy.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\RotateStrategy.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\AsciiCharacter.h">
+      <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

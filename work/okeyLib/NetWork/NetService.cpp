@@ -305,6 +305,7 @@ namespace okey
 #endif
 		sock.SetSendBufSize(m_Param._sysSendBuff);
 		sock.SetRecvBufSize(m_Param._sysRecvBuff);
+		sock.SetNonDelay();
 		return true;
 	}
 }

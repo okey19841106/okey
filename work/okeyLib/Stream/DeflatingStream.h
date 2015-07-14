@@ -13,7 +13,7 @@
 
 namespace okey
 {
-	class DeflatingStreamBuf : public BufferdStreamBuf
+	class DeflatingStreamBuf : public BufferedStreamBuf
 	{
 	public:
 		enum StreamType
@@ -60,7 +60,7 @@ namespace okey
 		DeflatingStreamBuf _buf;
 	};
 
-	class DeflatingOutputStream: public DeflatingIOS
+	class DeflatingOutputStream: public DeflatingIOS, public std::ostream
 	{
 	public:
 		DeflatingOutputStream(std::ostream& ostr, DeflatingStreamBuf::StreamType type = DeflatingStreamBuf::STREAM_ZLIB, int level = Z_DEFAULT_COMPRESSION);
@@ -71,7 +71,7 @@ namespace okey
 		virtual int sync();
 	};
 
-	class DeflatingInputStream: public DeflatingIOS
+	class DeflatingInputStream: public DeflatingIOS, public std::istream
 	{
 	public:
 		DeflatingInputStream(std::istream& istr, DeflatingStreamBuf::StreamType type = DeflatingStreamBuf::STREAM_ZLIB, int level = Z_DEFAULT_COMPRESSION);

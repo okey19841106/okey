@@ -89,6 +89,7 @@
     <ClCompile Include="File\FileInfo.cpp" />
     <ClCompile Include="File\FileIni.cpp" />
     <ClCompile Include="inc\AnyTypeBase.cpp" />
+    <ClCompile Include="inc\AsciiCharacter.cpp" />
     <ClCompile Include="inc\CircularBuffer.cpp" />
     <ClCompile Include="inc\ClassMember.cpp" />
     <ClCompile Include="inc\ClassMethod.cpp" />
@@ -118,9 +119,14 @@
     <ClCompile Include="inc\UtilID.cpp" />
     <ClCompile Include="log\ArchiveStrategy.cpp" />
     <ClCompile Include="log\Channel.cpp" />
+    <ClCompile Include="log\ConsoleChannel.cpp" />
+    <ClCompile Include="log\FileChannel.cpp" />
     <ClCompile Include="log\LogChannel.cpp" />
     <ClCompile Include="log\LogFile.cpp" />
     <ClCompile Include="log\Logger.cpp" />
+    <ClCompile Include="log\Message.cpp" />
+    <ClCompile Include="log\PurgeStrategy.cpp" />
+    <ClCompile Include="log\RotateStrategy.cpp" />
     <ClCompile Include="NetWork\Acceptor.cpp" />
     <ClCompile Include="NetWork\CompleteOperation.cpp" />
     <ClCompile Include="NetWork\EpollReactor.cpp" />
@@ -151,6 +157,7 @@
     <ClCompile Include="Stream\FileStream.cpp" />
     <ClCompile Include="Stream\FileStreamBuf.cpp" />
     <ClCompile Include="Stream\MemoryStreamBuf.cpp" />
+    <ClCompile Include="Stream\StreamCopier.cpp" />
     <ClCompile Include="Task\Task.cpp" />
     <ClCompile Include="Task\TaskManager.cpp" />
     <ClCompile Include="Task\TaskNotification.cpp" />
@@ -218,11 +225,13 @@
     <ClInclude Include="File\FileInfo.h" />
     <ClInclude Include="File\FileIni.h" />
     <ClInclude Include="inc\AnyTypeBase.h" />
+    <ClInclude Include="inc\AsciiCharacter.h" />
     <ClInclude Include="inc\AssocVector.h" />
     <ClInclude Include="inc\AutoPtr.h" />
     <ClInclude Include="inc\BaseClass.h" />
     <ClInclude Include="inc\BaseProcess.h" />
     <ClInclude Include="inc\BitObjectBase.h" />
+    <ClInclude Include="inc\Buffer.h" />
     <ClInclude Include="inc\CircleList.h" />
     <ClInclude Include="inc\CircularBuffer.h" />
     <ClInclude Include="inc\ClassFunctor.h" />
@@ -273,9 +282,14 @@
     <ClInclude Include="log\ArchiveStrategy.h" />
     <ClInclude Include="log\Channel.h" />
     <ClInclude Include="log\Configurable.h" />
+    <ClInclude Include="log\ConsoleChannel.h" />
+    <ClInclude Include="log\FileChannel.h" />
     <ClInclude Include="log\LogChannel.h" />
     <ClInclude Include="log\LogFile.h" />
     <ClInclude Include="log\Logger.h" />
+    <ClInclude Include="log\Message.h" />
+    <ClInclude Include="log\PurgeStrategy.h" />
+    <ClInclude Include="log\RotateStrategy.h" />
     <ClInclude Include="NetWork\Acceptor.h" />
     <ClInclude Include="NetWork\CompleteOperation.h" />
     <ClInclude Include="NetWork\EpollReactor.h" />
@@ -314,6 +328,7 @@
     <ClInclude Include="Stream\FileStream.h" />
     <ClInclude Include="Stream\FileStreamBuf.h" />
     <ClInclude Include="Stream\MemoryStreamBuf.h" />
+    <ClInclude Include="Stream\StreamCopier.h" />
     <ClInclude Include="Stream\UnbufferedStreamBuf.h" />
     <ClInclude Include="Task\Task.h" />
     <ClInclude Include="Task\TaskManager.h" />

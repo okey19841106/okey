@@ -256,4 +256,49 @@ namespace okey
 
 #define TO_HEX_STRING_INT(value, wide)	\
 	StringHelper::ToHexString<int64>((int64)value, wide)
+
+	class StringTokenizer
+	{
+	public:
+		enum Options
+		{
+			TOK_IGNORE_EMPTY = 1, /// ignore empty tokens
+			TOK_TRIM         = 2  /// remove leading and trailing whitespace from tokens
+		};
+
+		typedef std::vector<std::string>::const_iterator Iterator;
+		StringTokenizer(const std::string& str, const std::string& separators, int options = 0);
+		~StringTokenizer();
+		Iterator begin() const;
+		Iterator end() const;
+		const std::string& operator [] (std::size_t index) const;
+		std::size_t count() const;
+
+	private:
+		StringTokenizer(const StringTokenizer&);
+		StringTokenizer& operator=(const StringTokenizer&);
+		std::vector<std::string> _tokens;
+	};
+
+	inline StringTokenizer::Iterator StringTokenizer::begin() const
+	{
+		return _tokens.begin();
+	}
+
+	inline StringTokenizer::Iterator StringTokenizer::end() const
+	{
+		return _tokens.end();
+	}
+
+	inline const std::string& StringTokenizer::operator [] (std::size_t index) const
+	{
+		if (index >= _tokens.size()) 
+			throw RangeException();
+		return _tokens[index];
+	}
+
+	inline std::size_t StringTokenizer::count() const
+	{
+		return _tokens.size();
+	}
 }

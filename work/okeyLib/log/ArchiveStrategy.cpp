@@ -6,6 +6,8 @@
 #include "File/FileInfo.h"
 #include "Thread/ActiveDispatcher.h"
 #include "Thread/ActiviteMethod.h"
+#include "Stream/DeflatingStream.h"
+#include "Stream/StreamCopier.h"
 
 namespace okey
 {
@@ -35,7 +37,7 @@ namespace okey
 			if (ostr.good())
 			{
 				DeflatingOutputStream deflater(ostr, DeflatingStreamBuf::STREAM_GZIP);
-				StreamCopier::copyStream(istr, deflater);
+				StreamCopier::CopyStream(istr, deflater);
 				deflater.close();
 				ostr.close();
 				istr.close();

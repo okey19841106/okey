@@ -9,6 +9,7 @@
 #define __DATE_TIME_H__
 
 #include "TimeStamp.h"
+#include "TimeSpan.h"
 #include <time.h>
 
 namespace okey
@@ -94,10 +95,59 @@ namespace okey
 
 		static std::string toString(const DateTime& d);
 		static DateTime fromString(const std::string& str);// y-m-d h:m:s:ss
+
+		bool operator == (const DateTime& dateTime) const;	
+		bool operator != (const DateTime& dateTime) const;	
+		bool operator <  (const DateTime& dateTime) const;	
+		bool operator <= (const DateTime& dateTime) const;	
+		bool operator >  (const DateTime& dateTime) const;	
+		bool operator >= (const DateTime& dateTime) const;	
+
+		DateTime  operator +  (const TimeSpan& span) const;
+		DateTime  operator -  (const TimeSpan& span) const;
+		TimeSpan  operator -  (const DateTime& dateTime) const;
+		DateTime& operator += (const TimeSpan& span);
+		DateTime& operator -= (const TimeSpan& span);
 	private:
 		struct tm _dateTime;
 		uint32 m_MilliSec;
 	};
+
+	inline bool DateTime::operator == (const DateTime& dateTime) const
+	{
+		return _utcTime == dateTime._utcTime;
+	}
+
+
+	inline bool DateTime::operator != (const DateTime& dateTime) const	
+	{
+		return _utcTime != dateTime._utcTime;
+	}
+
+
+	inline bool DateTime::operator <  (const DateTime& dateTime) const	
+	{
+		return _utcTime < dateTime._utcTime;
+	}
+
+
+	inline bool DateTime::operator <= (const DateTime& dateTime) const
+	{
+		return _utcTime <= dateTime._utcTime;
+	}
+
+
+	inline bool DateTime::operator >  (const DateTime& dateTime) const
+	{
+		return _utcTime > dateTime._utcTime;
+	}
+
+
+	inline bool DateTime::operator >= (const DateTime& dateTime) const	
+	{
+		return _utcTime >= dateTime._utcTime;
+	}
+
 }
 
 #endif

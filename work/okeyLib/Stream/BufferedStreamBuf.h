@@ -127,7 +127,7 @@ namespace okey
 		TBuffedStreamBuf& operator=(const TBuffedStreamBuf&);
 	};
 
-	typedef TBuffedStreamBuf<char, std::char_traits<char> > BufferdStreamBuf;
+	typedef TBuffedStreamBuf<char, std::char_traits<char> > BufferedStreamBuf;
 }
 
 

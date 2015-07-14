@@ -3,7 +3,7 @@
 	created:	16:42
 	author:		okey
 	
-	purpose:	存档策略。
+	purpose:	存档策略。 压缩日志用的。
 *********************************************************************/
 #ifndef _BASE_LOG_ARCHIVE_STRATEGY_H__
 #define _BASE_LOG_ARCHIVE_STRATEGY_H__

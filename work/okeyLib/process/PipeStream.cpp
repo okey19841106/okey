@@ -4,7 +4,7 @@
 
 namespace okey
 {
-	PipeStreamBuf::PipeStreamBuf(const Pipe& pipe, openmode mode):BufferdStreamBuf(STREAM_BUFFER_SIZE,mode),_pipe(pipe)
+	PipeStreamBuf::PipeStreamBuf(const Pipe& pipe, openmode mode):BufferedStreamBuf(STREAM_BUFFER_SIZE,mode),_pipe(pipe)
 	{
 
 	}

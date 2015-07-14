@@ -16,7 +16,7 @@
 namespace okey
 {
 
-	class PipeStreamBuf : public BufferdStreamBuf
+	class PipeStreamBuf : public BufferedStreamBuf
 	{
 
 	public:
