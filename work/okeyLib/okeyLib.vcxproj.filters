@@ -387,6 +387,12 @@
     <ClCompile Include="inc\AsciiCharacter.cpp">
       <Filter>inc</Filter>
     </ClCompile>
+    <ClCompile Include="log\Formatter.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="log\FormatingChannel.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -901,6 +907,12 @@
     </ClInclude>
     <ClInclude Include="inc\AsciiCharacter.h">
       <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="log\Formatter.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\FormatingChannel.h">
+      <Filter>Log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -37,7 +37,7 @@ namespace okey
 	protected:
 		void getNextRollover();
 		DateTime  _threshold;
-		int _day;
+		int _day; //÷‹º∏°£°£
 		int _hour;
 		int _minute;
 

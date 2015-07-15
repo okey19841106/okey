@@ -1,6 +1,7 @@
 #include "PreCom.h"
 #include "RotateStrategy.h"
 #include "StringHelper.h"
+#include "LogFile.h"
 
 namespace okey
 {
@@ -53,7 +54,7 @@ namespace okey
 	
 	bool RotateAtTimeStrategy::MustRotate(LogFile* pFile)
 	{
-		if (DateTime() >= _threshold)
+		if (DateTime().ToTime() >= _threshold.ToTime())
 		{
 			getNextRollover();
 			return true;
@@ -63,16 +64,18 @@ namespace okey
 
 	void RotateAtTimeStrategy::getNextRollover()
 	{
-		TimeSpan tsp(0, 0, 1, 0, 1000); // 0,00:01:00.001
+		//TimeSpan tsp(0, 0, 1, 0, 1000); // 0,00:01:00.001
 		do
 		{
-			_threshold += tsp;
+			uint32 nMinute = _threshold.minute();
+			_threshold.minute(nMinute + 1);
 		}
-		while (!(_threshold.Minutes() == _minute &&
-			(-1 == _hour || _threshold.Hours() == _hour) && 
-			(-1 == _day  || _threshold.Days() == _day)));
+		while (!(_threshold.minute() == _minute &&
+			(-1 == _hour || _threshold.hour() == _hour) && 
+			(-1 == _day  || _threshold.week() == _day)));
 		// round to :00.0 seconds
-		_threshold.assign(_threshold.year(), _threshold.month(), _threshold.day(), _threshold.hour(), _threshold.minute());
+		_threshold = DateTime(_threshold.year(), _threshold.month(), _threshold.day(), _threshold.hour(), _threshold.minute());
+		//_threshold.assign(_threshold.year(), _threshold.month(), _threshold.day(), _threshold.hour(), _threshold.minute());
 	}
 
 	const std::string RotateByIntervalStrategy::ROTATE_TEXT("# Log file created/rotated ");
@@ -89,10 +92,37 @@ namespace okey
 
 	bool RotateByIntervalStrategy::MustRotate(LogFile* pFile)
 	{
-
+		if (_lastRotate == 0 || pFile->GetSize() == 0)
+		{
+			if (pFile->GetSize() != 0)
+			{
+				FileInputStream istr(pFile->GetPath());
+				std::string tag;
+				std::getline(istr, tag);
+				if (tag.compare(0, ROTATE_TEXT.size(), ROTATE_TEXT) == 0)
+				{
+					std::string timestamp(tag, ROTATE_TEXT.size());
+					int tzd;
+					tsscanf("%d, %d %d %d %d:%d:%d %d");
+					_lastRotate = DateTimeParser::parse(DateTimeFormat::RFC1036_FORMAT, timestamp, tzd).timestamp();
+				}
+				else _lastRotate = pFile->CreationDate();
+			}
+			else
+			{
+				_lastRotate = TimeStamp::CurrentTime();
+				std::string tag(ROTATE_TEXT);
+				char nBuff[64] = {0};
+				tsnprintf(nBuff,64,"%d, %d %d %d %d:%d:%d %d",)
+				DateTimeFormatter::append(tag, _lastRotate, DateTimeFormat::RFC1036_FORMAT);
+				pFile->WriteLog(tag);
+			}
+		}
+		TimeStamp now;
+		return _span <= now - _lastRotate;
 	}
 
-	RotateBySizeStrategy::RotateBySizeStrategy(uint64 size)
+	RotateBySizeStrategy::RotateBySizeStrategy(uint64 size):_size(size)
 	{
 
 	}
@@ -104,6 +134,6 @@ namespace okey
 
 	bool RotateBySizeStrategy::MustRotate(LogFile* pFile)
 	{
-
+		return pFile->GetSize() >= _size;
 	}
 }

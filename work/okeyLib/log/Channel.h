@@ -25,7 +25,7 @@ namespace okey
 		void SetProperty(const std::string& name, const std::string& value);
 		std::string GetProperty(const std::string& name) const;
 	protected:
-		~Channel();
+		virtual ~Channel();
 	private:
 		Channel(const Channel&);
 		Channel& operator = (const Channel&);
