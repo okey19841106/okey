@@ -399,6 +399,9 @@
     <ClCompile Include="log\LoggingFactory.cpp">
       <Filter>Log</Filter>
     </ClCompile>
+    <ClCompile Include="log\LogStream.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -931,6 +934,9 @@
     </ClInclude>
     <ClInclude Include="inc\DynamicFactory.h">
       <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="log\LogStream.h">
+      <Filter>Log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

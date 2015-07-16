@@ -128,6 +128,7 @@
     <ClCompile Include="log\Logger.cpp" />
     <ClCompile Include="log\LoggingFactory.cpp" />
     <ClCompile Include="log\LoggingRegistry.cpp" />
+    <ClCompile Include="log\LogStream.cpp" />
     <ClCompile Include="log\Message.cpp" />
     <ClCompile Include="log\PurgeStrategy.cpp" />
     <ClCompile Include="log\RotateStrategy.cpp" />
@@ -297,6 +298,7 @@
     <ClInclude Include="log\Logger.h" />
     <ClInclude Include="log\LoggingFactory.h" />
     <ClInclude Include="log\LoggingRegistry.h" />
+    <ClInclude Include="log\LogStream.h" />
     <ClInclude Include="log\Message.h" />
     <ClInclude Include="log\PurgeStrategy.h" />
     <ClInclude Include="log\RotateStrategy.h" />
