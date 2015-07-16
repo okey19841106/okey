@@ -393,6 +393,12 @@
     <ClCompile Include="log\FormatingChannel.cpp">
       <Filter>Log</Filter>
     </ClCompile>
+    <ClCompile Include="log\LoggingRegistry.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="log\LoggingFactory.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -913,6 +919,18 @@
     </ClInclude>
     <ClInclude Include="log\FormatingChannel.h">
       <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\LoggingRegistry.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\LoggingFactory.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Instantiator.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DynamicFactory.h">
+      <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

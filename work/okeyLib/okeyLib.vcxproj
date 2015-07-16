@@ -126,6 +126,8 @@
     <ClCompile Include="log\LogChannel.cpp" />
     <ClCompile Include="log\LogFile.cpp" />
     <ClCompile Include="log\Logger.cpp" />
+    <ClCompile Include="log\LoggingFactory.cpp" />
+    <ClCompile Include="log\LoggingRegistry.cpp" />
     <ClCompile Include="log\Message.cpp" />
     <ClCompile Include="log\PurgeStrategy.cpp" />
     <ClCompile Include="log\RotateStrategy.cpp" />
@@ -245,6 +247,7 @@
     <ClInclude Include="inc\DLAllocator.h" />
     <ClInclude Include="inc\DLMalloc.h" />
     <ClInclude Include="inc\DLMallocConfig.h" />
+    <ClInclude Include="inc\DynamicFactory.h" />
     <ClInclude Include="inc\Environment.h" />
     <ClInclude Include="inc\Exception.h" />
     <ClInclude Include="inc\Factory.h" />
@@ -255,6 +258,7 @@
     <ClInclude Include="inc\HelperFunction.h" />
     <ClInclude Include="inc\Allocator.h" />
     <ClInclude Include="inc\IDPool.h" />
+    <ClInclude Include="inc\Instantiator.h" />
     <ClInclude Include="inc\MemoryPool.h" />
     <ClInclude Include="inc\nocopyable.h" />
     <ClInclude Include="inc\ObjectPool.h" />
@@ -291,6 +295,8 @@
     <ClInclude Include="log\LogChannel.h" />
     <ClInclude Include="log\LogFile.h" />
     <ClInclude Include="log\Logger.h" />
+    <ClInclude Include="log\LoggingFactory.h" />
+    <ClInclude Include="log\LoggingRegistry.h" />
     <ClInclude Include="log\Message.h" />
     <ClInclude Include="log\PurgeStrategy.h" />
     <ClInclude Include="log\RotateStrategy.h" />

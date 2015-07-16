@@ -2,6 +2,7 @@
 #include "FormatingChannel.h"
 #include "Formatter.h"
 #include "Message.h"
+#include "LoggingRegistry.h"
 
 namespace okey
 {
@@ -67,7 +68,12 @@ namespace okey
 
 	void FormatingChannel::SetProperty(const std::string& name, const std::string& value)
 	{
-
+		if (name == "channel")
+			SetChannel(LoggingRegistry::GetDefaultRegistry().ChannelForName(value));
+		else if (name == "formatter")
+			SetFormatter(LoggingRegistry::GetDefaultRegistry().FormatterForName(value));
+		else if (_pChannel)
+			_pChannel->SetProperty(name, value);
 	}
 
 	std::string FormatingChannel::GetProperty(const std::string& name) const
