@@ -402,6 +402,9 @@
     <ClCompile Include="log\LogStream.cpp">
       <Filter>Log</Filter>
     </ClCompile>
+    <ClCompile Include="log\SimpleFileChannel.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -937,6 +940,18 @@
     </ClInclude>
     <ClInclude Include="log\LogStream.h">
       <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\NullChannel.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\SimpleFileChannel.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TSlot.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TSingal.h">
+      <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -132,7 +132,7 @@ namespace okey
 		TUnbufferStreamBuf& operator=(const TUnbufferStreamBuf&);
 	};
 
-	typedef TUnbufferStreamBuf<char , std::char_traits<char> > UnBufferSreamBuf;
+	typedef TUnbufferStreamBuf<char , std::char_traits<char> > UnBufferedStreamBuf;
 }
 
 #endif

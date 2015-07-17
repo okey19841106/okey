@@ -8,10 +8,61 @@
 #ifndef __LOG_STREAM_H__
 #define __LOG_STREAM_H__
 
+#include "Logger.h"
+#include "Stream/UnBufferedStreamBuf.h"
 
 namespace okey
 {
+	class LogStreamBuf: public UnBufferedStreamBuf
+	{
+	public:
+		LogStreamBuf(Logger& logger, Message::Priority priority);
+		~LogStreamBuf();
+		void SetPriority(Message::Priority priority);
+		inline Message::Priority GetPriority() const{return _priority;}
+		inline Logger& GetLogger() const{return _logger;}
+	private:
+		int writeToDevice(char c);
+	private:
+		Logger&           _logger;
+		Message::Priority _priority;
+		std::string       _message;
+	};
 
+	class LogIOS: public virtual std::ios
+	{
+	public:
+		LogIOS(Logger& logger, Message::Priority priority);
+		~LogIOS();
+		LogStreamBuf* rdbuf();
+	protected:
+		LogStreamBuf _buf;
+	};
+
+	class LogStream: public LogIOS, public std::ostream
+	{
+	public:
+		LogStream(Logger& logger, Message::Priority priority = Message::PRIO_INFORMATION);
+		LogStream(const std::string& loggerName, Message::Priority priority = Message::PRIO_INFORMATION);
+		~LogStream();
+		LogStream& Fatal();
+		LogStream& Fatal(const std::string& message);
+		LogStream& Critical();
+		LogStream& Critical(const std::string& message);
+		LogStream& Error();
+		LogStream& Error(const std::string& message);
+		LogStream& Warning();
+		LogStream& Warning(const std::string& message);
+		LogStream& Notice();
+		LogStream& Notice(const std::string& message);
+		LogStream& Information();
+		LogStream& Information(const std::string& message);
+		LogStream& Debug();
+		LogStream& Debug(const std::string& message);
+		LogStream& Trace();
+		LogStream& Trace(const std::string& message);
+		LogStream& Priority(Message::Priority priority);
+	};
 }
 
 #endif

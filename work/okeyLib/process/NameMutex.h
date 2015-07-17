@@ -17,9 +17,9 @@ namespace okey
 		NameMutex(const std::string& name);
 		~NameMutex();
 
-		void lock();
-		bool tryLock();
-		void unlock();
+		void Lock();
+		bool TryLock();
+		void UnLock();
 
 	private:
 		NameMutex();

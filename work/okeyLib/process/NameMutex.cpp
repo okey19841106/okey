@@ -57,7 +57,7 @@ namespace okey
 #endif
 	}
 
-	void NameMutex::lock()
+	void NameMutex::Lock()
 	{
 #ifdef WINDOWS
 		switch (WaitForSingleObject(_mutex, INFINITE))
@@ -85,7 +85,7 @@ namespace okey
 #endif
 	}
 
-	bool NameMutex::tryLock()
+	bool NameMutex::TryLock()
 	{
 #ifdef WINDOWS
 		switch (WaitForSingleObject(_mutex, 0))
@@ -108,7 +108,7 @@ namespace okey
 #endif
 	}
 
-	void NameMutex::unlock()
+	void NameMutex::UnLock()
 	{
 #ifdef WINDOWS
 		ReleaseMutex(_mutex);

@@ -132,6 +132,7 @@
     <ClCompile Include="log\Message.cpp" />
     <ClCompile Include="log\PurgeStrategy.cpp" />
     <ClCompile Include="log\RotateStrategy.cpp" />
+    <ClCompile Include="log\SimpleFileChannel.cpp" />
     <ClCompile Include="NetWork\Acceptor.cpp" />
     <ClCompile Include="NetWork\CompleteOperation.cpp" />
     <ClCompile Include="NetWork\EpollReactor.cpp" />
@@ -282,6 +283,8 @@
     <ClInclude Include="inc\TList.h" />
     <ClInclude Include="inc\ToolKit.h" />
     <ClInclude Include="inc\TreeNodeBase.h" />
+    <ClInclude Include="inc\TSingal.h" />
+    <ClInclude Include="inc\TSlot.h" />
     <ClInclude Include="inc\Types.h" />
     <ClInclude Include="inc\UtilID.h" />
     <ClInclude Include="inc\VectorString.h" />
@@ -300,8 +303,10 @@
     <ClInclude Include="log\LoggingRegistry.h" />
     <ClInclude Include="log\LogStream.h" />
     <ClInclude Include="log\Message.h" />
+    <ClInclude Include="log\NullChannel.h" />
     <ClInclude Include="log\PurgeStrategy.h" />
     <ClInclude Include="log\RotateStrategy.h" />
+    <ClInclude Include="log\SimpleFileChannel.h" />
     <ClInclude Include="NetWork\Acceptor.h" />
     <ClInclude Include="NetWork\CompleteOperation.h" />
     <ClInclude Include="NetWork\EpollReactor.h" />
