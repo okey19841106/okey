@@ -93,6 +93,8 @@
     <ClCompile Include="inc\CircularBuffer.cpp" />
     <ClCompile Include="inc\ClassMember.cpp" />
     <ClCompile Include="inc\ClassMethod.cpp" />
+    <ClCompile Include="inc\ConfigStore.cpp" />
+    <ClCompile Include="inc\Configure.cpp" />
     <ClCompile Include="inc\DataBuffer.cpp" />
     <ClCompile Include="inc\DateTime.cpp" />
     <ClCompile Include="inc\DLAllocator.cpp" />
@@ -142,6 +144,7 @@
     <ClCompile Include="NetWork\Packet.cpp" />
     <ClCompile Include="NetWork\PacketList.cpp" />
     <ClCompile Include="NetWork\NetSession.cpp" />
+    <ClCompile Include="NetWork\SelectReactor.cpp" />
     <ClCompile Include="NetWork\Socket.cpp" />
     <ClCompile Include="NetWork\SocketAddr.cpp" />
     <ClCompile Include="NetWork\SocketNotifier.cpp" />
@@ -155,6 +158,7 @@
     <ClCompile Include="Notifications\TimedNotificationQueue.cpp" />
     <ClCompile Include="process\NameEvent.cpp" />
     <ClCompile Include="process\NameMutex.cpp" />
+    <ClCompile Include="process\NamePipe.cpp" />
     <ClCompile Include="process\PipeStream.cpp" />
     <ClCompile Include="process\ProcessPipe.cpp" />
     <ClCompile Include="process\Process.cpp" />
@@ -243,6 +247,8 @@
     <ClInclude Include="inc\ClassFunctor.h" />
     <ClInclude Include="inc\ClassMember.h" />
     <ClInclude Include="inc\ClassMethod.h" />
+    <ClInclude Include="inc\ConfigStore.h" />
+    <ClInclude Include="inc\Configure.h" />
     <ClInclude Include="inc\CRefcounter.h" />
     <ClInclude Include="inc\DataBuffer.h" />
     <ClInclude Include="inc\DateTime.h" />
@@ -318,6 +324,7 @@
     <ClInclude Include="NetWork\PacketFunction.h" />
     <ClInclude Include="NetWork\PacketList.h" />
     <ClInclude Include="NetWork\NetSession.h" />
+    <ClInclude Include="NetWork\SelectReactor.h" />
     <ClInclude Include="NetWork\SessionBase.h" />
     <ClInclude Include="NetWork\Socket.h" />
     <ClInclude Include="NetWork\SocketAddr.h" />
@@ -334,6 +341,7 @@
     <ClInclude Include="Notifications\Visitor.h" />
     <ClInclude Include="process\NameEvent.h" />
     <ClInclude Include="process\NameMutex.h" />
+    <ClInclude Include="process\NamePipe.h" />
     <ClInclude Include="process\ProcessPipe.h" />
     <ClInclude Include="process\PipeStream.h" />
     <ClInclude Include="process\Process.h" />

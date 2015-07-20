@@ -405,6 +405,18 @@
     <ClCompile Include="log\SimpleFileChannel.cpp">
       <Filter>Log</Filter>
     </ClCompile>
+    <ClCompile Include="process\NamePipe.cpp">
+      <Filter>process</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\Configure.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\ConfigStore.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\SelectReactor.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -952,6 +964,18 @@
     </ClInclude>
     <ClInclude Include="inc\TSingal.h">
       <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="process\NamePipe.h">
+      <Filter>process</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Configure.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ConfigStore.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\SelectReactor.h">
+      <Filter>NetWork\socket</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

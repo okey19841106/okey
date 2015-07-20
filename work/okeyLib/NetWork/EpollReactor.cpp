@@ -75,7 +75,7 @@ namespace okey
 			info._events = 0;
 			info._handler = handler;
 			info._timeout = 0;
-			handler->SetReacotr(this);
+			handler->SetAcotr(this);
 			m_Handlers.insert(std::make_pair(socket,info));
 		}
 		HandlerInfo& info = m_Handlers[socket];

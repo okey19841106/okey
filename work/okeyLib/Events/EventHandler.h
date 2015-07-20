@@ -12,7 +12,7 @@
 
 namespace okey
 {
-	class Event_Reactor;
+	class Event_Actor;
 
 	class Event_Handler
 	{
@@ -43,8 +43,8 @@ namespace okey
 		virtual void PostReadEvent(){}
 		virtual void PostWriteEvent(){}
 
-		void SetReacotr(Event_Reactor* pReactor){m_pReactor = pReactor;}
-		Event_Reactor* GetReactor(){return m_pReactor;}
+		void SetAcotr(Event_Actor* pReactor){m_pReactor = pReactor;}
+		Event_Actor* GetActor(){return m_pReactor;}
 
 		void SetEventMask(uint32 mask){m_uMask = mask;}
 		uint32 GetEventMask()const {return m_uMask;}
