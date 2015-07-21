@@ -10,9 +10,9 @@ namespace okey
 	EpollReactor::EpollReactor()
 	{
 		m_Epoll = 0;
-		uint32 m_MaxOfHandler = 0;
-		bool m_bOpen = false;
-		bool m_RemvoeFlag = false;
+		m_MaxOfHandler = 0;
+		m_bOpen = false;
+		m_RemoveFlag = false;
 	}
 	EpollReactor::~EpollReactor()
 	{
@@ -31,7 +31,7 @@ namespace okey
 			return false;
 		}
 		m_bOpen = true;
-		m_RemvoeFlag = false;
+		m_RemoveFlag = false;
 		return true;
 	}
 	void EpollReactor::Close()
@@ -41,7 +41,7 @@ namespace okey
 			return;
 		}
 		m_bOpen = false;
-		m_RemvoeFlag = false;
+		m_RemoveFlag = false;
 		close(m_Epoll);
 		m_Epoll = 0;
 		m_MaxOfHandler = 0;
@@ -166,7 +166,7 @@ namespace okey
 		}
 		if (info._events = 0)
 		{
-			m_RemvoeFlag = true;
+			m_RemoveFlag = true;
 			info._handler->HandleClose();
 			m_Handlers.erase(itr);
 		}
@@ -257,7 +257,7 @@ namespace okey
 
 	void EpollReactor::DispathNetEvents(Event_Handler* handler, uint32 events)
 	{
-		m_RemvoeFlag = false;
+		m_RemoveFlag = false;
 		if (!m_RemoveFlag && ((events & EPOLLIN)|| (events & EPOLLERR)))
 		{
 			handler->HandleInput();

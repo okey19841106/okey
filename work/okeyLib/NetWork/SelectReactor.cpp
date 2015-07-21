@@ -162,9 +162,8 @@ namespace okey
 			break;
 		}
 		bool bEvent = false;
-		for(HANDLE_MAP::iterator nIter = _handlers.begin(); nIter != _handlers.end();)
+		for(HANDLE_MAP::iterator nIter = _handlers.begin(), iter; nIter != _handlers.end();)
 		{
-			HANDLE_MAP::iterator iter = nIter++;
 			Event_Handler* handler = iter->second;
 			SOCKET socket = iter->first;
 			_removeFlag = false;

@@ -48,19 +48,13 @@ namespace okey
 		virtual EVENT_HANDLE GetHandle(){return (EVENT_HANDLE)m_Socket.GetSocket();}
 		virtual void SetHandle(const void* pHandle){}
 
-		virtual void HandleInput(void* param);
-		virtual void HandleOutput(void* param);
-		virtual void HandleException(void* param){}
-#ifdef WINDOWS
-		void PostReadEvent();
-		void PostWriteEvent();
-#endif
+
 		virtual void HandleInput();
 		virtual void HandleOutput();
 		virtual void HandleException();
 		virtual void HandleClose();
 		virtual void HandleTick(const TimeStamp& now);
-	private:
+	protected:
 		Socket m_Socket;
 		NetServiceBase* m_pNetService;
 		Event_Actor* m_pActor;
@@ -72,14 +66,6 @@ namespace okey
 		CircularBuffer m_SendBuffer;
 		CircularBuffer m_RecvBuffer;
 		const static int32 RECV_BLOCK_SIZE;
-#ifdef WINDOWS
-		WSABUF m_SendWSABuf;
-		WSABUF m_RecvWSABuf;
-		CompleteOperator m_SendOverLapped;
-		CompleteOperator m_RecvOverLapped;
-		CompleteOperator m_CloseOverLapped;
-		bool m_bSend;
-#endif
 	};
 }
 

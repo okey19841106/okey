@@ -51,7 +51,7 @@ namespace okey
 		int64 GetTimeout()const {return m_iTimeOut;}
 		void SetTimeout(int64 timeout){m_iTimeOut = timeout;}
 	protected:
-		Event_Reactor* m_pReactor;
+		Event_Actor* m_pReactor;
 		uint32 m_uMask;
 		int64 m_iTimeOut;
 	};

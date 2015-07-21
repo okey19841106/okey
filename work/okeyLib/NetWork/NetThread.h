@@ -38,10 +38,6 @@ namespace okey
 		uint32 m_HandleCount;
 		uint32 m_MaxHanleCount;
 		bool m_IsExist;
-#ifdef WINDOWS
-	public:
-		void SetEventAcotr(Event_Actor* pEventActor);
-#endif
 	};
 }
 

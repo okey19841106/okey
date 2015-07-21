@@ -137,7 +137,9 @@
     <ClCompile Include="log\SimpleFileChannel.cpp" />
     <ClCompile Include="NetWork\Acceptor.cpp" />
     <ClCompile Include="NetWork\CompleteOperation.cpp" />
+    <ClCompile Include="NetWork\Connector.cpp" />
     <ClCompile Include="NetWork\EpollReactor.cpp" />
+    <ClCompile Include="NetWork\IOCPNetSession.cpp" />
     <ClCompile Include="NetWork\IOCPProactor.cpp" />
     <ClCompile Include="NetWork\NetService.cpp" />
     <ClCompile Include="NetWork\NetThread.cpp" />
@@ -147,9 +149,6 @@
     <ClCompile Include="NetWork\SelectReactor.cpp" />
     <ClCompile Include="NetWork\Socket.cpp" />
     <ClCompile Include="NetWork\SocketAddr.cpp" />
-    <ClCompile Include="NetWork\SocketNotifier.cpp" />
-    <ClCompile Include="NetWork\SocketNotification.cpp" />
-    <ClCompile Include="NetWork\SocketReactor.cpp" />
     <ClCompile Include="Notifications\Notification.cpp" />
     <ClCompile Include="Notifications\NotificationCenter.cpp" />
     <ClCompile Include="Notifications\NotificationQueue.cpp" />
@@ -315,7 +314,9 @@
     <ClInclude Include="log\SimpleFileChannel.h" />
     <ClInclude Include="NetWork\Acceptor.h" />
     <ClInclude Include="NetWork\CompleteOperation.h" />
+    <ClInclude Include="NetWork\Connector.h" />
     <ClInclude Include="NetWork\EpollReactor.h" />
+    <ClInclude Include="NetWork\IOCPNetSession.h" />
     <ClInclude Include="NetWork\IOCPProactor.h" />
     <ClInclude Include="NetWork\NetService.h" />
     <ClInclude Include="NetWork\NetServiceBase.h" />
@@ -328,9 +329,6 @@
     <ClInclude Include="NetWork\SessionBase.h" />
     <ClInclude Include="NetWork\Socket.h" />
     <ClInclude Include="NetWork\SocketAddr.h" />
-    <ClInclude Include="NetWork\SocketNotifier.h" />
-    <ClInclude Include="NetWork\SocketNotification.h" />
-    <ClInclude Include="NetWork\SocketReactor.h" />
     <ClInclude Include="Notifications\Notification.h" />
     <ClInclude Include="Notifications\NotificationCenter.h" />
     <ClInclude Include="Notifications\NotificationQueue.h" />

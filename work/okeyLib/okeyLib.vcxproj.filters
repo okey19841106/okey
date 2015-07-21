@@ -58,9 +58,6 @@
     <Filter Include="Events">
       <UniqueIdentifier>{0e8e2bf3-8142-4b1b-b5cf-0f54601ebacc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="NetWork\reactor">
-      <UniqueIdentifier>{01854107-e4b7-414a-a486-52838c61847d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Task">
       <UniqueIdentifier>{6fd4278b-9ad8-4673-9bc7-8f041fc99d53}</UniqueIdentifier>
     </Filter>
@@ -285,17 +282,8 @@
     <ClCompile Include="inc\IDPool.cpp">
       <Filter>inc</Filter>
     </ClCompile>
-    <ClCompile Include="NetWork\SocketReactor.cpp">
-      <Filter>NetWork\reactor</Filter>
-    </ClCompile>
     <ClCompile Include="inc\TimeSpan.cpp">
       <Filter>inc</Filter>
-    </ClCompile>
-    <ClCompile Include="NetWork\SocketNotifier.cpp">
-      <Filter>NetWork\reactor</Filter>
-    </ClCompile>
-    <ClCompile Include="NetWork\SocketNotification.cpp">
-      <Filter>NetWork\reactor</Filter>
     </ClCompile>
     <ClCompile Include="Task\Task.cpp">
       <Filter>Task</Filter>
@@ -415,6 +403,12 @@
       <Filter>inc</Filter>
     </ClCompile>
     <ClCompile Include="NetWork\SelectReactor.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\IOCPNetSession.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\Connector.cpp">
       <Filter>NetWork\socket</Filter>
     </ClCompile>
   </ItemGroup>
@@ -833,17 +827,8 @@
     <ClInclude Include="inc\IDPool.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="NetWork\SocketReactor.h">
-      <Filter>NetWork\reactor</Filter>
-    </ClInclude>
     <ClInclude Include="inc\TimeSpan.h">
       <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="NetWork\SocketNotifier.h">
-      <Filter>NetWork\reactor</Filter>
-    </ClInclude>
-    <ClInclude Include="NetWork\SocketNotification.h">
-      <Filter>NetWork\reactor</Filter>
     </ClInclude>
     <ClInclude Include="Task\Task.h">
       <Filter>Task</Filter>
@@ -975,6 +960,12 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\SelectReactor.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\IOCPNetSession.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\Connector.h">
       <Filter>NetWork\socket</Filter>
     </ClInclude>
   </ItemGroup>

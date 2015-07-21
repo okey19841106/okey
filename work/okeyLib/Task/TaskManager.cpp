@@ -84,7 +84,7 @@ namespace okey
 		FastMutex::ScopedLock lock(_mutex);
 		if (_lastProgressNotification.isElapsed(MIN_PROGRESS_NOTIFICATION_INTERVAL))
 		{
-			_lastProgressNotification = TimeStamp.CurrentTime();
+			_lastProgressNotification = TimeStamp::CurrentTime();
 			_nc.PostNotification(new TaskProgressNotification(pTask,progress));
 		}
 	}

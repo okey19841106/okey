@@ -66,8 +66,8 @@ namespace okey
 
 	void IOCPProactor::RemoveHander(Event_Handler* handler, uint32 events)
 	{
-		CompleteOperator *pov = new CompleteOperator;
-		pov->nMask = CompleteOperator::IOCP_EVENT_CLOSE;
+// 		CompleteOperator *pov = new CompleteOperator;
+// 		pov->nMask = CompleteOperator::IOCP_EVENT_CLOSE;
 		//PostQueuedCompletionStatus(completion_port, 0, (ULONG_PTR)handler, (LPOVERLAPPED)pov);
 		--m_HandlerNum;
 		handler->HandleClose();

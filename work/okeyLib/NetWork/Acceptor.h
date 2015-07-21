@@ -11,6 +11,7 @@
 #include "Events/EventHandler.h"
 #include "Socket.h"
 #include "SocketAddr.h"
+#include "CRefcounter.h"
 #ifdef WINDOWS
 #include <MSWSock.h>
 #include "CompleteOperation.h"
@@ -32,7 +33,7 @@ namespace okey
 	
 #define ADDRLEN	(sizeof(SOCKADDR_IN) + 16)
 	class NetServiceBase;
-	class Acceptor : public Event_Handler
+	class Acceptor : public Event_Handler, public CRefCounter
 	{
 	public:
 		Acceptor(Socket& socket, const SocketAddr& addr, NetServiceBase* p);

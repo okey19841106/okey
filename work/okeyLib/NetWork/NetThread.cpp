@@ -3,7 +3,7 @@
 #include "Events/EventActor.h"
 #include "Events/EventHandler.h"
 #ifdef WINDOWS
-#include "IOCPProactor.h"
+#include "SelectReactor.h"
 #else
 #include "EpollReactor.h"
 #endif
@@ -14,7 +14,8 @@ namespace okey
 	NetThread::NetThread(uint32 m):m_MaxHanleCount(m),m_HandleCount(0),m_IsExist(false)
 	{
 #if WINDOWS
-		//m_pEventActor = new IOCPProactor;
+		m_pEventActor = new SelectReactor;
+		m_pEventActor->Open(m_MaxHanleCount,0);
 #else
 		m_pEventActor = new EpollReactor;
 		m_pEventActor->Open(m_MaxHanleCount,0);
@@ -41,7 +42,6 @@ namespace okey
 	{
 		while(!m_IsExist)
 		{
-#ifndef WINDOWS
 			HANDLER_VEC newHandlers;
 			{
 				FastMutex::ScopedLock lock(m_WaitMutex);
@@ -58,7 +58,6 @@ namespace okey
 			}
 			newHandlers.clear();
 			m_HandleCount = m_pEventActor->GetNumOfHandler();
-#endif
 			m_pEventActor->HandleEvents();
 		}
 		OnQuit();
@@ -66,7 +65,6 @@ namespace okey
 
 	void NetThread::OnQuit()
 	{
-#ifndef WINDOWS
 		{
 			FastMutex::ScopedLock lock(m_WaitMutex);
 			for(HANDLER_VEC::iterator itr = m_WaitList.begin(); itr != m_WaitList.end(); ++ itr)
@@ -75,14 +73,8 @@ namespace okey
 			}
 			m_WaitList.clear();
 		}
-#endif
 		m_pEventActor->Close();
 	}
 
-#ifdef WINDOWS
-	void NetThread::SetEventAcotr(Event_Actor* pEventActor)
-	{
-		m_pEventActor = pEventActor;
-	}
-#endif
+
 }
