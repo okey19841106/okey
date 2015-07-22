@@ -166,7 +166,7 @@ namespace okey
 		archPath.append(".");
 		char Buff[64] = {0};
 		DateTime now;
-		tsnprintf(Buff,64,"%2d%2d%2d%2d%2d%2d%2d",now.year(),now.month(),now.day(),now.hour(),
+		tsnprintf(Buff,64,"%4d%2d%2d%2d%2d%2d%2d",now.year(),now.month(),now.day(),now.hour(),now.minute(),
 			now.second(),now.millisecond());
 		archPath += Buff;
 		if (IsExists(archPath))

@@ -28,22 +28,6 @@ namespace okey
 			}
 			++it;
 		}
-// 		Path p(path);
-// 		p.makeAbsolute();
-// 		Path parent = p.parent();
-// 		std::string baseName = p.getFileName();
-// 		baseName.append(".");
-// 
-// 		DirectoryIterator it(parent);
-// 		DirectoryIterator end;
-// 		while (it != end)
-// 		{
-// 			if (it.name().compare(0, baseName.size(), baseName) == 0)
-// 			{
-// 				files.push_back(*it);
-// 			}
-// 			++it;
-// 		}
 	}
 
 	PurgeByAgeStrategy::PurgeByAgeStrategy(const TimeSpan& age):_age(age)

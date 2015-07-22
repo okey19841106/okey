@@ -27,4 +27,14 @@ namespace okey
 	{
 		throw PropertyNotSupportedException(name);
 	}
+
+	void Channel::Log(int32 pro, char const* msg, ...)
+	{
+		char szBuf[MAX_LOG_LINE_BUFF] = {0};
+		va_list args;
+		va_start(args, msg);
+		tvsnprintf(szBuf,MAX_LOG_LINE_BUFF - 1, msg, args);
+		va_end(args);
+		logInstance(pro, szBuf);	
+	}
 }

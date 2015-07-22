@@ -13,6 +13,9 @@
 
 namespace okey
 {
+
+#define MAX_LOG_LINE_BUFF 4096
+
 	class Message;
 
 	class Channel: public Configurable, public CRefCounter
@@ -21,11 +24,12 @@ namespace okey
 		Channel();
 		virtual void Open();
 		virtual void Close();
-		virtual void Log(const Message& msg) = 0;
+		void Log(int32 pro, char const* msg, ...);
 		void SetProperty(const std::string& name, const std::string& value);
 		std::string GetProperty(const std::string& name) const;
 	protected:
 		virtual ~Channel();
+		virtual void logInstance(int32 pro, const char* msg) = 0;
 	private:
 		Channel(const Channel&);
 		Channel& operator = (const Channel&);

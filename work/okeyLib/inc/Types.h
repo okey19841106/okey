@@ -218,6 +218,7 @@ namespace okey
 #define tstrncpy(DES,SRC,LEN) strncpy_s(DES,LEN,SRC,LEN)
 #define tstrdup _strdup
 #define tfopen fopen_s
+#define tvsnprintf _vsnprintf_s
 
 #else
 
@@ -226,6 +227,7 @@ namespace okey
 #define tstrncpy(DES,SRC,LEN) strncpy(DES,SRC,LEN)
 #define tstrdup strdup
 #define tfopen fopen 
+#define tvsnprintf vsnprintf
 
 #endif
 }

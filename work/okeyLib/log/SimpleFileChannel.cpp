@@ -44,7 +44,7 @@ namespace okey
 		_pFile = NULL;
 	}
 
-	void SimpleFileChannel::Log(const Message& msg)
+	void SimpleFileChannel::logInstance(int32 pro, const char* msg)
 	{
 		Open();
 		FastMutex::ScopedLock lock(_mutex);
@@ -52,7 +52,7 @@ namespace okey
 		{
 			rotate();
 		}
-		_pFile->WriteLog(msg.GetText(), _flush);
+		_pFile->WriteLog(msg, _flush);
 	}
 
 	void SimpleFileChannel::SetProperty(const std::string& name, const std::string& value)

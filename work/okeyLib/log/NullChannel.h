@@ -17,8 +17,10 @@ namespace okey
 	public:
 		NullChannel(){}
 		~NullChannel(){}
-		void Log(const Message& msg){}
+		//void Log(const Message& msg){}
 		void SetProperty(const std::string& name, const std::string& value){}
+	protected:
+		void logInstance(int32 pro, const char* msg){}
 	};
 
 }

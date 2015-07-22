@@ -19,9 +19,9 @@ namespace okey
 	public:
 		ConsoleChannel();
 		ConsoleChannel(std::ostream& str);
-		void Log(const Message& msg);
 	protected:
 		~ConsoleChannel();
+		virtual void logInstance(int32 pro, const char* msg);
 	private:
 		std::ostream& _str;
 		static FastMutex _mutex;
@@ -32,7 +32,7 @@ namespace okey
 	public:
 		ColorConsoleChannel();
 		ColorConsoleChannel(std::ostream& str);
-		void Log(const Message& msg);
+		
 		void SetProperty(const std::string& name, const std::string& value);
 		std::string GetProperty(const std::string& name) const;
 	protected:
@@ -61,6 +61,7 @@ namespace okey
 		Color parseColor(const std::string& color) const;
 		std::string formatColor(Color color) const;
 		void initColors();
+		void logInstance(int32 pro, const char* msg);
 	private:
 		std::ostream& _str;
 		bool _enableColors;

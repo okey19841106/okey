@@ -26,7 +26,7 @@ namespace okey
 		FileChannel(const std::string& path);
 		virtual void Open();
 		virtual void Close();
-		virtual void Log(const Message& msg) = 0;
+		//virtual void Log(const Message& msg) = 0;
 		void SetProperty(const std::string& name, const std::string& value);
 		std::string GetProperty(const std::string& name) const;
 		TimeStamp CreationDate() const;
@@ -43,6 +43,7 @@ namespace okey
 		static const std::string PROP_FLUSH;
 		static const std::string PROP_ROTATEONOPEN;
 	protected:
+		void logInstance(int32 pro, const char* msg);
 		~FileChannel();
 		void setRotation(const std::string& rotation);
 		void setArchive(const std::string& archive);

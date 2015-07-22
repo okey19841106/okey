@@ -23,10 +23,11 @@ namespace okey
 	{
 
 	}
-	void ConsoleChannel::Log(const Message& msg)
+
+	void ConsoleChannel::logInstance(int32 pro, const char* msg)
 	{
 		FastMutex::ScopedLock lock(_mutex);
-		_str<< msg.GetText() << std::endl;
+		_str<< msg << std::endl;
 	}
 
 	ConsoleChannel::~ConsoleChannel()
@@ -49,12 +50,16 @@ namespace okey
 		initColors();
 	}
 
-	void ColorConsoleChannel::Log(const Message& msg)
+	void ColorConsoleChannel::logInstance(int32 pro, const char* msg)
 	{
 		FastMutex::ScopedLock lock(_mutex);
 		if (_enableColors)
 		{
-			int color = _colors[msg.GetPriority()];
+			if (pro < 0 || pro > Message::PRIO_TRACE )
+			{
+				pro = 0;
+			}
+			int color = _colors[pro];
 			if (color & 0x100)
 			{
 				_str << CSI << "1m";
@@ -62,7 +67,7 @@ namespace okey
 			color &= 0xff;
 			_str << CSI << color << "m";
 		}
-		_str << msg.GetText();
+		_str << msg;
 		if (_enableColors)
 		{
 			_str << CSI << "0m";
@@ -237,6 +242,6 @@ namespace okey
 		_colors[Message::PRIO_NOTICE]      = CC_DEFAULT;
 		_colors[Message::PRIO_INFORMATION] = CC_DEFAULT;
 		_colors[Message::PRIO_DEBUG]       = CC_GRAY;
-		_colors[Message::PRIO_FATAL]       = CC_GRAY;
+		_colors[Message::PRIO_TRACE]       = CC_GRAY;
 	}
 }
