@@ -103,7 +103,7 @@ OKEY_DECLARE_EXCEPTION(PropertyNotSupportedException,Exception,"not supported");
 OKEY_DECLARE_EXCEPTION(InvalidArgumentException, Exception, "Invalid Argument");
 OKEY_DECLARE_EXCEPTION(RangeException, Exception, "out of range");
 OKEY_DECLARE_EXCEPTION(ExistsException, Exception, "already exists");
-// OKEY_DECLARE_EXCEPTION(FileExistsException, Exception, "Cannot read file");
+OKEY_DECLARE_EXCEPTION(NotImplementedException, Exception, "not implemented");
 // OKEY_DECLARE_EXCEPTION(PathSyntaxException, Exception, "Cannot read file");
 // OKEY_DECLARE_EXCEPTION(FileReadOnlyException, Exception, "Cannot read file");
 // OKEY_DECLARE_EXCEPTION(ReadFileException, Exception, "Cannot read file");

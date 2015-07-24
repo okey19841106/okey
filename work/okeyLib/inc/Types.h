@@ -211,6 +211,25 @@ namespace okey
 		return u.m_output;
 	}
 
+	template <bool x>
+	struct POCO_STATIC_ASSERTION_FAILURE;
+
+
+	template <> 
+	struct POCO_STATIC_ASSERTION_FAILURE<true> 
+	{
+		enum 
+		{ 
+			value = 1 
+		}; 
+	};
+
+#define MARCO_JOIN(A,B) X##Y
+
+#define my_static_assert(B) \
+	typedef char MARCO_JOIN(poco_static_assert_typedef_, __LINE__) \
+        [POCO_STATIC_ASSERTION_FAILURE<(bool) (B)>::value]
+
 #ifdef WINDOWS
 
 #define tsnprintf _snprintf_s

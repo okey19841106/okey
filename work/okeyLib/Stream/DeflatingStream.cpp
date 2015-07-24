@@ -47,7 +47,7 @@ namespace okey
 	}
 
 	DeflatingStreamBuf::DeflatingStreamBuf(std::ostream& ostr, StreamType type, int level):
-	BufferedStreamBuf(STREAM_BUFFER_SIZE, std::ios::in),
+	BufferedStreamBuf(STREAM_BUFFER_SIZE, std::ios::out),
 		_pIstr(NULL),_pOstr(&ostr),_eof(false)
 	{
 		_zstr.zalloc = Z_NULL;
@@ -68,7 +68,7 @@ namespace okey
 	}
 
 	DeflatingStreamBuf::DeflatingStreamBuf(std::ostream& ostr, int windowBits, int level):
-	BufferedStreamBuf(STREAM_BUFFER_SIZE, std::ios::in),
+	BufferedStreamBuf(STREAM_BUFFER_SIZE, std::ios::out),
 		_pIstr(NULL),_pOstr(&ostr),_eof(false)
 	{
 		_zstr.zalloc = Z_NULL;
@@ -213,7 +213,7 @@ namespace okey
 
 	int32 DeflatingStreamBuf::writeToDevice(const char* buffer, std::streamsize length)
 	{
-		if (length == 0 || _pOstr)
+		if (length == 0 || !_pOstr)
 		{
 			return 0;
 		}
@@ -255,7 +255,7 @@ namespace okey
 
 	int DeflatingStreamBuf::sync()
 	{
-		if (BufferedStreamBuf::sync)
+		if (BufferedStreamBuf::sync())
 		{
 			return -1;
 		}
@@ -342,7 +342,7 @@ namespace okey
 	}
 	int DeflatingOutputStream::close()
 	{
-		_buf.close();
+		return _buf.close();
 	}
 	
 	int DeflatingOutputStream::sync()

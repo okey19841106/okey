@@ -3,7 +3,7 @@
 
 namespace okey
 {
-	LogStreamBuf::LogStreamBuf(Logger& logger, Message::Priority priority):
+	LogStreamBuf::LogStreamBuf(Logger& logger, Channel::Priority priority):
 		_logger(logger),_priority(priority)
 	{
 
@@ -14,7 +14,7 @@ namespace okey
 
 	}
 
-	void LogStreamBuf::SetPriority(Message::Priority priority)
+	void LogStreamBuf::SetPriority(Channel::Priority priority)
 	{
 		_priority = priority;
 	}
@@ -23,15 +23,13 @@ namespace okey
 	{
 		if (c == '\n' || c == '\r')
 		{
-			Message msg(_logger.GetName(), _message, _priority);
-			_message.clear();
-			_logger.Log(msg);
+			_logger.log(_message, _priority);
 		}
 		else _message += c;
 		return c;
 	}
 
-	LogIOS::LogIOS(Logger& logger, Message::Priority priority):_buf(logger,priority)
+	LogIOS::LogIOS(Logger& logger, Channel::Priority priority):_buf(logger,priority)
 	{
 
 	}
@@ -46,12 +44,12 @@ namespace okey
 		return &_buf;
 	}
 
-	LogStream::LogStream(Logger& logger, Message::Priority priority):LogIOS(logger,priority),std::ostream(&_buf)
+	LogStream::LogStream(Logger& logger, Channel::Priority priority):LogIOS(logger,priority),std::ostream(&_buf)
 	{
 
 	}
 
-	LogStream::LogStream(const std::string& loggerName, Message::Priority priority):LogIOS(Logger::GetLogger(loggerName), priority),
+	LogStream::LogStream(const std::string& loggerName, Channel::Priority priority):LogIOS(Logger::GetLogger(loggerName), priority),
 		std::ostream(&_buf)
 	{
 
@@ -63,93 +61,93 @@ namespace okey
 
 	LogStream& LogStream::Fatal()
 	{
-		return Priority(Message::PRIO_FATAL);
+		return Priority(Channel::PRIO_FATAL);
 	}
 
 	LogStream& LogStream::Fatal(const std::string& message)
 	{
 		_buf.GetLogger().Fatal(message);
-		return Priority(Message::PRIO_FATAL);
+		return Priority(Channel::PRIO_FATAL);
 	}
 
 	LogStream& LogStream::Critical()
 	{
-		return Priority(Message::PRIO_CRITICAL);
+		return Priority(Channel::PRIO_CRITICAL);
 	}
 
 	LogStream& LogStream::Critical(const std::string& message)
 	{
 		_buf.GetLogger().Critical(message);
-		return Priority(Message::PRIO_CRITICAL);
+		return Priority(Channel::PRIO_CRITICAL);
 	}
 
 	LogStream& LogStream::Error()
 	{
-		return Priority(Message::PRIO_ERROR);
+		return Priority(Channel::PRIO_ERROR);
 	}
 
 	LogStream& LogStream::Error(const std::string& message)
 	{
 		_buf.GetLogger().Error(message);
-		return Priority(Message::PRIO_ERROR);
+		return Priority(Channel::PRIO_ERROR);
 	}
 
 	LogStream& LogStream::Warning()
 	{
-		return Priority(Message::PRIO_WARNING);
+		return Priority(Channel::PRIO_WARNING);
 	}
 
 	LogStream& LogStream::Warning(const std::string& message)
 	{
 		_buf.GetLogger().Warning(message);
-		return Priority(Message::PRIO_WARNING);
+		return Priority(Channel::PRIO_WARNING);
 	}
 
 	LogStream& LogStream::Notice()
 	{
-		return Priority(Message::PRIO_NOTICE);
+		return Priority(Channel::PRIO_NOTICE);
 	}
 
 	LogStream& LogStream::Notice(const std::string& message)
 	{
 		_buf.GetLogger().Notice(message);
-		return Priority(Message::PRIO_NOTICE);
+		return Priority(Channel::PRIO_NOTICE);
 	}
 
 	LogStream& LogStream::Information()
 	{
-		return Priority(Message::PRIO_INFORMATION);
+		return Priority(Channel::PRIO_INFORMATION);
 	}
 
 	LogStream& LogStream::Information(const std::string& message)
 	{
 		_buf.GetLogger().Information(message);
-		return Priority(Message::PRIO_INFORMATION);
+		return Priority(Channel::PRIO_INFORMATION);
 	}
 
 	LogStream& LogStream::Debug()
 	{
-		return Priority(Message::PRIO_DEBUG);
+		return Priority(Channel::PRIO_DEBUG);
 	}
 
 	LogStream& LogStream::Debug(const std::string& message)
 	{
 		_buf.GetLogger().Debug(message);
-		return Priority(Message::PRIO_DEBUG);
+		return Priority(Channel::PRIO_DEBUG);
 	}
 
 	LogStream& LogStream::Trace()
 	{
-		return Priority(Message::PRIO_TRACE);
+		return Priority(Channel::PRIO_TRACE);
 	}
 
 	LogStream& LogStream::Trace(const std::string& message)
 	{
 		_buf.GetLogger().Trace(message);
-		return Priority(Message::PRIO_TRACE);
+		return Priority(Channel::PRIO_TRACE);
 	}
 
-	LogStream& LogStream::Priority(Message::Priority priority)
+	LogStream& LogStream::Priority(Channel::Priority priority)
 	{
 		_buf.SetPriority(priority);
 		return *this;

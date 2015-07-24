@@ -4,7 +4,6 @@
 #include "PurgeStrategy.h"
 #include "RotateStrategy.h"
 #include "LogFile.h"
-#include "Message.h"
 #include "Exception.h"
 #include "StringHelper.h"
 #include "AsciiCharacter.h"
@@ -205,7 +204,52 @@ namespace okey
 
 	void FileChannel::setRotation(const std::string& rotation)
 	{
+		std::string::const_iterator it  = rotation.begin();
+		std::string::const_iterator end = rotation.end();
+		int n = 0;
+		while (it != end && AsciiCharacter::IsSpace(*it)) ++it;
+		while (it != end && AsciiCharacter::IsDigit(*it)) { n *= 10; n += *it++ - '0'; }
+		while (it != end && AsciiCharacter::IsSpace(*it)) ++it;
+		std::string unit;
+		while (it != end && AsciiCharacter::IsAlpha(*it)) unit += *it++;
 
+		RotateStrategy* pStrategy = NULL;
+		if ((rotation.find(',') != std::string::npos) || (rotation.find(':') != std::string::npos))
+		{
+			if (_times == "attime")
+				pStrategy = new RotateAtTimeStrategy(rotation);
+			else
+				throw PropertyNotSupportedException("attime", _times);
+		}
+		else if (unit == "daily")
+			pStrategy = new RotateByIntervalStrategy(TimeSpan(1*TimeSpan::DAYS));
+		else if (unit == "weekly")
+			pStrategy = new RotateByIntervalStrategy(TimeSpan(7*TimeSpan::DAYS));
+		else if (unit == "monthly")
+			pStrategy = new RotateByIntervalStrategy(TimeSpan(30*TimeSpan::DAYS));
+		else if (unit == "seconds") // for testing only
+			pStrategy = new RotateByIntervalStrategy(TimeSpan(n*TimeSpan::SECONDS));
+		else if (unit == "minutes")
+			pStrategy = new RotateByIntervalStrategy(TimeSpan(n*TimeSpan::MINUTES));
+		else if (unit == "hours")
+			pStrategy = new RotateByIntervalStrategy(TimeSpan(n*TimeSpan::HOURS));
+		else if (unit == "days")
+			pStrategy = new RotateByIntervalStrategy(TimeSpan(n*TimeSpan::DAYS));
+		else if (unit == "weeks")
+			pStrategy = new RotateByIntervalStrategy(TimeSpan(n*7*TimeSpan::DAYS));
+		else if (unit == "months")
+			pStrategy = new RotateByIntervalStrategy(TimeSpan(n*30*TimeSpan::DAYS));
+		else if (unit == "K")
+			pStrategy = new RotateBySizeStrategy(n*1024);
+		else if (unit == "M")
+			pStrategy = new RotateBySizeStrategy(n*1024*1024);
+		else if (unit.empty())
+			pStrategy = new RotateBySizeStrategy(n);
+		else if (unit != "never")
+			throw InvalidArgumentException("rotation", rotation);
+		delete _pRotateStrategy;
+		_pRotateStrategy = pStrategy;
+		_rotation = rotation;
 	}
 
 	void FileChannel::setArchive(const std::string& archive)

@@ -43,15 +43,15 @@ namespace okey
 			}
 			catch (Exception& e)
 			{
-				_result.error(e);
+				_result.SetError(e);
 			}
 			catch (std::exception& e)
 			{
-				_result.error(e.what());
+				_result.SetError(e.what());
 			}
 			catch (...)
 			{
-				_result.error("unknown exception");
+				_result.SetError("unknown exception");
 			}
 			_result.Notify();
 		}
@@ -85,15 +85,15 @@ namespace okey
 			  }
 			  catch (Exception& e)
 			  {
-				  _result.error(e);
+				  _result.SetError(e);
 			  }
 			  catch (std::exception& e)
 			  {
-				  _result.error(e.what());
+				  _result.SetError(e.what());
 			  }
 			  catch (...)
 			  {
-				  _result.error("unknown exception");
+				  _result.SetError("unknown exception");
 			  }
 			  _result.Notify();
 		  }
@@ -126,15 +126,15 @@ namespace okey
 			  }
 			  catch (Exception& e)
 			  {
-				  _result.error(e);
+				  _result.SetError(e);
 			  }
 			  catch (std::exception& e)
 			  {
-				  _result.error(e.what());
+				  _result.SetError(e.what());
 			  }
 			  catch (...)
 			  {
-				  _result.error("unknown exception");
+				  _result.SetError("unknown exception");
 			  }
 			  _result.Notify();
 		  }
@@ -168,15 +168,15 @@ namespace okey
 			  }
 			  catch (Exception& e)
 			  {
-				  _result.error(e);
+				  _result.SetError(e);
 			  }
 			  catch (std::exception& e)
 			  {
-				  _result.error(e.what());
+				  _result.SetError(e.what());
 			  }
 			  catch (...)
 			  {
-				  _result.error("unknown exception");
+				  _result.SetError("unknown exception");
 			  }
 			  _result.Notify();
 		  }

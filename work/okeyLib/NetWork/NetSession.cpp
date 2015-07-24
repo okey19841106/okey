@@ -5,7 +5,7 @@
 
 namespace okey
 {
-	const int32 NetSession::RECV_BLOCK_SIZE = 1024;
+	//const int32 NetSession::RECV_BLOCK_SIZE = 1024;
 
 	NetSession::NetSession(NetServiceBase* pNetService, Event_Actor* pActor):m_State(e_DisConnected),m_Type(e_Active),m_ID(0),m_pNetService(pNetService),m_pActor(pActor)
 	{
@@ -82,7 +82,7 @@ namespace okey
 		int32 ret = -1;
 		{
 			FastMutex::ScopedLock lock(m_SendMutex);
-			if( m_SendBuffer.GetSpace() > len )
+			if( (int32)m_SendBuffer.GetSpace() > len )
 			{
 				m_SendBuffer.Write((void*)buff, len );
 				return len;

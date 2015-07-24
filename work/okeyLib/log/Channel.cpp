@@ -8,6 +8,12 @@ namespace okey
 	{
 
 	}
+
+	Channel::~Channel()
+	{
+
+	}
+
 	void Channel::Open()
 	{
 
@@ -37,4 +43,5 @@ namespace okey
 		va_end(args);
 		logInstance(pro, szBuf);	
 	}
+
 }

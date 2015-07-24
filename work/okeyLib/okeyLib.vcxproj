@@ -97,10 +97,13 @@
     <ClCompile Include="inc\Configure.cpp" />
     <ClCompile Include="inc\DataBuffer.cpp" />
     <ClCompile Include="inc\DateTime.cpp" />
+    <ClCompile Include="inc\Debugger.cpp" />
     <ClCompile Include="inc\DLAllocator.cpp" />
     <ClCompile Include="inc\DLMalloc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="inc\DynamicAny.cpp" />
+    <ClCompile Include="inc\DynamicAnyHolder.cpp" />
     <ClCompile Include="inc\Environment.cpp" />
     <ClCompile Include="inc\Exception.cpp" />
     <ClCompile Include="inc\Allocator.cpp" />
@@ -120,18 +123,17 @@
     <ClCompile Include="inc\TreeNodeBase.cpp" />
     <ClCompile Include="inc\UtilID.cpp" />
     <ClCompile Include="log\ArchiveStrategy.cpp" />
+    <ClCompile Include="log\AsyncChannel.cpp" />
     <ClCompile Include="log\Channel.cpp" />
     <ClCompile Include="log\ConsoleChannel.cpp" />
     <ClCompile Include="log\FileChannel.cpp" />
     <ClCompile Include="log\Formatter.cpp" />
-    <ClCompile Include="log\FormatingChannel.cpp" />
     <ClCompile Include="log\LogChannel.cpp" />
     <ClCompile Include="log\LogFile.cpp" />
     <ClCompile Include="log\Logger.cpp" />
     <ClCompile Include="log\LoggingFactory.cpp" />
     <ClCompile Include="log\LoggingRegistry.cpp" />
     <ClCompile Include="log\LogStream.cpp" />
-    <ClCompile Include="log\Message.cpp" />
     <ClCompile Include="log\PurgeStrategy.cpp" />
     <ClCompile Include="log\RotateStrategy.cpp" />
     <ClCompile Include="log\SimpleFileChannel.cpp" />
@@ -193,21 +195,51 @@
     <ClCompile Include="tinyxml\tinyxmlparser.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="zlib\adler32.c" />
-    <ClCompile Include="zlib\compress.c" />
-    <ClCompile Include="zlib\crc32.c" />
-    <ClCompile Include="zlib\deflate.c" />
-    <ClCompile Include="zlib\gzclose.c" />
-    <ClCompile Include="zlib\gzlib.c" />
-    <ClCompile Include="zlib\gzread.c" />
-    <ClCompile Include="zlib\gzwrite.c" />
-    <ClCompile Include="zlib\infback.c" />
-    <ClCompile Include="zlib\inffast.c" />
-    <ClCompile Include="zlib\inflate.c" />
-    <ClCompile Include="zlib\inftrees.c" />
-    <ClCompile Include="zlib\trees.c" />
-    <ClCompile Include="zlib\uncompr.c" />
-    <ClCompile Include="zlib\zutil.c" />
+    <ClCompile Include="zlib\adler32.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\compress.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\crc32.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\deflate.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\gzclose.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\gzlib.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\gzread.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\gzwrite.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\infback.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\inffast.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\inflate.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\inftrees.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\trees.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\uncompr.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="zlib\zutil.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events\AbstractDelegate.h" />
@@ -251,9 +283,12 @@
     <ClInclude Include="inc\CRefcounter.h" />
     <ClInclude Include="inc\DataBuffer.h" />
     <ClInclude Include="inc\DateTime.h" />
+    <ClInclude Include="inc\Debugger.h" />
     <ClInclude Include="inc\DLAllocator.h" />
     <ClInclude Include="inc\DLMalloc.h" />
     <ClInclude Include="inc\DLMallocConfig.h" />
+    <ClInclude Include="inc\DynamicAny.h" />
+    <ClInclude Include="inc\DynamicAnyHolder.h" />
     <ClInclude Include="inc\DynamicFactory.h" />
     <ClInclude Include="inc\Environment.h" />
     <ClInclude Include="inc\Exception.h" />
@@ -295,19 +330,18 @@
     <ClInclude Include="inc\VectorString.h" />
     <ClInclude Include="inc\XML.h" />
     <ClInclude Include="log\ArchiveStrategy.h" />
+    <ClInclude Include="log\AsyncChannel.h" />
     <ClInclude Include="log\Channel.h" />
     <ClInclude Include="log\Configurable.h" />
     <ClInclude Include="log\ConsoleChannel.h" />
     <ClInclude Include="log\FileChannel.h" />
     <ClInclude Include="log\Formatter.h" />
-    <ClInclude Include="log\FormatingChannel.h" />
     <ClInclude Include="log\LogChannel.h" />
     <ClInclude Include="log\LogFile.h" />
     <ClInclude Include="log\Logger.h" />
     <ClInclude Include="log\LoggingFactory.h" />
     <ClInclude Include="log\LoggingRegistry.h" />
     <ClInclude Include="log\LogStream.h" />
-    <ClInclude Include="log\Message.h" />
     <ClInclude Include="log\NullChannel.h" />
     <ClInclude Include="log\PurgeStrategy.h" />
     <ClInclude Include="log\RotateStrategy.h" />

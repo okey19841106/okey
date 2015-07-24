@@ -3,7 +3,7 @@
 
 namespace okey
 {
-	const int CHARACTER_PROPERTIES[128] = 
+	const int AsciiCharacter::CHARACTER_PROPERTIES[128] = 
 	{
 		/* 00 . */ ACP_CONTROL,
 		/* 01 . */ ACP_CONTROL,

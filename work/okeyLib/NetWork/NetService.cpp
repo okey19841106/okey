@@ -6,6 +6,7 @@
 #include "NetThread.h"
 #include "Thread/Runnable.h"
 #include "Acceptor.h"
+#include "IOCPNetSession.h"
 #ifdef WINDOWS
 #include "IOCPProactor.h"
 #endif
@@ -19,8 +20,15 @@ namespace okey
 		WSADATA wsaData;
 		WORD wVersionRequested = MAKEWORD(2,2);
 		WSAStartup(wVersionRequested, &wsaData);
-		m_pEventActor = new IOCPProactor;
-		m_pEventActor->Open(m_Param._maxConNum, m_Param._threadConnNum);
+		if (m_Param._bUseIOCP)
+		{
+			m_pEventActor = new IOCPProactor;
+			m_pEventActor->Open(m_Param._maxConNum, m_Param._threadConnNum);
+		}
+		else
+		{
+			m_pConThread = new NetThread(m_Param._maxConNum);
+		}
 #else
 		m_pConThread = new NetThread(m_Param._maxConNum);
 #endif
@@ -47,12 +55,12 @@ namespace okey
 		{
 			return false;
 		}
-#ifdef WINDOWS
-#else
-		StartThreads(m_Param._threadConnNum);
-		m_pConRunnable = new RunnableAdapter<NetThread>(m_pConThread, &NetThread::HandleRun);
-		m_pConThread->Start(*m_pConRunnable);
-#endif
+		if (!m_Param._bUseIOCP)
+		{
+			StartThreads(m_Param._threadConnNum);
+			m_pConRunnable = new RunnableAdapter<NetThread>(m_pConThread, &NetThread::HandleRun);
+			m_pConThread->Start(*m_pConRunnable);
+		}
 		m_State = e_Running;
 		//起线程。
 		return true;
@@ -64,11 +72,11 @@ namespace okey
 			return;
 		}
 		m_State = e_Shutdown;
-#ifdef WINDOWS
-#else
-		m_pConThread->Stop();
-		m_pConThread->Join();
-#endif
+		if (!m_Param._bUseIOCP)
+		{
+			m_pConThread->Stop();
+			m_pConThread->Join();
+		}
 		StopThreads();
 		//全部停下。。。
 	}
@@ -119,7 +127,15 @@ namespace okey
 			sock.Close();
 			return NULL;
 		}
-		SessionBase* pSession = new NetSession(this,m_pEventActor);
+		SessionBase* pSession = NULL;
+		if (m_Param._bUseIOCP)
+		{
+			 pSession = new IOCPNetSession(this, m_pEventActor);
+		}
+		else
+		{
+			 pSession = new NetSession(this,m_pEventActor);
+		}
 		uint32 sessionid = 0;
 		if (!m_Connections.insert(pSession, sessionid))
 		{
@@ -134,7 +150,14 @@ namespace okey
 		}
 		SessionPtr sPtr = pSession;
 #ifdef WINDOWS
-		m_pEventActor->RegisterHandler(pSession,Event_Handler::Event_IO);
+		if (m_Param._bUseIOCP)
+		{
+			m_pEventActor->RegisterHandler(pSession,Event_Handler::Event_IO);
+		}
+		else
+		{
+			ScheduleSession(sPtr);
+		}
 #else
 		ScheduleSession(sPtr);
 #endif
@@ -160,24 +183,30 @@ namespace okey
 		{
 			return false;
 		}
-#ifdef WINDOWS
-		if (!sock.SetNonBlocking(false))
+		if (m_Param._bUseIOCP)
 		{
-			return false;
+			if (!sock.SetNonBlocking(false))
+			{
+				return false;
+			}
 		}
-#else
-		if (!sock.SetNonBlocking())
+		else
 		{
-			return false;
+			if (!sock.SetNonBlocking())
+			{
+				return false;
+			}
 		}
-#endif
 		sock.SetReuseAddr();
 		//线程去注册监听器。。
-#ifdef WINDOWS
-		m_pEventActor->RegisterHandler(new Acceptor(sock, addr, this), Event_Handler::Event_Exception | Event_Handler::Event_In);
-#else
-		m_pConThread->RegisterHandler(new Acceptor(sock, addr, this), Event_Handler::Event_Exception | Event_Handler::Event_In);
-#endif
+		if (m_Param._bUseIOCP)
+		{
+			m_pEventActor->RegisterHandler(new IOCPAcceptor(sock, addr, this), Event_Handler::Event_Exception | Event_Handler::Event_In);
+		}
+		else
+		{
+			m_pConThread->RegisterHandler(new Acceptor(sock, addr, this), Event_Handler::Event_Exception | Event_Handler::Event_In);
+		}
 		return true;
 	}
 	
@@ -219,7 +248,14 @@ namespace okey
 				s.Close();
 				return;
 			}
-			pSession = new NetSession(this,m_pEventActor);
+			if (m_Param._bUseIOCP)
+			{
+				pSession = new IOCPNetSession(this,m_pEventActor);
+			}
+			else
+			{
+				pSession = new NetSession(this,m_pEventActor);
+			}
 			uint32 sessionid = 0;
 			if (!m_Connections.insert(pSession,sessionid))
 			{
@@ -233,7 +269,14 @@ namespace okey
 	
 		pSession->Open(s, t, this);
 #ifdef WINDOWS
-		m_pEventActor->RegisterHandler(pSession,Event_Handler::Event_IO);
+		if (m_Param._bUseIOCP)
+		{
+			m_pEventActor->RegisterHandler(pSession,Event_Handler::Event_IO);
+		}
+		else
+		{
+			ScheduleSession(pSession);
+		}
 #else
 		ScheduleSession(pSession);
 #endif
@@ -277,9 +320,6 @@ namespace okey
 	std::pair<Thread*, Runnable*> NetService::CreateThread()
 	{
 		NetThread* pThread = new NetThread(m_Param._maxConNum);
-#ifdef WINDOWS
-		//pThread->SetEventAcotr(m_pEventActor);
-#endif
 		Runnable* pRun = new RunnableAdapter<NetThread>((NetThread*)pThread, &NetThread::HandleRun);
 		return std::pair<Thread*, Runnable*>(pThread, pRun);
 	}
@@ -292,17 +332,20 @@ namespace okey
 
 	bool NetService::InitSocket(Socket& sock)
 	{
-#ifdef WINDOWS
-		if (!sock.SetNonBlocking(false))
+		if (m_Param._bUseIOCP)
 		{
-			return false;
+			if (!sock.SetNonBlocking(false))
+			{
+				return false;
+			}
 		}
-#else
-		if (!sock.SetNonBlocking())
+		else
 		{
-			return false;
+			if (!sock.SetNonBlocking())
+			{
+				return false;
+			}
 		}
-#endif
 		sock.SetSendBufSize(m_Param._sysSendBuff);
 		sock.SetRecvBufSize(m_Param._sysRecvBuff);
 		sock.SetNonDelay();

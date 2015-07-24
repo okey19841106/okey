@@ -16,23 +16,23 @@ namespace okey
 	class LogStreamBuf: public UnBufferedStreamBuf
 	{
 	public:
-		LogStreamBuf(Logger& logger, Message::Priority priority);
+		LogStreamBuf(Logger& logger, Channel::Priority priority);
 		~LogStreamBuf();
-		void SetPriority(Message::Priority priority);
-		inline Message::Priority GetPriority() const{return _priority;}
+		void SetPriority(Channel::Priority priority);
+		inline Channel::Priority GetPriority() const{return _priority;}
 		inline Logger& GetLogger() const{return _logger;}
 	private:
 		int writeToDevice(char c);
 	private:
 		Logger&           _logger;
-		Message::Priority _priority;
+		Channel::Priority _priority;
 		std::string       _message;
 	};
 
 	class LogIOS: public virtual std::ios
 	{
 	public:
-		LogIOS(Logger& logger, Message::Priority priority);
+		LogIOS(Logger& logger, Channel::Priority priority);
 		~LogIOS();
 		LogStreamBuf* rdbuf();
 	protected:
@@ -42,8 +42,8 @@ namespace okey
 	class LogStream: public LogIOS, public std::ostream
 	{
 	public:
-		LogStream(Logger& logger, Message::Priority priority = Message::PRIO_INFORMATION);
-		LogStream(const std::string& loggerName, Message::Priority priority = Message::PRIO_INFORMATION);
+		LogStream(Logger& logger, Channel::Priority priority = Channel::PRIO_INFORMATION);
+		LogStream(const std::string& loggerName, Channel::Priority priority = Channel::PRIO_INFORMATION);
 		~LogStream();
 		LogStream& Fatal();
 		LogStream& Fatal(const std::string& message);
@@ -61,7 +61,7 @@ namespace okey
 		LogStream& Debug(const std::string& message);
 		LogStream& Trace();
 		LogStream& Trace(const std::string& message);
-		LogStream& Priority(Message::Priority priority);
+		LogStream& Priority(Channel::Priority priority);
 	};
 }
 

@@ -55,7 +55,7 @@ namespace okey
 				pOwer->TaskFailed(this, SystemException(exc.what()));
 			}
 		}
-		catch (CException& exc)
+		catch (...)
 		{
 			if (pOwer)
 			{

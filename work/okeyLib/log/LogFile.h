@@ -20,7 +20,7 @@ namespace okey
 		LogFile(const std::string& path);
 		~LogFile();
 		void WriteLog(const std::string& text, bool flush = true);
-		inline uint64 GetSize() const{ (uint64)_str.tellp();}
+		inline uint64 GetSize() const{ return (uint64)_str.tellp();}
 		inline TimeStamp CreationDate() const{ return _creationDate;}
 		inline const std::string& GetPath() const{return _path;}
 	private:

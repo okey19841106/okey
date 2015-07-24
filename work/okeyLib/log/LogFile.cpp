@@ -16,7 +16,7 @@ namespace okey
 
 	LogFile::~LogFile()
 	{
-
+		_str.flush();
 	}
 
 	void LogFile::WriteLog(const std::string& text, bool flush)

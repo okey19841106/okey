@@ -360,9 +360,6 @@
     <ClCompile Include="log\ConsoleChannel.cpp">
       <Filter>Log</Filter>
     </ClCompile>
-    <ClCompile Include="log\Message.cpp">
-      <Filter>Log</Filter>
-    </ClCompile>
     <ClCompile Include="log\FileChannel.cpp">
       <Filter>Log</Filter>
     </ClCompile>
@@ -376,9 +373,6 @@
       <Filter>inc</Filter>
     </ClCompile>
     <ClCompile Include="log\Formatter.cpp">
-      <Filter>Log</Filter>
-    </ClCompile>
-    <ClCompile Include="log\FormatingChannel.cpp">
       <Filter>Log</Filter>
     </ClCompile>
     <ClCompile Include="log\LoggingRegistry.cpp">
@@ -410,6 +404,18 @@
     </ClCompile>
     <ClCompile Include="NetWork\Connector.cpp">
       <Filter>NetWork\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="log\AsyncChannel.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\Debugger.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\DynamicAny.cpp">
+      <Filter>inc</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\DynamicAnyHolder.cpp">
+      <Filter>inc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -902,9 +908,6 @@
     <ClInclude Include="log\ConsoleChannel.h">
       <Filter>Log</Filter>
     </ClInclude>
-    <ClInclude Include="log\Message.h">
-      <Filter>Log</Filter>
-    </ClInclude>
     <ClInclude Include="log\FileChannel.h">
       <Filter>Log</Filter>
     </ClInclude>
@@ -918,9 +921,6 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="log\Formatter.h">
-      <Filter>Log</Filter>
-    </ClInclude>
-    <ClInclude Include="log\FormatingChannel.h">
       <Filter>Log</Filter>
     </ClInclude>
     <ClInclude Include="log\LoggingRegistry.h">
@@ -967,6 +967,18 @@
     </ClInclude>
     <ClInclude Include="NetWork\Connector.h">
       <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="log\AsyncChannel.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Debugger.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DynamicAny.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DynamicAnyHolder.h">
+      <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

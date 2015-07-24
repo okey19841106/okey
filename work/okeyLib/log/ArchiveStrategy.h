@@ -23,7 +23,7 @@ namespace okey
 		virtual ~ArchiveStrategy();
 		//rename the given log file for archiving and creates and returns a new log file the given logfile object is deleted.
 		virtual LogFile* Archive(LogFile* pFile) = 0; 
-		void SetCompress(bool falg = true);
+		inline void SetCompress(bool falg = true){_compress = falg;}
 	protected:
 		void MoveFile(const std::string& oldName, const std::string& newName);
 		bool IsExists(const std::string& name);

@@ -74,4 +74,10 @@ namespace okey
 		fileTimeHigh = ts.HighPart;
 	}
 #endif
+
+	TimeStamp& TimeStamp::operator = (const TimeStamp& other)
+	{
+		_milliSec = other._milliSec;
+		return *this;
+	}
 }

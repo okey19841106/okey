@@ -21,6 +21,18 @@ namespace okey
 	class Channel: public Configurable, public CRefCounter
 	{
 	public:
+		enum Priority
+		{
+			PRIO_FATAL = 1,   /// A fatal error.
+			PRIO_CRITICAL,    /// A critical error. 
+			PRIO_ERROR,       /// An error. 
+			PRIO_WARNING,     /// A warning.
+			PRIO_NOTICE,      /// A notice
+			PRIO_INFORMATION, /// An informational message
+			PRIO_DEBUG,       /// A debugging message.
+			PRIO_TRACE        /// A tracing message.
+		};
+	public:
 		Channel();
 		virtual void Open();
 		virtual void Close();

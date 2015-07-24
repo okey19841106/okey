@@ -2,7 +2,6 @@
 #include "SimpleFileChannel.h"
 #include "LogFile.h"
 #include "File/FileInfo.h"
-#include "Message.h"
 #include "AsciiCharacter.h"
 #include "StringHelper.h"
 
@@ -26,8 +25,8 @@ namespace okey
 		{
 			FileInfo primary(_path);
 			FileInfo secondary(_secondaryPath);
-			TimeStamp pt = primary.IsExisted() ? primary.GetModityTime() : 0;
-			TimeStamp st = secondary.IsExisted() ? secondary.GetModityTime() : 0;
+			TimeStamp pt = primary.IsExisted() ? primary.GetModityTime().ToTime() : TimeStamp(0);
+			TimeStamp st = secondary.IsExisted() ? secondary.GetModityTime().ToTime() : TimeStamp(0);
 			std::string path;
 			if (pt >= st)
 				path = _path;

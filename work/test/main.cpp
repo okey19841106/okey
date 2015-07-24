@@ -13,27 +13,33 @@
 #include "Notifications/NotificationCenter.h"
 #include "Notifications/Observer.h"
 #include "NetWork/NetService.h"
+#include "log/Logger.h"
+#include "log/FileChannel.h"
+
 using namespace okey;
 
 // void MyTest();
 // void MyTest2();
+void TestFileLog();
+
 int main(int argc , char *argv[])
 {
 	/*MyTest2();*/
-	NetServiceParam param;
-	NetService *pService = new NetService(0, param);
-	pService->StartUp();
-
-	pService->Accept(SocketAddr("127.0.0.1", 3001));
-	uint32 index = 0;
-	while(index++ < 3600)
-	{
-		Sleep(1000);
-	}
-	pService->ShutDown();
-	delete pService;
-	return 0;
-
+// 	NetServiceParam param;
+// 	NetService *pService = new NetService(0, param);
+// 	pService->StartUp();
+// 
+// 	pService->Accept(SocketAddr("127.0.0.1", 3001));
+// 	uint32 index = 0;
+// 	while(index++ < 3600)
+// 	{
+// 		Sleep(1000);
+// 	}
+// 	pService->ShutDown();
+// 	delete pService;
+// 	return 0;
+//	Logger* pLogger = Logger::GetChannel();
+	TestFileLog();
 }
 
 
@@ -78,3 +84,29 @@ int main(int argc , char *argv[])
 // 	nc.PostNotification(new Notification);
 // 	nc.RemoveObserver(Observer<QTestNotification, Notification>(&test1, &QTestNotification::handle1));
 // }
+
+void TestFileLog()
+{
+	std::string name = "testlog";
+	try
+	{
+		AutoPtr<FileChannel> pChannel = new FileChannel(name);
+		pChannel->SetProperty(FileChannel::PROP_ROTATION, "2 K");
+		pChannel->SetProperty(FileChannel::PROP_ARCHIVE, "number");
+		pChannel->SetProperty(FileChannel::PROP_COMPRESS, "true");
+		pChannel->Open();
+		//Message msg("source", "This is a log file entry", Message::PRIO_INFORMATION);
+		for (int i = 0; i < 200; ++i)
+		{
+			//pChannel->LogInstance( Message::PRIO_INFORMATION, "This is a log file entry");
+		}
+		Sleep(3000);
+	}
+	catch (...)
+	{
+		//remove(name);
+		throw;
+	}
+	//remove(name);
+	Sleep(4000);
+}

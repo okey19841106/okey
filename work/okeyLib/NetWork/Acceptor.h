@@ -45,19 +45,23 @@ namespace okey
 		virtual void HandleOutput();
 		virtual void HandleException();
 		virtual void HandleClose();
-		virtual void HandleInput(void* pParam);
-#ifdef WINDOWS
-		void PostAccept();
-#endif
-	private:
+	protected:
 		Socket m_Socket;
 		SocketAddr m_Addr;
 		NetServiceBase* m_pNetService;
-#ifdef WINDOWS
+	};
+
+	class IOCPAcceptor: public Acceptor
+	{
+	public:
+		IOCPAcceptor(Socket& socket, const SocketAddr& addr, NetServiceBase* p);
+		~IOCPAcceptor();
+		virtual void HandleInput(void* pParam);
+		void PostAccept();
+	protected:
 		char m_RecvBuf[ADDRLEN + ADDRLEN];
 		AcceptCompleteOperator m_AccepterCom;
 		static LPFN_ACCEPTEX m_fnAcceptEx;
-#endif
 	};
 }
 

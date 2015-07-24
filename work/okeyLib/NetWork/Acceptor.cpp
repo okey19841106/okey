@@ -7,36 +7,15 @@
 namespace okey
 {
 #ifdef WINDOWS
-	LPFN_ACCEPTEX Acceptor::m_fnAcceptEx = NULL;
+	LPFN_ACCEPTEX IOCPAcceptor::m_fnAcceptEx = NULL;
 #endif
 	
 	Acceptor::Acceptor(Socket& socket, const SocketAddr& addr, NetServiceBase* p)
 	{
 		m_Socket.Shift(socket);
 		m_pNetService = p;
-#ifdef WINDOWS
-		class IOCPAcceptIniter
-		{
-		public:
-			IOCPAcceptIniter(SOCKET s, LPFN_ACCEPTEX& f)
-			{
-				DWORD dwBytes = 0;
-				GUID guidAcceptEx = WSAID_ACCEPTEX;
-				WSAIoctl(s, 
-					SIO_GET_EXTENSION_FUNCTION_POINTER,
-					&guidAcceptEx,
-					sizeof(guidAcceptEx),
-					&f,
-					sizeof(f),
-					&dwBytes,
-					NULL,
-					NULL);
-			}
-		};
-		static IOCPAcceptIniter helper(m_Socket.GetSocket(), m_fnAcceptEx);
-		PostAccept();
-#endif
 	}
+
 	Acceptor::~Acceptor()
 	{
 		m_Socket.Close();
@@ -72,26 +51,7 @@ namespace okey
 		delete this;
 	}
 
-	void Acceptor::HandleInput(void* pParam)
-	{
-#ifdef WINDOWS
-		AcceptCompleteOperator* p = (AcceptCompleteOperator*)(pParam);
-		if (!p)
-		{
-			//assert();
-			return;
-		}
-		Socket s;
-		s.Shift(p->m_AcceptSocket);
-		m_pNetService->OnNewConnection(s, SessionBase::e_Passive);
-		delete p;
-		p = NULL;
-		PostAccept();
-#endif
-	}
-
-#ifdef WINDOWS
-	void Acceptor::PostAccept()
+	void IOCPAcceptor::PostAccept()
 	{
 		Socket s;
 		s.Create();
@@ -101,7 +61,7 @@ namespace okey
 		pOverLapped->pHandler = this;
 		while(true)
 		{
-			BOOL ret = Acceptor::m_fnAcceptEx(m_Socket.GetSocket(), s.GetSocket(), m_RecvBuf, 0, ADDRLEN, ADDRLEN, &bytes, pOverLapped);
+			BOOL ret = m_fnAcceptEx(m_Socket.GetSocket(), s.GetSocket(), m_RecvBuf, 0, ADDRLEN, ADDRLEN, &bytes, pOverLapped);
 			if (!ret)
 			{
 				uint32 error = Socket::GetSysError();
@@ -114,6 +74,50 @@ namespace okey
 			break;
 		}
 	}
-#endif
 	
+	IOCPAcceptor::IOCPAcceptor(Socket& socket, const SocketAddr& addr, NetServiceBase* p):Acceptor(socket, addr, p)
+	{
+		class IOCPAcceptIniter
+		{
+		public:
+			IOCPAcceptIniter(SOCKET s, LPFN_ACCEPTEX& f)
+			{
+				DWORD dwBytes = 0;
+				GUID guidAcceptEx = WSAID_ACCEPTEX;
+				WSAIoctl(s, 
+					SIO_GET_EXTENSION_FUNCTION_POINTER,
+					&guidAcceptEx,
+					sizeof(guidAcceptEx),
+					&f,
+					sizeof(f),
+					&dwBytes,
+					NULL,
+					NULL);
+			}
+		};
+		static IOCPAcceptIniter helper(m_Socket.GetSocket(), m_fnAcceptEx);
+		PostAccept();
+	}
+
+	IOCPAcceptor::~IOCPAcceptor()
+	{
+
+	}
+
+	void IOCPAcceptor::HandleInput(void* pParam)
+	{
+		AcceptCompleteOperator* p = (AcceptCompleteOperator*)(pParam);
+		if (!p)
+		{
+			//assert();
+			return;
+		}
+		Socket s;
+		s.Shift(p->m_AcceptSocket);
+		m_pNetService->OnNewConnection(s, SessionBase::e_Passive);
+		delete p;
+		p = NULL;
+		PostAccept();
+	}
+
 }

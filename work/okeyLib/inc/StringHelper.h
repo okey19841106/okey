@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <algorithm>
-
+#include "Exception.h"
 
 
 namespace okey

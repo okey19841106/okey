@@ -67,6 +67,7 @@ namespace okey
 		CFunctionArg1Base<SessionBase*>* m_DisconnectCallBack;
 		Event_Actor* m_pEventActor;
 		RunnableAdapter<NetThread>* m_pConRunnable;
+		bool _bUseIOCP;
 	};
 }
 

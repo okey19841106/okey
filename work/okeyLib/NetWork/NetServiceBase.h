@@ -29,6 +29,7 @@ namespace okey
 			_maxSendSize = 655350;
 			backlog = 512;
 			_threadConMaxSize = 256;
+			_bUseIOCP = false;
 		}
 		//void Check();
 		uint32 _threadConnNum; //处理链接线程数量
@@ -40,6 +41,7 @@ namespace okey
 		uint32 _maxRecvSize; //接收缓冲区大小
 		uint32 _threadConMaxSize; //链接线程处理的最大连接数
 		uint32 backlog;
+		bool _bUseIOCP; //是否使用iocp
 	};
 
 	class Socket;

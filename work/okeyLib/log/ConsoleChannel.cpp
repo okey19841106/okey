@@ -7,7 +7,6 @@
 *********************************************************************/
 #include "PreCom.h"
 #include "ConsoleChannel.h"
-#include "Message.h"
 #include "StringHelper.h"
 
 namespace okey
@@ -55,7 +54,7 @@ namespace okey
 		FastMutex::ScopedLock lock(_mutex);
 		if (_enableColors)
 		{
-			if (pro < 0 || pro > Message::PRIO_TRACE )
+			if (pro < 0 || pro > Channel::PRIO_TRACE )
 			{
 				pro = 0;
 			}
@@ -83,35 +82,35 @@ namespace okey
 		}
 		else if (name == "traceColor")
 		{
-			_colors[Message::PRIO_TRACE] = parseColor(value);
+			_colors[Channel::PRIO_TRACE] = parseColor(value);
 		}
 		else if (name == "debugColor")
 		{
-			_colors[Message::PRIO_DEBUG] = parseColor(value);
+			_colors[Channel::PRIO_DEBUG] = parseColor(value);
 		}
 		else if (name == "informationColor")
 		{
-			_colors[Message::PRIO_INFORMATION] = parseColor(value);
+			_colors[Channel::PRIO_INFORMATION] = parseColor(value);
 		}
 		else if (name == "noticeColor")
 		{
-			_colors[Message::PRIO_NOTICE] = parseColor(value);
+			_colors[Channel::PRIO_NOTICE] = parseColor(value);
 		}
 		else if (name == "warningColor")
 		{
-			_colors[Message::PRIO_WARNING] = parseColor(value);
+			_colors[Channel::PRIO_WARNING] = parseColor(value);
 		}
 		else if (name == "errorColor")
 		{
-			_colors[Message::PRIO_ERROR] = parseColor(value);
+			_colors[Channel::PRIO_ERROR] = parseColor(value);
 		}
 		else if (name == "criticalColor")
 		{
-			_colors[Message::PRIO_CRITICAL] = parseColor(value);
+			_colors[Channel::PRIO_CRITICAL] = parseColor(value);
 		}
 		else if (name == "fatalColor")
 		{
-			_colors[Message::PRIO_FATAL] = parseColor(value);
+			_colors[Channel::PRIO_FATAL] = parseColor(value);
 		}
 		else
 		{
@@ -127,35 +126,35 @@ namespace okey
 		}
 		else if (name == "traceColor")
 		{
-			return formatColor(_colors[Message::PRIO_TRACE]);
+			return formatColor(_colors[Channel::PRIO_TRACE]);
 		}
 		else if (name == "debugColor")
 		{
-			return formatColor(_colors[Message::PRIO_DEBUG]);
+			return formatColor(_colors[Channel::PRIO_DEBUG]);
 		}
 		else if (name == "informationColor")
 		{
-			return formatColor(_colors[Message::PRIO_INFORMATION]);
+			return formatColor(_colors[Channel::PRIO_INFORMATION]);
 		}
 		else if (name == "noticeColor")
 		{
-			return formatColor(_colors[Message::PRIO_NOTICE]);
+			return formatColor(_colors[Channel::PRIO_NOTICE]);
 		}
 		else if (name == "warningColor")
 		{
-			return formatColor(_colors[Message::PRIO_WARNING]);
+			return formatColor(_colors[Channel::PRIO_WARNING]);
 		}
 		else if (name == "errorColor")
 		{
-			return formatColor(_colors[Message::PRIO_ERROR]);
+			return formatColor(_colors[Channel::PRIO_ERROR]);
 		}
 		else if (name == "criticalColor")
 		{
-			return formatColor(_colors[Message::PRIO_CRITICAL]);
+			return formatColor(_colors[Channel::PRIO_CRITICAL]);
 		}
 		else if (name == "fatalColor")
 		{
-			return formatColor(_colors[Message::PRIO_FATAL]);
+			return formatColor(_colors[Channel::PRIO_FATAL]);
 		}
 		else
 		{
@@ -235,13 +234,13 @@ namespace okey
 	void ColorConsoleChannel::initColors()
 	{
 		_colors[0] = CC_DEFAULT; // unused
-		_colors[Message::PRIO_FATAL]       = CC_LIGHTRED;
-		_colors[Message::PRIO_CRITICAL]    = CC_LIGHTRED;
-		_colors[Message::PRIO_ERROR]       = CC_LIGHTRED;
-		_colors[Message::PRIO_WARNING]     = CC_YELLOW;
-		_colors[Message::PRIO_NOTICE]      = CC_DEFAULT;
-		_colors[Message::PRIO_INFORMATION] = CC_DEFAULT;
-		_colors[Message::PRIO_DEBUG]       = CC_GRAY;
-		_colors[Message::PRIO_TRACE]       = CC_GRAY;
+		_colors[Channel::PRIO_FATAL]       = CC_LIGHTRED;
+		_colors[Channel::PRIO_CRITICAL]    = CC_LIGHTRED;
+		_colors[Channel::PRIO_ERROR]       = CC_LIGHTRED;
+		_colors[Channel::PRIO_WARNING]     = CC_YELLOW;
+		_colors[Channel::PRIO_NOTICE]      = CC_DEFAULT;
+		_colors[Channel::PRIO_INFORMATION] = CC_DEFAULT;
+		_colors[Channel::PRIO_DEBUG]       = CC_GRAY;
+		_colors[Channel::PRIO_TRACE]       = CC_GRAY;
 	}
 }

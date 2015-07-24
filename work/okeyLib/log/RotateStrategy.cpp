@@ -64,11 +64,11 @@ namespace okey
 
 	void RotateAtTimeStrategy::getNextRollover()
 	{
-		//TimeSpan tsp(0, 0, 1, 0, 1000); // 0,00:01:00.001
+		uint32 nMinute = _threshold.minute();
 		do
 		{
-			uint32 nMinute = _threshold.minute();
-			_threshold.minute(nMinute + 1);
+			//_threshold.minute((nMinute++)% 60);
+			_threshold = (_threshold.ToTime() + 60000);
 		}
 		while (!(_threshold.minute() == _minute &&
 			(-1 == _hour || _threshold.hour() == _hour) && 
@@ -96,26 +96,11 @@ namespace okey
 		{
 			if (pFile->GetSize() != 0)
 			{
-				FileInputStream istr(pFile->GetPath());
-				std::string tag;
-				std::getline(istr, tag);
-				if (tag.compare(0, ROTATE_TEXT.size(), ROTATE_TEXT) == 0)
-				{
-					std::string timestamp(tag, ROTATE_TEXT.size());
-					int tzd;
-					tsscanf("%d, %d %d %d %d:%d:%d %d");
-					_lastRotate = DateTimeParser::parse(DateTimeFormat::RFC1036_FORMAT, timestamp, tzd).timestamp();
-				}
-				else _lastRotate = pFile->CreationDate();
+				_lastRotate = pFile->CreationDate();
 			}
 			else
 			{
 				_lastRotate = TimeStamp::CurrentTime();
-				std::string tag(ROTATE_TEXT);
-				char nBuff[64] = {0};
-				tsnprintf(nBuff,64,"%d, %d %d %d %d:%d:%d %d",)
-				DateTimeFormatter::append(tag, _lastRotate, DateTimeFormat::RFC1036_FORMAT);
-				pFile->WriteLog(tag);
 			}
 		}
 		TimeStamp now;

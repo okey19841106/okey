@@ -17,7 +17,7 @@ namespace okey
 		CompleteOperator *pCom = (CompleteOperator *)p;
 		if (pCom->GetBytesTransferred() == 0)
 		{
-			char buffer[NetSession::RECV_BLOCK_SIZE];
+			char buffer[RECV_BLOCK_SIZE];
 			if (m_Socket.Recv(buffer,RECV_BLOCK_SIZE) == 0)
 			{
 				Disconnect();//Õý³£¶Ï¿ª¡£¡£

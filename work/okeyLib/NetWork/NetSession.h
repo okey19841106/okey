@@ -18,6 +18,8 @@
 
 namespace okey
 {
+#define RECV_BLOCK_SIZE 1024
+
 	class Event_Actor;
 	class NetServiceBase;
 
@@ -65,7 +67,7 @@ namespace okey
 		FastMutex	m_SendMutex;
 		CircularBuffer m_SendBuffer;
 		CircularBuffer m_RecvBuffer;
-		const static int32 RECV_BLOCK_SIZE;
+		//const static int32 RECV_BLOCK_SIZE;
 	};
 }
 
