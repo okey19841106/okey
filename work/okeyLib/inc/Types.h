@@ -212,11 +212,11 @@ namespace okey
 	}
 
 	template <bool x>
-	struct POCO_STATIC_ASSERTION_FAILURE;
+	struct STATIC_ASSERTION_FAILURE;
 
 
 	template <> 
-	struct POCO_STATIC_ASSERTION_FAILURE<true> 
+	struct STATIC_ASSERTION_FAILURE<true> 
 	{
 		enum 
 		{ 
@@ -227,8 +227,8 @@ namespace okey
 #define MARCO_JOIN(A,B) X##Y
 
 #define my_static_assert(B) \
-	typedef char MARCO_JOIN(poco_static_assert_typedef_, __LINE__) \
-        [POCO_STATIC_ASSERTION_FAILURE<(bool) (B)>::value]
+	typedef char MARCO_JOIN(static_assert_typedef_, __LINE__) \
+        [STATIC_ASSERTION_FAILURE<(bool) (B)>::value]
 
 #ifdef WINDOWS
 

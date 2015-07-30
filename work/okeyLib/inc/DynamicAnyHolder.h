@@ -9,11 +9,14 @@
 #define __DYNAMIC_ANY_HOLDER_H__
 
 #include "Types.h"
-#include <limits>
 #include <typeinfo>
 #include "DateTime.h"
 #include "TimeStamp.h"
 #include "Exception.h"
+#include "StringHelper.h"
+#undef min
+#undef max
+#include <limits>
 
 namespace okey
 {
@@ -123,8 +126,8 @@ namespace okey
 		template<typename F, typename T>
 		void checkUpperLimit(const F& from, T&) const
 		{
-			if (( sizeof(T) < sizeof(F) ) && 
-				(from > static_cast<F>(std::numeric_limits<F>::max())))
+			if ((sizeof(T) < sizeof(F)) &&	
+				(from > static_cast<F>(std::numeric_limits<T>::max())))
 			{
 				throw RangeException("Value too large.");
 			}
@@ -277,13 +280,770 @@ namespace okey
 	};
 
 	template<>
-	DynamicAnyHolder<int8> : public DynamicAnyHolderBase
+	class DynamicAnyHolder<int8> : public DynamicAnyHolderBase
 	{
 	public:
+		DynamicAnyHolder(int8 val):_val(val){}
+		~DynamicAnyHolder(){}
+		const std::type_info& GetType() const
+		{
+			return typeid(int8);
+		}
+
+		bool IsInteger() const
+		{
+			return std::numeric_limits<int8>::is_integer;
+		}
+
+		bool IsSigned() const
+		{
+			return std::numeric_limits<int8>::is_signed;
+		}
+
+		bool IsNumeric() const
+		{
+			return std::numeric_limits<int8>::is_specialized;
+		}
+
+		bool IsString() const
+		{
+			return false;
+		}
+
+		bool IsArray() const
+		{
+			throw false;
+		}
+
+		DynamicAnyHolderBase* Clone() const
+		{
+			return new DynamicAnyHolder<int8>(_val);
+		}
+
+		void Convert(int8& val) const
+		{
+			val = _val;
+		}
+
+		void Convert(int16& val) const
+		{
+			val = _val;
+		}
+
+		void Convert(int32& val) const
+		{
+			val = _val;
+		}
+
+		void Convert(int64& val) const
+		{
+			val = _val;
+		}
+
+		void Convert(uint8& val) const
+		{
+			convertSignedToUnsigned(_val,val);
+		}
+
+		void Convert(uint16& val) const
+		{
+			convertSignedToUnsigned(_val,val);
+		}
+
+		void Convert(uint32& val) const
+		{
+			convertSignedToUnsigned(_val,val);
+		}
+
+		void Convert(uint64& val) const
+		{
+			convertSignedToUnsigned(_val,val);
+		}
+
+		void Convert(bool& val) const
+		{
+			val = (_val != 0);
+		}
+
+		void Convert(f32& val) const
+		{
+			val = static_cast<f32>(_val);
+		}
+
+		void Convert(f64& val) const
+		{
+			val = static_cast<f64>(_val);
+		}
+
+		void Convert(char& val) const
+		{
+			val = static_cast<char>(_val);
+		}
+
+		void Convert(std::string& val) const
+		{
+			val = StringHelper::ToString(_val);
+		}
+
+		void Convert(DateTime& val) const
+		{
+			throw BadCastException("int8 -> DateTime");
+		}
+
+		void Convert(TimeStamp& val) const
+		{
+			throw BadCastException("int8 -> TimeStamp");
+		}
+		
+		const int8& GetValue() {return _val;}
 	private:
 		int8 _val;
-	}
+	};
 
+	template<>
+	class DynamicAnyHolder<std::string> : public DynamicAnyHolderBase
+	{
+	public:
+		DynamicAnyHolder(const std::string& val):_val(val){}
+		DynamicAnyHolder(const char* pVal):_val(pVal){}
+		~DynamicAnyHolder(){}
+		const std::type_info& GetType() const
+		{
+			return typeid(std::string);
+		}
+
+		bool IsInteger() const
+		{
+			return false;
+		}
+
+		bool IsSigned() const
+		{
+			return false;
+		}
+
+		bool IsNumeric() const
+		{
+			return false;
+		}
+
+		bool IsString() const
+		{
+			return true;
+		}
+
+		bool IsArray() const
+		{
+			throw false;
+		}
+
+		DynamicAnyHolderBase* Clone() const
+		{
+			return new DynamicAnyHolder(_val);
+		}
+
+		void Convert(int8& val) const
+		{
+			int32 v = StringHelper::ToValue<int32>(_val);
+			convertToSmaller(v, val);
+		}
+
+		void Convert(int16& val) const
+		{
+			int32 v = StringHelper::ToValue<int32>(_val);
+			convertToSmaller(v, val);
+		}
+
+		void Convert(int32& val) const
+		{
+			val = StringHelper::ToValue<int32>(_val);
+		}
+
+		void Convert(int64& val) const
+		{
+			val = StringHelper::ToValue<int64>(_val);
+		}
+
+		void Convert(uint8& val) const
+		{
+			uint32 v = StringHelper::ToValue<uint32>(_val);
+			convertToSmallerUnsigned(v,val);
+		}
+
+		void Convert(uint16& val) const
+		{
+			uint32 v = StringHelper::ToValue<uint32>(_val);
+			convertToSmallerUnsigned(v,val);
+		}
+
+		void Convert(uint32& val) const
+		{
+			val = StringHelper::ToValue<uint32>(_val);
+		}
+
+		void Convert(uint64& val) const
+		{
+			val = StringHelper::ToValue<uint64>(_val);
+		}
+
+		void Convert(bool& val) const
+		{
+			static const std::string VAL_FALSE("false");
+			static const std::string VAL_INTFALSE("0");
+
+			if (_val == VAL_INTFALSE || (icompare(_val, VAL_FALSE) == 0))
+				val = false;
+			else
+				val = true;
+		}
+
+		void Convert(f32& val) const
+		{
+			f64 v = StringHelper::ToValue<f64>(_val);
+			convertToSmaller(v, val);
+		}
+
+		void Convert(f64& val) const
+		{
+			val = StringHelper::ToValue<f64>(_val);
+		}
+
+		void Convert(char& val) const
+		{
+			if (_val.empty())
+				val = '\0';
+			else
+				val = _val[0];
+		}
+
+		void Convert(std::string& val) const
+		{
+			val = _val;
+		}
+
+		void Convert(DateTime& val) const
+		{
+			val.fromString(_val);
+		}
+
+		void Convert(TimeStamp& val) const
+		{
+			DateTime d = DateTime(val);
+			d.fromString(_val);
+			val = d.ToTime();
+		}
+
+		const std::string& GetValue() {return _val;}
+	private:
+		std::string _val;
+	};
+
+	template<>
+	class DynamicAnyHolder<int64> : public DynamicAnyHolderBase
+	{
+	public:
+		DynamicAnyHolder(int64 val):_val(val){}
+		~DynamicAnyHolder(){}
+		const std::type_info& GetType() const
+		{
+			return typeid(int64);
+		}
+
+		bool IsInteger() const
+		{
+			return std::numeric_limits<int64>::is_integer;
+		}
+
+		bool IsSigned() const
+		{
+			return std::numeric_limits<int64>::is_signed;
+		}
+
+		bool IsNumeric() const
+		{
+			return std::numeric_limits<int64>::is_specialized;
+		}
+
+		bool IsString() const
+		{
+			return false;
+		}
+
+		bool IsArray() const
+		{
+			throw false;
+		}
+
+		DynamicAnyHolderBase* Clone() const
+		{
+			return new DynamicAnyHolder<int64>(_val);
+		}
+
+		void Convert(int8& val) const
+		{
+			convertToSmaller(_val,val);
+		}
+
+		void Convert(int16& val) const
+		{
+			convertToSmaller(_val,val);
+		}
+
+		void Convert(int32& val) const
+		{
+			convertToSmaller(_val,val);
+		}
+
+		void Convert(int64& val) const
+		{
+			val = _val;
+		}
+
+		void Convert(uint8& val) const
+		{
+			convertSignedToUnsigned(_val,val);
+		}
+
+		void Convert(uint16& val) const
+		{
+			convertSignedToUnsigned(_val,val);
+		}
+
+		void Convert(uint32& val) const
+		{
+			convertSignedToUnsigned(_val,val);
+		}
+
+		void Convert(uint64& val) const
+		{
+			convertSignedToUnsigned(_val,val);
+		}
+
+		void Convert(bool& val) const
+		{
+			val = (_val != 0);
+		}
+
+		void Convert(f32& val) const
+		{
+			val = static_cast<f32>(_val);
+		}
+
+		void Convert(f64& val) const
+		{
+			val = static_cast<f64>(_val);
+		}
+
+		void Convert(char& val) const
+		{
+			uint8 tmp;
+			Convert(tmp);
+			val = static_cast<char>(tmp);
+		}
+
+		void Convert(std::string& val) const
+		{
+			val = StringHelper::ToString(_val);
+		}
+
+		void Convert(DateTime& val) const
+		{
+			TimeStamp n = TimeStamp(_val);
+			val.Update(n);
+		}
+
+		void Convert(TimeStamp& val) const
+		{
+			val = TimeStamp(_val);
+		}
+
+		const int64& GetValue() {return _val;}
+	private:
+		int64 _val;
+	};
+
+	template<>
+	class DynamicAnyHolder<uint64> : public DynamicAnyHolderBase
+	{
+	public:
+		DynamicAnyHolder(uint64 val):_val(val){}
+		~DynamicAnyHolder(){}
+		const std::type_info& GetType() const
+		{
+			return typeid(uint64);
+		}
+
+		bool IsInteger() const
+		{
+			return std::numeric_limits<uint64>::is_integer;
+		}
+
+		bool IsSigned() const
+		{
+			return std::numeric_limits<uint64>::is_signed;
+		}
+
+		bool IsNumeric() const
+		{
+			return std::numeric_limits<uint64>::is_specialized;
+		}
+
+		bool IsString() const
+		{
+			return false;
+		}
+
+		bool IsArray() const
+		{
+			throw false;
+		}
+
+		DynamicAnyHolderBase* Clone() const
+		{
+			return new DynamicAnyHolder<uint64>(_val);
+		}
+
+		void Convert(int8& val) const
+		{
+			convertUnsignedToSigned(_val,val);
+		}
+
+		void Convert(int16& val) const
+		{
+			convertUnsignedToSigned(_val,val);
+		}
+
+		void Convert(int32& val) const
+		{
+			convertUnsignedToSigned(_val,val);
+		}
+
+		void Convert(int64& val) const
+		{
+			convertUnsignedToSigned(_val,val);
+		}
+
+		void Convert(uint8& val) const
+		{
+			convertToSmallerUnsigned(_val,val);
+		}
+
+		void Convert(uint16& val) const
+		{
+			convertToSmallerUnsigned(_val,val);
+		}
+
+		void Convert(uint32& val) const
+		{
+			convertToSmallerUnsigned(_val,val);
+		}
+
+		void Convert(uint64& val) const
+		{
+			val = _val;
+		}
+
+		void Convert(bool& val) const
+		{
+			val = (_val != 0);
+		}
+
+		void Convert(f32& val) const
+		{
+			val = static_cast<f32>(_val);
+		}
+
+		void Convert(f64& val) const
+		{
+			val = static_cast<f64>(_val);
+		}
+
+		void Convert(char& val) const
+		{
+			uint8 tmp;
+			Convert(tmp);
+			val = static_cast<char>(tmp);
+		}
+
+		void Convert(std::string& val) const
+		{
+			val = StringHelper::ToString(_val);
+		}
+
+		void Convert(DateTime& val) const
+		{
+			int64 t;
+			convertUnsignedToSigned(_val,t);
+			TimeStamp n = TimeStamp(t);
+			val.Update(n);
+		}
+
+		void Convert(TimeStamp& val) const
+		{
+			int64 t;
+			convertUnsignedToSigned(_val,t);
+			val = TimeStamp(t);
+		}
+
+		const uint64& GetValue() {return _val;}
+	private:
+		uint64 _val;
+	};
+
+	template<>
+	class DynamicAnyHolder<f64> : public DynamicAnyHolderBase
+	{
+	public:
+		DynamicAnyHolder(f64 val):_val(val){}
+		~DynamicAnyHolder(){}
+		const std::type_info& GetType() const
+		{
+			return typeid(f64);
+		}
+
+		bool IsInteger() const
+		{
+			return std::numeric_limits<f64>::is_integer;
+		}
+
+		bool IsSigned() const
+		{
+			return std::numeric_limits<f64>::is_signed;
+		}
+
+		bool IsNumeric() const
+		{
+			return std::numeric_limits<f64>::is_specialized;
+		}
+
+		bool IsString() const
+		{
+			return false;
+		}
+
+		bool IsArray() const
+		{
+			throw false;
+		}
+
+		DynamicAnyHolderBase* Clone() const
+		{
+			return new DynamicAnyHolder<f64>(_val);
+		}
+
+		void Convert(int8& val) const
+		{
+			convertToSmaller(_val,val);
+		}
+
+		void Convert(int16& val) const
+		{
+			convertToSmaller(_val,val);
+		}
+
+		void Convert(int32& val) const
+		{
+			convertToSmaller(_val,val);
+		}
+
+		void Convert(int64& val) const
+		{
+			convertToSmaller(_val,val);
+		}
+
+		void Convert(uint8& val) const
+		{
+			convertSignedFloatToUnsigned(_val,val);
+		}
+
+		void Convert(uint16& val) const
+		{
+			convertSignedFloatToUnsigned(_val,val);
+		}
+
+		void Convert(uint32& val) const
+		{
+			convertSignedFloatToUnsigned(_val,val);
+		}
+
+		void Convert(uint64& val) const
+		{
+			convertSignedFloatToUnsigned(_val,val);
+		}
+
+		void Convert(bool& val) const
+		{
+			val = !(_val <= std::numeric_limits<f64>::min() && 
+				_val >= -1 * std::numeric_limits<f64>::min());
+		}
+
+		void Convert(f32& val) const
+		{
+			f64 fMin = -1 * std::numeric_limits<f32>::max();
+			f64 fMax = std::numeric_limits<f32>::max();
+
+			if (_val < fMin) throw RangeException("Value too small.");
+			if (_val > fMax) throw RangeException("Value too large.");
+
+			val = static_cast<f32>(_val);
+		}
+
+		void Convert(f64& val) const
+		{
+			val = _val;
+		}
+
+		void Convert(char& val) const
+		{
+			uint8 tmp;
+			Convert(tmp);
+			val = static_cast<char>(tmp);
+		}
+
+		void Convert(std::string& val) const
+		{
+			val = StringHelper::ToString(_val);
+		}
+
+		void Convert(DateTime& val) const
+		{
+			throw BadCastException("f64 -> DateTime");
+		}
+
+		void Convert(TimeStamp& val) const
+		{
+			throw BadCastException("f64 -> TimeStamp");
+		}
+
+		const f64& GetValue() {return _val;}
+	private:
+		f64 _val;
+	};
+
+	template<>
+	class DynamicAnyHolder<int32> : public DynamicAnyHolderBase
+	{
+	public:
+		DynamicAnyHolder(int32 val):_val(val){}
+		~DynamicAnyHolder(){}
+		const std::type_info& GetType() const
+		{
+			return typeid(int32);
+		}
+
+		bool IsInteger() const
+		{
+			return std::numeric_limits<int32>::is_integer;
+		}
+
+		bool IsSigned() const
+		{
+			return std::numeric_limits<int32>::is_signed;
+		}
+
+		bool IsNumeric() const
+		{
+			return std::numeric_limits<int32>::is_specialized;
+		}
+
+		bool IsString() const
+		{
+			return false;
+		}
+
+		bool IsArray() const
+		{
+			throw false;
+		}
+
+		DynamicAnyHolderBase* Clone() const
+		{
+			return new DynamicAnyHolder<int32>(_val);
+		}
+
+		void Convert(int8& val) const
+		{
+			convertToSmaller(_val,val);
+		}
+
+		void Convert(int16& val) const
+		{
+			convertToSmaller(_val,val);
+		}
+
+		void Convert(int32& val) const
+		{
+			val = _val;
+		}
+
+		void Convert(int64& val) const
+		{
+			val = _val;
+		}
+
+		void Convert(uint8& val) const
+		{
+			convertSignedToUnsigned(_val,val);
+		}
+
+		void Convert(uint16& val) const
+		{
+			convertSignedToUnsigned(_val,val);
+		}
+
+		void Convert(uint32& val) const
+		{
+			convertSignedToUnsigned(_val,val);
+		}
+
+		void Convert(uint64& val) const
+		{
+			convertSignedToUnsigned(_val,val);
+		}
+
+		void Convert(bool& val) const
+		{
+			val = (_val != 0);
+		}
+
+		void Convert(f32& val) const
+		{
+			val = static_cast<f32>(_val);
+		}
+
+		void Convert(f64& val) const
+		{
+			val = static_cast<f64>(_val);
+		}
+
+		void Convert(char& val) const
+		{
+			uint8 tmp;
+			Convert(tmp);
+			val = static_cast<char>(tmp);
+		}
+
+		void Convert(std::string& val) const
+		{
+			val = StringHelper::ToString(_val);
+		}
+
+		void Convert(DateTime& val) const
+		{
+			throw BadCastException("int32 -> DateTime");
+		}
+
+		void Convert(TimeStamp& val) const
+		{
+			throw BadCastException("int32 -> TimeStamp");
+		}
+
+		const int32& GetValue() {return _val;}
+	private:
+		int32 _val;
+	};
+
+	//后边的等实现时再添加。
 }
 
 #endif

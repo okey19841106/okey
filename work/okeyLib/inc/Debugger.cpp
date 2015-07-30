@@ -5,7 +5,7 @@ namespace okey
 {
 	bool Debugger::IsAvailable()
 	{
-
+		return true;
 	}
 
 	void Debugger::Message(const std::string& msg)
