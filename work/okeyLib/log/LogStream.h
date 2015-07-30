@@ -8,11 +8,14 @@
 #ifndef __LOG_STREAM_H__
 #define __LOG_STREAM_H__
 
-#include "Logger.h"
+
 #include "Stream/UnBufferedStreamBuf.h"
+#include "Channel.h"
 
 namespace okey
 {
+	class Logger;
+
 	class LogStreamBuf: public UnBufferedStreamBuf
 	{
 	public:

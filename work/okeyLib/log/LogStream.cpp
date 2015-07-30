@@ -1,5 +1,6 @@
 #include "PreCom.h"
 #include "LogStream.h"
+#include "Logger.h"
 
 namespace okey
 {

@@ -31,7 +31,7 @@ namespace okey
 	};
 #endif
 	
-#define ADDRLEN	(sizeof(SOCKADDR_IN) + 16)
+
 	class NetServiceBase;
 	class Acceptor : public Event_Handler, public CRefCounter
 	{
@@ -50,6 +50,9 @@ namespace okey
 		SocketAddr m_Addr;
 		NetServiceBase* m_pNetService;
 	};
+
+
+#define ADDRLEN	(sizeof(SOCKADDR_IN) + 16)
 
 	class IOCPAcceptor: public Acceptor
 	{

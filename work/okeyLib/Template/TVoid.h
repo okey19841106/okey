@@ -16,7 +16,6 @@ namespace Template
 		Void(){}
 		~Void(){}
 		Void(const Void& v){}
-		~Void(){}
 		Void& operator = (const Void& v){return *this;}
 		bool operator ==(const Void& v) const{return true;}
 		bool operator !=(const Void& v) const{return false;}

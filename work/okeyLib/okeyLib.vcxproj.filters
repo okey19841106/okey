@@ -183,9 +183,6 @@
     <ClCompile Include="inc\DateTime.cpp">
       <Filter>inc</Filter>
     </ClCompile>
-    <ClCompile Include="log\LogChannel.cpp">
-      <Filter>Log</Filter>
-    </ClCompile>
     <ClCompile Include="inc\Environment.cpp">
       <Filter>inc</Filter>
     </ClCompile>
@@ -372,9 +369,6 @@
     <ClCompile Include="inc\AsciiCharacter.cpp">
       <Filter>inc</Filter>
     </ClCompile>
-    <ClCompile Include="log\Formatter.cpp">
-      <Filter>Log</Filter>
-    </ClCompile>
     <ClCompile Include="log\LoggingRegistry.cpp">
       <Filter>Log</Filter>
     </ClCompile>
@@ -411,11 +405,11 @@
     <ClCompile Include="inc\Debugger.cpp">
       <Filter>inc</Filter>
     </ClCompile>
-    <ClCompile Include="inc\DynamicAny.cpp">
-      <Filter>inc</Filter>
-    </ClCompile>
     <ClCompile Include="inc\DynamicAnyHolder.cpp">
-      <Filter>inc</Filter>
+      <Filter>Template</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\DynamicAny.cpp">
+      <Filter>Template</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -619,9 +613,6 @@
     </ClInclude>
     <ClInclude Include="inc\DateTime.h">
       <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="log\LogChannel.h">
-      <Filter>Log</Filter>
     </ClInclude>
     <ClInclude Include="inc\TBufferTemplate.h">
       <Filter>inc</Filter>
@@ -920,9 +911,6 @@
     <ClInclude Include="inc\AsciiCharacter.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="log\Formatter.h">
-      <Filter>Log</Filter>
-    </ClInclude>
     <ClInclude Include="log\LoggingRegistry.h">
       <Filter>Log</Filter>
     </ClInclude>
@@ -974,11 +962,14 @@
     <ClInclude Include="inc\Debugger.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\DynamicAny.h">
+    <ClInclude Include="inc\AutoReleasePool.h">
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\DynamicAnyHolder.h">
-      <Filter>inc</Filter>
+      <Filter>Template</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DynamicAny.h">
+      <Filter>Template</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

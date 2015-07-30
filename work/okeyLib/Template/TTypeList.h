@@ -73,7 +73,7 @@ namespace Template
 
 		bool operator !=(const TypeList& t) const
 		{
-			return !(*this == tl);
+			return !(*this == t);
 		}
 
 		bool operator < (const TypeList& t) const
