@@ -19,20 +19,20 @@ namespace okey
 		_channelFactory.RegisterClass(className,pFactory);
 	}
 
-	void LoggingFactory::RegisterFormatterClass(const std::string& className, FormatterFactory* pFactory)
-	{
-		_formatterFactory.RegisterClass(className,pFactory);
-	}
+// 	void LoggingFactory::RegisterFormatterClass(const std::string& className, FormatterFactory* pFactory)
+// 	{
+// 		_formatterFactory.RegisterClass(className,pFactory);
+// 	}
 
 	Channel* LoggingFactory::CreateChannel(const std::string& className) const
 	{
 		return _channelFactory.CreateInstance(className);
 	}
 
-	Formatter* LoggingFactory::CreateFormatter(const std::string& className) const
-	{
-		return _formatterFactory.CreateInstance(className);
-	}
+// 	Formatter* LoggingFactory::CreateFormatter(const std::string& className) const
+// 	{
+// 		return _formatterFactory.CreateInstance(className);
+// 	}
 
 	LoggingFactory& LoggingFactory::GetDefaultFactory()
 	{

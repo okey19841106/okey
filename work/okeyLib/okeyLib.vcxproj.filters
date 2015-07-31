@@ -406,10 +406,10 @@
       <Filter>inc</Filter>
     </ClCompile>
     <ClCompile Include="inc\DynamicAnyHolder.cpp">
-      <Filter>Template</Filter>
+      <Filter>inc</Filter>
     </ClCompile>
     <ClCompile Include="inc\DynamicAny.cpp">
-      <Filter>Template</Filter>
+      <Filter>inc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -966,9 +966,18 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\DynamicAnyHolder.h">
-      <Filter>Template</Filter>
+      <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\DynamicAny.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Template\TypeTraits.h">
+      <Filter>Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Template\TFunctoion.h">
+      <Filter>Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Template\TFunctor.h">
       <Filter>Template</Filter>
     </ClInclude>
   </ItemGroup>

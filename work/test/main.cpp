@@ -6,7 +6,7 @@
 #include "AssocVector.h"
 #include "File/FileIni.h"
 #include "StringHelper.h"
-#include "log/LogChannel.h"
+//#include "log/LogChannel.h"
 #include "File/FileInfo.h"
 #include "Template/Tuple.h"
 #include "Notifications/NotificationQueue.h"

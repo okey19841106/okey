@@ -389,11 +389,14 @@
     <ClInclude Include="Task\TaskNotification.h" />
     <ClInclude Include="Template\MathTemplate.h" />
     <ClInclude Include="Template\TAny.h" />
+    <ClInclude Include="Template\TFunctoion.h" />
+    <ClInclude Include="Template\TFunctor.h" />
     <ClInclude Include="Template\TMeta.h" />
     <ClInclude Include="Template\TNull.h" />
     <ClInclude Include="Template\TTypeList.h" />
     <ClInclude Include="Template\Tuple.h" />
     <ClInclude Include="Template\TVoid.h" />
+    <ClInclude Include="Template\TypeTraits.h" />
     <ClInclude Include="Thread\ActiveDispatcher.h" />
     <ClInclude Include="Thread\ActiveResult.h" />
     <ClInclude Include="Thread\ActiveRunnable.h" />
