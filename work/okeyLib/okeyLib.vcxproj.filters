@@ -980,5 +980,8 @@
     <ClInclude Include="Template\TFunctor.h">
       <Filter>Template</Filter>
     </ClInclude>
+    <ClInclude Include="Template\THierarchyGenerators.h">
+      <Filter>Template</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

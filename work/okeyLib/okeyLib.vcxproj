@@ -391,6 +391,7 @@
     <ClInclude Include="Template\TAny.h" />
     <ClInclude Include="Template\TFunctoion.h" />
     <ClInclude Include="Template\TFunctor.h" />
+    <ClInclude Include="Template\THierarchyGenerators.h" />
     <ClInclude Include="Template\TMeta.h" />
     <ClInclude Include="Template\TNull.h" />
     <ClInclude Include="Template\TTypeList.h" />

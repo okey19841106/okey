@@ -8,6 +8,10 @@
 #ifndef __TEMPLATE_FUCTOR_H__
 #define __TEMPLATE_FUCTOR_H__
 
+#include "TNull.h"
+#include "TypeTraits.h"
+#include <memory>
+
 namespace Template
 {
 
@@ -17,11 +21,11 @@ namespace Template
 	inline bool operator<(const EmptyType&, const EmptyType&){return false;}
 	inline bool operator>(const EmptyType&, const EmptyType&){return false;}
 
-	template<typename R, template<typename, typename> class ThreadingModel >
+	template<typename R>
 	struct FunctorImplBase
 	{
 		typedef R ResultType;
-		typedef FunctorImplBase<R, ThreadingModel> FunctorImplBaseType;
+		typedef FunctorImplBase<R> FunctorImplBaseType;
 		typedef EmptyType Param0;
 		typedef EmptyType Param1;
 		typedef EmptyType Param2;
@@ -56,19 +60,19 @@ namespace Template
 #define TEMPLATE_DEFINE_CLONE_FUCTORIMPL(Cls)	\
 	virtual Cls* DoClone() const{return new Cls(*this);}
 
-	template<typename R, typename TL, template<typename, typename> class ThreadingModel >
+	template<typename R, typename TL>
 	class FunctorImpl;
 
-	template<typename R, template<typename, typename> class ThreadingModel>
-	class FunctorImpl<R, NullType, template<typename, typename> class ThreadingModel>: public FunctorImplBase<R, ThreadingModel>
+	template<typename R>
+	class FunctorImpl<R, NullType>: public FunctorImplBase<R>
 	{
 	public:
 		typedef R ResultType;
 		virtual R operator()() = 0;
 	};
 
-	template<typename R, typename P0, template<typename, typename> class ThreadingModel>
-	class FunctorImpl<R, TypeListType<P0>, template<typename, typename> class ThreadingModel>: public FunctorImplBase<R, ThreadingModel>
+	template<typename R, typename P0>
+	class FunctorImpl<R, TypeListType<P0> >: public FunctorImplBase<R >
 	{
 	public:
 		typedef R ResultType;
@@ -76,8 +80,8 @@ namespace Template
 		virtual R operator()(Param0) = 0;
 	};
 
-	template<typename R, typename P0, typename P1, template<typename, typename> class ThreadingModel>
-	class FunctorImpl<R, TypeListType<P0, P1>, template<typename, typename> class ThreadingModel>: public FunctorImplBase<R, ThreadingModel>
+	template<typename R, typename P0, typename P1>
+	class FunctorImpl<R, TypeListType<P0, P1> >: public FunctorImplBase<R >
 	{
 	public:
 		typedef R ResultType;
@@ -86,8 +90,8 @@ namespace Template
 		virtual R operator()(Param0, Param1) = 0;
 	};
 
-	template<typename R, typename P0, typename P1, typename P2, template<typename, typename> class ThreadingModel>
-	class FunctorImpl<R, TypeListType<P0, P1, P2>, template<typename, typename> class ThreadingModel>: public FunctorImplBase<R, ThreadingModel>
+	template<typename R, typename P0, typename P1, typename P2 >
+	class FunctorImpl<R, TypeListType<P0, P1, P2> >: public FunctorImplBase<R >
 	{
 	public:
 		typedef R ResultType;
@@ -97,8 +101,8 @@ namespace Template
 		virtual R operator()(Param0, Param1, Param2) = 0;
 	};
 
-	template<typename R, typename P0, typename P1, typename P2, typename P3, template<typename, typename> class ThreadingModel>
-	class FunctorImpl<R, TypeListType<P0, P1, P2, P3>, template<typename, typename> class ThreadingModel>: public FunctorImplBase<R, ThreadingModel>
+	template<typename R, typename P0, typename P1, typename P2, typename P3 >
+	class FunctorImpl<R, TypeListType<P0, P1, P2, P3> >: public FunctorImplBase<R >
 	{
 	public:
 		typedef R ResultType;
@@ -203,11 +207,11 @@ namespace Template
 		PointFun _f;
 	};
 
-	template<typename R = void, class TL = NullType,template<typename, typename> class ThreadingModel >
+	template<typename R = void, class TL = NullType >
 	class Functor
 	{
 	public:
-		typedef FunctorImpl<R, TL, ThreadingModel> Impl;
+		typedef FunctorImpl<R, TL > Impl;
 		typedef R ResultType;
 		typedef TL ParamList;
 		typedef typename Impl::Param0 Param0;
@@ -228,6 +232,8 @@ namespace Template
 		Functor():_spImpl(NULL){}
 		Functor(const Functor& rhs):_spImpl(Impl::Clone(rhs._spImpl.get())){}
 		Functor(std::auto_ptr<Impl> spImpl):_spImpl(spImpl){}
+		template<typename Fun>
+		Functor(Fun fun):_spImpl(new FunctorHandler<Functor, Fun>(fun)){}
 		template<typename PtrObj, typename MemFun>
 		Functor(const PtrObj& p, MemFun memfn):_spImpl(new MemFunHandler<Functor, PtrObj, MemFun>(p,memfn)){}
 		typedef Impl* (std::auto_ptr<Impl>::*unspecified_bool_type)()const;
@@ -238,13 +244,13 @@ namespace Template
 		Functor& operator=(const Functor& rhs)
 		{
 			Functor copy(rhs);
-			Impl* p = _spImpl->release();
-			_spImpl->reset(copy._spImpl.release());
-			copy._spImpl->reset(p);
+			Impl* p = _spImpl.release();
+			_spImpl.reset(copy._spImpl.release());
+			copy._spImpl.reset(p);
 			return *this;
 		}
 		bool empty()const{return _spImpl.get() == NULL;}
-		void clear(){_spImpl->reset(NULL);}
+		void clear(){_spImpl.reset(NULL);}
 		bool operator==(const Functor& rhs)const
 		{
 			if (_spImpl.get() == NULL && rhs._spImpl.get() == NULL)
@@ -276,13 +282,13 @@ namespace Template
 	template <typename Fctor>
 	struct BinderFirstTraits;
 
-	template<typename R, typename TL, template<typename, typename> class ThreadingModel>
-	struct BinderFirstTraits<Functor<R, TL, ThreadingModel> >
+	template<typename R, typename TL >
+	struct BinderFirstTraits<Functor<R, TL > >
 	{
-		typedef Functor<R, TL, ThreadingModel> OriginalFunctor;
+		typedef Functor<R, TL > OriginalFunctor;
 		typedef typename TypeOneEraser<TL, typename TypeGetter<0, TL>::HeadType>::ResultType ParamList;
 		typedef typename TypeGetter<0, TL>::ResultType OriginalParam0;
-		typedef Functor<R, ParamList, ThreadingModel> BoundFunctorType;
+		typedef Functor<R, ParamList > BoundFunctorType;
 		typedef typename BoundFunctorType::Impl Impl;
 	};
 
@@ -295,17 +301,17 @@ namespace Template
 		typedef typename TypeTraits<T>::ParameterType RefOrValue;
 	};
 
-	template<typename R, typename TL, template<typename, typename> class ThreadingModel>
-	struct BinderFirstBoundTypeStorage<Functor<R, TL, ThreadingModel> >
+	template<typename R, typename TL >
+	struct BinderFirstBoundTypeStorage<Functor<R, TL > >
 	{
-		typedef Functor<R, TL, ThreadingModel> OriginalFunctor;
+		typedef Functor<R, TL > OriginalFunctor;
 		typedef const typename TypeTraits<OriginalFunctor>::ReferredType RefOrValue;
 	};
 
 	template<typename OriginalFunctor>
 	class BinderFirst: public BinderFirstTraits<OriginalFunctor>::Impl
 	{
-		typedef BinderFirstTraits<OriginalFunctor>::Impl Base;
+		typedef typename BinderFirstTraits<OriginalFunctor>::Impl Base;
 		typedef typename OriginalFunctor::ResultType ResultType;
 		typedef typename OriginalFunctor::Param0 BoundType;
 		typedef typename BinderFirstBoundTypeStorage<typename BinderFirstTraits<OriginalFunctor>::OriginalParam0 >::RefOrValue BoundTypeStorage;
@@ -325,7 +331,7 @@ namespace Template
 		typedef typename OriginalFunctor::Param14 Param13;
 		typedef typename EmptyType Param14;
 	public:
-		BinderFirst(const OriginalFunctor& fun, BoundType bound)_f(fun),_b(bound){}
+		BinderFirst(const OriginalFunctor& fun, BoundType bound):_f(fun),_b(bound){}
 		TEMPLATE_DEFINE_CLONE_FUCTORIMPL(MemFunHandler);
 		bool operator == (const typename Base::FunctorImplBaseType& rhs) const
 		{
@@ -347,6 +353,61 @@ namespace Template
 		OriginalFunctor _f;
 		BoundTypeStorage _b;
 	};
+
+	template<typename Fctor>
+	typename BinderFirstTraits<Fctor>::BoundFunctorType BindFirst(const Fctor& fun, typename Fctor::Param0 bound)
+	{
+		typedef typename BinderFirstTraits<Functor>::BoundFunctorType Outgoing;
+		return Outgoing(std::auto_ptr<typename Outgoing::Impl>(new BinderFirst<Fctor>(fun,bound)));
+	}
+
+	template<typename Fun1, typename Fun2>
+	class Chainer: public Fun2::Impl
+	{
+		typedef Fun2 Base;
+	public:
+		typedef typename Base::ResultType ResultType;
+		typedef typename Base::Param0 Param0;
+		typedef typename Base::Param1 Param1;
+		typedef typename Base::Param2 Param2;
+		typedef typename Base::Param3 Param3;
+		typedef typename Base::Param4 Param4;
+		typedef typename Base::Param5 Param5;
+		typedef typename Base::Param6 Param6;
+		typedef typename Base::Param7 Param7;
+		typedef typename Base::Param8 Param8;
+		typedef typename Base::Param9 Param9;
+		typedef typename Base::Param10 Param10;
+		typedef typename Base::Param11 Param11;
+		typedef typename Base::Param12 Param12;
+		typedef typename Base::Param13 Param13;
+		typedef typename Base::Param14 Param14;
+		Chainer(const Fun1& fun1, const Fun2& fun2):_f1(fun1),_f2(fun2){}
+		TEMPLATE_DEFINE_CLONE_FUCTORIMPL(Chainer);
+		bool operator==(const typename Base::Impl::FunctorImplBaseType& rhs)const
+		{
+			if (typeid(*this) != typeid(rhs))
+			{
+				return false;
+			}
+			return _f1 == ((static_cast<const Chainer&>(rhs))._f1) && _f2 == ((static_cast<const Chainer&>(rhs))._f2)
+		}
+		ResultType operator()(){return _f1(),_f2();}
+		ResultType operator()(Param0 p0){return  _f1(p0),_f2(P0);}
+		ResultType operator()(Param0 p0, Param1 p1){return _f1(p0, p1), _f2(p0, p1);}
+		ResultType operator()(Param0 p0, Param1 p1, Param2 p2){return _f1(p0, p1, p2), _f2(p0, p1, p2);}
+		ResultType operator()(Param0 p0, Param1 p1, Param2 p2, Param3 p3){return _f1(p0, p1, p2, p3), _f2(p0, p1, p2, p3);}
+		ResultType operator()(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4){return _f1(p0, p1, p2, p3, p4),_f2(p0, p1, p2, p3, p4);}
+	private:
+		Fun1 _f1;
+		Fun2 _f2;
+	};
+
+	template<typename Fun1, typename Fun2>
+	Fun2 Chain(const Fun1& fun1, const Fun2& fun2)
+	{
+		return Fun2(std::auto_ptr<typename Fun2::Impl>(new Chainer<Fun1,Fun2>(fun1, fun2)));
+	}
 }
 
 

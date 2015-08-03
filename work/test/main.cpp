@@ -15,12 +15,15 @@
 #include "NetWork/NetService.h"
 #include "log/Logger.h"
 #include "log/FileChannel.h"
+#include "Template/TFunctoion.h"
 
 using namespace okey;
-
+using namespace Template;
 // void MyTest();
 // void MyTest2();
 void TestFileLog();
+static void TestFuction();
+
 
 int main(int argc , char *argv[])
 {
@@ -39,7 +42,8 @@ int main(int argc , char *argv[])
 // 	delete pService;
 // 	return 0;
 //	Logger* pLogger = Logger::GetChannel();
-	TestFileLog();
+//	TestFileLog();
+	TestFuction();
 }
 
 
@@ -109,4 +113,13 @@ void TestFileLog()
 	}
 	//remove(name);
 	Sleep(4000);
+}
+
+static void test_static() { std::cout<<"test static!"<<std::endl;}
+
+Function<void()> static_func(test_static);
+
+static void TestFuction()
+{
+	static_func();
 }
