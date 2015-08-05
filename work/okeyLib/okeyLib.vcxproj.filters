@@ -411,6 +411,9 @@
     <ClCompile Include="inc\DynamicAny.cpp">
       <Filter>inc</Filter>
     </ClCompile>
+    <ClCompile Include="Stream\ByteBuf.cpp">
+      <Filter>Stream</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -982,6 +985,9 @@
     </ClInclude>
     <ClInclude Include="Template\THierarchyGenerators.h">
       <Filter>Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Stream\ByteBuf.h">
+      <Filter>Stream</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

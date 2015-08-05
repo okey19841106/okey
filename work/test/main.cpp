@@ -16,14 +16,14 @@
 #include "log/Logger.h"
 #include "log/FileChannel.h"
 #include "Template/TFunctoion.h"
-
+#include "Stream/ByteBuf.h"
 using namespace okey;
 using namespace Template;
 // void MyTest();
 // void MyTest2();
 void TestFileLog();
 static void TestFuction();
-
+void TestByte();
 
 int main(int argc , char *argv[])
 {
@@ -43,7 +43,8 @@ int main(int argc , char *argv[])
 // 	return 0;
 //	Logger* pLogger = Logger::GetChannel();
 //	TestFileLog();
-	TestFuction();
+	//TestFuction();
+	TestByte();
 }
 
 
@@ -122,4 +123,16 @@ Function<void()> static_func(test_static);
 static void TestFuction()
 {
 	static_func();
+}
+
+void TestByte()
+{
+	ByteBuf buf;
+	for (int i = 0; i < 10; ++i)
+	{
+		buf<<i+50;
+		buf<<(f32)(0.2+i);
+	}
+	buf<<"oke";
+	buf.hexlike();
 }

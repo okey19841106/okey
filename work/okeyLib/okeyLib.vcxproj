@@ -162,6 +162,7 @@
     <ClCompile Include="process\ProcessPipe.cpp" />
     <ClCompile Include="process\Process.cpp" />
     <ClCompile Include="process\ShareMemory.cpp" />
+    <ClCompile Include="Stream\ByteBuf.cpp" />
     <ClCompile Include="Stream\DeflatingStream.cpp" />
     <ClCompile Include="Stream\FileStream.cpp" />
     <ClCompile Include="Stream\FileStreamBuf.cpp" />
@@ -378,6 +379,7 @@
     <ClInclude Include="Stream\BufferAlloctor.h" />
     <ClInclude Include="Stream\BufferedBidirectionalStreamBuf.h" />
     <ClInclude Include="Stream\BufferedStreamBuf.h" />
+    <ClInclude Include="Stream\ByteBuf.h" />
     <ClInclude Include="Stream\DeflatingStream.h" />
     <ClInclude Include="Stream\FileStream.h" />
     <ClInclude Include="Stream\FileStreamBuf.h" />
