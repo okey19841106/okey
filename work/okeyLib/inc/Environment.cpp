@@ -5,6 +5,8 @@
 #ifdef WINDOWS
 #include <IPTypes.h>
 #include <IPHlpApi.h>
+#include <Psapi.h>
+#pragma comment(lib, "Psapi")
 #endif
 
 
@@ -259,6 +261,70 @@ namespace okey
 		}
 		delete [] reinterpret_cast<char*>(pAdapterInfo);
 #else
+		std::memset(&id, 0, sizeof(id));
+		int fd = open("/sys/class/net/eth0/address", O_RDONLY);
+		if (fd >= 0)
+		{
+			char buffer[18];
+			int n = read(fd, buffer, 17);
+			close(fd);
+			if (n == 17)
+			{
+				buffer[n] = 0;
+				if (std::sscanf(buffer, "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx", &id[0], &id[1], &id[2], &id[3], &id[4], &id[5]) == 6)
+					return;
+			}
+		}	
+
+		// if that did not work, search active interfaces
+		int sock = socket(PF_INET, SOCK_DGRAM, 0);
+		if (sock == -1) return;
+		// the following code is loosely based
+		// on W. Richard Stevens, UNIX Network Programming, pp 434ff.
+		int lastlen = 0;
+		int len = 100*sizeof(struct ifreq);
+		struct ifconf ifc;
+		char* buf = 0;
+		for (;;)
+		{
+			buf = new char[len];
+			ifc.ifc_len = len;
+			ifc.ifc_buf = buf;
+			if (::ioctl(sock, SIOCGIFCONF, &ifc) < 0)
+			{
+				if (errno != EINVAL || lastlen != 0)
+				{
+					close(sock);
+					delete [] buf;
+					return;
+				}
+			}
+			else
+			{
+				if (ifc.ifc_len == lastlen)
+					break;
+				lastlen = ifc.ifc_len;
+			}
+			len += 10*sizeof(struct ifreq);
+			delete [] buf;
+		}
+		for (const char* ptr = buf; ptr < buf + ifc.ifc_len;)
+		{
+			const struct ifreq* ifr = reinterpret_cast<const struct ifreq*>(ptr);		
+			int rc = ioctl(sock, SIOCGIFHWADDR, ifr);
+			if (rc != -1)
+			{
+				const struct sockaddr* sa = reinterpret_cast<const struct sockaddr*>(&ifr->ifr_hwaddr);
+				if (sa->sa_family == ARPHRD_ETHER)
+				{
+					std::memcpy(&id, sa->sa_data, sizeof(id));
+					break;
+				}
+			}
+			ptr += sizeof(struct ifreq);
+		}
+		close(sock);
+		delete [] buf;
 #endif
 	}
 
@@ -284,12 +350,91 @@ namespace okey
 		GetSystemInfo(&si);
 		return si.dwNumberOfProcessors;
 #else
-		return 1;
+		return sysconf(_SC_NPROCESSORS_ONLN);
 #endif
 	}
 
 	uint32 Environment::libraryVersion()
 	{
 		return 0;
+	}
+
+	uint64 Environment::processorUsage()
+	{
+#ifdef _WINDOWS
+		FILETIME dummy;
+		FILETIME kerneltime;
+		FILETIME usertime;
+		BOOL sucess = ::GetProcessTimes(GetCurrentProcess(), &dummy, &dummy, &kerneltime, &usertime);
+		if (sucess == FALSE)
+		{
+			return 0;
+		}
+		ULARGE_INTEGER ktime;
+		ULARGE_INTEGER utime;
+		ktime.HighPart = kerneltime.dwHighDateTime;
+		ktime.LowPart = kerneltime.dwLowDateTime;
+		utime.HighPart = usertime.dwHighDateTime;
+		utime.LowPart = usertime.dwLowDateTime;
+		f64 totaltime = static_cast<f64>(ktime.QuadPart + utime.QuadPart);
+		totaltime /= 10;
+		return static_cast<uint64>(totaltime);
+#else
+		rusage usage;
+		if (getrusage(RUSAGE_SELF, &usage) != 0)
+		{
+			return 0;
+		}
+		uint64 k = usage.ru_utime.tv_sec * 1000000 + usage.ru_utime.tv_usec;
+		uint64 u = usage.ru_stime.tv_sec * 1000000 + usage.ru_stime.tv_usec;
+		return (k+u);
+#endif
+	}
+	uint64 Environment::getRAMUsage()
+	{
+#ifdef _WINDOWS
+		PROCESS_MEMORY_COUNTERS pmcex;
+		::GetProcessMemoryInfo(GetCurrentProcess(), &pmcex, sizeof(pmcex));
+		return pmcex.PagefileUsage;
+#else
+		std::ifstream memf;
+		std::string line;
+		std::string value;
+		std::stringstream fname;
+		char line2[100];
+		f32 memusage;
+		unsigned long pos = 0;
+		unsigned long pid = getpid();
+		fname<<"/proc"<<pid<<"/status";
+		memf.open(fname.str().c_str());
+		do 
+		{
+			pos = std::string::npos;
+			memf.getline(line2, 100);
+			line.assign(line2);
+			pos = line.find("VmRSS");
+		} while (pos == std::string::npos);
+		pos = line.find(" ");
+		++pos;
+		value = line.substr(pos, std::string::npos);
+		memusage = static_cast<f32>(atof(value.c_str()));
+		memf.close();
+		memusage *= 1024.0f;
+		return memusage;
+#endif
+	}
+
+	uint64 Environment::getTickCount()
+	{
+#ifdef _WINDOWS
+		return ::GetTickCount();
+#else
+		timeval Time;
+		if (gettimeofday(&Time, NULL) != 0)
+		{
+			return 0;
+		}
+		return (Time.tv_sec * 1000) + (Time.tv_usec/1000);
+#endif
 	}
 }

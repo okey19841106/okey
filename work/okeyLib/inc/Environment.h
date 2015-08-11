@@ -33,6 +33,11 @@ namespace okey
 
 		static unsigned processorCount();//处理器数量
 		static uint32 libraryVersion();
+
+		static uint64 processorUsage();
+		static uint64 getRAMUsage();
+		static uint64 getTickCount();
+
 	private:
 #ifndef WINDOWS
 		typedef std::map<std::string, std::string> StringMap;
