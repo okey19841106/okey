@@ -989,5 +989,14 @@
     <ClInclude Include="Stream\ByteBuf.h">
       <Filter>Stream</Filter>
     </ClInclude>
+    <ClInclude Include="inc\ReflectEnum.h">
+      <Filter>TClass</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DefineEnum.h">
+      <Filter>TClass</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\RegisterEnum.h">
+      <Filter>TClass</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

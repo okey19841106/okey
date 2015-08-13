@@ -284,12 +284,14 @@
     <ClInclude Include="inc\DataBuffer.h" />
     <ClInclude Include="inc\DateTime.h" />
     <ClInclude Include="inc\Debugger.h" />
+    <ClInclude Include="inc\DefineEnum.h" />
     <ClInclude Include="inc\DLAllocator.h" />
     <ClInclude Include="inc\DLMalloc.h" />
     <ClInclude Include="inc\DLMallocConfig.h" />
     <ClInclude Include="inc\DynamicAny.h" />
     <ClInclude Include="inc\DynamicAnyHolder.h" />
     <ClInclude Include="inc\DynamicFactory.h" />
+    <ClInclude Include="inc\ReflectEnum.h" />
     <ClInclude Include="inc\Environment.h" />
     <ClInclude Include="inc\Exception.h" />
     <ClInclude Include="inc\Factory.h" />
@@ -309,6 +311,7 @@
     <ClInclude Include="inc\PreCom.h" />
     <ClInclude Include="inc\QuerueEx.h" />
     <ClInclude Include="inc\Queue.h" />
+    <ClInclude Include="inc\RegisterEnum.h" />
     <ClInclude Include="inc\ServerConfig.h" />
     <ClInclude Include="inc\SharedPtr.h" />
     <ClInclude Include="inc\Singleton.h" />

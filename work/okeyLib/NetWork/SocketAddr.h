@@ -53,6 +53,7 @@ namespace okey
 		std::string m_sIP;
 		int32 m_iPort;
 	};
+
 	inline void Swap(SocketAddr& addr1, SocketAddr &addr2)
 	{
 		addr1.Swap(addr2);
