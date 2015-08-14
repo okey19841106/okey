@@ -8,7 +8,7 @@
 #ifndef __OKEY_HASH_MAP_H___
 #define __OKEY_HASH_MAP_H___
 
-#ifdef WINDOWS
+#ifdef _WINDOWS
 #include <hash_map>
 #else
 #include <ext/hash_map>
@@ -16,7 +16,7 @@
 
 namespace okey
 {
-#ifdef WINDOWS
+#ifdef _WINDOWS
 #define HM_NAMESPACE	stdext
 	using stdext::hash_map;
 #else
@@ -25,7 +25,7 @@ namespace okey
 #endif
 }
 
-#ifndef WINDOWS
+#ifndef _WINDOWS
 #include <string>
 
 namespace __gnu_cxx

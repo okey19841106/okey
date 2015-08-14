@@ -4,77 +4,55 @@
 	
 	purpose:	enum的反射机制。
 *********************************************************************/
-
-
 #ifndef __OKEY_ENUM_H__
 #define __OKEY_ENUM_H__
 
 #include <string>
 #include "HashMap.h"
+#include "DefineEnum.h"
 
 namespace okey
 {
-	template <typename Enum_T> 
-	class EnumHelper 
-	{ 
-	public: 
-		static const char * ToString(Enum_T e) 
-		{ 
-			for(int i = 0; i < _countof(EnumHelper<Enum_T>::s_allEnums); i++) 
-			{ 
-				if( s_allEnums[i] == e) 
-					return s_allEnumNames[i]; 
-			} 
-			return NULL; 
-		} 
+	class EnumHelper
+	{
+	public:
+		static EnumHelper GetInstance()
+		{
+			static EnumHelper s;
+			return s;
+		}
+		template<typename T>
+		void RegisterEnum(T eval, const char* vstr);
+		template<typename Enum_T>
+		int32 GetEnumValue(const std::string& str);
+		template<typename Enum_T>
+		std::string GetEnumString(Enum_T enum_value);
+	private:
+		EnumHelper()
+		{
+#undef  DECLARE_ENUM
+#define DECLARE_ENUM(T) 
 
-	private: 
-		static const char* s_typeName; 
-		static Enum_T s_allEnums[]; 
-		static char s_singleEnumStr[]; 
-		static const char* s_allEnumNames[]; 
+#undef REG_ENUM
+#define REG_ENUM(eval) RegisterEnum(eval,#eval);
 
-		static void SplitEnumDefString() 
-		{ 
-			char * p = s_singleEnumStr; 
-			while( isspace(*p) ) p++; 
-			for(int i = 0; i < _countof(EnumHelper<Enum_T>::s_allEnums); i++) 
-			{ 
-				s_allEnumNames[i] = p; 
-				while( *p == '_' || isdigit(*p) || isalpha(*p) ) p++; 
-				bool meet_comma = ( *p == ',' ); 
-				*p++ = '\0'; 
-				if( !meet_comma ) 
-				{ 
-					while( *p && *p != ',') p++; 
-					if( *p ) p++; 
-				} 
-				while( *p && isspace(*p) ) p++; 
-			} 
-		} 
-	}; 
-
-#define TO_ENUM_ITEM(...)  __VA_ARGS__ 
-#define STRINGIZE(...)  #__VA_ARGS__ 
-	
-#define REFLECT_ENUM(enum_type_name, enum_list)\
-template<> enum_type_name EnumHelper<enum_type_name>::s_allEnums[] = \
-	{\
-	TO_ENUM_ITEM(enum_list)\
-	};\
-	template<> const char* EnumHelper<enum_type_name>::s_allEnumNames[_countof(EnumHelper<enum_type_name>::s_allEnums)];\
-	template<> char EnumHelper<enum_type_name>::s_singleEnumStr[] = STRINGIZE(enum_list);\
-	template<> const char * EnumHelper<enum_type_name>::s_typeName = (EnumHelper<enum_type_name>::SplitEnumDefString(), #enum_type_name);
+#undef REG_ENUM_ID
+#define REG_ENUM_ID(eval, ID) REG_ENUM(eval)
+#include "DefineEnum.h"
+		}
+		
+	};
 
 	template<typename Enum_T>
 	class TEnumType
 	{
+		friend EnumHelper;
 	public:
-		typedef hash_map<std::string, Enum_T>::const_iterator const_iterator;
+		typedef typename hash_map<std::string, Enum_T>::const_iterator const_iterator;
 		int32 GetEnumValue(const std::string& str)
 		{
 			hash_map<std::string, Enum_T>::iterator itr = _strtoid.find(str);
-			if (itr == _strtoid)
+			if (itr == _strtoid.end())
 			{
 				return -1;
 			}
@@ -101,10 +79,35 @@ template<> enum_type_name EnumHelper<enum_type_name>::s_allEnums[] = \
 	private:
 		hash_map<std::string, Enum_T> _strtoid;
 		hash_map<Enum_T, std::string> _idtostr;
-		static TEnumType _enum_type;
+		static TEnumType<Enum_T> _enum_type;
 	};
 
-	template<typename Enum_T> TEnumType<Enum_T>::_enum_type;
+	template<typename Enum_T> TEnumType<Enum_T> TEnumType<Enum_T>::_enum_type;
+
+	template<typename T>
+	void EnumHelper::RegisterEnum(T eval, const char* vstr)
+	{
+		TEnumType<T>::_enum_type._strtoid[vstr] = eval;
+		TEnumType<T>::_enum_type._idtostr[eval] = vstr;
+	}
+
+	template<typename Enum_T>
+	int32 EnumHelper::GetEnumValue(const std::string& str)
+	{
+		return TEnumType<Enum_T>::_enum_type.GetEnumValue(str);
+	}
+
+	template<typename Enum_T>
+	std::string EnumHelper::GetEnumString(Enum_T enum_value)
+	{
+		return TEnumType<Enum_T>::_enum_type.GetEnumString(enum_value);
+	}
+
+#define GET_ENUM_STRING(ENUM, eval)	\
+	EnumHelper::GetInstance().GetEnumString<ENUM>(eval)
+
+#define GET_ENUM_VALUE(ENUM, str)	\
+	EnumHelper::GetInstance().GetEnumValue<ENUM>(str)
 
 }
 

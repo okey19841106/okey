@@ -5,20 +5,32 @@
 	
 	purpose:	
 *********************************************************************/
-#ifndef __BASE_DEFINE_ENUM_H__
-#define __BASE_DEFINE_ENUM_H__
 
-
-#undef ENUM_LIST
-
-#undef ENUM_NAME
-#define ENUM_NAME(...)  __VA_ARGS__
-
-#undef ENUM_VALUE
-#define ENUM_VALUE(val) = val
-
-#define ENUM_COTENTS(...)  __VA_ARGS__
-
-#define DEFINE_ENUM(name)  enum name { ENUM_COTENTS(ENUM_LIST) };
-
+#ifndef DECLARE_ENUM
+#define DECLARE_ENUM(T) enum T
 #endif
+
+#ifndef REG_ENUM
+#define REG_ENUM(eval) eval,
+#endif
+
+#ifndef REG_ENUM_ID
+#define REG_ENUM_ID(eval, ID) eval=ID,
+#endif
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//所有的可以映射的枚举定义都在这里定义好
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+DECLARE_ENUM(WeekDay)
+{
+	REG_ENUM_ID(Sunday,10)
+	REG_ENUM_ID(Monday,Sunday+1)
+	REG_ENUM_ID(Tuesday,123)
+	REG_ENUM_ID(Wednesday,10)
+	REG_ENUM_ID(Thursday,7)
+	REG_ENUM_ID(Friday,8)
+	REG_ENUM_ID(Saturday,12)
+};
+
+

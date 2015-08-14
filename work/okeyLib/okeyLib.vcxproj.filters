@@ -414,6 +414,9 @@
     <ClCompile Include="Stream\ByteBuf.cpp">
       <Filter>Stream</Filter>
     </ClCompile>
+    <ClCompile Include="NetWork\DatagramSocket.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -995,8 +998,8 @@
     <ClInclude Include="inc\DefineEnum.h">
       <Filter>TClass</Filter>
     </ClInclude>
-    <ClInclude Include="inc\RegisterEnum.h">
-      <Filter>TClass</Filter>
+    <ClInclude Include="NetWork\DatagramSocket.h">
+      <Filter>NetWork\socket</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

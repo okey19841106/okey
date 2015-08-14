@@ -17,6 +17,8 @@
 #include "log/FileChannel.h"
 #include "Template/TFunctoion.h"
 #include "Stream/ByteBuf.h"
+#include "ReflectEnum.h"
+
 using namespace okey;
 using namespace Template;
 // void MyTest();
@@ -25,36 +27,13 @@ void TestFileLog();
 static void TestFuction();
 void TestByte();
 
-#include "DefineEnum.h"
-#define ENUM_LIST                                   \
-	ENUM_NAME(Sunday     ENUM_VALUE(10)),       \
-	ENUM_NAME(Monday     ENUM_VALUE(Sunday+1)),     \
-	ENUM_NAME(Tuesday    ENUM_VALUE(123)),      \
-	ENUM_NAME(Wednesday  ENUM_VALUE(10)) ,      \
-	ENUM_NAME(Thursday   ENUM_VALUE(7)),        \
-	ENUM_NAME(Friday     ENUM_VALUE(8)),        \
-	ENUM_NAME(Saturday   ENUM_VALUE(12))
-DEFINE_ENUM(WeekDay);
 
-#include "RegisterEnum.h"
-REGISTER_ENUM(WeekDay);
-
-#include "DefineEnum.h"
-#define ENUM_LIST                                   \
-	ENUM_NAME(one     ENUM_VALUE(10)),       \
-	ENUM_NAME(two     ENUM_VALUE(Sunday+1)),     \
-	ENUM_NAME(three    ENUM_VALUE(123)),      
-DEFINE_ENUM(Years);
-
-#include "RegisterEnum.h"
-REGISTER_ENUM(Years);
 
 int main(int argc , char *argv[])
 {
 
 	//TestByte();
-	 printf("%s is %d.", EnumHelper<WeekDay>::ToString(Monday), Monday);
-	  printf("%s is %d.", EnumHelper<Years>::ToString(one), one);
+	 printf("%s is %d.", GET_ENUM_STRING(WeekDay,Monday).c_str(), GET_ENUM_VALUE(WeekDay,"Monday"));
 	 return 0;
 }
 

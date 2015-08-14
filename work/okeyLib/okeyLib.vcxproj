@@ -138,6 +138,7 @@
     <ClCompile Include="NetWork\Acceptor.cpp" />
     <ClCompile Include="NetWork\CompleteOperation.cpp" />
     <ClCompile Include="NetWork\Connector.cpp" />
+    <ClCompile Include="NetWork\DatagramSocket.cpp" />
     <ClCompile Include="NetWork\EpollReactor.cpp" />
     <ClCompile Include="NetWork\IOCPNetSession.cpp" />
     <ClCompile Include="NetWork\IOCPProactor.cpp" />
@@ -311,7 +312,6 @@
     <ClInclude Include="inc\PreCom.h" />
     <ClInclude Include="inc\QuerueEx.h" />
     <ClInclude Include="inc\Queue.h" />
-    <ClInclude Include="inc\RegisterEnum.h" />
     <ClInclude Include="inc\ServerConfig.h" />
     <ClInclude Include="inc\SharedPtr.h" />
     <ClInclude Include="inc\Singleton.h" />
@@ -350,6 +350,7 @@
     <ClInclude Include="NetWork\Acceptor.h" />
     <ClInclude Include="NetWork\CompleteOperation.h" />
     <ClInclude Include="NetWork\Connector.h" />
+    <ClInclude Include="NetWork\DatagramSocket.h" />
     <ClInclude Include="NetWork\EpollReactor.h" />
     <ClInclude Include="NetWork\IOCPNetSession.h" />
     <ClInclude Include="NetWork\IOCPProactor.h" />
