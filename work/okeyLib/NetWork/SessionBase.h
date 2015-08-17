@@ -17,6 +17,7 @@ namespace okey
 {
 	class NetServiceBase;
 	class Event_Actor;
+	class Socket;
 
 	class SessionBase : public Event_Handler, public CRefCounter
 	{

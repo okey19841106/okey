@@ -150,6 +150,7 @@
     <ClCompile Include="NetWork\SelectReactor.cpp" />
     <ClCompile Include="NetWork\Socket.cpp" />
     <ClCompile Include="NetWork\SocketAddr.cpp" />
+    <ClCompile Include="NetWork\SocketStream.cpp" />
     <ClCompile Include="Notifications\Notification.cpp" />
     <ClCompile Include="Notifications\NotificationCenter.cpp" />
     <ClCompile Include="Notifications\NotificationQueue.cpp" />
@@ -365,6 +366,7 @@
     <ClInclude Include="NetWork\SessionBase.h" />
     <ClInclude Include="NetWork\Socket.h" />
     <ClInclude Include="NetWork\SocketAddr.h" />
+    <ClInclude Include="NetWork\SocketStream.h" />
     <ClInclude Include="Notifications\Notification.h" />
     <ClInclude Include="Notifications\NotificationCenter.h" />
     <ClInclude Include="Notifications\NotificationQueue.h" />

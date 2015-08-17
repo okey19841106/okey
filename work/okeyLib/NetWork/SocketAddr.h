@@ -15,7 +15,7 @@ namespace okey
 {
 	class SocketAddr
 	{
-		friend class Socket;
+		//friend class Socket;
 	public:
 		SocketAddr():m_iPort(0){}
 		SocketAddr(const std::string& ip, int32 port):m_sIP(ip), m_iPort(port){}
@@ -47,9 +47,9 @@ namespace okey
 		bool operator < (const SocketAddr& addr) const;
 		bool operator == (const SocketAddr& addr) const;
 		bool operator != (const SocketAddr& addr) const;
-	private:
-		void Set(const struct sockaddr_in& addr);
 		void Get(struct sockaddr_in& addr) const ;
+		void Set(const struct sockaddr_in& addr);
+	private:
 		std::string m_sIP;
 		int32 m_iPort;
 	};

@@ -53,8 +53,8 @@ namespace okey
 		bool Connect(const SocketAddr& addr);
 		bool Listen(int32 backlog = 128);
 		SOCKET Accept();
-		int32 Send(const char* buf, int32 len, int32 flags = 0);
-		int32 Recv(char* buf, int32 len, int32 flags = 0);
+		virtual int32 Send(const char* buf, int32 len, int32 flags = 0);
+		virtual int32 Recv(char* buf, int32 len, int32 flags = 0);
 
 		bool GetSocketAddr(SocketAddr& addr)const;
 		bool GetPeerAddr(SocketAddr& addr)const;
@@ -78,7 +78,7 @@ namespace okey
 		bool IsValid()const{return m_Socket != INVALID_SOCKET;}
 		SOCKET GetSocket()const{return m_Socket;}
 		void Shift(Socket& sock);
-	private:
+	protected:
 		
 
 		SOCKET m_Socket;

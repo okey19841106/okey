@@ -417,6 +417,9 @@
     <ClCompile Include="NetWork\DatagramSocket.cpp">
       <Filter>NetWork\socket</Filter>
     </ClCompile>
+    <ClCompile Include="NetWork\SocketStream.cpp">
+      <Filter>NetWork\socket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyxml\tinyxml.h">
@@ -999,6 +1002,9 @@
       <Filter>TClass</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\DatagramSocket.h">
+      <Filter>NetWork\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\SocketStream.h">
       <Filter>NetWork\socket</Filter>
     </ClInclude>
   </ItemGroup>

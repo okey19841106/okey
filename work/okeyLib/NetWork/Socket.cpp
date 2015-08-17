@@ -69,33 +69,31 @@ namespace okey
 	}
 	bool Socket::Bind()
 	{
+		SetReuseAddr();
 		struct sockaddr_in serverAddr;
 		memset( &serverAddr, 0, sizeof(serverAddr) );
 		serverAddr.sin_family = AF_INET;
 		serverAddr.sin_port = 0;
 		serverAddr.sin_addr.s_addr = INADDR_ANY;
 		int32 ret = bind( m_Socket, (struct sockaddr*)&serverAddr, sizeof(serverAddr) );
-		if ( ret ==  0)
-		{
-			SetReuseAddr();
-			return true;
-		}
-		return false;
+		return ret == 0 ? true: false;
 	}
+
 	bool Socket::Bind(const SocketAddr& addr)
 	{
+		SetReuseAddr();
 		struct sockaddr_in serverAddr;
 		addr.Get(serverAddr);
 		int32 ret = bind( m_Socket, (struct sockaddr*)&serverAddr, sizeof(serverAddr) );
 		if ( ret ==  0)
 		{
-			SetReuseAddr();
 			return true;
 		}
 		int32 er = Socket::GetSysError();
 		return false;
 		
 	}
+
 	bool Socket::Connect(const SocketAddr& addr)
 	{
 		struct sockaddr_in serverAddr;
