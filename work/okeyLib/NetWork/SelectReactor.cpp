@@ -180,6 +180,7 @@ namespace okey
 				handler->HandleException();
 			}
 		}
+		return true;
 	}
 
 	uint32 SelectReactor::GetNumOfHandler() const

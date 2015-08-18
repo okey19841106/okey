@@ -21,7 +21,7 @@ namespace okey
 #define SOCKET_ETIMEDOUT	WSAETIMEDOUT
 #define SOCKET_ECONNRESET	WSAECONNRESET
 #define SOCKET_EAGAIN	-1
-
+#define SOCKET_EINPROGRESS WSAEINPROGRESS
 #else
 
 #define SOCKET_EINTR	EINTR //±ª÷’∂À
@@ -30,7 +30,7 @@ namespace okey
 #define SOCKET_ETIMEDOUT	ETIMEDOUT
 #define SOCKET_ECONNRESET	ECONNRESET
 #define SOCKET_EAGAIN	EAGAIN
-
+#define SOCKET_EINPROGRESS	EINPROGRESS
 
 #endif
 
@@ -39,6 +39,13 @@ namespace okey
 	class Socket
 	{
 	public:
+		enum SelectMode
+		{
+			SELECT_READ  = 1,
+			SELECT_WRITE = 2,
+			SELECT_ERROR = 4
+		};
+
 		Socket();
 		explicit Socket(SOCKET s);
 		virtual ~Socket()
@@ -51,11 +58,12 @@ namespace okey
 		bool Bind();
 		bool Bind(const SocketAddr& addr);
 		bool Connect(const SocketAddr& addr);
+		bool Connect(const SocketAddr& address, int64 timeout);
 		bool Listen(int32 backlog = 128);
 		SOCKET Accept();
 		virtual int32 Send(const char* buf, int32 len, int32 flags = 0);
 		virtual int32 Recv(char* buf, int32 len, int32 flags = 0);
-
+		void SendUrgent(uint8 data);
 		bool GetSocketAddr(SocketAddr& addr)const;
 		bool GetPeerAddr(SocketAddr& addr)const;
 		int32 GetLinger() const;
@@ -78,6 +86,9 @@ namespace okey
 		bool IsValid()const{return m_Socket != INVALID_SOCKET;}
 		SOCKET GetSocket()const{return m_Socket;}
 		void Shift(Socket& sock);
+		void ShutdownReceive();
+		void ShutdownSend();
+		static bool Poll(SOCKET s, int64 timeout, int32 mode);
 	protected:
 		
 

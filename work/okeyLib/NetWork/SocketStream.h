@@ -13,9 +13,6 @@
 
 namespace okey
 {
-
-
-
 	class SocketStreamBuf: public BufferedBidirectionalStreamBuf
 	{
 	public:

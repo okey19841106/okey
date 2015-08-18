@@ -1,6 +1,7 @@
 #include "PreCom.h"
 #include "Socket.h"
 #include "SocketAddr.h"
+#include "TimeStamp.h"
 
 namespace okey
 {
@@ -314,5 +315,119 @@ namespace okey
 		s = socket(PF_INET, SOCK_STREAM,0);
 #endif
 		return s;
+	}
+
+	void Socket::ShutdownReceive()
+	{
+		if (!IsValid())
+		{
+			return;
+		}
+		int rc = ::shutdown(m_Socket, 0);
+// 		if (rc != 0)
+// 			error();
+	}
+
+
+	void Socket::ShutdownSend()
+	{
+		if (!IsValid())
+		{
+			return;
+		}
+
+		int rc = ::shutdown(m_Socket, 1);
+//		if (rc != 0) error();
+	}
+
+	bool Socket::Connect(const SocketAddr& address, int64 timeout)
+	{
+		if (!IsValid())
+		{
+			Create();
+		}
+		struct sockaddr_in serverAddr;
+		address.Get(serverAddr);
+		SetNonBlocking(true);
+		bool ret  = true;
+		int rc = ::connect(m_Socket, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
+		if (rc != 0)
+		{
+			do 
+			{
+				int err = Socket::GetSysError();
+				if (err != SOCKET_EINPROGRESS && err != SOCKET_EWOULDBLOCK)
+				{
+					ret = false;
+					break;
+				}
+				if (!Poll(m_Socket, timeout, SELECT_READ | SELECT_WRITE | SELECT_ERROR))
+				{
+					ret = false;
+					break;
+				}
+				err = Socket::GetSysError();
+				if (err != 0)
+				{
+					ret = false;
+					break;
+				}
+			} while (false);
+		}
+		SetNonBlocking(false);
+		return ret;
+	}
+
+	bool Socket::Poll(SOCKET s, int64 timeout, int32 mode)
+	{
+		SOCKET sockfd = s;
+		if (sockfd == INVALID_SOCKET) 
+			return false;
+		fd_set fdRead;
+		fd_set fdWrite;
+		fd_set fdExcept;
+		FD_ZERO(&fdRead);
+		FD_ZERO(&fdWrite);
+		FD_ZERO(&fdExcept);
+		if (mode & SELECT_READ)
+		{
+			FD_SET(sockfd, &fdRead);
+		}
+		if (mode & SELECT_WRITE)
+		{
+			FD_SET(sockfd, &fdWrite);
+		}
+		if (mode & SELECT_ERROR)
+		{
+			FD_SET(sockfd, &fdExcept);
+		}
+		int64 remainingTime = timeout;
+		int errorCode;
+		int rc;
+		do
+		{
+			struct timeval tv;
+			tv.tv_sec  = (long) remainingTime/1000;
+			tv.tv_usec = (long) remainingTime%1000;
+			int64 start = TimeStamp::CurrentTime().MilliSecond();
+			rc = ::select(int(sockfd) + 1, &fdRead, &fdWrite, &fdExcept, &tv);
+			if (rc < 0 && (errorCode = Socket::GetSysError()) == SOCKET_EINTR)
+			{
+				int64 end = TimeStamp::CurrentTime().MilliSecond();
+				int64 waited = end - start;
+				if (waited < remainingTime)
+					remainingTime -= waited;
+				else
+					remainingTime = 0;
+			}
+		}
+		while (rc < 0 && errorCode == SOCKET_EINTR);
+		/*if (rc < 0) error(errorCode);*/
+		return rc > 0; 
+	}
+
+	void Socket::SendUrgent(uint8 data)
+	{
+		int rc = ::send(m_Socket, reinterpret_cast<const char*>(&data), sizeof(data), MSG_OOB);
 	}
 }
