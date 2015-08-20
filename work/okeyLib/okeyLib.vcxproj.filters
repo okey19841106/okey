@@ -1007,5 +1007,8 @@
     <ClInclude Include="NetWork\SocketStream.h">
       <Filter>NetWork\socket</Filter>
     </ClInclude>
+    <ClInclude Include="inc\Array.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

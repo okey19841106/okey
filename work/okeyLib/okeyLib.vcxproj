@@ -267,6 +267,7 @@
     <ClInclude Include="File\FileInfo.h" />
     <ClInclude Include="File\FileIni.h" />
     <ClInclude Include="inc\AnyTypeBase.h" />
+    <ClInclude Include="inc\Array.h" />
     <ClInclude Include="inc\AsciiCharacter.h" />
     <ClInclude Include="inc\AssocVector.h" />
     <ClInclude Include="inc\AutoPtr.h" />
