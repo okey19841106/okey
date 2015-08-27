@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <assert.h>
 #include "test.h"
 #include "VectorString.h"
 #include "Stream/FileStream.h"
@@ -18,6 +19,7 @@
 #include "Template/TFunctoion.h"
 #include "Stream/ByteBuf.h"
 #include "ReflectEnum.h"
+#include "Crypt/Random.h"
 
 using namespace okey;
 using namespace Template;
@@ -27,13 +29,15 @@ void TestFileLog();
 static void TestFuction();
 void TestByte();
 
-
+void TestRandom();
 
 int main(int argc , char *argv[])
 {
 
 	//TestByte();
-	 printf("%s is %d.", GET_ENUM_STRING(WeekDay,Monday).c_str(), GET_ENUM_VALUE(WeekDay,"Monday"));
+	// printf("%s is %d.", GET_ENUM_STRING(WeekDay,Monday).c_str(), GET_ENUM_VALUE(WeekDay,"Monday"));
+	TestRandom();
+	system("pause");
 	 return 0;
 }
 
@@ -125,4 +129,19 @@ void TestByte()
 	}
 	buf<<"oke";
 	buf.hexlike();
+}
+
+void TestRandom()
+{
+	Random rnd1;
+	Random rnd2;
+	rnd1.Seed(12345);
+	rnd2.Seed(12345);
+	for (int i = 0; i < 100; ++i)
+	{
+		uint32 a = rnd1.Next();
+		uint32 b = rnd2.Next();
+		std::cout<<a<<" - "<<b<<std::endl;
+		assert (a == b);
+	}
 }

@@ -84,6 +84,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Crypt\DigestEngine.cpp" />
+    <ClCompile Include="Crypt\Random.cpp" />
+    <ClCompile Include="Crypt\SHA1Engine.cpp" />
     <ClCompile Include="File\cfgloader.cpp" />
     <ClCompile Include="File\File.cpp" />
     <ClCompile Include="File\FileInfo.cpp" />
@@ -243,6 +246,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Crypt\DigestEngine.h" />
+    <ClInclude Include="Crypt\Random.h" />
+    <ClInclude Include="Crypt\SHA1Engine.h" />
     <ClInclude Include="Events\AbstractDelegate.h" />
     <ClInclude Include="Events\AbstractEvent.h" />
     <ClInclude Include="Events\AbstractPriorityDelegate.h" />

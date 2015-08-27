@@ -64,6 +64,9 @@
     <Filter Include="zlib">
       <UniqueIdentifier>{fe385a9c-7a96-44de-a616-3bb4267455be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Crypt">
+      <UniqueIdentifier>{7389000e-5c33-43ba-ab6a-2520eca36ded}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyxml\tinyxml.cpp">
@@ -419,6 +422,15 @@
     </ClCompile>
     <ClCompile Include="NetWork\SocketStream.cpp">
       <Filter>NetWork\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="Crypt\Random.cpp">
+      <Filter>Crypt</Filter>
+    </ClCompile>
+    <ClCompile Include="Crypt\DigestEngine.cpp">
+      <Filter>Crypt</Filter>
+    </ClCompile>
+    <ClCompile Include="Crypt\SHA1Engine.cpp">
+      <Filter>Crypt</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1009,6 +1021,15 @@
     </ClInclude>
     <ClInclude Include="inc\Array.h">
       <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Crypt\Random.h">
+      <Filter>Crypt</Filter>
+    </ClInclude>
+    <ClInclude Include="Crypt\DigestEngine.h">
+      <Filter>Crypt</Filter>
+    </ClInclude>
+    <ClInclude Include="Crypt\SHA1Engine.h">
+      <Filter>Crypt</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
