@@ -87,6 +87,7 @@
     <ClCompile Include="Crypt\DigestEngine.cpp" />
     <ClCompile Include="Crypt\Random.cpp" />
     <ClCompile Include="Crypt\SHA1Engine.cpp" />
+    <ClCompile Include="DataBase\SqlConnection.cpp" />
     <ClCompile Include="File\cfgloader.cpp" />
     <ClCompile Include="File\File.cpp" />
     <ClCompile Include="File\FileInfo.cpp" />
@@ -249,6 +250,8 @@
     <ClInclude Include="Crypt\DigestEngine.h" />
     <ClInclude Include="Crypt\Random.h" />
     <ClInclude Include="Crypt\SHA1Engine.h" />
+    <ClInclude Include="DataBase\SqlConnection.h" />
+    <ClInclude Include="DataBase\SqlQueryResult.h" />
     <ClInclude Include="Events\AbstractDelegate.h" />
     <ClInclude Include="Events\AbstractEvent.h" />
     <ClInclude Include="Events\AbstractPriorityDelegate.h" />
