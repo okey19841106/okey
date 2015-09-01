@@ -9,16 +9,25 @@
 #define __SQL_CONNECTION_H__
 
 #include <string>
+#include "Template/TFunctoion.h"
+#include "FQueue.h"
 
 namespace okey
 {
+	class SqlQueryResult;
+
+
 	class SqlConnection
 	{
 	public:
 		SqlConnection();
 		virtual ~SqlConnection();
 
-		static SqlConnection* CreateConnection(const std::string& dbtype);
+		template<typename Command_Type>
+		static SqlConnection* CreateConnection(const std::string& dbtype)
+		{
+			return new Command_Type();
+		}
 		static void DestroyConnection(SqlConnection* con);
 
 		virtual bool Open(const char* dbhost, uint16 dbport, const std::string& dbname, const std::string& username,const std::string& passwd) = 0;
@@ -30,10 +39,11 @@ namespace okey
 		virtual bool CommitTransaction(){return true;}
 		virtual bool RollbackTransaction(){return true;}
 		virtual SqlQueryResult* Query(const std::string& sql)=0;
-		void AsynQuery(const std::string& sql, QueryCallback* callback);
+
+		void AsynQuery(const std::string& sql, Template::Function<void (SqlQueryResult*)> callback);
 		void FreeQueryResult(SqlQueryResult* result);
-		void int32 Update(const std::string& sql, uint64* insertID = NULL) = 0;
-		void AsynUpdate(const std::string& sql, UpdateCallback* callback);
+		virtual int32 Update(const std::string& sql, uint64* insertID = NULL) = 0;
+		void AsynUpdate(const std::string& sql, Template::Function<void (int32, uint64)> callback);
 		void ProcessAsynResult();
 
 		//转义字符串。bin这类的。
@@ -46,13 +56,34 @@ namespace okey
 		virtual std::string ErrorMsg() = 0;
 
 	protected:
-		void PutQueryResult(QueryCallback*, SqlQueryResult*);
-		void PutUpdateResult(UpdateCallback*, int32, uint64);
+		void PutQueryResult(Template::Function<void (SqlQueryResult*)>, SqlQueryResult*);
+		void PutUpdateResult(Template::Function<void (int32, uint64)>, int32, uint64);
 
+
+		struct AsynQueryResult
+		{
+			AsynQueryResult():_result(NULL){}
+			AsynQueryResult(SqlQueryResult* r, Template::Function<void (SqlQueryResult*)> f):_result(r),_fun(f){}
+			SqlQueryResult* _result;
+			Template::Function<void (SqlQueryResult*)> _fun;
+		};
+
+		struct AsynUpdateResult
+		{
+			AsynUpdateResult():_ret(0),_insertID(0){}
+			AsynUpdateResult(int32 r, uint64 id, Template::Function<void (int32, uint64)> f):_ret(r),_insertID(id),_fun(f){}
+			int32 _ret;
+			uint64 _insertID;
+			Template::Function<void (int32, uint64)> _fun;
+		};
 		// 查询队列
+		FQueue<AsynQueryResult> _queryResults;
 		// 更新队列
+		FQueue<AsynUpdateResult> _updateResults;
 		//处理线程
 	};
+
+
 }
 
 #endif

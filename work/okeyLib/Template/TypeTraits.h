@@ -82,7 +82,7 @@ namespace Template
 	template<typename T>
 	struct IsFunctionPointer
 	{
-		enum{VALUE=0;};
+		enum{VALUE=0};
 	};
 
 	template<typename T>
@@ -390,7 +390,7 @@ namespace Template
 	template<typename T>
 	struct IsMemberFunctionPointer
 	{
-		enum{VALUE=0;};
+		enum{VALUE=0};
 	};
 
 	template<typename T, typename S>

@@ -303,6 +303,7 @@
     <ClInclude Include="inc\DynamicAny.h" />
     <ClInclude Include="inc\DynamicAnyHolder.h" />
     <ClInclude Include="inc\DynamicFactory.h" />
+    <ClInclude Include="inc\FQueue.h" />
     <ClInclude Include="inc\ReflectEnum.h" />
     <ClInclude Include="inc\Environment.h" />
     <ClInclude Include="inc\Exception.h" />

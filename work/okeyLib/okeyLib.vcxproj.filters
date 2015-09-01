@@ -1043,5 +1043,8 @@
     <ClInclude Include="DataBase\SqlQueryResult.h">
       <Filter>DataBase</Filter>
     </ClInclude>
+    <ClInclude Include="inc\FQueue.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
