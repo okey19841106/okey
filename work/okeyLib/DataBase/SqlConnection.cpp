@@ -87,7 +87,7 @@ namespace okey
 			_thread = new Thread();
 			_thread->Start(*this);
 		}
-		
+		StartTask(new AsynQueryTask(this, sql, callback));
 	}
 
 	void SqlConnection::FreeQueryResult(SqlQueryResult* result)
@@ -103,6 +103,7 @@ namespace okey
 			_thread = new Thread();
 			_thread->Start(*this);
 		}
+		StartTask(new AsynUpdateTask(this, sql, callback));
 	}
 
 	void SqlConnection::ProcessAsynResult()
@@ -158,13 +159,11 @@ namespace okey
 
 	void SqlConnection::StartTask(Task* pTask)
 	{
-		
 		{
 			FastMutex::ScopedLock lock(_mutex);
 			_taskList.push_back(pTask);
 		}
 		_event.Signal();
-
 	}
 
 	Task* SqlConnection::GetTask()
