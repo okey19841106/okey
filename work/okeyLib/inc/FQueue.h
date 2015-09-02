@@ -8,13 +8,15 @@
 #ifndef __BASE_FQUEUE_H__
 #define __BASE_FQUEUE_H__
 
+#include "Thread/Mutex.h"
+
 namespace okey
 {
 	template<typename T>
 	class FQueue
 	{
 	public:
-		FQueue():_first(NULL),_next(NULL),_size(0){}
+		FQueue():_first(NULL),_last(NULL),_size(0){}
 		~FQueue(){}
 
 		uint32 GetSize()

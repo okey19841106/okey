@@ -11,15 +11,23 @@
 #include <string>
 #include "Template/TFunctoion.h"
 #include "FQueue.h"
+#include "Thread/Runnable.h"
+#include "Task/TaskManager.h"
+#include "Thread/Condition.h"
 
 namespace okey
 {
 	class SqlQueryResult;
+	class Thread;
 
-
-	class SqlConnection
+	class SqlConnection : public Runnable
 	{
+		friend class AsynQueryTask;
+		friend class AsynUpdateTask;
+
 	public:
+
+
 		SqlConnection();
 		virtual ~SqlConnection();
 
@@ -54,11 +62,12 @@ namespace okey
 		}
 		std::string EscapeString(const void* src, size_t len);
 		virtual std::string ErrorMsg() = 0;
-
+		void Run();
 	protected:
+		void StartTask(Task* pTask);
 		void PutQueryResult(Template::Function<void (SqlQueryResult*)>, SqlQueryResult*);
 		void PutUpdateResult(Template::Function<void (int32, uint64)>, int32, uint64);
-
+		Task* GetTask();
 
 		struct AsynQueryResult
 		{
@@ -81,6 +90,12 @@ namespace okey
 		// 更新队列
 		FQueue<AsynUpdateResult> _updateResults;
 		//处理线程
+		bool _exit;
+		Thread* _thread;
+		
+		std::list<Task*> _taskList;
+		FastMutex _mutex;
+		Condition _event;
 	};
 
 

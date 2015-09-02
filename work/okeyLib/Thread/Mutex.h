@@ -68,12 +68,12 @@ namespace okey
 		{
 			if (_bUnLock)
 			{
-				_m->Lock();
+				_m.Lock();
 			}
 		}
 		~ScopedUnLock()
 		{
-			_m->Lock();
+			_m.Lock();
 		}
 	private:
 		ScopedUnLock();
