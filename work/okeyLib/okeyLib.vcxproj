@@ -247,6 +247,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cache\AbstractCache.h" />
+    <ClInclude Include="Cache\AbstractStrategy.h" />
+    <ClInclude Include="Cache\KeyValueArgs.h" />
+    <ClInclude Include="Cache\ValidArgs.h" />
     <ClInclude Include="Crypt\DigestEngine.h" />
     <ClInclude Include="Crypt\Random.h" />
     <ClInclude Include="Crypt\SHA1Engine.h" />

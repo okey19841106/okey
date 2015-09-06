@@ -70,6 +70,9 @@
     <Filter Include="DataBase">
       <UniqueIdentifier>{517c3f00-7bde-4155-aa11-8d88bf90236a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cache">
+      <UniqueIdentifier>{7c986d3a-d0f1-4d59-b6ee-bb15e86bb391}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyxml\tinyxml.cpp">
@@ -1045,6 +1048,18 @@
     </ClInclude>
     <ClInclude Include="inc\FQueue.h">
       <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\AbstractCache.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\KeyValueArgs.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\ValidArgs.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\AbstractStrategy.h">
+      <Filter>Cache</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
