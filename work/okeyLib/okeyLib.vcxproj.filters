@@ -1061,5 +1061,56 @@
     <ClInclude Include="Cache\AbstractStrategy.h">
       <Filter>Cache</Filter>
     </ClInclude>
+    <ClInclude Include="Cache\AccessExpirationDecorator.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\LRUCache.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\LRUStrategy.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\StrategyCollection.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\ExpireLRUCache.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\UniqueExpireLRUCache.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\ExpireCache.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\ExpireStrategy.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\UniqueExpireCache.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\UniqueExpireStrategy.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\ExpirationDecorator.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\AccessExpireCache.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\AccessExpireLRUCache.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\AccessExpireStrategy.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\UniqueAccessExpireCache.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\UniqueAccessExpireLRUCache.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Cache\UniqueAccessExpireStrategy.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

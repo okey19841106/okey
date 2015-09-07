@@ -249,7 +249,24 @@
   <ItemGroup>
     <ClInclude Include="Cache\AbstractCache.h" />
     <ClInclude Include="Cache\AbstractStrategy.h" />
+    <ClInclude Include="Cache\AccessExpirationDecorator.h" />
+    <ClInclude Include="Cache\AccessExpireCache.h" />
+    <ClInclude Include="Cache\AccessExpireLRUCache.h" />
+    <ClInclude Include="Cache\AccessExpireStrategy.h" />
+    <ClInclude Include="Cache\ExpireCache.h" />
+    <ClInclude Include="Cache\ExpirationDecorator.h" />
+    <ClInclude Include="Cache\ExpireStrategy.h" />
+    <ClInclude Include="Cache\ExpireLRUCache.h" />
     <ClInclude Include="Cache\KeyValueArgs.h" />
+    <ClInclude Include="Cache\LRUCache.h" />
+    <ClInclude Include="Cache\LRUStrategy.h" />
+    <ClInclude Include="Cache\StrategyCollection.h" />
+    <ClInclude Include="Cache\UniqueAccessExpireCache.h" />
+    <ClInclude Include="Cache\UniqueAccessExpireLRUCache.h" />
+    <ClInclude Include="Cache\UniqueAccessExpireStrategy.h" />
+    <ClInclude Include="Cache\UniqueExpireCache.h" />
+    <ClInclude Include="Cache\UniqueExpireStrategy.h" />
+    <ClInclude Include="Cache\UniqueExpireLRUCache.h" />
     <ClInclude Include="Cache\ValidArgs.h" />
     <ClInclude Include="Crypt\DigestEngine.h" />
     <ClInclude Include="Crypt\Random.h" />
