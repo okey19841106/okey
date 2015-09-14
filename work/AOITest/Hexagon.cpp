@@ -51,7 +51,11 @@ namespace okey
 
 	void Hexagon::DrawMap(CDC* pDC)
 	{
-		
+		CRect rc;
+		rc.left = rc.top = 0;
+		rc.right = _x;
+		rc.bottom = _y;
+		pDC->Rectangle(&rc);
 		int x = (int)(_x / _unity) + 1;
 		int y = (int)(_y / _unitx) + 1;
 		int x_s = 0;
@@ -73,7 +77,7 @@ namespace okey
 			{
 				for (int j = 0; j < y ; ++j)
 				{
-					int p_x = (int)(_unity) + i*3*_length;
+					int p_x = (int)(_unity*i);
 					int p_y = (int)(_unitx*j);
 					CPoint p[6];
 					GetCellPoint(p_x, p_y, p);
