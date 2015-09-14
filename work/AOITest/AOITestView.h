@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "Hexagon.h"
 
 class CAOITestView : public CView
 {
@@ -40,6 +41,9 @@ protected:
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
+
+protected:
+	okey::Hexagon _hexagon;
 };
 
 #ifndef _DEBUG  // AOITestView.cpp 中的调试版本

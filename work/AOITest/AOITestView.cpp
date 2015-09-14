@@ -12,6 +12,8 @@
 #include "AOITestDoc.h"
 #include "AOITestView.h"
 
+#include "Hexagon.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -48,7 +50,7 @@ BOOL CAOITestView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CAOITestView 绘制
 
-void CAOITestView::OnDraw(CDC* /*pDC*/)
+void CAOITestView::OnDraw(CDC* pDC)
 {
 	CAOITestDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -56,6 +58,7 @@ void CAOITestView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: 在此处为本机数据添加绘制代码
+	_hexagon.Draw(pDC);
 }
 
 void CAOITestView::OnRButtonUp(UINT /* nFlags */, CPoint point)
