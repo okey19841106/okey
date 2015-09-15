@@ -44,6 +44,8 @@ protected:
 
 protected:
 	okey::Hexagon _hexagon;
+public:
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // AOITestView.cpp 中的调试版本

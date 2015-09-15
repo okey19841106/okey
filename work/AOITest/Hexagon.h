@@ -19,6 +19,7 @@ namespace okey
 		void Draw(CDC* pDC);
 		void DrawMap(CDC* pDC);
 		void GetCellPoint(int x, int y , CPoint* point);
+		void GetCellID(int x, int y, int& rx, int &ry);
 	protected:
 		int _length;
 		float _unitx;

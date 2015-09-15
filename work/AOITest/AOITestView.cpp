@@ -26,6 +26,7 @@ IMPLEMENT_DYNCREATE(CAOITestView, CView)
 BEGIN_MESSAGE_MAP(CAOITestView, CView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 // CAOITestView 构造/析构
@@ -97,3 +98,16 @@ CAOITestDoc* CAOITestView::GetDocument() const // 非调试版本是内联的
 
 
 // CAOITestView 消息处理程序
+
+
+void CAOITestView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	CView::OnLButtonUp(nFlags, point);
+	int rx,ry;
+	_hexagon.GetCellID(point.x, point.y, rx, ry);
+	CString str;
+	str.Format(CString("[%d,%d]"),rx, ry);
+	AfxMessageBox(str);
+}
