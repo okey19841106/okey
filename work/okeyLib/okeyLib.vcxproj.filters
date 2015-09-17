@@ -1112,5 +1112,8 @@
     <ClInclude Include="Cache\UniqueAccessExpireStrategy.h">
       <Filter>Cache</Filter>
     </ClInclude>
+    <ClInclude Include="Template\TCompileTime.h">
+      <Filter>Template</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

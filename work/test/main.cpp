@@ -20,6 +20,7 @@
 #include "Stream/ByteBuf.h"
 #include "ReflectEnum.h"
 #include "Crypt/Random.h"
+#include "IDPool.h"
 
 using namespace okey;
 using namespace Template;
@@ -31,14 +32,33 @@ void TestByte();
 
 void TestRandom();
 
+
+class A
+{
+public:
+	~A(){std::cout<<"!!"<<std::endl;}
+	int a;
+};
 int main(int argc , char *argv[])
 {
 
 	//TestByte();
 	// printf("%s is %d.", GET_ENUM_STRING(WeekDay,Monday).c_str(), GET_ENUM_VALUE(WeekDay,"Monday"));
-	TestRandom();
-	system("pause");
-	 return 0;
+// 	TestRandom();
+// 	system("pause");
+	id_map<uint32, A*> ser(16);
+	Random rnd1;
+	rnd1.Seed(123444);
+	uint32 value[10];
+	for (int32 i = 0; i < 10; ++i)
+	{
+		A* a = new A;
+		value[i] = ser.insert(a);
+		//std::cout<<"id:"<<value[i]<<" -- value:"<<v<<std::endl;
+	}
+	ser.erase(value[3]);
+	ser.get(1);
+	return 0;
 }
 
 

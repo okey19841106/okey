@@ -86,7 +86,7 @@ namespace Template
 		enum
 		{
 			isTuple ,
-			IsConst = TypeTraits<H>::isConst;
+			isConst = TypeTraits<H>::isConst;
 		};
 
 		typedef const typename H::LeftBase ConstLeftBase;

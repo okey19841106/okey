@@ -3,7 +3,7 @@
 	created:	16:05
 	author:		okey
 	
-	purpose:	assoc vector
+	purpose:	assoc vector 只查找，不删除，效率高于map 遍历可以顺序进行
 *********************************************************************/
 #ifndef _ASSOC_VECTOR_H__
 #define _ASSOC_VECTOR_H__

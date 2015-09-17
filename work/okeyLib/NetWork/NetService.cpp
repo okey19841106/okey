@@ -13,7 +13,7 @@
 
 namespace okey
 {
-	NetService::NetService(uint32 id, const NetServiceParam& param):m_ID(id),m_ConNum(0),m_State(e_Initial)
+	NetService::NetService(uint32 id, const NetServiceParam& param):m_ID(id),m_ConNum(0),m_State(e_Initial),m_Connections(1024)
 	{
 		m_Param = param;
 #ifdef WINDOWS
@@ -136,8 +136,8 @@ namespace okey
 		{
 			 pSession = new NetSession(this,m_pEventActor);
 		}
-		uint32 sessionid = 0;
-		if (!m_Connections.insert(pSession, sessionid))
+		uint32 sessionid = m_Connections.insert(pSession);
+		if (sessionid == 0)
 		{
 			sock.Close();
 			return NULL;
@@ -212,12 +212,13 @@ namespace okey
 	
 	SessionBase* NetService::GetSession(int32 id)
 	{
-		CONNECTION_MAP::iterator itr = m_Connections.find(id);
-		if (itr != m_Connections.end())
-		{
-			return itr->second;
-		}
-		return NULL;
+// 		CONNECTION_MAP::iterator itr = m_Connections.find(id);
+// 		if (itr != m_Connections.end())
+// 		{
+// 			return itr->second;
+// 		}
+// 		return NULL;
+		return m_Connections.get_index(id);
 	}
 	bool NetService::Disconnect(int32 scoketid)
 	{
@@ -256,8 +257,8 @@ namespace okey
 			{
 				pSession = new NetSession(this,m_pEventActor);
 			}
-			uint32 sessionid = 0;
-			if (!m_Connections.insert(pSession,sessionid))
+			uint32 sessionid = m_Connections.insert(pSession);
+			if (sessionid == 0)
 			{
 				s.Close();
 				delete pSession;
@@ -295,12 +296,14 @@ namespace okey
 			{
 				--m_ConNum;
 			}
-			CONNECTION_MAP::iterator itr = m_Connections.find(pSession->GetID());
-			if (itr != m_Connections.end())
-			{
-				m_Connections.erase(itr);
-				bVerified = true;
-			}
+// 			CONNECTION_MAP::iterator itr = m_Connections.find(pSession->GetID());
+// 			if (itr != m_Connections.end())
+// 			{
+// 				m_Connections.erase(itr);
+// 				bVerified = true;
+// 			}
+			m_Connections.erase(pSession->GetID());
+			bVerified = true;
 		}
 		if (m_DisconnectCallBack && bVerified)
 		{

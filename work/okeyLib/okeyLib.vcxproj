@@ -429,6 +429,7 @@
     <ClInclude Include="Task\TaskNotification.h" />
     <ClInclude Include="Template\MathTemplate.h" />
     <ClInclude Include="Template\TAny.h" />
+    <ClInclude Include="Template\TCompileTime.h" />
     <ClInclude Include="Template\TFunctoion.h" />
     <ClInclude Include="Template\TFunctor.h" />
     <ClInclude Include="Template\THierarchyGenerators.h" />

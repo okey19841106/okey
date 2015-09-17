@@ -26,7 +26,7 @@ namespace okey
 
 	class NetService: public NetServiceBase, public ThreadGroup
 	{
-		typedef IDMap<SessionBase*> CONNECTION_MAP;
+		typedef id_map<uint32, SessionBase*> CONNECTION_MAP;
 		
 	public:
 		NetService(uint32 id, const NetServiceParam& param);

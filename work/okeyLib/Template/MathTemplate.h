@@ -8,7 +8,7 @@
 
 #include "Types.h"
 
-namespace template
+namespace Template
 {
 
 	template< uint32 N >

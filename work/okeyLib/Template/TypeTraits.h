@@ -1611,7 +1611,19 @@ namespace Template
 	template<typename T, typename U>
 	struct TSelect<false, T, U>
 	{
-		typename U Result;
+		typedef U Result;
+	};
+
+	template<typename T, typename U>
+	struct TSameType
+	{
+		enum{value = false};
+	};
+
+	template<typename T>
+	struct TSameType<T, T>
+	{
+		enum{value = true};
 	};
 
 	typedef TypeListType<unsigned char, unsigned short int, unsigned int, unsigned long int, unsigned long long>::ResultType StdUnsignedInts;
