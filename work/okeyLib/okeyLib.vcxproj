@@ -302,6 +302,7 @@
     <ClInclude Include="inc\AssocVector.h" />
     <ClInclude Include="inc\AutoPtr.h" />
     <ClInclude Include="inc\AutoReleasePool.h" />
+    <ClInclude Include="inc\auto_vector.h" />
     <ClInclude Include="inc\BaseClass.h" />
     <ClInclude Include="inc\BaseProcess.h" />
     <ClInclude Include="inc\BitObjectBase.h" />

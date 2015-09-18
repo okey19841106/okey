@@ -1115,5 +1115,8 @@
     <ClInclude Include="Template\TCompileTime.h">
       <Filter>Template</Filter>
     </ClInclude>
+    <ClInclude Include="inc\auto_vector.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
