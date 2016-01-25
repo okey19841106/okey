@@ -2,6 +2,7 @@
 #include "StringHelper.h"
 #include "AsciiCharacter.h"
 #include "Exception.h"
+#include <functional>
 
 namespace okey
 {

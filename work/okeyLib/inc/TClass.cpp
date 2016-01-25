@@ -4,6 +4,7 @@
 #include "ClassMethod.h"
 #include <algorithm>
 #include "TClassManager.h"
+#include <functional>
 
 namespace okey
 {
